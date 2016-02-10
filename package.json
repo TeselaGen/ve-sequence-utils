@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "sequence utility functions",
   "main": "none",
+  "repository": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
     "patchAndPublish": "npm version patch && npm publish",
     "test": "mocha *.test.js --harmony"
