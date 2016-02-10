@@ -1,4 +1,4 @@
-var ac = require('ve-api-check');
+// var ac = require('ve-api-check');
 // ac.throw([ac.string,ac.bool],arguments);
 var each = require('lodash/collection/each');
 var some = require('lodash/collection/some');
@@ -9,13 +9,13 @@ var getYOffsetForPotentiallyCircularRange = require('ve-range-utils/getYOffsetFo
 var splitRangeIntoTwoPartsIfItIsCircular = require('ve-range-utils/splitRangeIntoTwoPartsIfItIsCircular');
 
 module.exports = function mapAnnotationsToRows(annotations, sequenceLength, bpsPerRow) {
-    ac.throw(ac.arrayOf(ac.shape({
-        start: ac.posInt,
-        end: ac.posInt,
-        // id: ac.oneOfType([ac.object, ac.string])
-    })), annotations);
-    ac.throw(ac.posInt, sequenceLength);
-    ac.throw(ac.posInt, bpsPerRow);
+    // ac.throw(ac.arrayOf(ac.shape({
+    //     start: ac.posInt,
+    //     end: ac.posInt,
+    //     // id: ac.oneOfType([ac.object, ac.string])
+    // })), annotations);
+    // ac.throw(ac.posInt, sequenceLength);
+    // ac.throw(ac.posInt, bpsPerRow);
 
     var annotationsToRowsMap = {};
     var yOffsetLevelMap = {};
