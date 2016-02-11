@@ -1,11 +1,12 @@
 {
   "name": "ve-sequence-utils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "sequence utility functions",
   "main": "none",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
-    "test": "mocha *.test.js --harmony"
+    "test": "mocha *.test.js --harmony",
+    "lint": "eslint . ./"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "chai": "^3.2.0",
     "chai-subset": "^1.1.0",
+    "eslint": "^1.10.3",
     "mocha": "^2.4.5"
   }
 }
