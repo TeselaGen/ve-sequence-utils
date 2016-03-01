@@ -2,7 +2,7 @@
 // var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
 var ObjectId = require("bson-objectid");
 var getReverseComplementSequenceString = require('./getReverseComplementSequenceString');
-var ac = require('ve-api-check');
+// var ac = require('ve-api-check');
 /**
  * @private
  * Finds ORFs in a given DNA forward in a given frame.
@@ -13,12 +13,12 @@ var ac = require('ve-api-check');
  * @return {Teselagen.bio.orf.ORF[]} The list of ORFs found.
  */
 module.exports = function getOrfsFromSequence(options) {
-    ac.throw([ac.shape({
-        sequence: ac.string,
-        minimumOrfSize: ac.posInt,
-        forward: ac.bool,
-        circular: ac.bool
-    })], arguments);
+    // ac.throw([ac.shape({
+    //     sequence: ac.string,
+    //     minimumOrfSize: ac.posInt,
+    //     forward: ac.bool,
+    //     circular: ac.bool
+    // })], arguments);
     
     // var frame = options.frame;
     var sequence = options.sequence;

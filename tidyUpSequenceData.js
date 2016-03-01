@@ -1,9 +1,10 @@
 // tnrtodo: figure out where to insert this validation exactly..
+var bsonObjectid = require('bson-objectid');
 var assign = require('lodash/object/assign');
 var randomColor = require('random-color');
 var FeatureTypes = require('./FeatureTypes.js');
 var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
-module.exports = function tidyUpSequenceData(sequence) {
+module.exports = function tidyUpSequenceData(sequence, options) {
     var sequenceData = assign({}, sequence); //sequence is usually immutable, so we clone it and return it
     var response = {
         messages: []
@@ -53,6 +54,10 @@ module.exports = function tidyUpSequenceData(sequence) {
         if (!annotation.name || typeof annotation.name !== 'string') {
             response.messages.push('Unable to detect valid name for annotation, setting name to "Untitled annotation"');
             annotation.name = 'Untitled annotation';
+        }
+        if (!annotation.id && annotation.id !== 0) {
+            annotation.id = bsonObjectid().str;
+            response.messages.push('Unable to detect valid ID for annotation, setting ID to ' + annotation.id);
         }
         if (!areNonNegativeIntegers([annotation.start]) || annotation.start > sequenceData.size - 1) {
             response.messages.push('Invalid annotation start: ' + annotation.start + ' detected for ' + annotation.name + ' and set to 1'); //setting it to 0 internally, but users will see it as 1

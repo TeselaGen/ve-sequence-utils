@@ -1,24 +1,24 @@
 var getReverseComplementSequenceString = require('./getReverseComplementSequenceString');
-var ac = require('ve-api-check');
+// var ac = require('ve-api-check');
 var normalizePositionByRangeLength = require('ve-range-utils/normalizePositionByRangeLength.js');
 var reversePositionInRange = require('ve-range-utils/reversePositionInRange.js');
 
 module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, restrictionEnzyme) {
-    ac.throw([
-        ac.string,
-        ac.bool,
-        ac.shape({
-            "name": ac.string,
-            "site": ac.string,
-            "forwardRegex": ac.string,
-            "reverseRegex": ac.string,
-            "cutType": ac.number,
-            "dsForward": ac.number,
-            "dsReverse": ac.number,
-            "usForward": ac.number,
-            "usReverse": ac.number
-        })
-    ], arguments);
+    // ac.throw([
+    //     ac.string,
+    //     ac.bool,
+    //     ac.shape({
+    //         "name": ac.string,
+    //         "site": ac.string,
+    //         "forwardRegex": ac.string,
+    //         "reverseRegex": ac.string,
+    //         "cutType": ac.number,
+    //         "dsForward": ac.number,
+    //         "dsReverse": ac.number,
+    //         "usForward": ac.number,
+    //         "usReverse": ac.number
+    //     })
+    // ], arguments);
     var forwardRegExpPattern = new RegExp(restrictionEnzyme.forwardRegex, "ig");
     var sequence = pSequence;
 
@@ -158,7 +158,6 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
                 end = normalizePositionByRangeLength(end, originalSequenceLength, false);
                 recognitionSiteRange.start = normalizePositionByRangeLength(recognitionSiteRange.start, originalSequenceLength, false);
                 recognitionSiteRange.end = normalizePositionByRangeLength(recognitionSiteRange.end, originalSequenceLength, false);
-
                 restrictionCutSite = {
                     start: start,
                     end: end,
