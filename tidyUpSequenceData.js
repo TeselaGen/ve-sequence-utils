@@ -1,7 +1,7 @@
 // tnrtodo: figure out where to insert this validation exactly..
 var bsonObjectid = require('bson-objectid');
 var assign = require('lodash/object/assign');
-var randomColor = require('random-color');
+var randomColor = require('randomcolor');
 var FeatureTypes = require('./FeatureTypes.js');
 var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
 module.exports = function tidyUpSequenceData(sequence, options) {
