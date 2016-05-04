@@ -1,6 +1,6 @@
 // tnrtodo: figure out where to insert this validation exactly..
 var bsonObjectid = require('bson-objectid');
-var assign = require('lodash/object/assign');
+var assign = require('lodash/assign');
 var randomColor = require('randomcolor');
 var FeatureTypes = require('./FeatureTypes.js');
 var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');

@@ -1,9 +1,9 @@
 // var ac = require('ve-api-check');
 // ac.throw([ac.string,ac.bool],arguments);
-var each = require('lodash/collection/each');
-var some = require('lodash/collection/some');
-var sortBy = require('lodash/collection/sortBy');
-var uniq = require('lodash/array/uniq');
+var each = require('lodash/each');
+var some = require('lodash/some');
+var sortBy = require('lodash/sortBy');
+var uniq = require('lodash/uniq');
 var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
 var getYOffsetForPotentiallyCircularRange = require('ve-range-utils/getYOffsetForPotentiallyCircularRange');
 var splitRangeIntoTwoPartsIfItIsCircular = require('ve-range-utils/splitRangeIntoTwoPartsIfItIsCircular');

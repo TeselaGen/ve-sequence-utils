@@ -1,6 +1,7 @@
 // var ac = require('ve-api-check');
 // ac.throw([ac.posInt, ac.posInt, ac.bool], arguments);
 var mapAnnotationsToRows = require('./mapAnnotationsToRows');
+var annotationTypes = require('./annotationTypes');
 module.exports = function prepareRowData(sequenceData, bpsPerRow) {
     // ac.throw([ac.sequenceData, ac.posInt], arguments);
     var sequenceLength = sequenceData.sequence.length;
@@ -21,12 +22,10 @@ module.exports = function prepareRowData(sequenceData, bpsPerRow) {
             row.end = 0
         }
         row.sequence = sequenceData.sequence.slice(row.start, (row.end + 1));
-        row.features = featuresToRowsMap[rowNumber] ? featuresToRowsMap[rowNumber] : [];
-        row.parts = partsToRowsMap[rowNumber] ? partsToRowsMap[rowNumber] : [];
-        row.orfs = orfsToRowsMap[rowNumber] ? orfsToRowsMap[rowNumber] : [];
-        row.cutsites = cutsitesToRowsMap[rowNumber] ? cutsitesToRowsMap[rowNumber] : [];
-        row.translations = translationsToRowsMap[rowNumber] ? translationsToRowsMap[rowNumber] : [];
-        // row.cutsites = cutsitesToRowsMap[rowNumber];
+        annotationTypes.forEach(function (type) {
+          var rowMap = mapAnnotationsToRows(sequenceData[type], sequenceLength, bpsPerRow)
+          row[type] = rowMap || []
+        })
         rows[rowNumber] = row;
     }
     return rows;
