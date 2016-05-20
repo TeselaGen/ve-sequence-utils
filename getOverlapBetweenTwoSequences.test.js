@@ -14,4 +14,10 @@ describe('getOverlapBetweenTwoSequences', function() {
     it('should return null if no overlap is found', function() {
         expect(getOverlapBetweenTwoSequences('gtt', 'agattaa')).to.deep.equal(null)
     })
+    it('should not care about case sensitivity' , function() {
+      expect(getOverlapBetweenTwoSequences('gTt', 'agttaa')).to.deep.equal({
+        start: 1,
+        end: 3}
+      )
+    })
 })
