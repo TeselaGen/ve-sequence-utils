@@ -1,17 +1,16 @@
 // var ac = require('ve-api-check');
 // ac.throw([ac.posInt, ac.posInt, ac.bool], arguments);
-var mapAnnotationsToRows = require('./mapAnnotationsToRows');
-var annotationTypes = require('./annotationTypes');
+var mapAnnotationsToRows = require('../mapAnnotationsToRows');
+var annotationTypes = require('../annotationTypes');
 module.exports = function prepareRowData(sequenceData, bpsPerRow) {
     // ac.throw([ac.sequenceData, ac.posInt], arguments);
     var sequenceLength = sequenceData.sequence.length;
     var totalRows = Math.ceil(sequenceLength / bpsPerRow) || 1; //this check makes sure there is always at least 1 row!
     var rows = [];
-    var featuresToRowsMap = mapAnnotationsToRows(sequenceData.features, sequenceLength, bpsPerRow);
-    var partsToRowsMap = mapAnnotationsToRows(sequenceData.parts, sequenceLength, bpsPerRow);
-    var orfsToRowsMap = mapAnnotationsToRows(sequenceData.orfs, sequenceLength, bpsPerRow);
-    var translationsToRowsMap = mapAnnotationsToRows(sequenceData.translations, sequenceLength, bpsPerRow);
-    var cutsitesToRowsMap = mapAnnotationsToRows(sequenceData.cutsites, sequenceLength, bpsPerRow);
+    var rowMap = {};
+    annotationTypes.forEach(function (type) {
+      rowMap[type] = mapAnnotationsToRows(sequenceData[type], sequenceLength, bpsPerRow)
+    })
 
     for (var rowNumber = 0; rowNumber < totalRows; rowNumber++) {
         var row = {};
@@ -21,11 +20,11 @@ module.exports = function prepareRowData(sequenceData, bpsPerRow) {
         if (row.end < 0) {
             row.end = 0
         }
-        row.sequence = sequenceData.sequence.slice(row.start, (row.end + 1));
         annotationTypes.forEach(function (type) {
-          var rowMap = mapAnnotationsToRows(sequenceData[type], sequenceLength, bpsPerRow)
-          row[type] = rowMap || []
+          row[type] = rowMap[type][rowNumber] || []
         })
+        row.sequence = sequenceData.sequence.slice(row.start, (row.end + 1));
+        
         rows[rowNumber] = row;
     }
     return rows;

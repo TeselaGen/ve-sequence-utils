@@ -1,0 +1,202 @@
+[
+    {
+        "rowNumber": 0,
+        "start": 0,
+        "end": 4,
+        "sequence": "gagag",
+        "features": [
+            {
+                "id": "a",
+                "annotation": {
+                    "start": 0,
+                    "end": 9,
+                    "id": "a"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "beginningAndEnd"
+            }
+        ],
+        "parts": [
+            {
+                "id": "a",
+                "annotation": {
+                    "start": 0,
+                    "end": 9,
+                    "id": "a"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "beginningAndEnd"
+            }
+        ],
+        "orfs": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "end"
+            }
+        ],
+        "cutsites": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "end"
+            }
+        ],
+        "translations": [
+            {
+                "id": "a",
+                "annotation": {
+                    "start": 0,
+                    "end": 9,
+                    "id": "a"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "beginningAndEnd"
+            }
+        ]
+    },
+    {
+        "rowNumber": 1,
+        "start": 5,
+        "end": 9,
+        "sequence": "agaga",
+        "features": [
+            {
+                "id": "a",
+                "annotation": {
+                    "start": 0,
+                    "end": 9,
+                    "id": "a"
+                },
+                "start": 5,
+                "end": 9,
+                "yOffset": 0,
+                "enclosingRangeType": "beginningAndEnd"
+            }
+        ],
+        "parts": [
+            {
+                "id": "a",
+                "annotation": {
+                    "start": 0,
+                    "end": 9,
+                    "id": "a"
+                },
+                "start": 5,
+                "end": 9,
+                "yOffset": 0,
+                "enclosingRangeType": "beginningAndEnd"
+            }
+        ],
+        "orfs": [],
+        "cutsites": [],
+        "translations": [
+            {
+                "id": "a",
+                "annotation": {
+                    "start": 0,
+                    "end": 9,
+                    "id": "a"
+                },
+                "start": 5,
+                "end": 9,
+                "yOffset": 0,
+                "enclosingRangeType": "beginningAndEnd"
+            }
+        ]
+    },
+    {
+        "rowNumber": 2,
+        "start": 10,
+        "end": 14,
+        "sequence": "gagag",
+        "features": [],
+        "parts": [],
+        "orfs": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 10,
+                "end": 14,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "cutsites": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 10,
+                "end": 14,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "translations": []
+    },
+    {
+        "rowNumber": 3,
+        "start": 15,
+        "end": 15,
+        "sequence": "a",
+        "features": [],
+        "parts": [],
+        "orfs": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 15,
+                "end": 15,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "cutsites": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 15,
+                "end": 15,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "translations": []
+    }
+]

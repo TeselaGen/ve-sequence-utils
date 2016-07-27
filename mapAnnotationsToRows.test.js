@@ -161,4 +161,33 @@ describe('mapAnnotationsToRows', function() {
             }]
         });
     });
+    it('maps annotations to rows correctly when the annotations are passed as an object', function() {
+        var annotation1 = {
+            start: 0,
+            end: 9,
+            id: 'a'
+        };
+        var annotations = {a:annotation1}
+        var sequenceLength = 10;
+        var bpsPerRow = 5;
+        var annotationsToRowsMap = mapAnnotationsToRows(annotations, sequenceLength, bpsPerRow);
+        expect(annotationsToRowsMap).to.deep.equal({
+            0: [{
+                annotation: annotation1,
+                start: 0,
+                end: 4,
+                id: annotation1.id,
+                yOffset: 0,
+                enclosingRangeType: "beginningAndEnd"
+            }],
+            1: [{
+                annotation: annotation1,
+                start: 5,
+                end: 9,
+                id: annotation1.id,
+                yOffset: 0,
+                enclosingRangeType: "beginningAndEnd"
+            }]
+        });
+    });
 });
