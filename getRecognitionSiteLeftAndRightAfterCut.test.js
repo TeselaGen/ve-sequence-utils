@@ -4,7 +4,7 @@ var chai = require("chai");
 var should = chai.should();
 var cutSequenceByRestrictionEnzyme = require('./cutSequenceByRestrictionEnzyme.js');
 var enzymeList = require('./enzymeList.json');
-var getRecognitionSiteLeftAndRightAfterCut = require('ve-range-utils/getRecognitionSiteLeftAndRightAfterCut')
+var getRecognitionSiteLeftAndRightAfterCut = require('./getRecognitionSiteLeftAndRightAfterCut')
 // var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe('a simple, palindromic enzyme', function() {
     //bamhi

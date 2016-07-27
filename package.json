@@ -6,7 +6,8 @@
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
     "test": "mocha *.test.js --harmony",
-    "lint": "eslint . ./"
+    "lint": "eslint . ./",
+    "precommit": "npm test"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "chai": "^3.2.0",
     "chai-subset": "^1.1.0",
     "eslint": "^1.10.3",
+    "husky": "^0.11.6",
     "jsonfile": "^2.3.1",
     "mocha": "^2.4.5"
   }
