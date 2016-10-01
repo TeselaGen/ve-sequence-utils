@@ -9,21 +9,21 @@ var getLeftAndRightOfSequenceInRangeGivenPosition = require('./getLeftAndRightOf
 describe('getLeftAndRightOfSequenceInRangeGivenPosition', function() {
     it('gets the left and right of the range correctly given a position inside the range', function() {
         var sequence = 'aaaaaaaaaattttttttttgggggggggg'
-        var result = getLeftAndRightOfSequenceInRangeGivenPosition({start: 9, end: 20}, 10, sequence, sequence.length)
+        var result = getLeftAndRightOfSequenceInRangeGivenPosition({start: 9, end: 20}, 10, sequence)
         result.leftHandSide.should.equal('a')
         result.rightHandSide.should.equal('ttttttttttg')
     });
 
     it('gets the left and right of the range correctly given a position outside the range', function() {
         var sequence = 'aaaaaaaaaattttttttttgggggggggg'
-        var result = getLeftAndRightOfSequenceInRangeGivenPosition({start: 9, end: 20}, 6, sequence, sequence.length)
+        var result = getLeftAndRightOfSequenceInRangeGivenPosition({start: 9, end: 20}, 6, sequence)
         result.leftHandSide.should.equal('')
         result.rightHandSide.should.equal('attttttttttg')
     });
 
     it('gets the left and right of the range correctly given a position outside the range', function() {
         var sequence = 'aaaaaaaaaattttttttttgggggggggg'
-        var result = getLeftAndRightOfSequenceInRangeGivenPosition({start: 9, end: 20}, 24, sequence, sequence.length)
+        var result = getLeftAndRightOfSequenceInRangeGivenPosition({start: 9, end: 20}, 24, sequence)
         result.leftHandSide.should.equal('attttttttttg')
         result.rightHandSide.should.equal('')
     });
@@ -44,7 +44,7 @@ describe('getLeftAndRightOfSequenceInRangeGivenPosition', function() {
         var sequence = 'ccrrrrggat'
         var cutsites = cutSequenceByRestrictionEnzyme(sequence, true, enzymeList['bamhi']);
         var cutsite = cutsites[0]
-        var result = getLeftAndRightOfSequenceInRangeGivenPosition(cutsite.recognitionSiteRange, cutsite.downstreamTopSnip, sequence, sequence.length)
+        var result = getLeftAndRightOfSequenceInRangeGivenPosition(cutsite.recognitionSiteRange, cutsite.downstreamTopSnip, sequence)
         result.leftHandSide.should.equal('g')
         result.rightHandSide.should.equal('gatcc')
         // 

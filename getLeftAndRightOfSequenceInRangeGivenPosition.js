@@ -3,7 +3,7 @@ var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange')
 var normalizePositionByRangeLength = require('ve-range-utils/normalizePositionByRangeLength')
 var isPositionCloserToRangeStartThanRangeEnd = require('ve-range-utils/isPositionCloserToRangeStartThanRangeEnd')
 
-module.exports = function getLeftAndRightOfSequenceInRangeGivenPosition(range, position, sequence, sequenceLength) {
+module.exports = function getLeftAndRightOfSequenceInRangeGivenPosition(range, position, sequence) {
   var result = {
     leftHandSide: '',
     rightHandSide: '',
@@ -12,7 +12,7 @@ module.exports = function getLeftAndRightOfSequenceInRangeGivenPosition(range, p
     result.leftHandSide = getSequenceWithinRange({start: range.start, end: normalizePositionByRangeLength(position-1, sequence.length)}, sequence)
     result.rightHandSide = getSequenceWithinRange({start:position, end: range.end}, sequence)
   } else {
-    if (isPositionCloserToRangeStartThanRangeEnd(position, range, sequenceLength)) {
+    if (isPositionCloserToRangeStartThanRangeEnd(position, range, sequence.length)) {
       result.rightHandSide = getSequenceWithinRange(range, sequence)
     } else {
       result.leftHandSide = getSequenceWithinRange(range, sequence)
