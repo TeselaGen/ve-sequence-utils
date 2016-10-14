@@ -212,4 +212,23 @@ describe('palindromic enzyme that cuts both upstream and downstream', function()
         should.not.exist(cutsites[0].upstreamTopSnip);
         should.not.exist(cutsites[0].upstreamBottomSnip);
     });
+    it("it does not get into an infinite loop if the enzyme's forward/reverse regex are empty strings", function() {
+        // ttttttttttttttttttttrccggyttttttttttttttttttttt
+        // 01234567890123456789012345678901234567890123456
+        var cutsites = cutSequenceByRestrictionEnzyme('rccggyttttttttttttttttttttt', false, {
+            "name": "Uba1229I",
+            "site": "ccgcgg",
+            "forwardRegex": "",
+            "reverseRegex": "",
+            "cutType": 0,
+            "dsForward": 1,
+            "dsReverse": 1,
+            "usForward": 0,
+            "usReverse": 0
+        });
+        cutsites.should.be.an.array;
+        cutsites.length.should.equal(0);
+        cutsites.error.should.not.be.null
+        cutsites.error.should.equal('Cannot cut sequence. Enzyme restriction site must be at least 1 bp long.')
+    })
 });

@@ -19,6 +19,11 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
     //         "usReverse": ac.number
     //     })
     // ], arguments);
+    if (restrictionEnzyme.forwardRegex.length === 0 || restrictionEnzyme.reverseRegex.length === 0) {
+        var returnArray = []
+        returnArray.error = 'Cannot cut sequence. Enzyme restriction site must be at least 1 bp long.'
+        return returnArray
+    }
     var forwardRegExpPattern = new RegExp(restrictionEnzyme.forwardRegex, "ig");
     var sequence = pSequence;
 
