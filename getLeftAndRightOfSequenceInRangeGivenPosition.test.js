@@ -34,17 +34,14 @@ describe('getLeftAndRightOfSequenceInRangeGivenPosition', function() {
     //     "site": "ggatcc",
     //     "forwardRegex": "g{2}atc{2}",
     //     "reverseRegex": "g{2}atc{2}",
-    //     "cutType": 0,
-    //     "dsForward": 1,
-    //     "dsReverse": 5,
-    //     "usForward": 0,
-    //     "usReverse": 0
+    //     "topSnipOffset": 1,
+    //     "bottomSnipOffset": 5
     // },
     it('cuts a single circular cutsite', function() {
         var sequence = 'ccrrrrggat'
         var cutsites = cutSequenceByRestrictionEnzyme(sequence, true, enzymeList['bamhi']);
         var cutsite = cutsites[0]
-        var result = getLeftAndRightOfSequenceInRangeGivenPosition(cutsite.recognitionSiteRange, cutsite.downstreamTopSnip, sequence)
+        var result = getLeftAndRightOfSequenceInRangeGivenPosition(cutsite.recognitionSiteRange, cutsite.topSnipPosition, sequence)
         result.leftHandSide.should.equal('g')
         result.rightHandSide.should.equal('gatcc')
         // 
@@ -55,8 +52,8 @@ describe('getLeftAndRightOfSequenceInRangeGivenPosition', function() {
         // cutsites[0].end.should.equal(1);
         // cutsites[0].recognitionSiteRange.start.should.equal(6);
         // cutsites[0].recognitionSiteRange.end.should.equal(1);
-        // cutsites[0].downstreamTopSnip.should.equal(7);
-        // cutsites[0].downstreamBottomSnip.should.equal(1);
+        // cutsites[0].topSnipPosition.should.equal(7);
+        // cutsites[0].bottomSnipPosition.should.equal(1);
         // should.not.exist(cutsites[0].upstreamTopSnip);
         // should.not.exist(cutsites[0].upstreamBottomSnip);
     });

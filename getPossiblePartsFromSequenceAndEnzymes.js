@@ -1,0 +1,78 @@
+var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
+var normalizePositionByRangeLength = require('ve-range-utils/normalizePositionByRangeLength');
+var cutSequenceByRestrictionEnzyme = require('./cutSequenceByRestrictionEnzyme');
+module.exports = function getPossiblePartsFromSequenceAndEnzyme(seqData, restrictionEnzymes) {
+    // ac.throw([
+    //     ac.string,
+    //     ac.bool,
+    //     ac.shape({
+    //         "name": ac.string,
+    //         "site": ac.string,
+    //         "forwardRegex": ac.string,
+    //         "reverseRegex": ac.string,
+    //         "topSnipOffset": ac.number,
+    //         "bottomSnipOffset": ac.number
+    //     })
+    // ], arguments);
+    restrictionEnzymes = restrictionEnzymes.length ? restrictionEnzymes : [restrictionEnzymes]
+    var bps = seqData.sequence
+    var seqLen = bps.length
+    var circular = seqData.circular
+    var cutsites = []
+    restrictionEnzymes.forEach(function (enzyme) {
+        cutsites = cutsites.concat(cutSequenceByRestrictionEnzyme(bps, circular, enzyme))
+    })
+    var parts = []
+    if (cutsites.length < 1) {
+        return parts
+    } else if (cutsites.length === 1) {
+        parts.push(getPartBetweenEnzymesWithInclusiveOverhangs(cutsites[0],cutsites[0], seqLen))
+        return parts 
+    } else {
+        var pairs = pairwise(cutsites)
+        pairs.forEach(function (pair) {
+            var cut1 = pair[0]
+            var cut2 = pair[1]
+            var part1 = getPartBetweenEnzymesWithInclusiveOverhangs(cut1, cut2, seqLen)
+            var part2 = getPartBetweenEnzymesWithInclusiveOverhangs(cut2, cut1, seqLen)
+            if (circular || !(part1.start > part1.end)) {
+                //only add origin spanning parts if the sequence is circular
+                parts.push(part1)
+            }
+            if (circular || !(part2.start > part2.end)) {
+                //only add origin spanning parts if the sequence is circular
+                parts.push(part2)
+            }
+        })
+        return parts
+    }
+}
+
+function getPartBetweenEnzymesWithInclusiveOverhangs(cut1, cut2, seqLen) {
+    return {
+        start: cut1.topSnipPosition,
+        end: normalizePositionByRangeLength(cut2.topSnipPosition - 1, seqLen),
+        firstCut: cut1,
+        //the offset is always counting with 0 being at the top snip position
+        firstCutOffset: getEnzymeRelativeOffset(cut1.restrictionEnzyme),
+        firstCutOverhang: cut1.overhangBps,
+        secondCut: cut2,
+        //the offset is always counting with 0 being at the top snip position
+        secondCutOffset: getEnzymeRelativeOffset(cut2.restrictionEnzyme),
+        secondCutOverhang: cut2.overhangBps,
+    }
+}
+
+
+function getEnzymeRelativeOffset(enzyme) {
+    //the offset is always counting with 0 being at the top snip position
+    return enzyme.bottomSnipOffset - enzyme.topSnipOffset 
+}
+
+function pairwise(list) {
+  if (list.length < 2) { return []; }
+  var first = list[0],
+      rest  = list.slice(1),
+      pairs = rest.map(function (x) { return [first, x]; });
+  return pairs.concat(pairwise(rest));
+}

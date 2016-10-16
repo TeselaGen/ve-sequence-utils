@@ -1,3 +1,4 @@
+var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
 var getReverseComplementSequenceString = require('./getReverseComplementSequenceString');
 // var ac = require('ve-api-check');
 var normalizePositionByRangeLength = require('ve-range-utils/normalizePositionByRangeLength.js');
@@ -12,11 +13,9 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
     //         "site": ac.string,
     //         "forwardRegex": ac.string,
     //         "reverseRegex": ac.string,
-    //         "cutType": ac.number,
-    //         "dsForward": ac.number,
-    //         "dsReverse": ac.number,
-    //         "usForward": ac.number,
-    //         "usReverse": ac.number
+    //         "cutsTwice": ac.number,
+    //         "topSnipOffset": ac.number,
+    //         "bottomSnipOffset": ac.number
     //     })
     // ], arguments);
     if (restrictionEnzyme.forwardRegex.length === 0 || restrictionEnzyme.reverseRegex.length === 0) {
@@ -41,9 +40,9 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
     function reverseAllPositionsOfCutsite(cutsite, rangeLength) {
         cutsite.start = reversePositionInRange(cutsite.start, rangeLength, false);
         cutsite.end = reversePositionInRange(cutsite.end, rangeLength, false);
-        cutsite.downstreamTopSnip = reversePositionInRange(cutsite.downstreamTopSnip, rangeLength, true);
-        cutsite.downstreamBottomSnip = reversePositionInRange(cutsite.downstreamBottomSnip, rangeLength, true);
-        if (cutsite.cutType === 1) {
+        cutsite.topSnipPosition = reversePositionInRange(cutsite.topSnipPosition, rangeLength, true);
+        cutsite.bottomSnipPosition = reversePositionInRange(cutsite.bottomSnipPosition, rangeLength, true);
+        if (cutsite.cutsTwice) {
             cutsite.upstreamTopSnip = reversePositionInRange(cutsite.upstreamTopSnip, rangeLength, true);
             cutsite.upstreamBottomSnip = reversePositionInRange(cutsite.upstreamBottomSnip, rangeLength, true);
         }
@@ -52,12 +51,12 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
         return {
             start: cutsite.end,
             end: cutsite.start,
-            downstreamTopSnip: cutsite.downstreamBottomSnip,
-            downstreamBottomSnip: cutsite.downstreamTopSnip,
+            topSnipPosition: cutsite.bottomSnipPosition,
+            bottomSnipPosition: cutsite.topSnipPosition,
             upstreamTopSnip: cutsite.upstreamBottomSnip,
             upstreamBottomSnip: cutsite.upstreamTopSnip,
             upstreamTopBeforeBottom: cutsite.upstreamTopBeforeBottom ? true : false,
-            downstreamTopBeforeBottom: cutsite.downstreamTopBeforeBottom ? true : false,
+            topSnipBeforeBottom: cutsite.topSnipBeforeBottom ? true : false,
             recognitionSiteRange: {
                 start: cutsite.recognitionSiteRange.end,
                 end: cutsite.recognitionSiteRange.start
@@ -71,6 +70,7 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
         var restrictionCutSites = [];
         var restrictionCutSite;
         var recognitionSiteLength = restrictionEnzyme.site.length;
+        var originalSequence = sequence;
         var originalSequenceLength = sequence.length;
         if (circular) {
             //if the sequence is circular, we send in double the sequence
@@ -91,9 +91,9 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
             var upstreamTopSnip = null; //upstream top snip position
             var upstreamBottomSnip = null; //upstream bottom snip position
             var upstreamTopBeforeBottom = false;
-            var downstreamTopSnip = null; //downstream top snip position
-            var downstreamBottomSnip = null; //downstream bottom snip position
-            var downstreamTopBeforeBottom = false;
+            var topSnipPosition = null; //downstream top snip position
+            var bottomSnipPosition = null; //downstream bottom snip position
+            var topSnipBeforeBottom = false;
 
             var fitsWithinSequence = false;
             // if (matchIndex + startIndex + recognitionSiteLength - 1 >= sequence.length) { // subSequence is too short
@@ -135,25 +135,25 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
 
 
             //add downstream cutsite here
-            downstreamTopSnip = recognitionSiteRange.start + restrictionEnzyme.dsForward;
-            downstreamBottomSnip = recognitionSiteRange.start + restrictionEnzyme.dsReverse;
-            if (downstreamBottomSnip <= currentSequenceLength && downstreamTopSnip <= currentSequenceLength) {
+            topSnipPosition = recognitionSiteRange.start + restrictionEnzyme.topSnipOffset;
+            bottomSnipPosition = recognitionSiteRange.start + restrictionEnzyme.bottomSnipOffset;
+            if (bottomSnipPosition <= currentSequenceLength && topSnipPosition <= currentSequenceLength) {
                 fitsWithinSequence = true;
-                if (downstreamTopSnip > downstreamBottomSnip) {
-                    if (downstreamTopSnip > recognitionSiteRange.end) {
-                        end = downstreamTopSnip - 1;
+                if (topSnipPosition > bottomSnipPosition) {
+                    if (topSnipPosition > recognitionSiteRange.end) {
+                        end = topSnipPosition - 1;
                     }
                 } else {
-                    if (downstreamBottomSnip > recognitionSiteRange.end) {
-                        end = downstreamBottomSnip - 1;
+                    if (bottomSnipPosition > recognitionSiteRange.end) {
+                        end = bottomSnipPosition - 1;
                     }
-                    downstreamTopBeforeBottom = true;
+                    topSnipBeforeBottom = true;
                 }
-                downstreamTopSnip = normalizePositionByRangeLength(downstreamTopSnip, originalSequenceLength, true);
-                downstreamBottomSnip = normalizePositionByRangeLength(downstreamBottomSnip, originalSequenceLength, true);
+                topSnipPosition = normalizePositionByRangeLength(topSnipPosition, originalSequenceLength, true);
+                bottomSnipPosition = normalizePositionByRangeLength(bottomSnipPosition, originalSequenceLength, true);
             } else {
-                downstreamTopSnip = null;
-                downstreamBottomSnip = null;
+                topSnipPosition = null;
+                bottomSnipPosition = null;
             }
 
             if (fitsWithinSequence && start >= 0 && end >= 0 && start < originalSequenceLength && end < currentSequenceLength) {
@@ -163,13 +163,29 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
                 end = normalizePositionByRangeLength(end, originalSequenceLength, false);
                 recognitionSiteRange.start = normalizePositionByRangeLength(recognitionSiteRange.start, originalSequenceLength, false);
                 recognitionSiteRange.end = normalizePositionByRangeLength(recognitionSiteRange.end, originalSequenceLength, false);
+                var cutRange = {
+                    start: -1,
+                    end: -1
+                }
+                if (topSnipPosition !== bottomSnipPosition) { //there is only a cut range if the snips don't snip at the exact same spot on top and bottom
+                    cutRange = topSnipBeforeBottom ? {
+                        start: topSnipPosition,
+                        end: normalizePositionByRangeLength(bottomSnipPosition - 1, originalSequenceLength)
+                    }
+                    : {
+                        start: bottomSnipPosition,
+                        end: normalizePositionByRangeLength(topSnipPosition - 1, originalSequenceLength)
+                    }
+                }
+                var overhangBps = getSequenceWithinRange(cutRange, originalSequence)
                 restrictionCutSite = {
                     start: start,
                     end: end,
-                    downstreamTopSnip: downstreamTopSnip,
-                    downstreamBottomSnip: downstreamBottomSnip,
+                    topSnipPosition: topSnipPosition,
+                    bottomSnipPosition: bottomSnipPosition,
+                    topSnipBeforeBottom: topSnipBeforeBottom,
+                    overhangBps: overhangBps,
                     upstreamTopBeforeBottom: upstreamTopBeforeBottom,
-                    downstreamTopBeforeBottom: downstreamTopBeforeBottom,
                     upstreamTopSnip: upstreamTopSnip,
                     upstreamBottomSnip: upstreamBottomSnip,
                     recognitionSiteRange: recognitionSiteRange,

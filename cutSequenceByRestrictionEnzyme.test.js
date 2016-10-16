@@ -12,11 +12,8 @@ describe('a simple, palindromic enzyme', function() {
     //     "site": "ggatcdc",
     //     "forwardRegex": "g{2}atc{2}",
     //     "reverseRegex": "g{2}atc{2}",
-    //     "cutType": 0,
-    //     "dsForward": 1,
-    //     "dsReverse": 5,
-    //     "usForward": 0,
-    //     "usReverse": 0
+    //     "topSnipOffset": 1,
+    //     "bottomSnipOffset": 5
     // },
     it('cuts a single non-circular cutsite', function() {
         var cutsites = cutSequenceByRestrictionEnzyme('ggatcc', true, enzymeList['bamhi']);
@@ -26,8 +23,8 @@ describe('a simple, palindromic enzyme', function() {
         cutsites[0].end.should.equal(5);
         cutsites[0].recognitionSiteRange.start.should.equal(0);
         cutsites[0].recognitionSiteRange.end.should.equal(5);
-        cutsites[0].downstreamTopSnip.should.equal(1);
-        cutsites[0].downstreamBottomSnip.should.equal(5);
+        cutsites[0].topSnipPosition.should.equal(1);
+        cutsites[0].bottomSnipPosition.should.equal(5);
         should.not.exist(cutsites[0].upstreamTopSnip);
         should.not.exist(cutsites[0].upstreamBottomSnip);
     });
@@ -39,8 +36,8 @@ describe('a simple, palindromic enzyme', function() {
         cutsites[0].end.should.equal(1);
         cutsites[0].recognitionSiteRange.start.should.equal(6);
         cutsites[0].recognitionSiteRange.end.should.equal(1);
-        cutsites[0].downstreamTopSnip.should.equal(7);
-        cutsites[0].downstreamBottomSnip.should.equal(1);
+        cutsites[0].topSnipPosition.should.equal(7);
+        cutsites[0].bottomSnipPosition.should.equal(1);
         should.not.exist(cutsites[0].upstreamTopSnip);
         should.not.exist(cutsites[0].upstreamBottomSnip);
     });
@@ -56,11 +53,8 @@ describe('a simple, palindromic enzyme', function() {
         //     "site": "ggatcdc",
         //     "forwardRegex": "g{2}atc{2}",
         //     "reverseRegex": "g{2}atc{2}",
-        //     "cutType": 0,
-        //     "dsForward": 1,
-        //     "dsReverse": 5,
-        //     "usForward": 0,
-        //     "usReverse": 0
+        //     "topSnipOffset": 1,
+        //     "bottomSnipOffset": 5
         // },
         var cutsites = cutSequenceByRestrictionEnzyme('ggatccttttggatcc', true, enzymeList['bamhi']);
         cutsites.should.be.an.array;
@@ -69,19 +63,35 @@ describe('a simple, palindromic enzyme', function() {
         cutsites[0].end.should.equal(5);
         cutsites[0].recognitionSiteRange.start.should.equal(0);
         cutsites[0].recognitionSiteRange.end.should.equal(5);
-        cutsites[0].downstreamTopSnip.should.equal(1);
-        cutsites[0].downstreamBottomSnip.should.equal(5);
+        cutsites[0].topSnipPosition.should.equal(1);
+        cutsites[0].bottomSnipPosition.should.equal(5);
         should.not.exist(cutsites[0].upstreamTopSnip);
         should.not.exist(cutsites[0].upstreamBottomSnip);
         cutsites[1].start.should.equal(10);
         cutsites[1].end.should.equal(15);
         cutsites[1].recognitionSiteRange.start.should.equal(10);
         cutsites[1].recognitionSiteRange.end.should.equal(15);
-        cutsites[1].downstreamTopSnip.should.equal(11);
-        cutsites[1].downstreamBottomSnip.should.equal(15);
+        cutsites[1].topSnipPosition.should.equal(11);
+        cutsites[1].bottomSnipPosition.should.equal(15);
         should.not.exist(cutsites[1].upstreamTopSnip);
         should.not.exist(cutsites[1].upstreamBottomSnip);
     });
+    it("it does not get into an infinite loop if the enzyme's forward/reverse regex are empty strings", function() {
+        // ttttttttttttttttttttrccggyttttttttttttttttttttt
+        // 01234567890123456789012345678901234567890123456
+        var cutsites = cutSequenceByRestrictionEnzyme('rccggyttttttttttttttttttttt', false, {
+            "name": "fake enzyme",
+            "site": "ccgcgg",
+            "forwardRegex": "",
+            "reverseRegex": "",
+            "topSnipOffset": 1,
+            "bottomSnipOffset": 1
+        });
+        cutsites.should.be.an.array;
+        cutsites.length.should.equal(0);
+        cutsites.error.should.not.be.null
+        cutsites.error.should.equal('Cannot cut sequence. Enzyme restriction site must be at least 1 bp long.')
+    })
 });
 describe('non-palindromic enzyme', function() {
     // "bsmbi": {
@@ -89,11 +99,8 @@ describe('non-palindromic enzyme', function() {
     //     "site": "cgtctc",
     //     "forwardRegex": "cgtctc",
     //     "reverseRegex": "gagacg",
-    //     "cutType": 0,
-    //     "dsForward": 7,
-    //     "dsReverse": 11,
-    //     "usForward": 0,
-    //     "usReverse": 0
+    //     "topSnipOffset": 7,
+    //     "bottomSnipOffset": 11
     // },
     // 
     it('does not cut if the enzyme cuts outside of a linear sequence', function() {
@@ -109,8 +116,8 @@ describe('non-palindromic enzyme', function() {
         cutsites[0].end.should.equal(4);
         cutsites[0].recognitionSiteRange.start.should.equal(0);
         cutsites[0].recognitionSiteRange.end.should.equal(5);
-        cutsites[0].downstreamTopSnip.should.equal(1);
-        cutsites[0].downstreamBottomSnip.should.equal(5);
+        cutsites[0].topSnipPosition.should.equal(1);
+        cutsites[0].bottomSnipPosition.should.equal(5);
         should.not.exist(cutsites[0].upstreamTopSnip);
     });
     it('does cut if the sequence is long enough', function() {
@@ -126,8 +133,8 @@ describe('non-palindromic enzyme', function() {
         cutsites[0].end.should.equal(10);
         cutsites[0].recognitionSiteRange.start.should.equal(0);
         cutsites[0].recognitionSiteRange.end.should.equal(5);
-        cutsites[0].downstreamTopSnip.should.equal(7);
-        cutsites[0].downstreamBottomSnip.should.equal(11);
+        cutsites[0].topSnipPosition.should.equal(7);
+        cutsites[0].bottomSnipPosition.should.equal(11);
         should.not.exist(cutsites[0].upstreamTopSnip);
         should.not.exist(cutsites[0].upstreamBottomSnip);
     });
@@ -144,8 +151,8 @@ describe('non-palindromic enzyme', function() {
         cutsites[0].end.should.equal(28);
         cutsites[0].recognitionSiteRange.start.should.equal(23);
         cutsites[0].recognitionSiteRange.end.should.equal(28);
-        cutsites[0].downstreamTopSnip.should.equal(18);
-        cutsites[0].downstreamBottomSnip.should.equal(22);
+        cutsites[0].topSnipPosition.should.equal(18);
+        cutsites[0].bottomSnipPosition.should.equal(22);
         should.not.exist(cutsites[0].upstreamTopSnip);
         should.not.exist(cutsites[0].upstreamBottomSnip);
     });
@@ -156,11 +163,9 @@ describe('palindromic enzyme that cuts both upstream and downstream', function()
     //     "site": "rccggy",
     //     "forwardRegex": "[agr]c{2}g{2}[cty]",
     //     "reverseRegex": "[agr]c{2}g{2}[cty]",
-    //     "cutType": 1,
-    //     "dsForward": 13,
-    //     "dsReverse": 18,
-    //     "usForward": 13,
-    //     "usReverse": 18
+    //     "cutsTwice": true,
+    //     "topSnipOffset": 13,
+    //     "bottomSnipOffset": 18
     // },
     it('does not cut if the enzyme cuts outside of a linear sequence', function() {
         var cutsites = cutSequenceByRestrictionEnzyme('rccggy', false, enzymeList['nmedi']);
@@ -177,8 +182,8 @@ describe('palindromic enzyme that cuts both upstream and downstream', function()
         cutsites[0].end.should.equal(37);
         cutsites[0].recognitionSiteRange.start.should.equal(20);
         cutsites[0].recognitionSiteRange.end.should.equal(25);
-        cutsites[0].downstreamTopSnip.should.equal(33);
-        cutsites[0].downstreamBottomSnip.should.equal(38);
+        cutsites[0].topSnipPosition.should.equal(33);
+        cutsites[0].bottomSnipPosition.should.equal(38);
         cutsites[0].upstreamTopSnip.should.equal(12);
         cutsites[0].upstreamBottomSnip.should.equal(7);
     });
@@ -192,8 +197,8 @@ describe('palindromic enzyme that cuts both upstream and downstream', function()
         cutsites[0].end.should.equal(25);
         cutsites[0].recognitionSiteRange.start.should.equal(20);
         cutsites[0].recognitionSiteRange.end.should.equal(25);
-        should.not.exist(cutsites[0].downstreamTopSnip);
-        should.not.exist(cutsites[0].downstreamBottomSnip);
+        should.not.exist(cutsites[0].topSnipPosition);
+        should.not.exist(cutsites[0].bottomSnipPosition);
         cutsites[0].upstreamTopSnip.should.equal(12);
         cutsites[0].upstreamBottomSnip.should.equal(7);
     });
@@ -207,28 +212,9 @@ describe('palindromic enzyme that cuts both upstream and downstream', function()
         cutsites[0].end.should.equal(17);
         cutsites[0].recognitionSiteRange.start.should.equal(0);
         cutsites[0].recognitionSiteRange.end.should.equal(5);
-        cutsites[0].downstreamTopSnip.should.equal(13);
-        cutsites[0].downstreamBottomSnip.should.equal(18);
+        cutsites[0].topSnipPosition.should.equal(13);
+        cutsites[0].bottomSnipPosition.should.equal(18);
         should.not.exist(cutsites[0].upstreamTopSnip);
         should.not.exist(cutsites[0].upstreamBottomSnip);
     });
-    it("it does not get into an infinite loop if the enzyme's forward/reverse regex are empty strings", function() {
-        // ttttttttttttttttttttrccggyttttttttttttttttttttt
-        // 01234567890123456789012345678901234567890123456
-        var cutsites = cutSequenceByRestrictionEnzyme('rccggyttttttttttttttttttttt', false, {
-            "name": "Uba1229I",
-            "site": "ccgcgg",
-            "forwardRegex": "",
-            "reverseRegex": "",
-            "cutType": 0,
-            "dsForward": 1,
-            "dsReverse": 1,
-            "usForward": 0,
-            "usReverse": 0
-        });
-        cutsites.should.be.an.array;
-        cutsites.length.should.equal(0);
-        cutsites.error.should.not.be.null
-        cutsites.error.should.equal('Cannot cut sequence. Enzyme restriction site must be at least 1 bp long.')
-    })
 });
