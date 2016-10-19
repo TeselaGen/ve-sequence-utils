@@ -15,6 +15,23 @@ describe('a simple, palindromic enzyme', function() {
     //     "topSnipOffset": 1,
     //     "bottomSnipOffset": 5
     // },
+    // ATGATCAGA
+    // 012345678
+    it.only('cuts on the reverse strand and the recognition site wraps the origin', function() {
+        var cutsites = cutSequenceByRestrictionEnzyme('gcatccagagagagagagagagagagagagaaga', true, enzymeList['sapi']);
+        // console.log('cutsites:', cutsites)
+        // cutsites.should.be.an.array;
+        // cutsites.length.should.equal(1);
+        // cutsites[0].start.should.equal(0);
+        // cutsites[0].end.should.equal(5);
+        // cutsites[0].recognitionSiteRange.start.should.equal(0);
+        // cutsites[0].recognitionSiteRange.end.should.equal(5);
+        // cutsites[0].topSnipPosition.should.equal(1);
+        // cutsites[0].bottomSnipPosition.should.equal(5);
+        // cutsites[0].topSnipBeforeBottom.should.equal(true);
+        // should.not.exist(cutsites[0].upstreamTopSnip);
+        // should.not.exist(cutsites[0].upstreamBottomSnip);
+    });
     it('cuts a single non-circular cutsite', function() {
         var cutsites = cutSequenceByRestrictionEnzyme('ggatcc', true, enzymeList['bamhi']);
         cutsites.should.be.an.array;
@@ -25,6 +42,7 @@ describe('a simple, palindromic enzyme', function() {
         cutsites[0].recognitionSiteRange.end.should.equal(5);
         cutsites[0].topSnipPosition.should.equal(1);
         cutsites[0].bottomSnipPosition.should.equal(5);
+        cutsites[0].topSnipBeforeBottom.should.equal(true);
         should.not.exist(cutsites[0].upstreamTopSnip);
         should.not.exist(cutsites[0].upstreamBottomSnip);
     });
