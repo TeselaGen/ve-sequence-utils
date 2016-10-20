@@ -1,3 +1,4 @@
+var getComplementSequenceString =  require('./getComplementSequenceString')
 var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
 var normalizePositionByRangeLength = require('ve-range-utils/normalizePositionByRangeLength');
 var cutSequenceByRestrictionEnzyme = require('./cutSequenceByRestrictionEnzyme');
@@ -20,7 +21,8 @@ module.exports = function getPossiblePartsFromSequenceAndEnzyme(seqData, restric
     var circular = seqData.circular
     var cutsites = []
     restrictionEnzymes.forEach(function (enzyme) {
-        cutsites = cutsites.concat(cutSequenceByRestrictionEnzyme(bps, circular, enzyme))
+        var newCutsites = cutSequenceByRestrictionEnzyme(bps, circular, enzyme)
+        cutsites = cutsites.concat(newCutsites)
     })
     var parts = []
     if (cutsites.length < 1) {
@@ -49,17 +51,23 @@ module.exports = function getPossiblePartsFromSequenceAndEnzyme(seqData, restric
 }
 
 function getPartBetweenEnzymesWithInclusiveOverhangs(cut1, cut2, seqLen) {
+    var firstCutOffset = getEnzymeRelativeOffset(cut1.restrictionEnzyme)
+    var secondCutOffset = getEnzymeRelativeOffset(cut2.restrictionEnzyme)
     return {
         start: cut1.topSnipPosition,
         end: normalizePositionByRangeLength(cut2.topSnipPosition - 1, seqLen),
         firstCut: cut1,
         //the offset is always counting with 0 being at the top snip position
-        firstCutOffset: getEnzymeRelativeOffset(cut1.restrictionEnzyme),
+        firstCutOffset: firstCutOffset,
         firstCutOverhang: cut1.overhangBps,
+        firstCutOverhangTop: firstCutOffset > 0 ? cut1.overhangBps : '',
+        firstCutOverhangBottom: firstCutOffset < 0 ? getComplementSequenceString(cut1.overhangBps) : '',
         secondCut: cut2,
         //the offset is always counting with 0 being at the top snip position
-        secondCutOffset: getEnzymeRelativeOffset(cut2.restrictionEnzyme),
+        secondCutOffset: secondCutOffset,
         secondCutOverhang: cut2.overhangBps,
+        secondCutOverhangTop: secondCutOffset > 0 ? cut2.overhangBps : '',
+        secondCutOverhangBottom: secondCutOffset < 0 ? getComplementSequenceString(cut2.overhangBps) : '',
     }
 }
 

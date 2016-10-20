@@ -35,4 +35,24 @@ describe('cutting using a single simple palindromic enzyme', function() {
         parts[0].secondCutOffset.should.equal(4)
         parts[0].secondCutOverhang.should.equal('gatc')
     });
+    it('cuts using two golden gate enzymes', function() {
+        var sequence = {
+            sequence: 'tggttgtagtgctcttcagttagttgatgttatagggatcctgtagtatttatgtagtaggagacctatgatgtagagtagtagtggatcctattatatata',
+            circular: true
+        }
+        var parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [enzymeList['sapi'],enzymeList['bsai']]);
+        console.log('parts:', parts)
+        // parts.should.be.an.array
+        // parts.length.should.equal(2)
+        // parts[0].start.should.equal(29)
+        // parts[0].end.should.equal(72)
+        // // parts[0].firstCut.should.equal(12)
+        // // parts[0].//the.should.equal(12)
+        // parts[0].firstCutOffset.should.equal(4)
+        // parts[0].firstCutOverhang.should.equal('gatc')
+        // // parts[0].secondCut.should.equal(12)
+        // // parts[0].//the.should.equal(12)
+        // parts[0].secondCutOffset.should.equal(4)
+        // parts[0].secondCutOverhang.should.equal('gatc')
+    });
 })

@@ -17,7 +17,7 @@ describe('a simple, palindromic enzyme', function() {
     // },
     // ATGATCAGA
     // 012345678
-    it.only('cuts on the reverse strand and the recognition site wraps the origin', function() {
+    it('cuts on the reverse strand and the recognition site wraps the origin', function() {
         var cutsites = cutSequenceByRestrictionEnzyme('gcatccagagagagagagagagagagagagaaga', true, enzymeList['sapi']);
         // console.log('cutsites:', cutsites)
         // cutsites.should.be.an.array;
