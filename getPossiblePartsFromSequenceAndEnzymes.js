@@ -54,8 +54,10 @@ function getPartBetweenEnzymesWithInclusiveOverhangs(cut1, cut2, seqLen) {
     var firstCutOffset = getEnzymeRelativeOffset(cut1.restrictionEnzyme)
     var secondCutOffset = getEnzymeRelativeOffset(cut2.restrictionEnzyme)
     return {
-        start: cut1.topSnipPosition,
-        end: normalizePositionByRangeLength(cut2.topSnipPosition - 1, seqLen),
+        start: cut1.topSnipBeforeBottom ? cut1.topSnipPosition : cut1.bottomSnipPosition,
+        end: normalizePositionByRangeLength((cut2.topSnipBeforeBottom ? cut2.bottomSnipPosition : cut2.topSnipPosition) - 1, seqLen),
+        // start: cut1.topSnipPosition,
+        // end: normalizePositionByRangeLength(cut2.topSnipPosition - 1, seqLen),
         firstCut: cut1,
         //the offset is always counting with 0 being at the top snip position
         firstCutOffset: firstCutOffset,
@@ -66,8 +68,8 @@ function getPartBetweenEnzymesWithInclusiveOverhangs(cut1, cut2, seqLen) {
         //the offset is always counting with 0 being at the top snip position
         secondCutOffset: secondCutOffset,
         secondCutOverhang: cut2.overhangBps,
-        secondCutOverhangTop: secondCutOffset > 0 ? cut2.overhangBps : '',
-        secondCutOverhangBottom: secondCutOffset < 0 ? getComplementSequenceString(cut2.overhangBps) : '',
+        secondCutOverhangTop: secondCutOffset < 0 ? cut2.overhangBps : '',
+        secondCutOverhangBottom: secondCutOffset > 0 ? getComplementSequenceString(cut2.overhangBps) : '',
     }
 }
 

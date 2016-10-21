@@ -52,7 +52,7 @@ module.exports = function cutSequenceByRestrictionEnzyme(pSequence, circular, re
         return  assign({}, cutsite, {
             start: cutsite.end,
             end: cutsite.start,
-            overhangBps: cutsite.overhangBps,
+            overhangBps: getReverseComplementSequenceString(cutsite.overhangBps),
             topSnipPosition: cutsite.bottomSnipPosition,
             bottomSnipPosition: cutsite.topSnipPosition,
             upstreamTopSnip: cutsite.upstreamBottomSnip,
