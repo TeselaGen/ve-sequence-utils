@@ -53,11 +53,13 @@ module.exports = function getPossiblePartsFromSequenceAndEnzyme(seqData, restric
 function getPartBetweenEnzymesWithInclusiveOverhangs(cut1, cut2, seqLen) {
     var firstCutOffset = getEnzymeRelativeOffset(cut1.restrictionEnzyme)
     var secondCutOffset = getEnzymeRelativeOffset(cut2.restrictionEnzyme)
+    var start = cut1.topSnipBeforeBottom ? cut1.topSnipPosition : cut1.bottomSnipPosition
+    var end = normalizePositionByRangeLength((cut2.topSnipBeforeBottom ? cut2.bottomSnipPosition : cut2.topSnipPosition) - 1, seqLen)
     return {
-        start: cut1.topSnipBeforeBottom ? cut1.topSnipPosition : cut1.bottomSnipPosition,
-        end: normalizePositionByRangeLength((cut2.topSnipBeforeBottom ? cut2.bottomSnipPosition : cut2.topSnipPosition) - 1, seqLen),
-        // start: cut1.topSnipPosition,
-        // end: normalizePositionByRangeLength(cut2.topSnipPosition - 1, seqLen),
+        start: start,
+        start1Based: start + 1,
+        end: end,
+        end1Based: end + 1,
         firstCut: cut1,
         //the offset is always counting with 0 being at the top snip position
         firstCutOffset: firstCutOffset,

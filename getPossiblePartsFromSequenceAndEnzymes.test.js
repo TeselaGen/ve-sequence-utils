@@ -5,7 +5,7 @@ chai.use(chaiSubset);
 var getPossiblePartsFromSequenceAndEnzymes = require('./getPossiblePartsFromSequenceAndEnzymes');
 var enzymeList = require('./enzymeList.json');
 // var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
-describe('cutting using a single simple palindromic enzyme', function() {
+describe('getPossiblePartsFromSequenceAndEnzymes', function() {
     //bamhi
     // "bamhi": {
     //     "name": "bamhi",
@@ -17,7 +17,7 @@ describe('cutting using a single simple palindromic enzyme', function() {
     //     "usForward": 0,
     //     "usReverse": 0
     // },
-    it('cuts a single non-circular cutsite', function() {
+    it('cuts using a single palindromic enzyme', function() {
         var sequence = {
             sequence: 'tggttgtagtagttagttgatgttatagggatcctgtagtatttatgtagtagtatgatgtagagtagtagtggatcctattatatata',
             circular: true
@@ -29,11 +29,85 @@ describe('cutting using a single simple palindromic enzyme', function() {
         parts[0].end.should.equal(76)
         parts[0].firstCutOffset.should.equal(4)
         parts[0].firstCutOverhang.should.equal('gatc')
+        parts[0].firstCutOverhangTop.should.equal('gatc')
         parts[0].secondCutOffset.should.equal(4)
         parts[0].secondCutOverhang.should.equal('gatc')
+        parts[0].secondCutOverhangTop.should.equal('')
 
         parts[1].start.should.equal(73)
         parts[1].end.should.equal(32)
+        console.log('parts:', parts)
+        parts.should.containSubset([{
+                start: 29,
+                end: 76,
+                start1Based: 30,
+                end1Based: 77,
+                firstCut: 
+                { start: 28,
+                  end: 33,
+                  topSnipPosition: 29,
+                  bottomSnipPosition: 33,
+                  topSnipBeforeBottom: true,
+                  overhangBps: 'gatc',
+                  forward: true,
+                },
+                firstCutOffset: 4,
+                firstCutOverhang: 'gatc',
+                firstCutOverhangTop: 'gatc',
+                firstCutOverhangBottom: '',
+                secondCut: 
+                { start: 72,
+                  end: 77,
+                  topSnipPosition: 73,
+                  bottomSnipPosition: 77,
+                  topSnipBeforeBottom: true,
+                  overhangBps: 'gatc',
+                  forward: true,
+                },
+                secondCutOffset: 4,
+                secondCutOverhang: 'gatc',
+                secondCutOverhangTop: '',
+                secondCutOverhangBottom: 'ctag' 
+            },
+            {
+                start: 73,
+                end: 32,
+                start1Based: 74,
+                end1Based: 33,
+                firstCut: 
+                { start: 72,
+                  end: 77,
+                  topSnipPosition: 73,
+                  bottomSnipPosition: 77,
+                  topSnipBeforeBottom: true,
+                  overhangBps: 'gatc',
+                  upstreamTopBeforeBottom: false,
+                  upstreamTopSnip: null,
+                  upstreamBottomSnip: null,
+                  forward: true,
+                },
+                firstCutOffset: 4,
+                firstCutOverhang: 'gatc',
+                firstCutOverhangTop: 'gatc',
+                firstCutOverhangBottom: '',
+                secondCut: 
+                { start: 28,
+                  end: 33,
+                  topSnipPosition: 29,
+                  bottomSnipPosition: 33,
+                  topSnipBeforeBottom: true,
+                  overhangBps: 'gatc',
+                  upstreamTopBeforeBottom: false,
+                  upstreamTopSnip: null,
+                  upstreamBottomSnip: null,
+                  forward: true,
+                },
+                secondCutOffset: 4,
+                secondCutOverhang: 'gatc',
+                secondCutOverhangTop: '',
+                secondCutOverhangBottom: 'ctag' 
+            } 
+      ])
     });
     it('cuts using two golden gate enzymes', function() {
         var sequence = {
@@ -49,6 +123,8 @@ describe('cutting using a single simple palindromic enzyme', function() {
         { 
             start: 18,
             end: 58,
+            start1Based: 19,
+            end1Based: 59,
             firstCut: 
              { start: 10,
                end: 20,
@@ -85,6 +161,8 @@ describe('cutting using a single simple palindromic enzyme', function() {
         { 
             start: 55,
             end: 20,
+            start1Based: 56,
+            end1Based: 21,
             firstCut: 
              { start: 55,
                end: 65,
