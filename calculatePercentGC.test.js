@@ -8,6 +8,7 @@ describe('calculatePercentGC', function () {
 		assert.equal(calculatePercentGC('a'), 0)
 		assert.equal(calculatePercentGC(''), 0)
 		assert.equal(calculatePercentGC('ggg'), 100)
+		assert.equal(calculatePercentGC('GGG'), 100)
 		assert.equal(calculatePercentGC('ccc'), 100)
 	});
 });
