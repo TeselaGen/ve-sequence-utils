@@ -10,6 +10,7 @@
     "precommit": "npm test"
   },
   "author": "",
+  "keywords": ["sequence", "dna","enzyme","digest","aminoacid","utils","teselagen","biojs"],
   "license": "ISC",
   "dependencies": {
     "bson-objectid": "^1.1.1",
