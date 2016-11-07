@@ -1,6 +1,6 @@
 {
   "name": "ve-sequence-utils",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "description": "sequence utility functions",
   "main": "none",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
@@ -10,7 +10,16 @@
     "precommit": "npm test"
   },
   "author": "",
-  "keywords": ["sequence", "dna","enzyme","digest","aminoacid","utils","teselagen","biojs"],
+  "keywords": [
+    "sequence",
+    "dna",
+    "enzyme",
+    "digest",
+    "aminoacid",
+    "utils",
+    "teselagen",
+    "biojs"
+  ],
   "license": "ISC",
   "dependencies": {
     "bson-objectid": "^1.1.1",
