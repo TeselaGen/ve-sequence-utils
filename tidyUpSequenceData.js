@@ -1,5 +1,7 @@
 // tnrtodo: figure out where to insert this validation exactly..
 var bsonObjectid = require('bson-objectid');
+var getAminoAcidDataForEachBaseOfDna = require('./getAminoAcidDataForEachBaseOfDna');
+var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
 var assign = require('lodash/assign');
 var randomColor = require('randomcolor');
 var FeatureTypes = require('./FeatureTypes.js');
@@ -40,6 +42,12 @@ module.exports = function tidyUpSequenceData(sequence, options) {
     sequenceData.features = sequenceData.features.filter(cleanUpAnnotation);
     sequenceData.parts = sequenceData.parts.filter(cleanUpAnnotation);
     sequenceData.translations = sequenceData.translations.filter(cleanUpAnnotation);
+    sequenceData.translations = sequenceData.translations.map(function (translation) {
+        if (!translation.aminoAcids) {
+            translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(getSequenceWithinRange(translation, sequenceData.sequence), translation.forward)
+        }
+        return translation
+    });
 
     return sequenceData;
 
