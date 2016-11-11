@@ -3,7 +3,7 @@ var chai = require('chai');
 var chaiSubset = require('chai-subset');
 chai.use(chaiSubset);
 chai.should()
-describe.only('tidyUpSequenceData', function () {
+describe('tidyUpSequenceData', function () {
     it('should add default fields to an empty sequence obj', function () {
         var res = tidyUpSequenceData({
 
