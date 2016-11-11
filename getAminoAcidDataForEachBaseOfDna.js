@@ -62,7 +62,6 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(originalSequenceStrin
             triplet = revComp(triplet);
         }
         var aminoAcid = getAA(triplet);
-        console.log('index:', index)
         codonRange = translateRange({
             start: index - 2,
             end: index,
