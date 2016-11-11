@@ -44,7 +44,7 @@ module.exports = function tidyUpSequenceData(sequence, options) {
     sequenceData.translations = sequenceData.translations.filter(cleanUpAnnotation);
     sequenceData.translations = sequenceData.translations.map(function (translation) {
         if (!translation.aminoAcids) {
-            translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(getSequenceWithinRange(translation, sequenceData.sequence), translation.forward)
+            translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(sequenceData.sequence, translation.forward, translation)
         }
         return translation
     });
