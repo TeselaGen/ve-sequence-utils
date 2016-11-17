@@ -3,7 +3,6 @@
         "rowNumber": 0,
         "start": 0,
         "end": 4,
-        "sequence": "gagag",
         "features": [
             {
                 "id": "a",
@@ -32,7 +31,7 @@
                 "enclosingRangeType": "beginningAndEnd"
             }
         ],
-        "orfs": [
+        "cutsites": [
             {
                 "id": "b",
                 "annotation": {
@@ -46,7 +45,7 @@
                 "enclosingRangeType": "end"
             }
         ],
-        "cutsites": [
+        "orfs": [
             {
                 "id": "b",
                 "annotation": {
@@ -73,13 +72,27 @@
                 "yOffset": 0,
                 "enclosingRangeType": "beginningAndEnd"
             }
-        ]
+        ],
+        "primers": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "end"
+            }
+        ],
+        "sequence": "gagag"
     },
     {
         "rowNumber": 1,
         "start": 5,
         "end": 9,
-        "sequence": "agaga",
         "features": [
             {
                 "id": "a",
@@ -108,8 +121,8 @@
                 "enclosingRangeType": "beginningAndEnd"
             }
         ],
-        "orfs": [],
         "cutsites": [],
+        "orfs": [],
         "translations": [
             {
                 "id": "a",
@@ -123,29 +136,16 @@
                 "yOffset": 0,
                 "enclosingRangeType": "beginningAndEnd"
             }
-        ]
+        ],
+        "primers": [],
+        "sequence": "agaga"
     },
     {
         "rowNumber": 2,
         "start": 10,
         "end": 14,
-        "sequence": "gagag",
         "features": [],
         "parts": [],
-        "orfs": [
-            {
-                "id": "b",
-                "annotation": {
-                    "start": 10,
-                    "end": 4,
-                    "id": "b"
-                },
-                "start": 10,
-                "end": 14,
-                "yOffset": 0,
-                "enclosingRangeType": "beginning"
-            }
-        ],
         "cutsites": [
             {
                 "id": "b",
@@ -160,29 +160,43 @@
                 "enclosingRangeType": "beginning"
             }
         ],
-        "translations": []
+        "orfs": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 10,
+                "end": 14,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "translations": [],
+        "primers": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 10,
+                "end": 14,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "sequence": "gagag"
     },
     {
         "rowNumber": 3,
         "start": 15,
         "end": 15,
-        "sequence": "a",
         "features": [],
         "parts": [],
-        "orfs": [
-            {
-                "id": "b",
-                "annotation": {
-                    "start": 10,
-                    "end": 4,
-                    "id": "b"
-                },
-                "start": 15,
-                "end": 15,
-                "yOffset": 0,
-                "enclosingRangeType": "beginning"
-            }
-        ],
         "cutsites": [
             {
                 "id": "b",
@@ -197,6 +211,35 @@
                 "enclosingRangeType": "beginning"
             }
         ],
-        "translations": []
+        "orfs": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 15,
+                "end": 15,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "translations": [],
+        "primers": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 15,
+                "end": 15,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "sequence": "a"
     }
 ]

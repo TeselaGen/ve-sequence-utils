@@ -1,1 +1,1 @@
-module.exports = ['features','parts','cutsites','orfs','translations'];
+module.exports = ['features','parts','cutsites','orfs','translations', 'primers'];

@@ -24,6 +24,7 @@ describe('prepareRowData', function() {
           parts: {'a': annotation1},
           cutsites: {'b': annotation2},
           orfs: [annotation2],
+          primers: [annotation2],
         }
         var rowData = prepareRowData(sequenceData, bpsPerRow);
         expect(rowData).to.deep.equal(output1);
