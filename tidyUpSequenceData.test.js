@@ -34,6 +34,5 @@ describe('tidyUpSequenceData', function () {
             orfs: []
         })
         // res.should.containSubset({})
-        console.log('res:', res.translations[0].aminoAcids)
     });
 });

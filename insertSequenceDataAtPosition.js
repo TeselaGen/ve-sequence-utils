@@ -1,7 +1,9 @@
+var map = require('lodash/map');
 var adjustRangeToInsert = require('ve-range-utils/adjustRangeToInsert');
 var spliceString = require('string-splice');
 var tidyUpSequenceData = require('./tidyUpSequenceData');
 module.exports = function insertSequenceDataAtPosition(sequenceDataToInsert, existingSequenceData, caretPosition) {
+    existingSequenceData = tidyUpSequenceData(existingSequenceData)
     sequenceDataToInsert = tidyUpSequenceData(sequenceDataToInsert);
     var newSequenceData = tidyUpSequenceData({}); //makes a new blank sequence
     var insertLength = sequenceDataToInsert.sequence.length;
@@ -17,7 +19,7 @@ module.exports = function insertSequenceDataAtPosition(sequenceDataToInsert, exi
 }
 
 function adjustAnnotationsToInsert(annotationsToBeAdjusted, insertStart, insertLength) {
-    return annotationsToBeAdjusted.map(function(annotation) {
+    return map(annotationsToBeAdjusted, function(annotation) {
         return adjustRangeToInsert(annotation, insertStart, insertLength);
     });
 }

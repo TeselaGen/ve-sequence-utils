@@ -36,7 +36,6 @@ describe('getPossiblePartsFromSequenceAndEnzymes', function() {
 
         parts[1].start.should.equal(73)
         parts[1].end.should.equal(32)
-        console.log('parts:', parts)
         parts.should.containSubset([{
                 start: 29,
                 end: 76,
