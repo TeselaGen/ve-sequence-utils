@@ -23,6 +23,8 @@ Edit/create a new file and update/add any relevant tests.
 Make sure they pass by running `npm test`
 
 ##Updating this repo: 
+Commit and push all changes first
+
 ###Teselagen collaborators: 
 Sign into npm using the teselagen npm account
 

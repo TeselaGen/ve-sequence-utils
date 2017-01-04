@@ -48,6 +48,7 @@ describe('getOrfsFromSequence', function() {
         expect(orf.end).to.equal(11);
         expect(orf.forward).to.equal(false);
         expect(orf.frame).to.equal(0);
+        expect(orf.isOrf).to.equal(true);
         expect(orf.internalStartCodonIndices).to.deep.equal([8]);
         expect(orf.id).to.be.a('string');
     });
@@ -65,6 +66,7 @@ describe('getOrfsFromSequence', function() {
         expect(orf.end).to.equal(5);
         expect(orf.forward).to.equal(false);
         expect(orf.frame).to.equal(0);
+        expect(orf.isOrf).to.equal(true);
         expect(orf.internalStartCodonIndices).to.deep.equal([]);
         expect(orf.id).to.be.a('string');
     });
@@ -79,7 +81,8 @@ describe('getOrfsFromSequence', function() {
         var orf = orfs[0];
         expect(orf).to.be.an('object');
         expect(orf.start).to.equal(0);
-        expect(orf.end).to.equal(11);
+        expect(orf.end).to.equal(11);        
+        expect(orf.isOrf).to.equal(true);
         expect(orf.forward).to.equal(true);
         expect(orf.frame).to.equal(0);
         expect(orf.internalStartCodonIndices).to.deep.equal([3]);
@@ -98,6 +101,7 @@ describe('getOrfsFromSequence', function() {
         expect(orf.start).to.equal(0);
         expect(orf.end).to.equal(5);
         expect(orf.forward).to.equal(true);
+        expect(orf.isOrf).to.equal(true);
         expect(orf.frame).to.equal(0);
         expect(orf.internalStartCodonIndices).to.deep.equal([]);
         expect(orf.id).to.be.a('string');
@@ -115,6 +119,7 @@ describe('getOrfsFromSequence', function() {
         expect(orf.start).to.equal(0);
         expect(orf.end).to.equal(5);
         expect(orf.forward).to.equal(true);
+        expect(orf.isOrf).to.equal(true);
         expect(orf.frame).to.equal(0);
         expect(orf.internalStartCodonIndices).to.deep.equal([]);
         expect(orf.id).to.be.a('string');
