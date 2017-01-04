@@ -26,7 +26,8 @@ Make sure they pass by running `npm test`
 Commit and push all changes first
 
 ###Teselagen collaborators: 
-Sign into npm using the teselagen npm account
+Commit and push all changes
+Sign into npm using the teselagen npm account (npm whoami)
 
 ```
 npm version patch|minor|major
