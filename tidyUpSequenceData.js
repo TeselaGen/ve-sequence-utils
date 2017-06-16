@@ -36,10 +36,9 @@ module.exports = function tidyUpSequenceData(sequence, options) {
                 sequenceData[name] = []
             }
         }
+        sequenceData[name] = sequenceData[name].filter(cleanUpAnnotation)
     })
-    sequenceData.features = sequenceData.features.filter(cleanUpAnnotation);
-    sequenceData.parts = sequenceData.parts.filter(cleanUpAnnotation);
-    sequenceData.translations = sequenceData.translations.filter(cleanUpAnnotation);
+
     sequenceData.translations = sequenceData.translations.map(function (translation) {
         if (!translation.aminoAcids) {
             translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(sequenceData.sequence, translation.forward, translation)
@@ -49,8 +48,15 @@ module.exports = function tidyUpSequenceData(sequence, options) {
 
     if (options.annotationsAsObjects) {
         annotationNames.forEach(function (name) {
-            sequenceData[name].reduce(function (acc, item) {
-                acc[areNonNegativeIntegers(item.id) || item.id || bsonObjectid().str] = item
+            sequenceData[name] = sequenceData[name].reduce(function (acc, item) {
+                var itemId 
+                if (areNonNegativeIntegers(item.id) || item.id ) {
+                    itemId = item.id
+                } else {
+                    itemId = bsonObjectid().str
+                    item.id = itemId //assign the newly created id to the item d
+                }
+                acc[itemId] = item
                 return acc
             }, {})
         })
@@ -63,6 +69,7 @@ module.exports = function tidyUpSequenceData(sequence, options) {
             response.messages.push('Invalid annotation detected and removed');
             return false;
         }
+        
         annotation.start = parseInt(annotation.start);
         annotation.end = parseInt(annotation.end);
 
