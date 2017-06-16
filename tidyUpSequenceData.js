@@ -3,10 +3,12 @@ var bsonObjectid = require('bson-objectid');
 var getAminoAcidDataForEachBaseOfDna = require('./getAminoAcidDataForEachBaseOfDna');
 var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
 var assign = require('lodash/assign');
+var toPlainObject = require('lodash/toPlainObject');
 var randomColor = require('randomcolor');
 var FeatureTypes = require('./FeatureTypes.js');
 var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
 module.exports = function tidyUpSequenceData(sequence, options) {
+    options = options || {}
     var sequenceData = assign({}, sequence); //sequence is usually immutable, so we clone it and return it
     var response = {
         messages: []
@@ -23,22 +25,18 @@ module.exports = function tidyUpSequenceData(sequence, options) {
     } else {
         sequenceData.circular = true;
     }
-    if (!Array.isArray(sequenceData.features)) {
-        sequenceData.features = [];
-    }
-    if (!Array.isArray(sequenceData.parts)) {
-        sequenceData.parts = [];
-    }
-    if (!Array.isArray(sequenceData.translations)) {
-        sequenceData.translations = [];
-    }
-    if (!Array.isArray(sequenceData.cutsites)) {
-        sequenceData.cutsites = [];
-    }
-    if (!Array.isArray(sequenceData.orfs)) {
-        sequenceData.orfs = [];
-    }
-
+    var annotationNames = ['features', 'parts', 'translations', 'cutsites', 'orfs']
+    annotationNames.forEach(function (name) {
+        if (!Array.isArray(sequenceData[name])) {
+            if (typeof sequenceData[name] === 'object') {
+                sequenceData[name] = Object.keys(sequenceData[name]).map(function (key) {
+                    return sequenceData[name][key]
+                })
+            } else {
+                sequenceData[name] = []
+            }
+        }
+    })
     sequenceData.features = sequenceData.features.filter(cleanUpAnnotation);
     sequenceData.parts = sequenceData.parts.filter(cleanUpAnnotation);
     sequenceData.translations = sequenceData.translations.filter(cleanUpAnnotation);
@@ -48,6 +46,15 @@ module.exports = function tidyUpSequenceData(sequence, options) {
         }
         return translation
     });
+
+    if (options.annotationsAsObjects) {
+        annotationNames.forEach(function (name) {
+            sequenceData[name].reduce(function (acc, item) {
+                acc[areNonNegativeIntegers(item.id) || item.id || bsonObjectid().str] = item
+                return acc
+            }, {})
+        })
+    }
 
     return sequenceData;
 
