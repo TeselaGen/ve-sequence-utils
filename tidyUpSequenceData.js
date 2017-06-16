@@ -61,7 +61,9 @@ module.exports = function tidyUpSequenceData(sequence, options) {
             }, {})
         })
     }
-
+    if (response.messages.length > 0) {
+        console.log('tidyUpSequenceData messages:', response.messages)
+    }
     return sequenceData;
 
     function cleanUpAnnotation(annotation) {
