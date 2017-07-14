@@ -1,54 +1,54 @@
 // tnrtodo: figure out where to insert this validation exactly..
 var bsonObjectid = require('bson-objectid');
 var getAminoAcidDataForEachBaseOfDna = require('./getAminoAcidDataForEachBaseOfDna');
-var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
+// var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
 var assign = require('lodash/assign');
-var toPlainObject = require('lodash/toPlainObject');
+// var toPlainObject = require('lodash/toPlainObject');
 var randomColor = require('randomcolor');
 var FeatureTypes = require('./FeatureTypes.js');
 var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
-module.exports = function tidyUpSequenceData(sequence, options) {
+module.exports = function tidyUpSequenceData(pSeqData, options) {
     options = options || {}
-    var sequenceData = assign({}, sequence); //sequence is usually immutable, so we clone it and return it
+    var seqData = assign({}, pSeqData); //sequence is usually immutable, so we clone it and return it
     var response = {
         messages: []
     };
-    if (!sequenceData) {
-        sequenceData = {};
+    if (!seqData) {
+        seqData = {};
     }
-    if (!sequenceData.sequence && sequenceData.sequence !== '') {
-        sequenceData.sequence = "";
+    if (!seqData.sequence && seqData.sequence !== '') {
+        seqData.sequence = "";
     }
-    sequenceData.size = sequenceData.sequence.length;
-    if (sequenceData.circular === 'false' || sequenceData.circular == -1 || !sequenceData.circular) {
-        sequenceData.circular = false;
+    seqData.size = seqData.sequence.length;
+    if (seqData.circular === 'false' || seqData.circular == -1 || !seqData.circular) {
+        seqData.circular = false;
     } else {
-        sequenceData.circular = true;
+        seqData.circular = true;
     }
     var annotationNames = ['features', 'parts', 'translations', 'cutsites', 'orfs']
     annotationNames.forEach(function (name) {
-        if (!Array.isArray(sequenceData[name])) {
-            if (typeof sequenceData[name] === 'object') {
-                sequenceData[name] = Object.keys(sequenceData[name]).map(function (key) {
-                    return sequenceData[name][key]
+        if (!Array.isArray(seqData[name])) {
+            if (typeof seqData[name] === 'object') {
+                seqData[name] = Object.keys(seqData[name]).map(function (key) {
+                    return seqData[name][key]
                 })
             } else {
-                sequenceData[name] = []
+                seqData[name] = []
             }
         }
-        sequenceData[name] = sequenceData[name].filter(cleanUpAnnotation)
+        seqData[name] = seqData[name].filter(cleanUpAnnotation)
     })
 
-    sequenceData.translations = sequenceData.translations.map(function (translation) {
+    seqData.translations = seqData.translations.map(function (translation) {
         if (!translation.aminoAcids) {
-            translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(sequenceData.sequence, translation.forward, translation)
+            translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(seqData.sequence, translation.forward, translation)
         }
         return translation
     });
 
     if (options.annotationsAsObjects) {
         annotationNames.forEach(function (name) {
-            sequenceData[name] = sequenceData[name].reduce(function (acc, item) {
+            seqData[name] = seqData[name].reduce(function (acc, item) {
                 var itemId 
                 if (areNonNegativeIntegers(item.id) || item.id ) {
                     itemId = item.id
@@ -64,7 +64,7 @@ module.exports = function tidyUpSequenceData(sequence, options) {
     if (response.messages.length > 0) {
         console.log('tidyUpSequenceData messages:', response.messages)
     }
-    return sequenceData;
+    return seqData;
 
     function cleanUpAnnotation(annotation) {
         if (!annotation || typeof annotation !== 'object') {
@@ -83,15 +83,15 @@ module.exports = function tidyUpSequenceData(sequence, options) {
             annotation.id = bsonObjectid().str;
             response.messages.push('Unable to detect valid ID for annotation, setting ID to ' + annotation.id);
         }
-        if (!areNonNegativeIntegers([annotation.start]) || annotation.start > sequenceData.size - 1) {
+        if (!areNonNegativeIntegers([annotation.start]) || annotation.start > seqData.size - 1) {
             response.messages.push('Invalid annotation start: ' + annotation.start + ' detected for ' + annotation.name + ' and set to 1'); //setting it to 0 internally, but users will see it as 1
             annotation.start = 0;
         }
-        if (!areNonNegativeIntegers([annotation.end]) || annotation.end > sequenceData.size - 1) {
+        if (!areNonNegativeIntegers([annotation.end]) || annotation.end > seqData.size - 1) {
             response.messages.push('Invalid annotation end:  ' + annotation.end + ' detected for ' + annotation.name + ' and set to 1'); //setting it to 0 internally, but users will see it as 1
             annotation.end = 0;
         }
-        if (annotation.start > annotation.end && sequenceData.circular === false) {
+        if (annotation.start > annotation.end && seqData.circular === false) {
             response.messages.push('Invalid circular annotation detected for ' + annotation.name + '. end set to 1'); //setting it to 0 internally, but users will see it as 1
             annotation.end = 0;
         }
