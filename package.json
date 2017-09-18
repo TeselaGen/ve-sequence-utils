@@ -20,7 +20,7 @@
     "teselagen",
     "biojs"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bson-objectid": "^1.1.1",
     "lodash": "^4.10.0",
