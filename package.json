@@ -1,6 +1,6 @@
 {
   "name": "ve-sequence-utils",
-  "version": "3.1.18",
+  "version": "3.1.19",
   "description": "sequence utility functions",
   "main": "none",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
@@ -9,7 +9,6 @@
     "test": "jest",
     "test-watch": "yarn test --watch",
     "test-debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand ",
-    
     "lint": "eslint . ./",
     "precommit": "lint-staged && npm test"
   },
