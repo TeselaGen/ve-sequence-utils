@@ -56,7 +56,3 @@ module.exports = function findSequenceMatches(
 
   return ranges;
 };
-
-// function getDnaPositionFromAminoPosition (position) {
-//     return position * 2
-// }
