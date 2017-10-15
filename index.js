@@ -30,7 +30,6 @@ module.exports.getReverseComplementSequenceAndAnnotations = require('./getRevers
 module.exports.getReverseComplementSequenceString = require('./getReverseComplementSequenceString');
 module.exports.insertSequenceDataAtPosition = require('./insertSequenceDataAtPosition');
 module.exports.mapAnnotationsToRows = require('./mapAnnotationsToRows');
-module.exports.node_modules = require('./node_modules');
 module.exports.prepareCircularViewData = require('./prepareCircularViewData');
 module.exports.prepareRowData = require('./prepareRowData');
 module.exports.proteinAlphabet = require('./proteinAlphabet');
