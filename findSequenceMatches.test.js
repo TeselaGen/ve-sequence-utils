@@ -1,6 +1,6 @@
 const findSequenceMatches =  require('./findSequenceMatches');
 
-describe.only('findSequenceMatches', function () {
+describe('findSequenceMatches', function () {
 	it('returns an empty array when nothing matches', function () {
 		expect([]).toEqual(findSequenceMatches('atg', 'xtag'))
 	});

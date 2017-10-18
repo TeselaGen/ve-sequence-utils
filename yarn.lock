@@ -3959,9 +3959,9 @@ validate.io-number@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/validate.io-number/-/validate.io-number-1.0.3.tgz#f63ffeda248bf28a67a8d48e0e3b461a1665baf8"
 
-ve-range-utils@^2.0.34:
-  version "2.0.38"
-  resolved "https://registry.yarnpkg.com/ve-range-utils/-/ve-range-utils-2.0.38.tgz#27e81a9b40fcf6d9607e6a05851ca6df16b5768c"
+ve-range-utils@2.0.39:
+  version "2.0.39"
+  resolved "https://registry.yarnpkg.com/ve-range-utils/-/ve-range-utils-2.0.39.tgz#4b270a20b3ad81fa210ee0bf0bb278cd683da4af"
   dependencies:
     lodash "^3.10.1"
     validate.io-nonnegative-integer-array "^1.0.1"

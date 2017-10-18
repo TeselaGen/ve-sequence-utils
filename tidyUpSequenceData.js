@@ -1,16 +1,18 @@
 // tnrtodo: figure out where to insert this validation exactly..
-var bsonObjectid = require('bson-objectid');
-var getAminoAcidDataForEachBaseOfDna = require('./getAminoAcidDataForEachBaseOfDna');
-// var getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
-var assign = require('lodash/assign');
-// var toPlainObject = require('lodash/toPlainObject');
-var randomColor = require('randomcolor');
-var FeatureTypes = require('./FeatureTypes.js');
-var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
+const bsonObjectid = require('bson-objectid');
+const getAminoAcidDataForEachBaseOfDna = require('./getAminoAcidDataForEachBaseOfDna');
+// const getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
+const assign = require('lodash/assign');
+// const toPlainObject = require('lodash/toPlainObject');
+const randomColor = require('randomcolor');
+const FeatureTypes = require('./FeatureTypes.js');
+const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
+const annotationTypes = require('./annotationTypes');
+
 module.exports = function tidyUpSequenceData(pSeqData, options) {
     options = options || {}
-    var seqData = assign({}, pSeqData); //sequence is usually immutable, so we clone it and return it
-    var response = {
+    let seqData = assign({}, pSeqData); //sequence is usually immutable, so we clone it and return it
+    let response = {
         messages: []
     };
     if (!seqData) {
@@ -25,8 +27,8 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
     } else {
         seqData.circular = true;
     }
-    var annotationNames = ['features', 'parts', 'translations', 'cutsites', 'orfs']
-    annotationNames.forEach(function (name) {
+    
+    annotationTypes.forEach(function (name) {
         if (!Array.isArray(seqData[name])) {
             if (typeof seqData[name] === 'object') {
                 seqData[name] = Object.keys(seqData[name]).map(function (key) {
@@ -47,9 +49,9 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
     });
 
     if (options.annotationsAsObjects) {
-        annotationNames.forEach(function (name) {
+        annotationTypes.forEach(function (name) {
             seqData[name] = seqData[name].reduce(function (acc, item) {
-                var itemId 
+                let itemId 
                 if (areNonNegativeIntegers(item.id) || item.id ) {
                     itemId = item.id
                 } else {

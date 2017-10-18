@@ -1,25 +1,3 @@
-var map = require('lodash/map');
-var adjustRangeToInsert = require('ve-range-utils/adjustRangeToInsert');
-var spliceString = require('string-splice');
-var tidyUpSequenceData = require('./tidyUpSequenceData');
-module.exports = function insertSequenceDataAtPosition(sequenceDataToInsert, existingSequenceData, caretPosition) {
-    existingSequenceData = tidyUpSequenceData(existingSequenceData)
-    sequenceDataToInsert = tidyUpSequenceData(sequenceDataToInsert);
-    var newSequenceData = tidyUpSequenceData({}); //makes a new blank sequence
-    var insertLength = sequenceDataToInsert.sequence.length;
-    //splice the underlying sequence
-    newSequenceData.sequence = spliceString(existingSequenceData.sequence, caretPosition, 0, sequenceDataToInsert.sequence);
-    newSequenceData.features = newSequenceData.features.concat(adjustAnnotationsToInsert(existingSequenceData.features, caretPosition, insertLength));
-    newSequenceData.parts = newSequenceData.parts.concat(adjustAnnotationsToInsert(existingSequenceData.parts, caretPosition, insertLength));
-    newSequenceData.translations = newSequenceData.translations.concat(adjustAnnotationsToInsert(existingSequenceData.translations, caretPosition, insertLength));
-    newSequenceData.features = newSequenceData.features.concat(adjustAnnotationsToInsert(sequenceDataToInsert.features, 0, caretPosition));
-    newSequenceData.parts = newSequenceData.parts.concat(adjustAnnotationsToInsert(sequenceDataToInsert.parts, 0, caretPosition));
-    newSequenceData.translations = newSequenceData.translations.concat(adjustAnnotationsToInsert(sequenceDataToInsert.translations, 0, caretPosition));
-    return newSequenceData;
-}
+const insertSequenceDataAtPositionOrRange = require('./insertSequenceDataAtPositionOrRange')
 
-function adjustAnnotationsToInsert(annotationsToBeAdjusted, insertStart, insertLength) {
-    return map(annotationsToBeAdjusted, function(annotation) {
-        return adjustRangeToInsert(annotation, insertStart, insertLength);
-    });
-}
+module.exports = insertSequenceDataAtPositionOrRange

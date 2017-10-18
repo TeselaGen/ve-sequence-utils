@@ -35,3 +35,4 @@ module.exports.prepareRowData = require('./prepareRowData');
 module.exports.proteinAlphabet = require('./proteinAlphabet');
 module.exports.threeLetterSequenceStringToAminoAcidMap = require('./threeLetterSequenceStringToAminoAcidMap');
 module.exports.tidyUpSequenceData = require('./tidyUpSequenceData');
+module.exports.adjustBpsToReplaceOrInsert = require('./adjustBpsToReplaceOrInsert');
