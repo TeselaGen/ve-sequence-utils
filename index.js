@@ -36,3 +36,4 @@ module.exports.proteinAlphabet = require('./proteinAlphabet');
 module.exports.threeLetterSequenceStringToAminoAcidMap = require('./threeLetterSequenceStringToAminoAcidMap');
 module.exports.tidyUpSequenceData = require('./tidyUpSequenceData');
 module.exports.adjustBpsToReplaceOrInsert = require('./adjustBpsToReplaceOrInsert');
+module.exports.insertSequenceDataAtPositionOrRange = require('./insertSequenceDataAtPositionOrRange');
