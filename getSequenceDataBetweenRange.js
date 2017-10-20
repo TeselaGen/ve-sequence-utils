@@ -1,5 +1,4 @@
-const flatmap = require("lodash/flatmap");
-const extend = require("lodash/extend");
+const {flatMap, extend} = require("lodash");
 const {
   getSequenceWithinRange,
   getZeroedRangeOverlaps
@@ -28,7 +27,7 @@ module.exports = function getSequenceDataBetweenRange(seqData, range) {
 };
 
 function getAnnotationsBetweenRange(annotationsToBeAdjusted, range, maxLength) {
-  return flatmap(annotationsToBeAdjusted, function(annotation) {
+  return flatMap(annotationsToBeAdjusted, function(annotation) {
     return getZeroedRangeOverlaps(annotation, range, maxLength).map(overlap => {
       return extend({}, annotation, overlap);
     });
