@@ -10,6 +10,23 @@ chai.use(chaiSubset);
 const getSequenceDataBetweenRange = require('./getSequenceDataBetweenRange');
 
 describe('getSequenceDataBetweenRange', function() {
+    it('should return an empty sequence if given an invalid range', function() {
+        const res = getSequenceDataBetweenRange({
+            sequence: 'atgcatgc',
+            features: [{
+                start: 0,
+                end:7,
+                name: 'happy'
+            }]
+        }, {
+            start: -1, end: -1
+        })
+        res.should.containSubset({
+            sequence: '',
+            features: [],
+            parts: []
+        })
+    });
     it('non circular feature, non circular range', function() {
         const res = getSequenceDataBetweenRange({
             sequence: 'atgcatgc',
@@ -21,7 +38,6 @@ describe('getSequenceDataBetweenRange', function() {
         }, {
             start: 2, end: 3
         })
-        console.log('res:',res)
         res.should.containSubset({
             sequence: 'gc',
             features: [{
