@@ -1,5 +1,5 @@
-
 const flatmap = require("lodash/flatmap");
+const extend = require("lodash/extend");
 const {
   getSequenceWithinRange,
   getZeroedRangeOverlaps
@@ -9,10 +9,13 @@ const annotationTypes = require("./annotationTypes");
 
 module.exports = function getSequenceDataBetweenRange(seqData, range) {
   const seqDataToUse = tidyUpSequenceData(seqData);
-  let seqDataToReturn = {
-    ...seqDataToUse,
-    sequence: getSequenceWithinRange(range, seqDataToUse.sequence),
-    ...annotationTypes.reduce((acc, type) => {
+  let seqDataToReturn = extend(
+    {},
+    seqDataToUse,
+    {
+      sequence: getSequenceWithinRange(range, seqDataToUse.sequence)
+    },
+    annotationTypes.reduce((acc, type) => {
       acc[type] = getAnnotationsBetweenRange(
         seqDataToUse[type],
         range,
@@ -20,21 +23,14 @@ module.exports = function getSequenceDataBetweenRange(seqData, range) {
       );
       return acc;
     }, {})
-  };
+  );
   return tidyUpSequenceData(seqDataToReturn);
 };
 
 function getAnnotationsBetweenRange(annotationsToBeAdjusted, range, maxLength) {
   return flatmap(annotationsToBeAdjusted, function(annotation) {
-    return getZeroedRangeOverlaps(
-      annotation,
-      range,
-      maxLength
-    ).map(overlap => {
-      return {
-        ...annotation,
-        ...overlap
-      };
+    return getZeroedRangeOverlaps(annotation, range, maxLength).map(overlap => {
+      return extend({}, annotation, overlap);
     });
   }); //filter any fully deleted ranges
 }
