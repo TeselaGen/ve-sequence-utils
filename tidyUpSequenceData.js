@@ -2,7 +2,7 @@
 const bsonObjectid = require('bson-objectid');
 const getAminoAcidDataForEachBaseOfDna = require('./getAminoAcidDataForEachBaseOfDna');
 // const getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
-const assign = require('lodash/assign');
+const _ = require('lodash');
 // const toPlainObject = require('lodash/toPlainObject');
 const randomColor = require('randomcolor');
 const FeatureTypes = require('./FeatureTypes.js');
@@ -11,7 +11,7 @@ const annotationTypes = require('./annotationTypes');
 
 module.exports = function tidyUpSequenceData(pSeqData, options) {
     options = options || {}
-    let seqData = assign({}, pSeqData); //sequence is usually immutable, so we clone it and return it
+    let seqData = _.assign({}, pSeqData); //sequence is usually immutable, so we clone it and return it
     let response = {
         messages: []
     };
