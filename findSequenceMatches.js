@@ -4,8 +4,9 @@ const getAminoAcidStringFromSequenceString = require("./getAminoAcidStringFromSe
 module.exports = function findSequenceMatches(
   sequence,
   searchString,
-  { isCircular, ambiguous, isProteinSearch } = {}
+  options
 ) {
+  const { isCircular, ambiguous, isProteinSearch } = options || {}
   let sequenceToUse = sequence;
   if (isCircular) {
     sequenceToUse = sequenceToUse + sequenceToUse;
