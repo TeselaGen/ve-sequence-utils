@@ -14,20 +14,21 @@ module.exports = function insertSequenceDataAtPositionOrRange(_sequenceDataToIns
     //update the sequence
     newSequenceData.sequence = adjustBpsToReplaceOrInsert(existingSequenceData.sequence, sequenceDataToInsert.sequence, caretPositionOrRange)
     
-    //update the annotations: 
-    //handle the delete if necessary
-    if (caretPositionOrRange && caretPositionOrRange.start > -1) {
-        //we have a range! so let's delete it!
-        const range = caretPositionOrRange
-        caretPosition = range.start
-        //update all annotations for the deletion
-        modifiableTypes.forEach((annotationType)=>{
-            newSequenceData[annotationType] = newSequenceData[annotationType].concat(adjustAnnotationsToDelete(existingSequenceData[annotationType], range, existingSequenceData.sequence.length));
-        })
-    }
+    
     //handle the insert
     modifiableTypes.forEach((annotationType)=>{
-        newSequenceData[annotationType] = newSequenceData[annotationType].concat(adjustAnnotationsToInsert(existingSequenceData[annotationType], caretPosition, insertLength));
+        let existingAnnotations = existingSequenceData[annotationType]
+        //update the annotations: 
+        //handle the delete if necessary
+        if (caretPositionOrRange && caretPositionOrRange.start > -1) {
+            //we have a range! so let's delete it!
+            const range = caretPositionOrRange
+            caretPosition = range.start
+            //update all annotations for the deletion
+            existingAnnotations = adjustAnnotationsToDelete(existingAnnotations, range, existingSequenceData.sequence.length)
+        }
+        
+        newSequenceData[annotationType] = newSequenceData[annotationType].concat(adjustAnnotationsToInsert(existingAnnotations, caretPosition, insertLength));
         newSequenceData[annotationType] = newSequenceData[annotationType].concat(adjustAnnotationsToInsert(sequenceDataToInsert[annotationType], 0, caretPosition));
     })
     return newSequenceData;

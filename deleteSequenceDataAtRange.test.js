@@ -30,6 +30,7 @@ describe('deleteSequenceDataAtRange', function() {
             sequence: 'atgagagaga',
             features: [{start: 0, end: 9}]
         })
+        postDeleteSeqData.features.length.should.equal(1)
     });
     it('Delete characters and features at correct range', function() {
         let exitingSequence = {
@@ -42,5 +43,6 @@ describe('deleteSequenceDataAtRange', function() {
             sequence: 'atgga',
             features: [{start: 0, end: 4}]
         })
+        postDeleteSeqData.features.length.should.equal(1)
     });
 });
