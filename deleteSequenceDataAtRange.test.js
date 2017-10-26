@@ -19,6 +19,18 @@ describe('deleteSequenceDataAtRange', function() {
         let postDeleteSeqData = deleteSequenceDataAtRange(exitingSequence, range)
         postDeleteSeqData.sequence.length.should.equal(exitingSequence.sequence.length - getRangeLength(range));
     });
+    it('Handles a non valid range by returning the original sequence', function() {
+        let exitingSequence = {
+            sequence: 'atgagagaga',
+            features: [{start: 0, end: 9}]
+        };
+        let range = {start: -1, end: -1};
+        let postDeleteSeqData = deleteSequenceDataAtRange(exitingSequence, range)
+        postDeleteSeqData.should.containSubset({
+            sequence: 'atgagagaga',
+            features: [{start: 0, end: 9}]
+        })
+    });
     it('Delete characters and features at correct range', function() {
         let exitingSequence = {
             sequence: 'atgagagaga',
