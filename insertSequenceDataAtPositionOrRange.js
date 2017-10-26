@@ -12,7 +12,6 @@ module.exports = function insertSequenceDataAtPositionOrRange(_sequenceDataToIns
     let caretPosition = caretPositionOrRange
 
     //update the sequence
-    console.log('existingSequenceData.sequence, sequenceDataToInsert.sequence, caretPositionOrRange:',existingSequenceData.sequence, sequenceDataToInsert.sequence, caretPositionOrRange)
     newSequenceData.sequence = adjustBpsToReplaceOrInsert(existingSequenceData.sequence, sequenceDataToInsert.sequence, caretPositionOrRange)
     
     //update the annotations: 

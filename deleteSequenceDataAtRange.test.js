@@ -1,0 +1,34 @@
+//tnr: half finished test. 
+// let tap = require('tap');
+// tap.mochaGlobals();
+const chai = require("chai");
+const {getRangeLength} = require('ve-range-utils');
+
+chai.should();
+const chaiSubset = require('chai-subset');
+chai.use(chaiSubset);
+
+const deleteSequenceDataAtRange = require('./deleteSequenceDataAtRange');
+
+describe('deleteSequenceDataAtRange', function() {
+    it('Delete characters at correct range', function() {
+        let exitingSequence = {
+            sequence: 'atagatag'
+        };
+        let range = {start: 3, end: 5};
+        let postDeleteSeqData = deleteSequenceDataAtRange(exitingSequence, range)
+        postDeleteSeqData.sequence.length.should.equal(exitingSequence.sequence.length - getRangeLength(range));
+    });
+    it('Delete characters and features at correct range', function() {
+        let exitingSequence = {
+            sequence: 'atgagagaga',
+            features: [{start: 0, end: 9}]
+        };
+        let postDeleteSeqData = deleteSequenceDataAtRange(exitingSequence, {start: 3, end: 7})
+        console.log('post:',postDeleteSeqData)
+        postDeleteSeqData.should.containSubset({
+            sequence: 'atgga',
+            features: [{start: 0, end: 4}]
+        })
+    });
+});
