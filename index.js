@@ -38,3 +38,4 @@ module.exports.tidyUpSequenceData = require('./tidyUpSequenceData');
 module.exports.adjustBpsToReplaceOrInsert = require('./adjustBpsToReplaceOrInsert');
 module.exports.insertSequenceDataAtPositionOrRange = require('./insertSequenceDataAtPositionOrRange');
 module.exports.getSequenceDataBetweenRange = require('./getSequenceDataBetweenRange');
+module.exports.deleteSequenceDataAtRange = require('./deleteSequenceDataAtRange');
