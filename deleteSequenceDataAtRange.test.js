@@ -45,4 +45,17 @@ describe('deleteSequenceDataAtRange', function() {
         })
         postDeleteSeqData.features.length.should.equal(1)
     });
+    it('Moves annotations when delete occurs before annotation', function() {
+        let exitingSequence = {
+            sequence: 'atgagagaga',
+            parts: [{start: 5, end: 9}]
+        };
+        let postDeleteSeqData = deleteSequenceDataAtRange(exitingSequence, {start: 3, end: 3})
+        console.log('post:',postDeleteSeqData)
+        postDeleteSeqData.should.containSubset({
+            sequence: 'atggagaga',
+            parts: [{start: 4, end: 8}]
+        })
+        postDeleteSeqData.parts.length.should.equal(1)
+    });
 });

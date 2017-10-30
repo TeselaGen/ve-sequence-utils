@@ -1,12 +1,17 @@
 const { modulateRangeBySequenceLength } = require("ve-range-utils");
+const { reduce } = require("lodash");
 const getAminoAcidStringFromSequenceString = require("./getAminoAcidStringFromSequenceString");
+const { ambiguous_dna_values } = require("./bioData");
 
-module.exports = function findSequenceMatches(
-  sequence,
-  searchString,
-  options
-) {
-  const { isCircular, ambiguous, isProteinSearch } = options || {}
+module.exports = function findSequenceMatches(sequence, searchString, options) {
+  const { isCircular, isAmbiguous, isProteinSearch } = options || {};
+  let searchStringToUse = searchString;
+  if (isAmbiguous) {
+    if (!isProteinSearch) {
+      //we're searching DNA
+      searchStringToUse = convertAmbiguousDnaToRegex(searchStringToUse);
+    }
+  }
   let sequenceToUse = sequence;
   if (isCircular) {
     sequenceToUse = sequenceToUse + sequenceToUse;
@@ -35,7 +40,7 @@ module.exports = function findSequenceMatches(
 
   let ranges = [];
   sequencesToCheck.forEach(({ seqToCheck, offset }) => {
-    const reg = new RegExp(searchString, "ig");
+    const reg = new RegExp(searchStringToUse, "ig");
     let match;
     let range;
     /* eslint-disable no-cond-assign*/
@@ -43,7 +48,7 @@ module.exports = function findSequenceMatches(
     while ((match = reg.exec(seqToCheck)) !== null) {
       range = {
         start: match.index,
-        end: match.index + searchString.length - 1
+        end: match.index + searchString.length - 1 //this should be the original searchString here j
       };
       if (isProteinSearch) {
         range.start = range.start * 3 + offset;
@@ -57,3 +62,41 @@ module.exports = function findSequenceMatches(
 
   return ranges;
 };
+
+function convertAmbiguousDnaToRegex(dnaString) {
+  // Search for a DNA subseq in sequence.
+  // use ambiguous values (like N = A or T or C or G, R = A or G etc.)
+  // searches only on forward strand
+  return reduce(
+    dnaString,
+    (acc, nt) => {
+      const value = ambiguous_dna_values[nt.toUpperCase()];
+      if (value.length === 1) {
+        acc += value;
+      } else {
+        acc += `[${value}]`;
+      }
+      return acc;
+    },
+    ""
+  );
+}
+// def nt_search(seq, subseq):
+// """
+// """
+// pattern = ''
+// for nt in subseq:
+//     value = IUPACData.ambiguous_dna_values[nt]
+
+// pos = -1
+// result = [pattern]
+// l = len(seq)
+// while True:
+//     pos += 1
+//     s = seq[pos:]
+//     m = re.search(pattern, s)
+//     if not m:
+//         break
+//     pos += int(m.start(0))
+//     result.append(pos)
+// return result
