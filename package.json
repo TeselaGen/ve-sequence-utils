@@ -5,6 +5,8 @@
   "main": "none",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
+    "build": "nwb build-react-component --copy-files --no-demo",
+    "prepublish": "in-publish && yarn build || not-in-publish",
     "//test": "mocha *.test.js --harmony",
     "test": "jest",
     "test-watch": "yarn test --watch",
@@ -33,8 +35,10 @@
   "dependencies": {
     "bson-objectid": "^1.1.1",
     "escape-string-regexp": "^1.0.5",
+    "in-publish": "^2.0.0",
     "install-peerdeps": "^1.2.0",
     "lodash": "^4.10.0",
+    "nwb": "^0.19.0",
     "randomcolor": "^0.4.3",
     "string-splice": "^1.3.0",
     "validate.io-nonnegative-integer-array": "^1.0.1",
