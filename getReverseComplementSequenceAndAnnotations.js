@@ -1,7 +1,7 @@
 var getReverseComplementSequenceString = require('./getReverseComplementSequenceString');
 var getReverseComplementAnnotation = require('./getReverseComplementAnnotation');
 var annotationTypes = require('./annotationTypes');
-var map = require('lodash/map');
+var {map} = require('lodash');
 var tidyUpSequenceData = require('./tidyUpSequenceData');
 // var ac = require('ve-api-check'); 
 // ac.throw([ac.string,ac.bool],arguments);

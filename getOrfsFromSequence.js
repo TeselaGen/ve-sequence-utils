@@ -1,4 +1,3 @@
-// var findIndex = require('lodash/array/findIndex');
 // var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
 var ObjectId = require("bson-objectid");
 var getReverseComplementSequenceString = require('./getReverseComplementSequenceString');

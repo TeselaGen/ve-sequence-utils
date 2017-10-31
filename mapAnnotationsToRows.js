@@ -1,12 +1,10 @@
 // var ac = require('ve-api-check');
 // ac.throw([ac.string,ac.bool],arguments);
-var each = require('lodash/each');
-var some = require('lodash/some');
-var sortBy = require('lodash/sortBy');
-var uniq = require('lodash/uniq');
-var areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
-var getYOffsetForPotentiallyCircularRange = require('ve-range-utils/getYOffsetForPotentiallyCircularRange');
-var splitRangeIntoTwoPartsIfItIsCircular = require('ve-range-utils/splitRangeIntoTwoPartsIfItIsCircular');
+const {each, 
+    // some, sortBy, uniq
+} = require('lodash');
+// const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
+const {getYOffsetForPotentiallyCircularRange, splitRangeIntoTwoPartsIfItIsCircular} = require('ve-range-utils');
 
 module.exports = function mapAnnotationsToRows(annotations, sequenceLength, bpsPerRow) {
     // ac.throw(ac.arrayOf(ac.shape({

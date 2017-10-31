@@ -4,6 +4,9 @@ describe("findSequenceMatches", function() {
   it("returns an empty array when nothing matches", function() {
     expect([]).toEqual(findSequenceMatches("atg", "xtag"));
   });
+  it("handles various weird characters", function() {
+    expect([]).toEqual(findSequenceMatches("atg", " . xt ** ag $#@@!"));
+  });
   it("returns matches for non-circular, non-ambiguous, dna searches", function() {
     expect([
       {
@@ -76,6 +79,37 @@ describe("findSequenceMatches", function() {
   });
   it("returns matches for non-circular, ambiguous, dna searches", function() {
     const matches = findSequenceMatches("atg", "m", { isAmbiguous: true });
+    expect(matches).toEqual([
+      {
+        start: 0,
+        end: 0
+      }
+    ]);
+    expect(findSequenceMatches("atg", "n", { isAmbiguous: true })).toEqual([
+      {
+        start: 0,
+        end: 0
+      },
+      {
+        start: 1,
+        end: 1
+      },
+      {
+        start: 2,
+        end: 2
+      }
+    ]);
+    expect(
+      findSequenceMatches("atgcctcc", "ccnnc", { isAmbiguous: true })
+    ).toEqual([
+      {
+        start: 3,
+        end: 7
+      }
+    ]);
+  });
+  it("returns matches for both strands for non-circular, ambiguous, dna searches", function() {
+    const matches = findSequenceMatches("atg", "m", { isAmbiguous: true, searchReverseStrand: true });
     expect(matches).toEqual([
       {
         start: 0,

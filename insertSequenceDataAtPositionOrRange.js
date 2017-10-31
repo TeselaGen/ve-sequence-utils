@@ -1,4 +1,4 @@
-const map = require('lodash/map');
+const {map} = require('lodash');
 const {adjustRangeToInsert, adjustRangeToDeletionOfAnotherRange} = require('ve-range-utils');
 const tidyUpSequenceData = require('./tidyUpSequenceData');
 const modifiableTypes = require('./annotationTypes').modifiableTypes;

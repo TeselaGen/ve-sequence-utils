@@ -1,6 +1,6 @@
-var cloneDeep = require('lodash/cloneDeep');
-var getYOffsetsForPotentiallyCircularRanges = require('ve-range-utils/getYOffsetsForPotentiallyCircularRanges');
-var annotationTypes = require('./annotationTypes');
+const {cloneDeep} = require('lodash');
+const {getYOffsetsForPotentiallyCircularRanges} = require('ve-range-utils');
+const annotationTypes = require('./annotationTypes');
 //basically just adds yOffsets to the annotations
 module.exports = function prepareCircularViewData(sequenceData) {
     var clonedSeqData = cloneDeep(sequenceData)

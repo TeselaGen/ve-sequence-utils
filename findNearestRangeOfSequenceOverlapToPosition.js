@@ -1,4 +1,4 @@
-var normalizeRange = require('ve-range-utils/normalizeRange');
+const {normalizeRange} = require('ve-range-utils');
 function findNearestRangeOfSequenceOverlapToPosition(sequenceToSearch, overlapSequence, positionStart, isLinear) {
   if (!positionStart) positionStart = 0
   if (sequenceToSearch.length < overlapSequence.length) {

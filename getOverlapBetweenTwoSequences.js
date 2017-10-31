@@ -1,4 +1,4 @@
-var modulatePositionByRange = require('ve-range-utils/modulatePositionByRange')
+var {modulatePositionByRange} = require('ve-range-utils')
 /**
  * This function gets the overlapping of one sequence to another based on sequence equality.
  * 

@@ -1,9 +1,7 @@
 // tnrtodo: figure out where to insert this validation exactly..
 const bsonObjectid = require('bson-objectid');
 const getAminoAcidDataForEachBaseOfDna = require('./getAminoAcidDataForEachBaseOfDna');
-// const getSequenceWithinRange = require('ve-range-utils/getSequenceWithinRange');
-const _ = require('lodash');
-// const toPlainObject = require('lodash/toPlainObject');
+const {assign} = require('lodash');
 const randomColor = require('randomcolor');
 const FeatureTypes = require('./FeatureTypes.js');
 const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
@@ -11,7 +9,7 @@ const annotationTypes = require('./annotationTypes');
 
 module.exports = function tidyUpSequenceData(pSeqData, options) {
     options = options || {}
-    let seqData = _.assign({}, pSeqData); //sequence is usually immutable, so we clone it and return it
+    let seqData = assign({}, pSeqData); //sequence is usually immutable, so we clone it and return it
     let response = {
         messages: []
     };
