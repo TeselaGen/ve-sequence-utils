@@ -5,7 +5,7 @@
   "main": "lib",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
-    "build": "nwb build-react-component --no-demo",
+    "build": "nwb build-react-component --copy-files --no-demo",
     "prepublish": "in-publish && yarn build || not-in-publish",
     "test": "jest src",
     "test-watch": "yarn test --watch",
