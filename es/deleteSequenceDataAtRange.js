@@ -1,4 +1,4 @@
-var insertSequenceDataAtPositionOrRange = require('./insertSequenceDataAtPositionOrRange');
+var insertSequenceDataAtPositionOrRange = require("./insertSequenceDataAtPositionOrRange");
 module.exports = function deleteSequenceDataAtRange(sequenceData, range) {
-    return insertSequenceDataAtPositionOrRange({}, sequenceData, range);
+  return insertSequenceDataAtPositionOrRange({}, sequenceData, range);
 };

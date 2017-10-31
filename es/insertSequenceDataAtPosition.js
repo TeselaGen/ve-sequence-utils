@@ -1,3 +1,3 @@
-var insertSequenceDataAtPositionOrRange = require('./insertSequenceDataAtPositionOrRange');
+var insertSequenceDataAtPositionOrRange = require("./insertSequenceDataAtPositionOrRange");
 
 module.exports = insertSequenceDataAtPositionOrRange;

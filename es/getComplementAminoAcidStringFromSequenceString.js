@@ -1,6 +1,6 @@
-var getAminoAcidStringFromSequenceString = require('./getAminoAcidStringFromSequenceString');
+var getAminoAcidStringFromSequenceString = require("./getAminoAcidStringFromSequenceString");
 
 module.exports = function getComplementAminoAcidStringFromSequenceString(sequenceString) {
-    var aaString = getAminoAcidStringFromSequenceString(sequenceString, true);
-    return aaString.split('').reverse().join('');
+  var aaString = getAminoAcidStringFromSequenceString(sequenceString, true);
+  return aaString.split("").reverse().join("");
 };

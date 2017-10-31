@@ -1,4 +1,4 @@
-var _require = require('ve-range-utils'),
+var _require = require("ve-range-utils"),
     modulatePositionByRange = _require.modulatePositionByRange;
 /**
  * This function gets the overlapping of one sequence to another based on sequence equality.
@@ -19,7 +19,10 @@ module.exports = function getOverlapBetweenTwoSequences(sequenceToFind, sequence
   if (index > -1) {
     return {
       start: index,
-      end: modulatePositionByRange(index + sequenceToFind.length - 1, { start: 0, end: sequenceToSearchIn.length - 1 })
+      end: modulatePositionByRange(index + sequenceToFind.length - 1, {
+        start: 0,
+        end: sequenceToSearchIn.length - 1
+      })
     };
   } else {
     return null;
