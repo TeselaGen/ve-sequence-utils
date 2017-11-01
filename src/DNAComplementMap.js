@@ -1,4 +1,4 @@
-var DNAComplementMap = {
+const DNAComplementMap = {
   a: "t",
   t: "a",
   c: "g",

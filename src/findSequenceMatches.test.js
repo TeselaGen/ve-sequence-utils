@@ -117,24 +117,29 @@ describe("findSequenceMatches", function() {
       {
         start: 0,
         end: 0
-      }
+      },
+      { bottomStrand: true, end: 2, start: 2 },
+      { bottomStrand: true, end: 1, start: 1 }
     ]);
-    expect(findSequenceMatches("atg", "n", { isAmbiguous: true })).toEqual([
-      {
-        start: 0,
-        end: 0
-      },
-      {
-        start: 1,
-        end: 1
-      },
-      {
-        start: 2,
-        end: 2
-      }
+    console.log(
+      'findSequenceMatches("atg", "n", { isAmbiguous: true }):',
+      findSequenceMatches("atg", "n", { isAmbiguous: true })
+    );
+    expect(
+      findSequenceMatches("atg", "n", {
+        isAmbiguous: true,
+        searchReverseStrand: true
+      })
+    ).toEqual([
+      { end: 0, start: 0 },
+      { end: 1, start: 1 },
+      { end: 2, start: 2 },
+      { bottomStrand: true, end: 2, start: 2 },
+      { bottomStrand: true, end: 1, start: 1 },
+      { bottomStrand: true, end: 0, start: 0 }
     ]);
     expect(
-      findSequenceMatches("atgcctcc", "ccnnc", { isAmbiguous: true })
+      findSequenceMatches("atgcctcc", "ccnnc", { isAmbiguous: true, searchReverseStrand: true })
     ).toEqual([
       {
         start: 3,

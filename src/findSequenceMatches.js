@@ -1,12 +1,47 @@
-const { modulateRangeBySequenceLength } = require("ve-range-utils");
+const {
+  modulateRangeBySequenceLength,
+  flipContainedRange
+} = require("ve-range-utils");
 const { reduce } = require("lodash");
 const escapeStringRegexp = require("escape-string-regexp");
 const getAminoAcidStringFromSequenceString = require("./getAminoAcidStringFromSequenceString");
 const { ambiguous_dna_values, extended_protein_values } = require("./bioData");
+const getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
 
-module.exports = function findSequenceMatches(sequence, searchString, options) {
-  const { isCircular, isAmbiguous, isProteinSearch, searchReverseStrand } =
-    options || {};
+module.exports = function findSequenceMatches(
+  sequence,
+  searchString,
+  options = {}
+) {
+  let matches = findSequenceMatchesTopStrand(sequence, searchString, options);
+  const { searchReverseStrand } = options;
+
+  if (searchReverseStrand) {
+    const sequenceLength = sequence.length;
+    let reverseSeq;
+    reverseSeq = getReverseComplementSequenceString(sequence);
+    const reverseMatches = findSequenceMatchesTopStrand(
+      reverseSeq,
+      searchString,
+      options
+    );
+    const flippedReverseMatches = reverseMatches.map(range => {
+      return {
+        ...flipContainedRange(
+          range,
+          { start: 0, end: sequenceLength - 1 },
+          sequenceLength
+        ),
+        bottomStrand: true
+      };
+    });
+    matches = [...matches, ...flippedReverseMatches];
+  }
+  return matches;
+};
+
+function findSequenceMatchesTopStrand(sequence, searchString, options = {}) {
+  const { isCircular, isAmbiguous, isProteinSearch } = options;
   let searchStringToUse = escapeStringRegexp(searchString);
   if (isAmbiguous) {
     if (isProteinSearch) {
@@ -23,6 +58,7 @@ module.exports = function findSequenceMatches(sequence, searchString, options) {
   if (isCircular) {
     sequenceToUse = sequenceToUse + sequenceToUse;
   }
+
   let sequencesToCheck = [{ seqToCheck: sequenceToUse, offset: 0 }];
   if (isProteinSearch) {
     sequencesToCheck = [
@@ -68,7 +104,7 @@ module.exports = function findSequenceMatches(sequence, searchString, options) {
   });
 
   return ranges;
-};
+}
 
 function convertAmbiguousStringToRegex(string, isProtein) {
   // Search for a DNA subseq in sequence.
