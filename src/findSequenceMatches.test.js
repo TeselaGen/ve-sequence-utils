@@ -50,6 +50,16 @@ describe("findSequenceMatches", function() {
       }
     ]);
   });
+  it(" ambiguous AA", function() {
+    expect(
+      findSequenceMatches("atgatg", "MX", { isProteinSearch: true, isAmbiguous: true })
+    ).toEqual([
+      {
+        start: 0,
+        end: 5
+      }
+    ]);
+  });
   it("returns matches for non-circular, non-ambiguous, AA searches", function() {
     expect(findSequenceMatches("atg", "M", { isProteinSearch: true })).toEqual([
       {
