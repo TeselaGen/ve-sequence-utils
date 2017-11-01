@@ -4,5 +4,5 @@ stats.json
 bundle.js
 .DS_Store
 npm-debug.log
-/lib
-/es
+lib/
+es/

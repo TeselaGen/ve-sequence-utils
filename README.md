@@ -1,7 +1,8 @@
-##About this Repo
+
+## About this Repo
 This is a collection of dna sequence utility functions.
 
-All sequences (unless otherwise specified) are assumed to have 0-based inclusive indices. 
+All sequences and annotations (unless otherwise specified) are assumed to have 0-based inclusive indices. 
 ```
   Example:
   0123456
@@ -17,15 +18,15 @@ All sequences (unless otherwise specified) are assumed to have 0-based inclusive
   feature.end = 5
   ```
 
-##Editing This Repo:
-###All collaborators: 
+## Editing This Repo:
+### All collaborators: 
 Edit/create a new file and update/add any relevant tests.
 Make sure they pass by running `npm test`
 
-##Updating this repo: 
-Commit and push all changes first
+## Updating this repo: 
+Commit and push all changes first (make sure tests are passing!)
 
-###Teselagen collaborators: 
+### Teselagen collaborators: 
 Commit and push all changes
 Sign into npm using the teselagen npm account (npm whoami)
 
@@ -34,5 +35,5 @@ npm version patch|minor|major
 npm publish
 ```
 
-###Outside collaborators: 
+### Outside collaborators: 
 fork and pull request please :)

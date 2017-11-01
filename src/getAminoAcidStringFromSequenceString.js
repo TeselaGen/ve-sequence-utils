@@ -1,12 +1,12 @@
-var getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
+const getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
 
 module.exports = function getAminoAcidStringFromSequenceString(sequenceString) {
-  var aminoAcidsPerBase = getAminoAcidDataForEachBaseOfDna(
+  const aminoAcidsPerBase = getAminoAcidDataForEachBaseOfDna(
     sequenceString,
     true
   );
-  var aaArray = [];
-  var aaString = "";
+  const aaArray = [];
+  let aaString = "";
   aminoAcidsPerBase.forEach(function(aa) {
     if (!aa.fullCodon) {
       return;

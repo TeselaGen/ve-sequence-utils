@@ -40,6 +40,16 @@ describe("findSequenceMatches", function() {
       }
     ]);
   });
+  it(" AA with * as stop codon", function() {
+    expect(
+      findSequenceMatches("atgtaa", "M*", { isProteinSearch: true })
+    ).toEqual([
+      {
+        start: 0,
+        end: 5
+      }
+    ]);
+  });
   it("returns matches for non-circular, non-ambiguous, AA searches", function() {
     expect(findSequenceMatches("atg", "M", { isProteinSearch: true })).toEqual([
       {
@@ -139,7 +149,10 @@ describe("findSequenceMatches", function() {
       { bottomStrand: true, end: 0, start: 0 }
     ]);
     expect(
-      findSequenceMatches("atgcctcc", "ccnnc", { isAmbiguous: true, searchReverseStrand: true })
+      findSequenceMatches("atgcctcc", "ccnnc", {
+        isAmbiguous: true,
+        searchReverseStrand: true
+      })
     ).toEqual([
       {
         start: 3,
