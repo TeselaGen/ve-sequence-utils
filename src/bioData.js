@@ -292,7 +292,8 @@ module.exports.extended_protein_values = {
   // # This could alter the extended_protein_weight_ranges ...
   // # by MP: Won't do this, because they are so rare.
   Y: "Y",
-  Z: "QE"
+  Z: "QE",
+  "*": "\\*"
 };
 
 // protein_weight_ranges = _make_ranges(protein_weights)

@@ -49,6 +49,7 @@ function findSequenceMatchesTopStrand(sequence, searchString, options = {}) {
         searchStringToUse,
         true
       );
+      console.log('searchStringToUse:',searchStringToUse)
     } else {
       //we're searching DNA
       searchStringToUse = convertAmbiguousStringToRegex(searchStringToUse);
@@ -112,10 +113,11 @@ function convertAmbiguousStringToRegex(string, isProtein) {
   // searches only on forward strand
   return reduce(
     string,
-    (acc, nt) => {
+    (acc, char) => {
       const value = isProtein
-        ? extended_protein_values[nt.toUpperCase()]
-        : ambiguous_dna_values[nt.toUpperCase()];
+        ? extended_protein_values[char.toUpperCase()]
+        : ambiguous_dna_values[char.toUpperCase()];
+      if (!value) return acc;
       if (value.length === 1) {
         acc += value;
       } else {

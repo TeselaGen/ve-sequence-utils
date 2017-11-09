@@ -50,9 +50,25 @@ describe("findSequenceMatches", function() {
       }
     ]);
   });
-  it(" ambiguous AA", function() {
+  it(" AA with * as stop codon", function() {
+    expect(
+      findSequenceMatches("atgtaaccc", "M**", { isProteinSearch: true })
+    ).toEqual([
+    ]);
+  });
+  it("works with ambiguous AA", function() {
     expect(
       findSequenceMatches("atgatg", "MX", { isProteinSearch: true, isAmbiguous: true })
+    ).toEqual([
+      {
+        start: 0,
+        end: 5
+      }
+    ]);
+  });
+  it("works with ambiguous AA with * in search string", function() {
+    expect(
+      findSequenceMatches("atgtaa", "M*", { isProteinSearch: true, isAmbiguous: true })
     ).toEqual([
       {
         start: 0,
