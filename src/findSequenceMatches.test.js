@@ -40,6 +40,22 @@ describe("findSequenceMatches", function() {
       }
     ]);
   });
+  it("non-ambiguous, dna searches for nothing results in empty array", function() {
+    const matches = findSequenceMatches("atg", "*", { });
+    expect(matches).toEqual([]);
+  });
+  it("ambiguous, protein searches for nothing results in empty array", function() {
+    const matches = findSequenceMatches("atg", "*", { isProteinSearch: true, isAmbiguous: true });
+    expect(matches).toEqual([]);
+  });
+  it("ambiguous, dna searches for nothing results in empty array", function() {
+    const matches = findSequenceMatches("atg", "*", { isAmbiguous: true });
+    expect(matches).toEqual([]);
+  });
+  it("ambiguous, dna searches with *", function() {
+    const matches = findSequenceMatches("atg", "", { isAmbiguous: true });
+    expect(matches).toEqual([]);
+  });
   it(" AA with * as stop codon", function() {
     expect(
       findSequenceMatches("atgtaa", "M*", { isProteinSearch: true })

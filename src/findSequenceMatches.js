@@ -49,12 +49,12 @@ function findSequenceMatchesTopStrand(sequence, searchString, options = {}) {
         searchStringToUse,
         true
       );
-      console.log('searchStringToUse:',searchStringToUse)
     } else {
       //we're searching DNA
       searchStringToUse = convertAmbiguousStringToRegex(searchStringToUse);
     }
   }
+  if (!searchStringToUse) return [] //short circuit if nothing is actually being searched for (eg searching for "%%"")
   let sequenceToUse = sequence;
   if (isCircular) {
     sequenceToUse = sequenceToUse + sequenceToUse;
