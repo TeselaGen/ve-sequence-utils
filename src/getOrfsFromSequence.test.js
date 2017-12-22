@@ -1,12 +1,12 @@
-// var tap = require('tap');
+// const tap = require('tap');
 // tap.mochaGlobals();
-var expect = require("chai").expect;
+const expect = require("chai").expect;
 
-var getOrfsFromSequence = require("./getOrfsFromSequence.js");
+const getOrfsFromSequence = require("./getOrfsFromSequence.js");
 // getOrfsFromSequence(frame, sequence, minimumOrfSize, forward, circular)
 describe("getOrfsFromSequence", function() {
   it("finds correct orfs in reverse direction in slightly more complex sequence", function() {
-    var orfs = getOrfsFromSequence({
+    const orfs = getOrfsFromSequence({
       sequence:
         "gattttaatcactataccaattgagatgggctagtcaatgataattactagtccttttcccgggtgatctgggtatctgtaaattctgctagacctttgctggaaaacttgtaaattctgctagaccctctgtaaattccgctagacctttgtgtgttttttttgtttatattcaagtggttataatttatagaataaagaaagaataaaaaaagataaaaagaatagatcccagccctgtgtataactcactactttagtcagttccgcagtattacaaaaggatgtcgcaaacgctgtttgctcctctacaaaacagaccttaaaaccctaaaggcttaagtagcaccctcgcaagctcgggcaaatcgctgaatattccttttgtctccgaccatcaggcacctgagtcgctgtctttttcgtgacattcagttcgctgcgctcacggctctggcagtgaatgggggtaaatggcactacaggcgccttttatggattcatgcaaggaaactacccataatacaagaaaagcccgtcacgggcttctcagggcgttttatggcgggtctgctatgtggtgctatctgactttttgctgttcagcagttcctgccctctgattttccagtctgaccacttcggattatcccgtgacaggtcattcagactggctaatgcacccagtaaggcagcggtatcatcaacaggcttacccgtcttactgtccctagtgcttggattctcaccaataaaaaacgcccggcggcaaccgagcgttctgaacaaatccagatggagttctgaggtcattactggatctatcaacaggagtccaagcgagctcgatatcaaattacgccccgccctgccactcatcgcagtactgttgtaattcattaagcattctgccgacatggaagccatcacaaacggcatgatgaacctgaatcgccagcggcatcagcaccttgtcgccttgcgtataatatttgcccatggtgaaaacgggggcgaagaagttgtccatattggccacgtttaaatcaaaactggtgaaactcacccagggattggctgagacgaaaaacatattctcaataaaccctttagggaaataggccaggttttcaccgtaacacgccacatcttgcgaatatatgtgtagaaactgccggaaatcgtcgtggtattcactccagagcgatgaaaacgtttcagtttgctcatggaaaacggtgtaacaagggtgaacactatcccatatcaccagctcaccgtctttcattgccatacgaaattccggatgagcattcatcaggcgggcaagaatgtgaataaaggccggataaaacttgtgcttatttttctttacggtctttaaaaaggccgtaatatccagctgaacggtctggttataggtacattgagcaactgactgaaatgcctcaaaatgttctttacgatgccattgggatatatcaacggtggtatatccagtgatttttttctccattttagcttccttagctcctgaaaatctcgataactcaaaaaatacgcccggtagtgatcttatttcattatggtgaaagttggaacctcttacgtgccgatcaacgtctcattttcgccagatatcgacgtcttatgacaacttgacggctacatcattcactttttcttcacaaccggcacggaactcgctcgggctggccccggtgcattttttaaatacccgcgagaaatagagttgatcgtcaaaaccaacattgcgaccgacggtggcgataggcatccgggtggtgctcaaaagcagcttcgcctggctgatacgttggtcctcgcgccagcttaagacgctaatccctaactgctggcggaaaagatgtgacagacgcgacggcgacaagcaaacatgctgtgcgacgctggcgatatcaaaattgctgtctgccaggtgatcgctgatgtactgacaagcctcgcgtacccgattatccatcggtggatggagcgactcgttaatcgcttccatgcgccgcagtaacaattgctcaagcagatttatcgccagcagctccgaatagcgcccttccccttgcccggcgttaatgatttgcccaaacaggtcgctgaaatgcggctggtgcgcttcatccgggcgaaagaaccccgtattggcaaatattgacggccagttaagccattcatgccagtaggcgcgcggacgaaagtaaacccactggtgataccattcgcgagcctccggatgacgaccgtagtgatgaatctctcctggcgggaacagcaaaatatcacccggtcggcaaacaaattctcgtccctgatttttcaccaccccctgaccgcgaatggtgagattgagaatataacctttcattcccagcggtcggtcgataaaaaaatcgagataaccgttggcctcaatcggcgttaaacccgccaccagatgggcattaaacgagtatcccggcagcaggggatcattttgcgcttcagccatacttttcatactcccgccattcagagaagaaaccaattgtccatattgcatcagacattgccgtcactgcgtcttttactggctcttctcgctaaccaaaccggtaaccccgcttattaaaagcattctgtaacaaagcgggaccaaagccatgacaaaaacgcgtaacaaaagtgtctataatcacggcagaaaagtccacattgattatttgcacggcgtcacactttgctatgccatagcatttttatccataagattagcggattctacctgacgctttttatcgcaactctctactgtttctccatacccgtttttttgggaatttttaagaaggagatatacatatgagtaaaggagaagaacttttcactggagttgtcccaattcttgttgaattagatggtgatgttaatgggcacaaattttctgtcagtggagagggtgaaggtgatgcaacatacggaaaacttacccttaaatttatttgcactactggaaaactacctgttccatggccaacacttgtcactactttctcttatggtgttcaatgcttttcccgttatccggatcatatgaaacggcatgactttttcaagagtgccatgcccgaaggttatgtacaggaacgcactatatctttcaaagatgacgggaactacaagacgcgtgctgaagtcaagtttgaaggtgatacccttgttaatcgtatcgagttaaaaggtattgattttaaagaagatggaaacat",
       minimumOrfSize: 3280,
@@ -14,7 +14,7 @@ describe("getOrfsFromSequence", function() {
       circular: false
     });
     expect(orfs).to.be.length(0);
-    var orf = orfs[0];
+    const orf = orfs[0];
     // expect(orf).to.be.an('object');
     // expect(orf.start).to.equal(11);
     // expect(orf.end).to.equal(0);
@@ -24,7 +24,7 @@ describe("getOrfsFromSequence", function() {
     // expect(orf.id).to.be.a('string');
   });
   it("finds correct orfs in reverse direction in slightly more complex sequence", function() {
-    var orfs = getOrfsFromSequence({
+    const orfs = getOrfsFromSequence({
       sequence: "ttarrrcatcat",
       //   E       S     S
       //rrrttarrrcatrrrcatr
@@ -43,7 +43,7 @@ describe("getOrfsFromSequence", function() {
       circular: false
     });
     expect(orfs).to.be.length(1);
-    var orf = orfs[0];
+    const orf = orfs[0];
     expect(orf).to.be.an("object");
     expect(orf.start).to.equal(0);
     expect(orf.end).to.equal(11);
@@ -54,14 +54,14 @@ describe("getOrfsFromSequence", function() {
     expect(orf.id).to.be.a("string");
   });
   it("finds correct orfs in reverse direction in simple sequence", function() {
-    var orfs = getOrfsFromSequence({
+    const orfs = getOrfsFromSequence({
       sequence: "ttacat",
       minimumOrfSize: 0,
       forward: false,
       circular: false
     });
     expect(orfs).to.be.length(1);
-    var orf = orfs[0];
+    const orf = orfs[0];
     expect(orf).to.be.an("object");
     expect(orf.start).to.equal(0);
     expect(orf.end).to.equal(5);
@@ -72,14 +72,14 @@ describe("getOrfsFromSequence", function() {
     expect(orf.id).to.be.a("string");
   });
   it("finds correct orfs in slightly more complex sequence", function() {
-    var orfs = getOrfsFromSequence({
+    const orfs = getOrfsFromSequence({
       sequence: "atgatgffftaa",
       minimumOrfSize: 0,
       forward: true,
       circular: false
     });
     expect(orfs).to.be.length(1);
-    var orf = orfs[0];
+    const orf = orfs[0];
     expect(orf).to.be.an("object");
     expect(orf.start).to.equal(0);
     expect(orf.end).to.equal(11);
@@ -90,14 +90,50 @@ describe("getOrfsFromSequence", function() {
     expect(orf.id).to.be.a("string");
   });
   it("finds correct orfs in simple sequence", function() {
-    var orfs = getOrfsFromSequence({
+    const orfs = getOrfsFromSequence({
       sequence: "atgtaa",
       minimumOrfSize: 0,
       forward: true,
       circular: false
     });
     expect(orfs).to.be.length(1);
-    var orf = orfs[0];
+    const orf = orfs[0];
+    expect(orf).to.be.an("object");
+    expect(orf.start).to.equal(0);
+    expect(orf.end).to.equal(5);
+    expect(orf.forward).to.equal(true);
+    expect(orf.isOrf).to.equal(true);
+    expect(orf.frame).to.equal(0);
+    expect(orf.internalStartCodonIndices).to.deep.equal([]);
+    expect(orf.id).to.be.a("string");
+  });
+  it("it will find additional orfs if useAdditionalOrfStartCodons is set to true in simple sequence", function() {
+    let orfs = getOrfsFromSequence({
+      sequence: "ctgtaa",
+      minimumOrfSize: 0,
+      forward: true,
+      circular: false,
+      useAdditionalOrfStartCodons: true,
+    });
+    expect(orfs).to.be.length(1);
+    let orf = orfs[0];
+    expect(orf).to.be.an("object");
+    expect(orf.start).to.equal(0);
+    expect(orf.end).to.equal(5);
+    expect(orf.forward).to.equal(true);
+    expect(orf.isOrf).to.equal(true);
+    expect(orf.frame).to.equal(0);
+    expect(orf.internalStartCodonIndices).to.deep.equal([]);
+    expect(orf.id).to.be.a("string");
+    orfs = getOrfsFromSequence({
+      sequence: "gtgtaa",
+      minimumOrfSize: 0,
+      forward: true,
+      circular: false,
+      useAdditionalOrfStartCodons: true,
+    });
+    expect(orfs).to.be.length(1);
+    orf = orfs[0];
     expect(orf).to.be.an("object");
     expect(orf.start).to.equal(0);
     expect(orf.end).to.equal(5);
@@ -108,14 +144,14 @@ describe("getOrfsFromSequence", function() {
     expect(orf.id).to.be.a("string");
   });
   it("finds correct orfs in simple sequence with different capitalizations", function() {
-    var orfs = getOrfsFromSequence({
+    const orfs = getOrfsFromSequence({
       sequence: "ATGTAA",
       minimumOrfSize: 0,
       forward: true,
       circular: false
     });
     expect(orfs).to.be.length(1);
-    var orf = orfs[0];
+    const orf = orfs[0];
     expect(orf).to.be.an("object");
     expect(orf.start).to.equal(0);
     expect(orf.end).to.equal(5);
@@ -126,7 +162,7 @@ describe("getOrfsFromSequence", function() {
     expect(orf.id).to.be.a("string");
   });
   it("doesnt find orfs in simple sequence with no orfs", function() {
-    var orfs = getOrfsFromSequence({
+    const orfs = getOrfsFromSequence({
       sequence: "gtgtaa",
       minimumOrfSize: 0,
       forward: true,

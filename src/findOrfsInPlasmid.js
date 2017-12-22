@@ -1,22 +1,25 @@
-var getOrfsFromSequence = require("./getOrfsFromSequence.js");
+const getOrfsFromSequence = require("./getOrfsFromSequence.js");
 module.exports = function findOrfsInPlasmid(
   sequence,
   circular,
-  minimumOrfSize
+  minimumOrfSize,
+  useAdditionalOrfStartCodons
 ) {
   //tnr, we should do the parsing down of the orfs immediately after they're returned from this sequence
-  // var orfs1Forward = eliminateCircularOrfsThatOverlapWithNonCircularOrfs(getOrfsFromSequence(0, doubleForwardSequence, minimumOrfSize, true), maxLength);
-  var forwardOrfs = getOrfsFromSequence({
+  // const orfs1Forward = eliminateCircularOrfsThatOverlapWithNonCircularOrfs(getOrfsFromSequence(0, doubleForwardSequence, minimumOrfSize, true), maxLength);
+  const forwardOrfs = getOrfsFromSequence({
     sequence: sequence,
     minimumOrfSize: minimumOrfSize,
     forward: true,
-    circular: circular
+    circular: circular,
+    useAdditionalOrfStartCodons
   });
-  var reverseOrfs = getOrfsFromSequence({
+  const reverseOrfs = getOrfsFromSequence({
     sequence: sequence,
     minimumOrfSize: minimumOrfSize,
     forward: false,
-    circular: circular
+    circular: circular,
+    useAdditionalOrfStartCodons
   });
   return forwardOrfs.concat(reverseOrfs);
 };
