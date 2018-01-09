@@ -1,16 +1,16 @@
-var getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
-var getReverseComplementAnnotation = require("./getReverseComplementAnnotation");
-var annotationTypes = require("./annotationTypes");
-var { map } = require("lodash");
-var tidyUpSequenceData = require("./tidyUpSequenceData");
-// var ac = require('ve-api-check');
+const getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
+const getReverseComplementAnnotation = require("./getReverseComplementAnnotation");
+const annotationTypes = require("./annotationTypes");
+const { map } = require("lodash");
+const tidyUpSequenceData = require("./tidyUpSequenceData");
+// const ac = require('ve-api-check');
 // ac.throw([ac.string,ac.bool],arguments);
 module.exports = function getReverseComplementSequenceAndAnnoations(
   pSeqObj,
   options
 ) {
-  var seqObj = tidyUpSequenceData(pSeqObj, options);
-  var newSeqObj = Object.assign(
+  const seqObj = tidyUpSequenceData(pSeqObj, options);
+  const newSeqObj = Object.assign(
     {},
     seqObj,
     {
