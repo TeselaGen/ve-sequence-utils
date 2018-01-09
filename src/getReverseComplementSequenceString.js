@@ -4,7 +4,7 @@ const DNAComplementMap = require("./DNAComplementMap");
 module.exports = function getReverseComplementSequenceString(sequence) {
   // ac.throw([ac.string],arguments);
   let reverseComplementSequenceString = "";
-  for (const i = sequence.length - 1; i >= 0; i--) {
+  for (let i = sequence.length - 1; i >= 0; i--) {
     let revChar = DNAComplementMap[sequence[i]];
     if (!revChar) {
       revChar = sequence[i];
