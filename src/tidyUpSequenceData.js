@@ -40,7 +40,9 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
         seqData[name] = [];
       }
     }
-    seqData[name] = seqData[name].filter(cleanUpAnnotation);
+    seqData[name] = seqData[name].filter((annotation) => {
+      return cleanUpAnnotation(annotation, options)
+    });
   });
 
   seqData.translations = seqData.translations.map(function(translation) {
@@ -74,7 +76,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
   }
   return seqData;
 
-  function cleanUpAnnotation(annotation) {
+  function cleanUpAnnotation(annotation, options) {
     if (!annotation || typeof annotation !== "object") {
       response.messages.push("Invalid annotation detected and removed");
       return false;
@@ -88,6 +90,9 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
         'Unable to detect valid name for annotation, setting name to "Untitled annotation"'
       );
       annotation.name = "Untitled annotation";
+    }
+    if (options.provideNewIdsForAnnotations) {
+      annotation.id = bsonObjectid().str;
     }
     if (!annotation.id && annotation.id !== 0) {
       annotation.id = bsonObjectid().str;
