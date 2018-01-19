@@ -1,4 +1,9 @@
-module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, threshold = 0.90, dnaLetters = ['G', 'A', 'T', 'C']) {
+module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options={}) {
+  const {
+    threshold = 0.90, 
+    dnaLetters = ['G', 'A', 'T', 'C']
+  } = options
+
   // Guess if the given sequence is DNA or Protein.
 
   //   It's considered DNA if more than 90% of the sequence is GATCs. The threshold
