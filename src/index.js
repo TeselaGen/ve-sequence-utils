@@ -1,5 +1,6 @@
 module.exports.DNAComplementMap = require("./DNAComplementMap");
 module.exports.FeatureTypes = require("./FeatureTypes");
+module.exports.getCutsiteType = require("./getCutsiteType");
 module.exports.annotationTypes = require("./annotationTypes");
 module.exports.calculatePercentGC = require("./calculatePercentGC");
 module.exports.calculateTm = require("./calculateTm");
