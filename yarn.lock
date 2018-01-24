@@ -7783,9 +7783,9 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
-ve-range-utils@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/ve-range-utils/-/ve-range-utils-2.3.2.tgz#d3bb5d732d579350fd3791efee0f441a2c0918a6"
+ve-range-utils@2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/ve-range-utils/-/ve-range-utils-2.3.3.tgz#364d0fdfaa047b6e3b967ff287886fa09edbc027"
   dependencies:
     lodash "^4.17.4"
     validate.io-nonnegative-integer-array "^1.0.1"
