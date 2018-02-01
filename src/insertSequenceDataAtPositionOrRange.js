@@ -1,4 +1,4 @@
-const { map } = require("lodash");
+const { map, cloneDeep } = require("lodash");
 const {
   adjustRangeToInsert,
   adjustRangeToDeletionOfAnotherRange
@@ -14,7 +14,7 @@ module.exports = function insertSequenceDataAtPositionOrRange(
 ) {
   const existingSequenceData = tidyUpSequenceData(_existingSequenceData);
   const sequenceDataToInsert = tidyUpSequenceData(_sequenceDataToInsert);
-  let newSequenceData = tidyUpSequenceData({}); //makes a new blank sequence
+  let newSequenceData = cloneDeep(existingSequenceData)
   const insertLength = sequenceDataToInsert.sequence.length;
   let caretPosition = caretPositionOrRange;
 
@@ -41,7 +41,9 @@ module.exports = function insertSequenceDataAtPositionOrRange(
         existingSequenceData.sequence.length
       );
     }
-
+    //first clear the newSequenceData's annotations
+    newSequenceData[annotationType] = []
+    //in two steps adjust the annotations to the insert
     newSequenceData[annotationType] = newSequenceData[annotationType].concat(
       adjustAnnotationsToInsert(
         existingAnnotations,

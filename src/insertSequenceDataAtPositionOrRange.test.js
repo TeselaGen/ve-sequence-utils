@@ -30,6 +30,29 @@ describe("insertSequenceData", function() {
         getRangeLength(range)
     );
   });
+  it("inserts characters at correct range, and doesn't clobber other properties on the existing sequence data", function() {
+    let sequenceToInsert = {
+      sequence: "atgagagaga"
+    };
+    let sequenceToInsertInto = {
+      sequence: "atagatag",
+      name: "thomasDaMan!",
+      circular: true
+    };
+    let range = { start: 3, end: 5 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.length.should.equal(
+      sequenceToInsertInto.sequence.length +
+        sequenceToInsert.sequence.length -
+        getRangeLength(range)
+    );
+    postInsertSeq.name.should.equal("thomasDaMan!")
+    postInsertSeq.circular.should.equal(true)
+  });
   it("inserts characters at correct caret position", function() {
     let sequenceToInsert = {
       sequence: "atgagagaga"
