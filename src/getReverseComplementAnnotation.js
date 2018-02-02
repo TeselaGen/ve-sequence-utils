@@ -14,7 +14,6 @@ module.exports = function getReverseComplementAnnotation(
   //so, erutaef start = 2 = 10 - (7+1)
   //and, erutaef end = 8 = 10 - (1+1)
 
-  console.log("sequenceLength, annotation:", sequenceLength, annotation);
   return Object.assign({}, annotation, {
     start: sequenceLength - (annotation.end + 1),
     end: sequenceLength - (annotation.start + 1),

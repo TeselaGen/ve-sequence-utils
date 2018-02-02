@@ -23,9 +23,7 @@ module.exports = function adjustBpsToReplaceOrInsert(
     ranges.forEach((range, index) => {
       stringToReturn += getSequenceWithinRange(range, bpString);
       if (ranges.length === 1) {
-        console.log("range:", range);
         if (isPositionWithinRange(0, range, bpString.length, true, true)) {
-          console.log("yyyy");
           stringToReturn = stringToReturn + insertString;
         } else {
           stringToReturn = insertString + stringToReturn;
