@@ -22,7 +22,7 @@ module.exports = {
   CDS: "#D9B0E9",
   conserved: "#A3A5F0",
   D_segment: "#C060F7",
-  "D-loop": "oop: #F13C73",
+  "D-loop": "#F13C73",
   enhancer: "#38F872",
   exon: "#95F844",
   gap: "#F7D43C",
