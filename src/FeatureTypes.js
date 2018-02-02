@@ -72,6 +72,6 @@ module.exports = [
   "transit_peptide",
   "transposon",
   "tRNA",
-  "V_region ",
+  "V_region",
   "variation"
 ];
