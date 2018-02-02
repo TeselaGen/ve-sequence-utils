@@ -35,6 +35,7 @@ module.exports = [
   "modified_base",
   "mRNA",
   "N_region",
+  "old_sequence",
   "operator",
   "operon",
   "oriT",
