@@ -7,8 +7,12 @@ const FeatureTypes = require("./FeatureTypes.js");
 const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const annotationTypes = require("./annotationTypes");
 
-module.exports = function tidyUpSequenceData(pSeqData, options) {
-  options = options || {};
+module.exports = function tidyUpSequenceData(pSeqData, options={}) {
+  const {
+    annotationsAsObjects,
+    provideNewIdsForAnnotations,
+    logMessages
+  } = options
   let seqData = assign({}, pSeqData); //sequence is usually immutable, so we clone it and return it
   let response = {
     messages: []
@@ -22,7 +26,9 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
   seqData.size = seqData.sequence.length;
   if (
     seqData.circular === "false" ||
+    /* eslint-disable eqeqeq*/ 
     seqData.circular == -1 ||
+    /* eslint-enable eqeqeq*/ 
     !seqData.circular
   ) {
     seqData.circular = false;
@@ -56,7 +62,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
     return translation;
   });
 
-  if (options.annotationsAsObjects) {
+  if (annotationsAsObjects) {
     annotationTypes.forEach(function(name) {
       seqData[name] = seqData[name].reduce(function(acc, item) {
         let itemId;
@@ -71,7 +77,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
       }, {});
     });
   }
-  if (response.messages.length > 0) {
+  if (logMessages && response.messages.length > 0) {
     console.log("tidyUpSequenceData messages:", response.messages);
   }
   return seqData;
@@ -91,7 +97,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options) {
       );
       annotation.name = "Untitled annotation";
     }
-    if (options.provideNewIdsForAnnotations) {
+    if (provideNewIdsForAnnotations) {
       annotation.id = bsonObjectid().str;
     }
     if (!annotation.id && annotation.id !== 0) {
