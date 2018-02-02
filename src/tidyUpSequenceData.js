@@ -153,8 +153,10 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
       annotation.strand === "+"
     ) {
       annotation.forward = true;
+      annotation.strand = 1
     } else {
       annotation.forward = false;
+      annotation.strand = -1
     }
 
     if (
