@@ -5,7 +5,7 @@ const {generateRandomRange} = require('ve-range-utils');
 const objectid = require('bson-objectid');
 const randomcolor = require('randomcolor');
 
-module.exports = function generateSequenceData({sequenceLength = 1000,}) {
+module.exports = function generateSequenceData({sequenceLength = 1000,}={}) {
   return {
     // "sequence" : "gtggatgcatgtgtcatggtcat",
     circular: true,
