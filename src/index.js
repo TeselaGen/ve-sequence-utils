@@ -9,6 +9,7 @@ module.exports.doesEnzymeChopOutsideOfRecognitionSite = require("./doesEnzymeCho
 module.exports.enzymeList = require("./enzymeList");
 module.exports.featureColors = require("./featureColors");
 module.exports.FeatureTypes = require("./FeatureTypes");
+module.exports.generateSequenceData = require("./generateSequenceData");
 module.exports.filterAminoAcidSequenceString = require("./filterAminoAcidSequenceString");
 module.exports.filterSequenceString = require("./filterSequenceString");
 module.exports.findNearestRangeOfSequenceOverlapToPosition = require("./findNearestRangeOfSequenceOverlapToPosition");
