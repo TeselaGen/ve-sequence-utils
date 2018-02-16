@@ -1,6 +1,6 @@
 {
   "name": "ve-sequence-utils",
-  "version": "3.2.26",
+  "version": "3.2.27",
   "description": "sequence utility functions",
   "main": "lib",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
