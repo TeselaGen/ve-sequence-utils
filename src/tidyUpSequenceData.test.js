@@ -42,6 +42,49 @@ describe("tidyUpSequenceData", function() {
     Object.keys(res.features).should.be.length(2);
   });
 
+  it("should add feature type = misc_feature if no type is provided", function() {
+    const res = tidyUpSequenceData(
+      {
+        features: [{ start: 4, end: 5 }]
+      },
+    );
+    res.features[0].type.should.equal("misc_feature")
+  });
+  // it("should normalize strange upper/lower casing in feature types", function() {
+  //   const res = tidyUpSequenceData(
+  //     {
+  //       features: [{ start: 4, end: 5, type: "cDs" }]
+  //     },
+  //   );
+  //   res.features[0].type.should.equal("CDS")
+  // });
+  it("should not clobber existing feature types", function() {
+    const res = tidyUpSequenceData(
+      {
+        features: [{ start: 4, end: 5, type: "CDS" }]
+      },
+    );
+    res.features[0].type.should.equal("CDS")
+  });
+
+  it("should add correct color based on type for existing features colors", function() {
+    const res = tidyUpSequenceData(
+      {
+        features: [{ start: 4, end: 5,  type: "CDS"}]
+      },
+    );
+    res.features[0].color.should.equal("#D9B0E9")
+  });
+
+  it("should not clobber existing feature colors", function() {
+    const res = tidyUpSequenceData(
+      {
+        features: [{ start: 4, end: 5, color: "#f4f4f4" }]
+      },
+    );
+    res.features[0].color.should.equal("#f4f4f4")
+  });
+
   it("should add new ids to annotations if passed that option", function() {
     const res = tidyUpSequenceData(
       {

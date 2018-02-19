@@ -2,10 +2,10 @@
 const bsonObjectid = require("bson-objectid");
 const getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
 const { cloneDeep } = require("lodash");
-const randomColor = require("randomcolor");
 const FeatureTypes = require("./FeatureTypes.js");
 const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const annotationTypes = require("./annotationTypes");
+const featureColors = require('./featureColors');
 
 module.exports = function tidyUpSequenceData(pSeqData, options={}) {
   const {
@@ -88,8 +88,8 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
       return false;
     }
 
-    annotation.start = parseInt(annotation.start);
-    annotation.end = parseInt(annotation.end);
+    annotation.start = parseInt(annotation.start, 10);
+    annotation.end = parseInt(annotation.end, 10);
 
     if (!annotation.name || typeof annotation.name !== "string") {
       response.messages.push(
@@ -141,9 +141,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
       ); //setting it to 0 internally, but users will see it as 1
       annotation.end = 0;
     }
-    if (!annotation.color) {
-      annotation.color = randomColor();
-    }
+    
 
     if (
       annotation.forward === true ||
@@ -167,6 +165,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
           annotation.type = featureType; //this makes sure the annotation.type is being set to the exact value of the accepted featureType
           return true;
         }
+        return false
       })
     ) {
       response.messages.push(
@@ -177,6 +176,10 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
           ". set type to misc_feature"
       );
       annotation.type = "misc_feature";
+    }
+
+    if (!annotation.color) {
+      annotation.color = featureColors[annotation.type]
     }
     return true;
   }
