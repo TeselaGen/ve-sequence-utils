@@ -10,8 +10,7 @@ module.exports = {
   attenuator: "#6B7F9C",
   C_region: "#B5D89D",
   CAAT_signal: "#E9CD98",
-  CDS: "#D9B0E9",
-  cds: "#EF6500",
+  CDS: "#EF6500",
   conserved: "#A3A5F0",
   D_segment: "#C060F7",
   default: "#CCCCCC",
@@ -79,3 +78,4 @@ module.exports = {
   V_region: "#7B5EE7",
   variation: "#2EE455",
 }
+
