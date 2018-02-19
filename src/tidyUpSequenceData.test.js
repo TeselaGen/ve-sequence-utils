@@ -73,7 +73,7 @@ describe("tidyUpSequenceData", function() {
         features: [{ start: 4, end: 5,  type: "CDS"}]
       },
     );
-    res.features[0].color.should.equal("#D9B0E9")
+    res.features[0].color.should.equal("#EF6500")
   });
 
   it("should not clobber existing feature colors", function() {
