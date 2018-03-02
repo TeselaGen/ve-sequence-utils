@@ -7,6 +7,22 @@ const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const annotationTypes = require("./annotationTypes");
 const featureColors = require('./featureColors');
 
+const isPositiveGeneric = value => 
+  value === true ||
+  value === "true" ||
+  value === 1 ||
+  value === "1" ||
+  value === "+"
+
+const isNegativeGeneric = value => 
+  value === false ||
+  value === "false" ||
+  value === 0 ||
+  value === "0" ||
+  value === -1 ||
+  value === "-1" ||
+  value === "-"
+
 module.exports = function tidyUpSequenceData(pSeqData, options={}) {
   const {
     annotationsAsObjects,
@@ -144,11 +160,8 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
     
 
     if (
-      annotation.forward === true ||
-      annotation.forward === "true" ||
-      annotation.strand === 1 ||
-      annotation.strand === "1" ||
-      annotation.strand === "+"
+      isPositiveGeneric(annotation.forward) || 
+      (!isNegativeGeneric(annotation.forward) && isPositiveGeneric(annotation.strand))
     ) {
       annotation.forward = true;
       annotation.strand = 1
