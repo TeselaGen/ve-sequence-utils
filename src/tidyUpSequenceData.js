@@ -5,30 +5,30 @@ const { cloneDeep } = require("lodash");
 const FeatureTypes = require("./FeatureTypes.js");
 const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const annotationTypes = require("./annotationTypes");
-const featureColors = require('./featureColors');
+const featureColors = require("./featureColors");
 
-const isPositiveGeneric = value => 
+const isPositiveGeneric = value =>
   value === true ||
   value === "true" ||
   value === 1 ||
   value === "1" ||
-  value === "+"
+  value === "+";
 
-const isNegativeGeneric = value => 
+const isNegativeGeneric = value =>
   value === false ||
   value === "false" ||
   value === 0 ||
   value === "0" ||
   value === -1 ||
   value === "-1" ||
-  value === "-"
+  value === "-";
 
-module.exports = function tidyUpSequenceData(pSeqData, options={}) {
+module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   const {
     annotationsAsObjects,
     provideNewIdsForAnnotations,
     logMessages
-  } = options
+  } = options;
   let seqData = cloneDeep(pSeqData); //sequence is usually immutable, so we clone it and return it
   let response = {
     messages: []
@@ -42,9 +42,11 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
   seqData.size = seqData.sequence.length;
   if (
     seqData.circular === "false" ||
-    /* eslint-disable eqeqeq*/ 
+    /* eslint-disable eqeqeq*/
+
     seqData.circular == -1 ||
-    /* eslint-enable eqeqeq*/ 
+    /* eslint-enable eqeqeq*/
+
     !seqData.circular
   ) {
     seqData.circular = false;
@@ -62,8 +64,8 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
         seqData[name] = [];
       }
     }
-    seqData[name] = seqData[name].filter((annotation) => {
-      return cleanUpAnnotation(annotation, options)
+    seqData[name] = seqData[name].filter(annotation => {
+      return cleanUpAnnotation(annotation, options);
     });
   });
 
@@ -157,17 +159,17 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
       ); //setting it to 0 internally, but users will see it as 1
       annotation.end = 0;
     }
-    
 
     if (
-      isPositiveGeneric(annotation.forward) || 
-      (!isNegativeGeneric(annotation.forward) && isPositiveGeneric(annotation.strand))
+      isPositiveGeneric(annotation.forward) ||
+      (!isNegativeGeneric(annotation.forward) &&
+        isPositiveGeneric(annotation.strand))
     ) {
       annotation.forward = true;
-      annotation.strand = 1
+      annotation.strand = 1;
     } else {
       annotation.forward = false;
-      annotation.strand = -1
+      annotation.strand = -1;
     }
 
     if (
@@ -178,7 +180,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
           annotation.type = featureType; //this makes sure the annotation.type is being set to the exact value of the accepted featureType
           return true;
         }
-        return false
+        return false;
       })
     ) {
       response.messages.push(
@@ -192,7 +194,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
     }
 
     if (!annotation.color) {
-      annotation.color = featureColors[annotation.type]
+      annotation.color = featureColors[annotation.type];
     }
     return true;
   }
