@@ -56,7 +56,7 @@ function generateAnnotation(start, stop, maxLength) {
     name: getRandomInt(0, 100000).toString(),
     type: "misc_feature",
     id: objectid().str,
-    forward: getRandomInt(0, 1) > 0.5,
+    forward: Math.random() > 0.5,
     notes: {}
   };
 }
