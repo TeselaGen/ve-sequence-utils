@@ -4,7 +4,7 @@
 module.exports = function filterSequenceString(sequenceString, additionalValidChars="") {
   // ac.throw(ac.string,sequenceString);
   if (sequenceString) {
-    return sequenceString.replace(new RegExp(`[^atgcyrswkmbvdhn${additionalValidChars}]`, "gi"), "");
+    return sequenceString.replace(new RegExp(`[^atgcyrswkmbvdhn${additionalValidChars.split("").join("\\")}]`, "gi"), "");
   } else {
     return sequenceString;
   }

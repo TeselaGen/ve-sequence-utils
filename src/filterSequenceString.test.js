@@ -7,4 +7,7 @@ describe("filterSequenceString", function() {
   it("should handle additional chars option", function() {
     expect(filterSequenceString("tatag--a", "-")).toBe("tatag--a");
   });
+  it("should handle additional chars option", function() {
+    expect(filterSequenceString("tatag--a", "f-q")).toBe("tatag--a");
+  });
 });
