@@ -1,13 +1,13 @@
-// var ac = require('ve-api-check');
+// const ac = require('ve-api-check');
 // ac.throw([ac.posInt, ac.posInt, ac.bool], arguments);
-var mapAnnotationsToRows = require("../mapAnnotationsToRows");
-var annotationTypes = require("../annotationTypes");
+const mapAnnotationsToRows = require("../mapAnnotationsToRows");
+const annotationTypes = require("../annotationTypes");
 module.exports = function prepareRowData(sequenceData, bpsPerRow) {
   // ac.throw([ac.sequenceData, ac.posInt], arguments);
-  var sequenceLength = sequenceData.sequence.length;
-  var totalRows = Math.ceil(sequenceLength / bpsPerRow) || 1; //this check makes sure there is always at least 1 row!
-  var rows = [];
-  var rowMap = {};
+  const sequenceLength = sequenceData.sequence.length;
+  const totalRows = Math.ceil(sequenceLength / bpsPerRow) || 1; //this check makes sure there is always at least 1 row!
+  const rows = [];
+  const rowMap = {};
   annotationTypes.forEach(function(type) {
     rowMap[type] = mapAnnotationsToRows(
       sequenceData[type],
@@ -16,8 +16,8 @@ module.exports = function prepareRowData(sequenceData, bpsPerRow) {
     );
   });
 
-  for (var rowNumber = 0; rowNumber < totalRows; rowNumber++) {
-    var row = {};
+  for (let rowNumber = 0; rowNumber < totalRows; rowNumber++) {
+    const row = {};
     row.rowNumber = rowNumber;
     row.start = rowNumber * bpsPerRow;
     row.end =

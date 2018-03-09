@@ -1,4 +1,4 @@
-// var ac = require('ve-api-check');
+// const ac = require('ve-api-check');
 // ac.throw([ac.string,ac.bool],arguments);
 const {
   each
@@ -23,8 +23,8 @@ module.exports = function mapAnnotationsToRows(
   // ac.throw(ac.posInt, sequenceLength);
   // ac.throw(ac.posInt, bpsPerRow);
 
-  var annotationsToRowsMap = {};
-  var yOffsetLevelMap = {};
+  const annotationsToRowsMap = {};
+  const yOffsetLevelMap = {};
 
   each(annotations, function(annotation) {
     mapAnnotationToRows(
@@ -45,24 +45,24 @@ function mapAnnotationToRows(
   annotationsToRowsMap,
   yOffsetLevelMap
 ) {
-  var ranges = splitRangeIntoTwoPartsIfItIsCircular(annotation, sequenceLength);
+  const ranges = splitRangeIntoTwoPartsIfItIsCircular(annotation, sequenceLength);
   ranges.forEach(function(range, index) {
     // if (!isPositiveInteger(range.start)) {}
-    var startingRow = Math.floor(range.start / bpsPerRow);
-    var endingRow = Math.floor(range.end / bpsPerRow);
-    // var numberOfRows = endingRow - startingRow + 1;
-    for (var rowNumber = startingRow; rowNumber <= endingRow; rowNumber++) {
+    const startingRow = Math.floor(range.start / bpsPerRow);
+    const endingRow = Math.floor(range.end / bpsPerRow);
+    // const numberOfRows = endingRow - startingRow + 1;
+    for (let rowNumber = startingRow; rowNumber <= endingRow; rowNumber++) {
       if (!annotationsToRowsMap[rowNumber]) {
         annotationsToRowsMap[rowNumber] = [];
       }
-      var annotationsForRow = annotationsToRowsMap[rowNumber];
+      const annotationsForRow = annotationsToRowsMap[rowNumber];
       if (!yOffsetLevelMap[rowNumber]) {
         yOffsetLevelMap[rowNumber] = [];
       }
-      var yOffsetsForRow = yOffsetLevelMap[rowNumber];
-      var start =
+      const yOffsetsForRow = yOffsetLevelMap[rowNumber];
+      const start =
         rowNumber === startingRow ? range.start : rowNumber * bpsPerRow;
-      var end =
+      const end =
         rowNumber === endingRow
           ? range.end
           : rowNumber * bpsPerRow + bpsPerRow - 1;
@@ -71,7 +71,7 @@ function mapAnnotationToRows(
       //get the y-offset for circular features that start and end on the same row
 
       //we pass the entire annotation range here and compare it only with ranges that have already been added to the row
-      var yOffset;
+      let yOffset;
       if (
         index > 0 && //second half of an annotation range
         annotationsForRow.length && //there are already annotations within the row
@@ -109,7 +109,7 @@ function mapAnnotationToRows(
 
 //
 // function calculateNecessaryYOffsetForAnnotationInRow(annotationsAlreadyAddedToRow, ranges) {
-//     var blockedYOffsets = [];
+//     const blockedYOffsets = [];
 //   //adjust the yOffset of the range being pushed in by checking its range against other ranges already in the row
 //     each(annotationsAlreadyAddedToRow, function(comparisonRange) {
 //         //check for overlap with other annotations
@@ -121,15 +121,15 @@ function mapAnnotationToRows(
 //         });
 //     });
 
-//     var newYOffset = 0;
+//     const newYOffset = 0;
 //   //sort and remove duplicates from the blockedYOffsets array
 //   //then starting with newYOffset = 1, see if there is space for the location
 //     if (blockedYOffsets.length > 0) {
-//         var sortedBlockedYOffsets = sortBy(blockedYOffsets, function(n) {
+//         const sortedBlockedYOffsets = sortBy(blockedYOffsets, function(n) {
 //             return n;
 //         });
-//         var sortedUniqueBlockedYOffsets = uniq(sortedBlockedYOffsets, true); //true here specifies that the array has already been sorted
-//         var stillPotentiallyBlocked = true;
+//         const sortedUniqueBlockedYOffsets = uniq(sortedBlockedYOffsets, true); //true here specifies that the array has already been sorted
+//         const stillPotentiallyBlocked = true;
 //         while (stillPotentiallyBlocked) {
 //       //sortedUniqueBlockedYOffsets is an array starting with 1 eg. [1,2,4,5,6]
 //       //so we loop through it using the index of newYOffset-1, and if there is a gap

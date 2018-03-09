@@ -1,7 +1,6 @@
-const { map, cloneDeep } = require("lodash");
+const { map } = require("lodash");
 const {
-  adjustRangeToInsert,
-  adjustRangeToDeletionOfAnotherRange
+  adjustRangeToRotation
 } = require("ve-range-utils");
 const tidyUpSequenceData = require("./tidyUpSequenceData");
 const modifiableTypes = require("./annotationTypes").modifiableTypes;
@@ -9,67 +8,35 @@ const rotateBpsToPosition = require("./rotateBpsToPosition");
 
 module.exports = function rotateSequenceDataToPosition(
   sequenceData,
-  caretPosition,
+  caretPosition
 ) {
-  const existingSequenceData = tidyUpSequenceData(sequenceData);
-  let newSequenceData = cloneDeep(existingSequenceData)
-  
+  const newSequenceData = tidyUpSequenceData(sequenceData);
 
   //update the sequence
   newSequenceData.sequence = rotateBpsToPosition(
-    existingSequenceData.sequence,
-    sequenceDataToInsert.sequence,
-    caretPositionOrRange
+    newSequenceData.sequence,
+    caretPosition
   );
 
   //handle the insert
   modifiableTypes.forEach(annotationType => {
-    let existingAnnotations = existingSequenceData[annotationType];
     //update the annotations:
     //handle the delete if necessary
-    if (caretPositionOrRange && caretPositionOrRange.start > -1) {
-      //we have a range! so let's delete it!
-      const range = caretPositionOrRange;
-      caretPosition = range.start;
-      //update all annotations for the deletion
-      existingAnnotations = adjustAnnotationsToDelete(
-        existingAnnotations,
-        range,
-        existingSequenceData.sequence.length
-      );
-    }
-    //first clear the newSequenceData's annotations
-    newSequenceData[annotationType] = []
-    //in two steps adjust the annotations to the insert
-    newSequenceData[annotationType] = newSequenceData[annotationType].concat(
-      adjustAnnotationsToInsert(
-        existingAnnotations,
-        caretPosition,
-        insertLength
-      )
-    );
-    newSequenceData[annotationType] = newSequenceData[annotationType].concat(
-      adjustAnnotationsToInsert(
-        sequenceDataToInsert[annotationType],
-        0,
-        caretPosition
-      )
+    newSequenceData[annotationType] = adjustAnnotationsToRotation(
+      newSequenceData[annotationType],
+      caretPosition,
+      newSequenceData.sequence.length
     );
   });
   return newSequenceData;
 };
 
-function adjustAnnotationsToInsert(
+function adjustAnnotationsToRotation(
   annotationsToBeAdjusted,
-  insertStart,
-  insertLength
+  positionToRotateTo,
+  maxLength
 ) {
   return map(annotationsToBeAdjusted, function(annotation) {
-    return adjustRangeToInsert(annotation, insertStart, insertLength);
-  });
-}
-function adjustAnnotationsToDelete(annotationsToBeAdjusted, range, maxLength) {
-  return map(annotationsToBeAdjusted, function(annotation) {
-    return adjustRangeToDeletionOfAnotherRange(annotation, range, maxLength);
+    return adjustRangeToRotation(annotation, positionToRotateTo, maxLength);
   }).filter(range => !!range); //filter any fully deleted ranges
 }

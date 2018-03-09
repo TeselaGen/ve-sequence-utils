@@ -42,5 +42,7 @@ module.exports.mapAnnotationsToRows = require("./mapAnnotationsToRows");
 module.exports.prepareCircularViewData = require("./prepareCircularViewData");
 module.exports.prepareRowData = require("./prepareRowData");
 module.exports.proteinAlphabet = require("./proteinAlphabet");
+module.exports.rotateSequenceDataToPosition = require("./rotateSequenceDataToPosition");
+module.exports.rotateBpsToPosition = require("./rotateBpsToPosition");
 module.exports.threeLetterSequenceStringToAminoAcidMap = require("./threeLetterSequenceStringToAminoAcidMap");
 module.exports.tidyUpSequenceData = require("./tidyUpSequenceData");
