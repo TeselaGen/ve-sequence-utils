@@ -46,3 +46,4 @@ module.exports.rotateSequenceDataToPosition = require("./rotateSequenceDataToPos
 module.exports.rotateBpsToPosition = require("./rotateBpsToPosition");
 module.exports.threeLetterSequenceStringToAminoAcidMap = require("./threeLetterSequenceStringToAminoAcidMap");
 module.exports.tidyUpSequenceData = require("./tidyUpSequenceData");
+module.exports.condensePairwiseAlignmentDifferences = require("./condensePairwiseAlignmentDifferences");
