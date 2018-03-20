@@ -25,10 +25,21 @@ module.exports = function turnInsertsIntoSingleBpMutations(
       overviewMinimapTrack.push("R");
     } else if (
       referenceSeqSplit[i] === "-" &&
-      referenceSeqSplit[i - 1] !== "-"
+      referenceSeqSplit[i - 1] !== "-" &&
+      i !== referenceSeqSplit.length - 1 &&
+      referenceSeqSplit[i + 1] === "-"
     ) {
-      // insertion (first "-" of the insertion)
+      // insertion (first "-" of a >1 insertion)
       overviewMinimapTrack.push("R");
+    } else if (
+      referenceSeqSplit[i] === "-" &&
+      referenceSeqSplit[i - 1] !== "-" &&
+      i !== referenceSeqSplit.length - 1 &&
+      referenceSeqSplit[i + 1] !== "-"
+    ) {
+      // "-" of a one-bp insertion in the middle of the sequence
+      overviewMinimapTrack.push("R");
+      i++;
     } else if (
       i === referenceSeqSplit.length - 1 &&
       referenceSeqSplit[i] === "-" &&
@@ -42,7 +53,8 @@ module.exports = function turnInsertsIntoSingleBpMutations(
       referenceSeqSplit[i - 1] !== "-"
     ) {
       // "-" of a one-bp insertion at the 3' end of the sequence
-      overviewMinimapTrack[overviewMinimapTrack.length - 1] = "R";
+      overviewMinimapTrack.pop();
+      overviewMinimapTrack.push("R");
     } else if (
       referenceSeqSplit[i] === "-" &&
       referenceSeqSplit[i - 1] === "-" &&

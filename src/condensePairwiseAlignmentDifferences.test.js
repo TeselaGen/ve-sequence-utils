@@ -1,7 +1,11 @@
 const condensePairwiseAlignmentDifferences = require("./condensePairwiseAlignmentDifferences.js");
 describe("pairwise alignment differences", function() {
-  it("1 insertion", function() {
+  it("1 insertion of >1 bp", function() {
     const result = condensePairwiseAlignmentDifferences("GCTAG--T", "GCTAGAAT");
+    expect(result).toBe("GGGGGR");
+  });
+  it("insertion of one bp in the middle of the sequence", function() {
+    const result = condensePairwiseAlignmentDifferences("GCTAG-T", "GCTAGAT");
     expect(result).toBe("GGGGGR");
   });
   it("1 deletion", function() {
@@ -16,8 +20,20 @@ describe("pairwise alignment differences", function() {
     const result = condensePairwiseAlignmentDifferences("GCTAGA--", "GCTAGAAT");
     expect(result).toBe("GGGGGR");
   });
+  it("insertion of one bp at the 3' end", function() {
+    const result = condensePairwiseAlignmentDifferences("GCTAGAA-", "GCTAGAAT");
+    expect(result).toBe("GGGGGGR");
+  });
+  it("insertion of three bp at the 3' end", function() {
+    const result = condensePairwiseAlignmentDifferences("GCTAG---", "GCTAGAAT");
+    expect(result).toBe("GGGGR");
+  });
   it("insertion at the 5' end", function() {
     const result = condensePairwiseAlignmentDifferences("--TAGAAT", "GCTAGAAT");
+    expect(result).toBe("RGGGGG");
+  });
+  it("insertion of one bp at the 5' end", function() {
+    const result = condensePairwiseAlignmentDifferences("-TAGAAT", "CTAGAAT");
     expect(result).toBe("RGGGGG");
   });
   it("1 insertion & 1 deletion in the middle", function() {
