@@ -3,7 +3,7 @@
 var chai = require("chai");
 chai.should();
 var doesEnzymeChopOutsideOfRecognitionSite = require("./doesEnzymeChopOutsideOfRecognitionSite.js");
-var enzymeList = require("./enzymeList.json");
+var enzymeList = require("./enzymeList");
 
 describe("doesEnzymeChopOutsideOfRecognitionSite", function() {
   //bamhi
