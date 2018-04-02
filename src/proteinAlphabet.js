@@ -118,6 +118,12 @@ module.exports = {
     hydrophobicity: -0.7,
     color: "#DB0000"
   },
+  U: {
+    value: "U",
+    name: "Selenocysteine",
+    threeLettersName: "Sec",
+    color: "#FF0000"
+  },
   W: {
     value: "W",
     name: "Tryptophan",
