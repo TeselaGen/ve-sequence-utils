@@ -5,8 +5,8 @@ module.exports = function filterAminoAcidSequenceString(
 ) {
   options = options || {};
   if (options.includeStopCodon) {
-    return sequenceString.replace(/[^xtgalmfwkqespvicyhrnd\.]/gi, "");
+    return sequenceString.replace(/[^xtgalmfwkqespvicyhrndu\.]/gi, "");
   }
   // ac.throw(ac.string, sequenceString);
-  return sequenceString.replace(/[^xtgalmfwkqespvicyhrnd]/gi, "");
+  return sequenceString.replace(/[^xtgalmfwkqespvicyhrndu]/gi, "");
 };
