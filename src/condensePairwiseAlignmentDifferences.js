@@ -1,4 +1,4 @@
-module.exports = function turnInsertsIntoSingleBpMutations(
+module.exports = function condensePairwiseAlignmentDifferences(
   referenceSeq,
   alignedSeq
 ) {
