@@ -7,7 +7,7 @@
 // add gaps into sequencing reads before starting bp pos and from own deletions & all seq reads' insertions, minus own insertions
 module.exports = function addGapsToSeqReads(seqReads) {
   let seqReadsWithGaps = [];
-  // const seqRead = seqReads[0];
+  // const seqRead = seqReads[7];
   // console.log("seq read", seqRead);
   seqReads.forEach(seqRead => {
     // get all insertions in seq reads
@@ -43,12 +43,12 @@ module.exports = function addGapsToSeqReads(seqReads) {
 
     // 1) add gaps before starting bp pos
     // turn seq read into an array ["A", "T", "C", "G"...]
-    let seqReadWithGapsAtStart = seqRead.seq.split("");
+    let eachSeqReadWithGaps = seqRead.seq.split("");
     // add gaps before the sequencing read based on starting bp pos of alignment
     for (let i = 1; i < seqRead.pos; i++) {
-      seqReadWithGapsAtStart.unshift("-");
+      eachSeqReadWithGaps.unshift("-");
     }
-    console.log("add gaps before starting bp pos", seqReadWithGapsAtStart);
+    console.log("add gaps before starting bp pos", eachSeqReadWithGaps);
 
     // 2) add own deletions to own sequence
     // split cigar string at M, D, or I (match, deletion, or insertion), e.g. ["2M", "3I", "39M", "3D"...]
@@ -94,18 +94,15 @@ module.exports = function addGapsToSeqReads(seqReads) {
       for (let gapD = 0; gapD < numberOfDeletions; gapD++) {
         deletionGaps += "-";
       }
-      seqReadWithGapsAtStart.splice(bpPosOfDeletion - 1, 0, deletionGaps);
+      eachSeqReadWithGaps.splice(bpPosOfDeletion - 1, 0, deletionGaps);
       for (let posD = ownD + 1; posD < sortedOwnDeletions.length; posD++) {
         sortedOwnDeletions[posD].bpPos += 1;
       }
       console.log("sorted own deletions", sortedOwnDeletions);
-      console.log("after adding own deletions", seqReadWithGapsAtStart);
+      console.log("after adding own deletions", eachSeqReadWithGaps);
     }
-    seqReadWithGapsAtStart = seqReadWithGapsAtStart.join("").split("");
-    console.log(
-      "after adding own deletions & splitting",
-      seqReadWithGapsAtStart
-    );
+    eachSeqReadWithGaps = eachSeqReadWithGaps.join("").split("");
+    console.log("after adding own deletions & splitting", eachSeqReadWithGaps);
 
     // 3) remove own insertions from own sequence
     // get own insertions
@@ -129,7 +126,7 @@ module.exports = function addGapsToSeqReads(seqReads) {
           bpPosOfInsertion += previousComponentNumber;
         }
         for (let nucI = 0; nucI < numberOfInsertions; nucI++) {
-          nucleotides.push(seqReadWithGapsAtStart[bpPosOfInsertion - 1 + nucI]);
+          nucleotides.push(eachSeqReadWithGaps[bpPosOfInsertion - 1 + nucI]);
         }
         let insertionInfo = {
           // keeping bpPos 1-based
@@ -162,124 +159,157 @@ module.exports = function addGapsToSeqReads(seqReads) {
       const bpPosOfInsertion = sortedOwnInsertions[ownI].bpPos;
       const numberOfInsertions = sortedOwnInsertions[ownI].number;
       for (let numI = 0; numI < numberOfInsertions; numI++) {
-        seqReadWithGapsAtStart.splice(bpPosOfInsertion - 1, 1);
+        eachSeqReadWithGaps.splice(bpPosOfInsertion - 1, 1);
       }
       for (let posI = ownI + 1; posI < sortedOwnInsertions.length; posI++) {
         sortedOwnInsertions[posI].bpPos -= numberOfInsertions;
       }
       console.log("sorted own insertions", sortedOwnInsertions);
-      console.log("after removing own insertions", seqReadWithGapsAtStart);
+      console.log("after removing own insertions", eachSeqReadWithGaps);
     }
 
-    // 4) add other seq reads' insertions to seq read (if not found in own deletions...remove all that are same as own deletions)
-    // get other seq reads' insertions (i.e. all insertions minus own insertions minus duplicates)
-    let otherInsertions = allInsertionsInSeqReads;
-    for (let otherI = 0; otherI < ownInsertions.length; otherI++) {
-      let insertionInfoIndex = allInsertionsInSeqReads.findIndex(
-        e =>
-          e.bpPos === ownInsertions[otherI].bpPos &&
-          e.number === ownInsertions[otherI].number
-      );
-      if (insertionInfoIndex !== -1) {
-        otherInsertions.splice(insertionInfoIndex, 1);
-        otherI--;
-      }
-      console.log("insertionInfoIndex", insertionInfoIndex);
-      console.log(
-        "other seq reads insertions, maybe duplicates",
-        otherInsertions
-      );
-    }
-    // sort other insertions by ascending bp pos
-    let sortedOtherInsertions = otherInsertions.sort(function(a, b) {
+    // 4) add other seq reads' insertions to seq read
+    // get other seq reads' insertions (i.e. all insertions minus duplicates minus own insertions)
+    let otherInsertions = allInsertionsInSeqReads.sort(function(a, b) {
       return a.bpPos - b.bpPos;
     });
-    console.log("sorted ascending other insertions", sortedOtherInsertions);
+    console.log("all insertions to other insertions", otherInsertions);
     // combine duplicates or overlap
-    // 'i < sortedOtherInsertions.length - 1' because when at the end of the array, there is no 'i + 1' to compare to
-    for (let i = 0; i < sortedOtherInsertions.length - 1; i++) {
-      while (
-        sortedOtherInsertions[i].bpPos === sortedOtherInsertions[i + 1].bpPos
-      ) {
-        if (
-          sortedOtherInsertions[i].number > sortedOtherInsertions[i + 1].number
-        ) {
+    // 'i < otherInsertions.length - 1' because when at the end of the array, there is no 'i + 1' to compare to
+    for (let i = 0; i < otherInsertions.length - 1; i++) {
+      while (otherInsertions[i].bpPos === otherInsertions[i + 1].bpPos) {
+        if (otherInsertions[i].number > otherInsertions[i + 1].number) {
           // remove the one with fewer number of gaps from array
-          sortedOtherInsertions.splice(i + 1, 1);
+          otherInsertions.splice(i + 1, 1);
+        } else if (otherInsertions[i].number < otherInsertions[i + 1].number) {
+          otherInsertions.splice(i, 1);
         } else if (
-          sortedOtherInsertions[i].number < sortedOtherInsertions[i + 1].number
+          otherInsertions[i].number === otherInsertions[i + 1].number
         ) {
-          sortedOtherInsertions.splice(i, 1);
-        } else if (
-          sortedOtherInsertions[i].number ===
-          sortedOtherInsertions[i + 1].number
-        ) {
-          sortedOtherInsertions.splice(i, 1);
+          otherInsertions.splice(i, 1);
         }
       }
     }
     console.log(
-      "other seq reads insertions, w/o duplicates",
-      sortedOtherInsertions
+      "all insertions to other insertions, w/o duplicates",
+      otherInsertions
     );
-    // add other seq reads' insertions to sequence (if not in own deletions)
+    console.log("own insertions", ownInsertions);
+    for (let otherI = 0; otherI < ownInsertions.length; otherI++) {
+      let insertionInfoIndex = otherInsertions.findIndex(
+        e => e.bpPos === ownInsertions[otherI].bpPos
+        // e.number === ownInsertions[otherI].number
+      );
+      if (insertionInfoIndex !== -1) {
+        if (
+          otherInsertions[insertionInfoIndex].number >
+          ownInsertions[otherI].number
+        ) {
+          otherInsertions[insertionInfoIndex].number =
+            otherInsertions[insertionInfoIndex].number -
+            ownInsertions[otherI].number;
+        } else if (
+          otherInsertions[insertionInfoIndex].number <=
+          ownInsertions[otherI].number
+        ) {
+          otherInsertions.splice(insertionInfoIndex, 1);
+          otherI--;
+        }
+      }
+      console.log("insertionInfoIndex", insertionInfoIndex);
+      console.log("other seq reads insertions", otherInsertions);
+    }
+    // adjust own insertions according to other seq reads' insertions to be added (i.e. for all other reads' insertions with smaller bp pos, +1 to that own insertion's bp pos)
+    let adjustedOwnInsertionsBp = JSON.parse(
+      JSON.stringify(sortedOwnInsertionsBp)
+    );
+    // let adjustedOwnInsertionsBp = [ { bpPos: 8, number: 2, nucleotides: [ 'T', 'T' ] } ];
+    for (let ownI = 0; ownI < adjustedOwnInsertionsBp.length; ownI++) {
+      let previousInserts = 0;
+      for (let i = 0; i < ownI; i++) {
+        previousInserts += adjustedOwnInsertionsBp[i].number - 1;
+        previousInserts += sortedOwnInsertionsBp[i].number - 1;
+        console.log("number", adjustedOwnInsertionsBp[i].number);
+        console.log("bp pos", adjustedOwnInsertionsBp[i].bpPos);
+        console.log("previous inserts", previousInserts);
+      }
+      adjustedOwnInsertionsBp[ownI].bpPos =
+        adjustedOwnInsertionsBp[ownI].bpPos - previousInserts;
+      console.log("adjusted own insertions", adjustedOwnInsertionsBp);
+    }
+    console.log("sorted own insertions", sortedOwnInsertionsBp);
+    console.log("adjusted own insertions", adjustedOwnInsertionsBp);
+    for (let otherI = 0; otherI < otherInsertions.length; otherI++) {
+      for (let ownI = 0; ownI < adjustedOwnInsertionsBp.length; ownI++) {
+        if (
+          otherInsertions[otherI].bpPos <= sortedOwnInsertionsBp[ownI].bpPos
+        ) {
+          adjustedOwnInsertionsBp[ownI].bpPos += 1;
+          console.log(
+            "other insertions at other I",
+            otherInsertions[otherI].bpPos
+          );
+          console.log(
+            "sorted own insertions at own I",
+            sortedOwnInsertionsBp[ownI].bpPos
+          );
+          console.log(
+            "adjusted own insertions at own I",
+            adjustedOwnInsertionsBp[ownI].bpPos
+          );
+        }
+      }
+    }
+    console.log("adjusted own insertions", adjustedOwnInsertionsBp);
+    // add other seq reads' insertions to sequence
     // sortedOwnInsertionsBp = [ { bpPos: 9, number: 3, nucleotides: [ 'T', 'T', 'T' ] } ]
     for (
       let otherI = 0;
-      otherI < sortedOtherInsertions.length &&
-      sortedOtherInsertions[otherI].bpPos <= seqReadWithGapsAtStart.length;
+      otherI < otherInsertions.length &&
+      otherInsertions[otherI].bpPos <= eachSeqReadWithGaps.length;
       otherI++
     ) {
-      let insertionIsPresent = sortedOwnDeletions.some(
-        e =>
-          e.bpPos === sortedOtherInsertions[otherI].bpPos &&
-          e.number === sortedOtherInsertions[otherI].number
-      );
-      if (insertionIsPresent === false) {
-        const bpPosOfInsertion = sortedOtherInsertions[otherI].bpPos;
-        const numberOfInsertions = sortedOtherInsertions[otherI].number;
-        // adding gaps at the bp pos
-        let insertionGaps = "";
-        for (let gapI = 0; gapI < numberOfInsertions; gapI++) {
-          insertionGaps += "-";
-        }
-        seqReadWithGapsAtStart.splice(bpPosOfInsertion - 1, 0, insertionGaps);
-        for (
-          let posI = otherI + 1;
-          posI < sortedOtherInsertions.length;
-          posI++
-        ) {
-          sortedOtherInsertions[posI].bpPos += 1;
-        }
-        sortedOwnInsertionsBp.forEach(insertion => {
-          if (bpPosOfInsertion <= insertion.bpPos) {
-            insertion.bpPos += 1;
-          }
-        });
-        console.log("other insertions array", sortedOtherInsertions);
-        console.log(
-          "after adding other seq reads insertions",
-          seqReadWithGapsAtStart
-        );
-        console.log(
-          "sorted own insertions bp after adding other seq reads insertions",
-          sortedOwnInsertionsBp
-        );
+      // let insertionIsPresent = sortedOwnInsertions.some(
+      //   e =>
+      //     e.bpPos === otherInsertions[otherI].bpPos &&
+      //     e.number === otherInsertions[otherI].number
+      // );
+      // if (insertionIsPresent === false) {
+      const bpPosOfInsertion = otherInsertions[otherI].bpPos;
+      const numberOfInsertions = otherInsertions[otherI].number;
+      // adding gaps at the bp pos
+      let insertionGaps = "";
+      for (let gapI = 0; gapI < numberOfInsertions; gapI++) {
+        insertionGaps += "-";
       }
+      eachSeqReadWithGaps.splice(bpPosOfInsertion - 1, 0, insertionGaps);
+      for (let posI = otherI + 1; posI < otherInsertions.length; posI++) {
+        otherInsertions[posI].bpPos += 1;
+      }
+      console.log("other insertions array", otherInsertions);
+      console.log(
+        "after adding other seq reads insertions",
+        eachSeqReadWithGaps
+      );
+      // console.log(
+      //   "sorted own insertions bp after adding other seq reads insertions",
+      //   sortedOwnInsertionsBp
+      // );
+      // }
     }
-    // seqReadWithGapsAtStart = seqReadWithGapsAtStart.join("").split("");
-    // console.log("after adding other seq reads insertions & splitting", seqReadWithGapsAtStart);
+    // eachSeqReadWithGaps = eachSeqReadWithGaps.join("").split("");
+    // console.log("after adding other seq reads insertions & splitting", eachSeqReadWithGaps);
 
     // 5) add own insertions to own sequence
     // sortedOwnInsertionsBp = [ { bpPos: 9, number: 3, nucleotides: [ 'T', 'T', 'T' ] } ]
-    for (let ownI = 0; ownI < sortedOwnInsertionsBp.length; ownI++) {
-      const bpPosOfInsertion = sortedOwnInsertionsBp[ownI].bpPos;
-      const nucleotides = sortedOwnInsertionsBp[ownI].nucleotides.join("");
+    for (let ownI = 0; ownI < adjustedOwnInsertionsBp.length; ownI++) {
+      const bpPosOfInsertion = adjustedOwnInsertionsBp[ownI].bpPos;
+      const nucleotides = adjustedOwnInsertionsBp[ownI].nucleotides.join("");
       console.log("joined nucleotides", nucleotides);
-      seqReadWithGapsAtStart.splice(bpPosOfInsertion - 1, 0, nucleotides);
-      for (let posI = ownI + 1; posI < sortedOwnInsertionsBp.length; posI++) {
-        sortedOwnInsertionsBp[posI].bpPos += sortedOwnInsertionsBp[ownI].number;
-      }
+      eachSeqReadWithGaps.splice(bpPosOfInsertion - 1, 0, nucleotides);
+      // for (let posI = ownI + 1; posI < adjustedOwnInsertionsBp.length; posI++) {
+      //   adjustedOwnInsertionsBp[posI].bpPos += adjustedOwnInsertionsBp[ownI].number;
+      // }
     }
 
     // // 5) add own deletions to own sequence (if not found in other seq reads' insertions)
@@ -319,17 +349,14 @@ module.exports = function addGapsToSeqReads(seqReads) {
     // for (let ownD = 0; ownD < sortedOwnD.length; ownD++) {
     //   let deletionIsPresent = otherInsertions.some(e => e.bpPos === sortedOwnD[ownD].bpPos && e.number === sortedOwnD[ownD].number);
     //   if (deletionIsPresent === false) {
-    //     seqReadWithGapsAtStart.splice(ownD, 1);
+    //     eachSeqReadWithGaps.splice(ownD, 1);
     //     console.log("other seq reads insertions", sortedOwnD);
     //   }
     // }
 
-    console.log("all gaps", seqReadWithGapsAtStart);
-    // seqReadWithGapsAtStart is a string "GGGA--GA-C--ACC"
-    seqReadsWithGaps.push(seqReadWithGapsAtStart.join(""));
-    // seqReadsWithGaps.push(seqReadWithGapsAtStart);
-    // seqReadsWithGaps.push("--" + seqRead.seq);
-    // seqReadsWithGaps.push(sortedInsertions);
+    console.log("all gaps", eachSeqReadWithGaps);
+    // eachSeqReadWithGaps is a string "GGGA--GA-C--ACC"
+    seqReadsWithGaps.push(eachSeqReadWithGaps.join(""));
   });
   console.log("joined", seqReadsWithGaps);
   return seqReadsWithGaps;
@@ -377,7 +404,7 @@ module.exports = function addGapsToSeqReads(seqReads) {
 // for (
 //   let i = 0;
 //   i < sortedGaps.length &&
-//   sortedGaps[i].bpPos <= seqReadWithGapsAtStart.length;
+//   sortedGaps[i].bpPos <= eachSeqReadWithGaps.length;
 //   i++
 // ) {
 //   const bpPosOfInsertion = sortedGaps[i].bpPos;
@@ -387,7 +414,7 @@ module.exports = function addGapsToSeqReads(seqReads) {
 //   for (let gapI = 0; gapI < numberOfInsertions; gapI++) {
 //     insertionGaps += "-";
 //   }
-//   seqReadWithGapsAtStart.splice(
+//   eachSeqReadWithGaps.splice(
 //     bpPosOfInsertion - 1,
 //     0,
 //     insertionGaps
@@ -396,5 +423,5 @@ module.exports = function addGapsToSeqReads(seqReads) {
 //     sortedGaps[posI].bpPos += 1;
 //   }
 //   console.log("changing gaps array", sortedGaps);
-//   console.log("seq read", seqReadWithGapsAtStart);
+//   console.log("seq read", eachSeqReadWithGaps);
 // }

@@ -10,7 +10,8 @@ describe("add gaps into sequencing reads before starting bp pos and from own del
       { name: "r4", seq: "GATTGAC", pos: 3, cigar: "2M2I3M" },
       { name: "r5", seq: "GAGC", pos: 3, cigar: "3M1D1M" },
       { name: "r6", seq: "GAGCTTACC", pos: 3, cigar: "3M1D1M2I3M" },
-      { name: "r7", seq: "GGCATTTCC", pos: 2, cigar: "2M3D2M3I2M" }
+      { name: "r7", seq: "GGCATTTCC", pos: 2, cigar: "2M3D2M3I2M" },
+      { name: "r8", seq: "GGATTGACATT", pos: 1, cigar: "1D3M2I4M2I2D" }
     ];
     const result = addGapsToSeqReads(seqReads);
     expect(result).toEqual([
@@ -20,7 +21,8 @@ describe("add gaps into sequencing reads before starting bp pos and from own del
       "--GATTGA-C",
       "--GA--G--C",
       "--GA--G--CTTA---CC",
-      "-GG------C--ATTTCC"
+      "-GG------C--ATTTCC",
+      "-GGATTGA-C--A-TT--"
     ]);
     // expect(result).toEqual(["--GATTGA-C", "--GA--GA-G--A---C", "GGGA--GATC--A---C", "--GATTGA-C", "--GA--G--C", "--GA--G--CTTA---CC", "-GG------C--ATTTCC"]);
   });
