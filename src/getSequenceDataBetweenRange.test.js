@@ -114,4 +114,94 @@ describe("getSequenceDataBetweenRange", function() {
       ]
     });
   });
+  it("non circular feature, circular range, with partial parts excluded", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        //ssss sss
+        //01234567
+        sequence: "atgcatgc",
+        features: [
+          {
+            start: 0,
+            end: 7,
+            name: "happy"
+          }
+        ],
+        parts: [
+          {
+            start: 0,
+            end: 7,
+            name: "happy"
+          }
+        ]
+      },
+      {
+        start: 5,
+        end: 3
+      }, {
+        excludePartial: {
+          parts: true
+        }
+      }
+    );
+    res.should.containSubset({
+      sequence: "tgcatgc",
+      features: [
+        {
+          start: 0,
+          end: 2,
+          name: "happy"
+        },
+        {
+          start: 3,
+          end: 6,
+          name: "happy"
+        }
+      ],
+      parts: []
+    });
+  });
+  it("non circular feature, circular range, with features excluded", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        //ssss sss
+        //01234567
+        sequence: "atgcatgc",
+        features: [
+          {
+            start: 0,
+            end: 7,
+            name: "happy"
+          }
+        ],
+        parts: [
+          {
+            start: 0,
+            end: 7,
+            name: "happy"
+          }
+        ]
+      },
+      {
+        start: 5,
+        end: 3
+      }, {exclude: {features: true}}
+    );
+    res.should.containSubset({
+      sequence: "tgcatgc",
+      features: [],
+      parts: [
+        {
+          start: 0,
+          end: 2,
+          name: "happy"
+        },
+        {
+          start: 3,
+          end: 6,
+          name: "happy"
+        }
+      ]
+    });
+  });
 });
