@@ -1,5 +1,5 @@
-// var ac = require('ve-api-check');
-var cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme");
+// const ac = require('ve-api-check');
+const cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme");
 
 module.exports = function cutsitesFromSequence(
   sequence,
@@ -13,11 +13,11 @@ module.exports = function cutsitesFromSequence(
   //     ac.array
   // ], arguments);
 
-  var cutsitesByName = {};
-  // var allCutsite= [];
-  for (var i = 0; i < restrictionEnzymes.length; i++) {
-    var re = restrictionEnzymes[i];
-    var cutsites = cutSequenceByRestrictionEnzyme(sequence, circular, re);
+  const cutsitesByName = {};
+  // const allCutsite= [];
+  for (let i = 0; i < restrictionEnzymes.length; i++) {
+    const re = restrictionEnzymes[i];
+    const cutsites = cutSequenceByRestrictionEnzyme(sequence, circular, re);
     if (cutsites.length) {
       cutsitesByName[re.name] = cutsites;
     }
