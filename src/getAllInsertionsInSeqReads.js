@@ -12,8 +12,12 @@ module.exports = function getAllInsertionsInSeqReads(seqReads) {
           splitSeqRead[componentI].slice(0, -1)
         );
         for (let i = 0; i < componentI; i++) {
-          const previousComponentNumber = Number(splitSeqRead[i].slice(0, -1));
-          bpPosOfInsertion += previousComponentNumber;
+          if (splitSeqRead[i].slice(-1) !== "I") {
+            const previousComponentNumber = Number(
+              splitSeqRead[i].slice(0, -1)
+            );
+            bpPosOfInsertion += previousComponentNumber;
+          }
         }
         let insertionInfo = {
           // keeping bpPos 1-based
@@ -24,29 +28,37 @@ module.exports = function getAllInsertionsInSeqReads(seqReads) {
       }
     }
   });
+  // console.log("all insertions", allInsertionsInSeqReads)
   // sort insertions by ascending bp pos
   let sortedInsertions = allInsertionsInSeqReads.sort(function(a, b) {
     return a.bpPos - b.bpPos;
   });
+  // console.log("sorted insertions", sortedInsertions)
   // combine duplicate or overlapping insertions from seq reads
   for (let i = 0; i < sortedInsertions.length - 1; i++) {
     if (sortedInsertions[i].bpPos === sortedInsertions[i + 1].bpPos) {
       if (sortedInsertions[i].number > sortedInsertions[i + 1].number) {
         // remove the one with fewer number of gaps from array
-        sortedInsertions.splice(sortedInsertions[i + 1], 1);
+        sortedInsertions.splice(i + 1, 1);
         i--;
       } else if (sortedInsertions[i].number < sortedInsertions[i + 1].number) {
-        sortedInsertions.splice(sortedInsertions[i], 1);
+        sortedInsertions.splice(i, 1);
         i--;
       } else if (
         sortedInsertions[i].number === sortedInsertions[i + 1].number
       ) {
-        sortedInsertions.splice(sortedInsertions[i], 1);
+        // console.log("i of sortedInsertions[i].number", i)
+        // console.log("sortedInsertions[i]", sortedInsertions[i])
+        // console.log("sortedInsertions[i].number", sortedInsertions[i].number)
+        // console.log("sorted insertions before", sortedInsertions)
+        sortedInsertions.splice(i, 1);
+        // console.log("sorted insertions after", sortedInsertions)
         i--;
       }
     }
   }
   // allInsertionsInSeqReads is an array of objects [{bpPos: bp pos of insertion, number: # of insertions}, {bpPos, number}, ...]
+  // console.log("combine duplicates/overlaps", sortedInsertions)
   return sortedInsertions;
 };
 

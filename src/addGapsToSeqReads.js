@@ -1,3 +1,6 @@
+// const getAllInsertionsInSeqReads = require("./getAllInsertionsInSeqReads.js");
+const insertGapsIntoRefSeq = require("./insertGapsIntoRefSeq.js");
+
 // bam.seq: NTGTAAGTCGTGAAAAAANCNNNCATATTNCGGAGGTAAAAATGAAAA...
 // bam.pos: 43
 // bam.cigar: 36M2D917M3I17M7I2M1I6M5I4M1D6M12I8M
@@ -5,13 +8,14 @@
 
 // seqReads should be an array of objects [{name, seq, pos, cigar}, {name, seq, pos, cigar}, ...]
 // add gaps into sequencing reads before starting bp pos and from own deletions & all seq reads' insertions, minus own insertions
-module.exports = function addGapsToSeqReads(seqReads) {
+module.exports = function addGapsToSeqReads(refSeq, seqReads) {
+  const refSeqWithGaps = insertGapsIntoRefSeq(refSeq, seqReads);
   let seqReadsWithGaps = [];
   // const seqRead = seqReads[7];
   // console.log("seq read", seqRead);
   seqReads.forEach(seqRead => {
     // get all insertions in seq reads
-    let allInsertions = [];
+    let allInsertionsInSeqReads = [];
     seqReads.forEach(seqRead => {
       // split cigar string at M, D, or I (match, deletion, or insertion), e.g. ["2M", "3I", "39M", "3D"...]
       const splitSeqRead = seqRead.cigar.match(/([0-9]*[MDI])/g);
@@ -32,13 +36,13 @@ module.exports = function addGapsToSeqReads(seqReads) {
             bpPos: bpPosOfInsertion,
             number: numberOfInsertions
           };
-          allInsertions.push(insertionInfo);
+          allInsertionsInSeqReads.push(insertionInfo);
         }
       }
     });
     // console.log("all insertions", allInsertions);
     // allInsertionsInSeqReads = [{"bpPos": 5, "number": 2}, {"bpPos": 7, "number": 1}, {"bpPos": 8, "number": 2}, {"bpPos": 9, "number": 3}];
-    let allInsertionsInSeqReads = allInsertions;
+    // let allInsertionsInSeqReads = allInsertions;
     // console.log("allInsertionsInSeqReads", allInsertionsInSeqReads);
 
     // 1) add gaps before starting bp pos
@@ -281,6 +285,18 @@ module.exports = function addGapsToSeqReads(seqReads) {
       //   adjustedOwnInsertionsBp[posI].bpPos += adjustedOwnInsertionsBp[ownI].number;
       // }
     }
+
+    // 6) add gaps after seq read for ref seq's length = seq read's length
+    eachSeqReadWithGaps = eachSeqReadWithGaps.join("").split("");
+    // console.log("seq read length", eachSeqReadWithGaps.length)
+    // console.log("ref seq w/gaps length", refSeqWithGaps.length)
+    // console.log("ref seq w/gaps", refSeqWithGaps)
+    if (eachSeqReadWithGaps.length < refSeqWithGaps.length) {
+      for (let i = eachSeqReadWithGaps.length; i < refSeqWithGaps.length; i++) {
+        eachSeqReadWithGaps.push("-");
+      }
+    }
+
     // console.log("all gaps", eachSeqReadWithGaps);
     // eachSeqReadWithGaps is a string "GGGA--GA-C--ACC"
     seqReadsWithGaps.push(eachSeqReadWithGaps.join(""));
@@ -289,8 +305,3 @@ module.exports = function addGapsToSeqReads(seqReads) {
   return seqReadsWithGaps;
   // ) add gaps after seq read for ref seq's length = seq read's length
 };
-
-// // add gaps after the sequencing read for template's length = sequencing read's length
-// for (let i = seqReadWithGapsAtDelPos.length; i < refSeq.length; i++) {
-//   seqReadWithGapsAtDelPos.push("-");
-// }
