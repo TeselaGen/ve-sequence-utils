@@ -3,7 +3,7 @@
 // tap.mochaGlobals();
 const chai = require("chai");
 const { getRangeLength } = require("ve-range-utils");
-const {cloneDeep} = require('lodash');
+const { cloneDeep } = require("lodash");
 
 chai.should();
 const chaiSubset = require("chai-subset");
@@ -27,14 +27,16 @@ describe("deleteSequenceDataAtRange", function() {
       sequence: "atagatag",
       features: {
         "1": {
-          start: 7, end:7}
+          start: 7,
+          end: 7
+        }
       }
     };
-    const clonedExistingSeq = cloneDeep(existingSequence)
+    const clonedExistingSeq = cloneDeep(existingSequence);
     let range = { start: 3, end: 5 };
     let postDeleteSeqData = deleteSequenceDataAtRange(existingSequence, range);
-    existingSequence.should.deep.equal(clonedExistingSeq)
-    console.log('existingSequence:',existingSequence)
+    existingSequence.should.deep.equal(clonedExistingSeq);
+    // console.log('existingSequence:',existingSequence)
     postDeleteSeqData.sequence.length.should.equal(
       existingSequence.sequence.length - getRangeLength(range)
     );
@@ -61,7 +63,7 @@ describe("deleteSequenceDataAtRange", function() {
       start: 3,
       end: 7
     });
-    console.log("post:", postDeleteSeqData);
+    // console.log("post:", postDeleteSeqData);
     postDeleteSeqData.should.containSubset({
       sequence: "atgga",
       features: [{ start: 0, end: 4 }]
@@ -77,7 +79,7 @@ describe("deleteSequenceDataAtRange", function() {
       start: 3,
       end: 3
     });
-    console.log("post:", postDeleteSeqData);
+    // console.log("post:", postDeleteSeqData);
     postDeleteSeqData.should.containSubset({
       sequence: "atggagaga",
       parts: [{ start: 4, end: 8 }]

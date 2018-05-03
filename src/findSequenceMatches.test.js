@@ -41,11 +41,14 @@ describe("findSequenceMatches", function() {
     ]);
   });
   it("non-ambiguous, dna searches for nothing results in empty array", function() {
-    const matches = findSequenceMatches("atg", "*", { });
+    const matches = findSequenceMatches("atg", "*", {});
     expect(matches).toEqual([]);
   });
   it("ambiguous, protein searches for nothing results in empty array", function() {
-    const matches = findSequenceMatches("atg", "*", { isProteinSearch: true, isAmbiguous: true });
+    const matches = findSequenceMatches("atg", "*", {
+      isProteinSearch: true,
+      isAmbiguous: true
+    });
     expect(matches).toEqual([]);
   });
   it("ambiguous, dna searches for nothing results in empty array", function() {
@@ -69,12 +72,14 @@ describe("findSequenceMatches", function() {
   it(" AA with * as stop codon", function() {
     expect(
       findSequenceMatches("atgtaaccc", "M**", { isProteinSearch: true })
-    ).toEqual([
-    ]);
+    ).toEqual([]);
   });
   it("works with ambiguous AA", function() {
     expect(
-      findSequenceMatches("atgatg", "MX", { isProteinSearch: true, isAmbiguous: true })
+      findSequenceMatches("atgatg", "MX", {
+        isProteinSearch: true,
+        isAmbiguous: true
+      })
     ).toEqual([
       {
         start: 0,
@@ -84,7 +89,10 @@ describe("findSequenceMatches", function() {
   });
   it("works with ambiguous AA with * in search string", function() {
     expect(
-      findSequenceMatches("atgtaa", "M*", { isProteinSearch: true, isAmbiguous: true })
+      findSequenceMatches("atgtaa", "M*", {
+        isProteinSearch: true,
+        isAmbiguous: true
+      })
     ).toEqual([
       {
         start: 0,
@@ -173,10 +181,10 @@ describe("findSequenceMatches", function() {
       { bottomStrand: true, end: 2, start: 2 },
       { bottomStrand: true, end: 1, start: 1 }
     ]);
-    console.log(
-      'findSequenceMatches("atg", "n", { isAmbiguous: true }):',
-      findSequenceMatches("atg", "n", { isAmbiguous: true })
-    );
+    // console.log(
+    //   'findSequenceMatches("atg", "n", { isAmbiguous: true }):',
+    //   findSequenceMatches("atg", "n", { isAmbiguous: true })
+    // );
     expect(
       findSequenceMatches("atg", "n", {
         isAmbiguous: true,
