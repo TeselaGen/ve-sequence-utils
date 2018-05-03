@@ -16,6 +16,7 @@ describe("add gaps into sequencing reads before starting bp pos and from own del
     ];
     const result = addGapsToSeqReads(refSeq, seqReads);
     expect(result).toEqual([
+      "GG---GA--GA-C--A---CC---",
       "-----GATTGA-C-----------",
       "-----GA--GA-G--A---C----",
       "GG---GA--GATC--A---C----",

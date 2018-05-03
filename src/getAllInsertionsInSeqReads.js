@@ -57,7 +57,7 @@ module.exports = function getAllInsertionsInSeqReads(seqReads) {
       }
     }
   }
-  // allInsertionsInSeqReads is an array of objects [{bpPos: bp pos of insertion, number: # of insertions}, {bpPos, number}, ...]
+  // sortedInsertions is an array of objects [{bpPos: bp pos of insertion, number: # of insertions}, {bpPos, number}, ...]
   // console.log("combine duplicates/overlaps", sortedInsertions)
   return sortedInsertions;
 };
