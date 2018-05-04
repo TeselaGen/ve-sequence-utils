@@ -6,6 +6,7 @@ const insertGapsIntoRefSeq = require("./insertGapsIntoRefSeq.js");
 // bam.cigar: 36M2D917M3I17M7I2M1I6M5I4M1D6M12I8M
 // (note: bam.cigar is null if the sequencing read is unaligned)
 
+// refSeq should be an object { name, sequence }
 // seqReads should be an array of objects [{name, seq, pos, cigar}, {name, seq, pos, cigar}, ...]
 // add gaps into sequencing reads before starting bp pos and from own deletions & all seq reads' insertions, minus own insertions
 module.exports = function addGapsToSeqReads(refSeq, seqReads) {
@@ -16,9 +17,12 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
     }
   }
 
-  const refSeqWithGaps = insertGapsIntoRefSeq(refSeq, seqReads);
+  const refSeqWithGaps = insertGapsIntoRefSeq(refSeq.sequence, seqReads);
   // console.log("ref seq with gaps", refSeqWithGaps.toUpperCase())
-  let seqReadsWithGaps = [refSeqWithGaps.toUpperCase()];
+  // first object is reference sequence with gaps, to be followed by seq reads with gaps
+  let seqReadsWithGaps = [
+    { name: refSeq.name, sequence: refSeqWithGaps.toUpperCase() }
+  ];
   // const seqRead = seqReads[0];
   // console.log("seq read", seqRead);
   seqReads.forEach(seqRead => {
@@ -213,9 +217,9 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
       }
     }
     // console.log("all insertions to other insertions, w/o duplicates", otherInsertions);
-    console.log("own insertions compare", ownInsertionsCompare);
-    console.log("own insertions", ownInsertions);
-    console.log("own insertions bp", ownInsertionsBp);
+    // console.log("own insertions compare", ownInsertionsCompare);
+    // console.log("own insertions", ownInsertions);
+    // console.log("own insertions bp", ownInsertionsBp);
     // remove own insertions from all insertions
     for (let otherI = 0; otherI < ownInsertionsCompare.length; otherI++) {
       let insertionInfoIndex = otherInsertions.findIndex(
@@ -350,10 +354,13 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
 
     // console.log("all gaps", eachSeqReadWithGaps);
     // eachSeqReadWithGaps is a string "GGGA--GA-C--ACC"
-    seqReadsWithGaps.push(eachSeqReadWithGaps.join(""));
+    seqReadsWithGaps.push({
+      name: seqRead.name,
+      sequence: eachSeqReadWithGaps.join("")
+    });
   });
   // console.log("joined", seqReadsWithGaps);
-  // seqReadsWithGaps is an array of strings containing the ref seq with gaps first and then all seq reads with gaps
-  // e.g. ["GG---GA--GA-C--A---CC---", "-----GATTGA-C-----------", "-----GA--GA-G--A---C----"...]
+  // seqReadsWithGaps is an array of objects containing the ref seq with gaps first and then all seq reads with gaps
+  // e.g. [{ name: "ref seq", sequence: "GG---GA--GA-C--A---CC---"}, { name: "r1", sequence: "-----GATTGA-C-----------"}...]
   return seqReadsWithGaps;
 };
