@@ -94,6 +94,16 @@ describe("tidyUpSequenceData", function() {
     );
     res.features[0].id.should.not.equal(123)
   });
+  it("should add the annotationTypePlural field", function() {
+    const res = tidyUpSequenceData(
+      {
+        features: [{ start: 4, end: 5, id: 123 }, {}]
+      },
+      { provideNewIdsForAnnotations: true }
+    );
+    res.features[0].id.should.not.equal(123)
+    res.features[0].annotationTypePlural.should.equal("features")
+  });
 
   it("should add amino acids to a bare translation obj", function() {
     const res = tidyUpSequenceData({

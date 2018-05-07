@@ -36,18 +36,18 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
     seqData.circular = true;
   }
 
-  annotationTypes.forEach(function(name) {
-    if (!Array.isArray(seqData[name])) {
-      if (typeof seqData[name] === "object") {
-        seqData[name] = Object.keys(seqData[name]).map(function(key) {
-          return seqData[name][key];
+  annotationTypes.forEach(function(annotationType) {
+    if (!Array.isArray(seqData[annotationType])) {
+      if (typeof seqData[annotationType] === "object") {
+        seqData[annotationType] = Object.keys(seqData[annotationType]).map(function(key) {
+          return seqData[annotationType][key];
         });
       } else {
-        seqData[name] = [];
+        seqData[annotationType] = [];
       }
     }
-    seqData[name] = seqData[name].filter((annotation) => {
-      return cleanUpAnnotation(annotation, options)
+    seqData[annotationType] = seqData[annotationType].filter((annotation) => {
+      return cleanUpAnnotation(annotation, {...options, annotationType})
     });
   });
 
@@ -87,6 +87,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options={}) {
       response.messages.push("Invalid annotation detected and removed");
       return false;
     }
+    annotation.annotationTypePlural = options.annotationType
 
     annotation.start = parseInt(annotation.start, 10);
     annotation.end = parseInt(annotation.end, 10);
