@@ -68,6 +68,7 @@ module.exports = function getOrfsFromSequence(options) {
           internalStartCodonIndices: [],
           frame: start % 3,
           forward: forward,
+          annotationTypePlural: "orfs",
           isOrf: true,
           id: ObjectId().str
         });
