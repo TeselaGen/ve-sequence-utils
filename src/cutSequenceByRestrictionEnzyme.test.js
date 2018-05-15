@@ -23,7 +23,6 @@ describe("a simple, palindromic enzyme", function() {
       true,
       enzymeList["sapi"]
     );
-    // console.log('cutsites:', cutsites)
     // cutsites.should.be.an.array;
     // cutsites.length.should.equal(1);
     // cutsites[0].start.should.equal(0);

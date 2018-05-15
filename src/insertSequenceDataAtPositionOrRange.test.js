@@ -58,7 +58,7 @@ describe("insertSequenceData", function() {
       sequence: "atgagagaga"
     };
     let sequenceToInsertInto = {
-      sequence: "0"
+      sequence: "g"
     };
     let caretPosition = 0;
     let postInsertSeq = insertSequenceDataAtPositionOrRange(
