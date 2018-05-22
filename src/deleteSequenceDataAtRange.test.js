@@ -12,6 +12,26 @@ chai.use(chaiSubset);
 const deleteSequenceDataAtRange = require("./deleteSequenceDataAtRange");
 
 describe("deleteSequenceDataAtRange", function() {
+  it("Deletes everything if the range spans the whole sequence", function() {
+    let existingSequence = {
+      sequence: "atagatag"
+    };
+    let range = { start: 0, end: 7 };
+    let postDeleteSeqData = deleteSequenceDataAtRange(existingSequence, range);
+    postDeleteSeqData.sequence.length.should.equal(
+      existingSequence.sequence.length - getRangeLength(range)
+    );
+  });
+  it("Deletes everything if the range spans the whole sequence (circular selection)", function() {
+    let existingSequence = {
+      sequence: "atagatag"
+    };
+    let range = { start: 4, end: 3 };
+    let postDeleteSeqData = deleteSequenceDataAtRange(existingSequence, range);
+    postDeleteSeqData.sequence.length.should.equal(
+      existingSequence.sequence.length - getRangeLength(range, existingSequence.sequence.length)
+    );
+  });
   it("Delete characters at correct range", function() {
     let existingSequence = {
       sequence: "atagatag"
