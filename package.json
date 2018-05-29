@@ -6,7 +6,7 @@
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
     "build": "nwb build-react-component --copy-files --no-demo",
-    "prepublish": "in-publish && yarn build || not-in-publish",
+    "prepare": "yarn build",
     "test": "jest src",
     "test-watch": "yarn test --watch",
     "test-debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand ",
@@ -50,7 +50,6 @@
     "eslint-plugin-jsx-a11y": "5.0.1",
     "eslint-plugin-react": "7.0.1",
     "husky": "^0.11.6",
-    "in-publish": "^2.0.0",
     "install-peerdeps": "^1.2.0",
     "jest": "^21.2.1",
     "jsonfile": "^2.3.1",
