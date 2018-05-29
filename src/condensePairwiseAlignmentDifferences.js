@@ -3,8 +3,8 @@ module.exports = function condensePairwiseAlignmentDifferences(
   alignedSeq
 ) {
   let overviewMinimapTrack = [];
-  const referenceSeqSplit = referenceSeq.split("");
-  const alignedSeqSplit = alignedSeq.split("");
+  const referenceSeqSplit = referenceSeq.toLowerCase().split("");
+  const alignedSeqSplit = alignedSeq.toLowerCase().split("");
   for (let i = 0; i < referenceSeqSplit.length; i++) {
     if (
       referenceSeqSplit[i] === alignedSeqSplit[i] &&

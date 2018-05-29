@@ -4,6 +4,10 @@ describe("pairwise alignment differences", function() {
     const result = condensePairwiseAlignmentDifferences("GCTAG--T", "GCTAGAAT");
     expect(result).toBe("GGGGGR");
   });
+  it("should be case insensitive", function() {
+    const result = condensePairwiseAlignmentDifferences("GctAG-T", "GCTAGAT");
+    expect(result).toBe("GGGGGR");
+  });
   it("insertion of one bp in the middle of the sequence", function() {
     const result = condensePairwiseAlignmentDifferences("GCTAG-T", "GCTAGAT");
     expect(result).toBe("GGGGGR");
