@@ -4,7 +4,7 @@ const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const bsonObjectid = require('bson-objectid')
 
 module.exports = function cleanUpAnnotation(annotation, {
-  seqData={},
+  sequenceData={},
   annotationType,
   provideNewIdsForAnnotations,
   messages=[]
