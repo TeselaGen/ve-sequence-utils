@@ -1,17 +1,23 @@
+const {cloneDeep} = require("lodash");
 const FeatureTypes = require("./FeatureTypes.js");
 const featureColors = require("./featureColors");
 const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const bsonObjectid = require('bson-objectid')
 
-module.exports = function cleanUpAnnotation(annotation, {
+module.exports = function cleanUpAnnotation(_annotation, {
   sequenceData={},
   annotationType,
   provideNewIdsForAnnotations,
-  messages=[]
+  messages=[],
+  mutative
 }) {
-  if (!annotation || typeof annotation !== "object") {
+  if (!_annotation || typeof _annotation !== "object") {
     messages.push("Invalid annotation detected and removed");
     return false;
+  }
+  let annotation = _annotation
+  if (!mutative) {
+    annotation = cloneDeep(_annotation)
   }
   annotation.annotationTypePlural = annotationType;
 
@@ -107,5 +113,5 @@ module.exports = function cleanUpAnnotation(annotation, {
   if (!annotation.color) {
     annotation.color = featureColors[annotation.type];
   }
-  return true;
+  return annotation;
 }

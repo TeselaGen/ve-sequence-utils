@@ -60,7 +60,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
       }
     }
     seqData[annotationType] = seqData[annotationType].filter(annotation => {
-      return tidyUpAnnotation(annotation, { ...options, sequenceData: seqData, annotationType });
+      return tidyUpAnnotation(annotation, { ...options, sequenceData: seqData, mutative: true, annotationType });
     });
   });
 
