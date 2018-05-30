@@ -36,37 +36,37 @@ module.exports = function cleanUpAnnotation(annotation, {
   }
   if (
     !areNonNegativeIntegers([annotation.start]) ||
-    annotation.start > seqData.size - 1
+    annotation.start > sequenceData.size - 1
   ) {
     messages.push(
       "Invalid annotation start: " +
         annotation.start +
         " detected for " +
         annotation.name +
-        " and set to size: " + seqData.size 
+        " and set to size: " + sequenceData.size 
     ); //setting it to 0 internally, but users will see it as 1
-    annotation.start = seqData.size-1;
+    annotation.start = sequenceData.size-1;
   }
   if (
     !areNonNegativeIntegers([annotation.end]) ||
-    annotation.end > seqData.size - 1
+    annotation.end > sequenceData.size - 1
   ) {
     messages.push(
       "Invalid annotation end:  " +
         annotation.end +
         " detected for " +
         annotation.name +
-        " and set to seq size: " + seqData.size
+        " and set to seq size: " + sequenceData.size
     ); //setting it to 0 internally, but users will see it as 1
-    annotation.end = seqData.size - 1;
+    annotation.end = sequenceData.size - 1;
   }
-  if (annotation.start > annotation.end && seqData.circular === false) {
+  if (annotation.start > annotation.end && sequenceData.circular === false) {
     messages.push(
       "Invalid circular annotation detected for " +
         annotation.name +
         ". end set to 1"
     ); //setting it to 0 internally, but users will see it as 1
-    annotation.end = seqData.size;
+    annotation.end = sequenceData.size;
   }
 
   if (
