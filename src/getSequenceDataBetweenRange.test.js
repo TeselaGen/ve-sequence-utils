@@ -127,23 +127,26 @@ describe("getSequenceDataBetweenRange", function() {
             name: "happy"
           }
         ],
-        parts: [
-          {
+        parts: {
+          "2asf23": {
             start: 0,
+            id: "2asf23",
             end: 7,
             name: "happy"
           }
-        ]
+        }
       },
       {
         start: 5,
         end: 3
-      }, {
+      },
+      {
         excludePartial: {
           parts: true
         }
       }
     );
+    console.log('res.parts:',res.parts)
     res.should.containSubset({
       sequence: "tgcatgc",
       features: [
@@ -185,8 +188,11 @@ describe("getSequenceDataBetweenRange", function() {
       {
         start: 5,
         end: 3
-      }, {exclude: {features: true}}
+      },
+      { exclude: { features: true } }
     );
+    res.features.length.should.equal(0)
+    console.log('res.features:',res.features)
     res.should.containSubset({
       sequence: "tgcatgc",
       features: [],

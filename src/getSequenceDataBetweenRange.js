@@ -26,6 +26,7 @@ module.exports = function getSequenceDataBetweenRange(
     },
     annotationTypes.reduce((acc, type) => {
       if (exclude[type]) {
+        acc[type] = []
         return acc; //return early cause we're not interested in these annotations
       }
       acc[type] = getAnnotationsBetweenRange(
