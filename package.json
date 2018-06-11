@@ -39,6 +39,7 @@
     "validate.io-nonnegative-integer-array": "^1.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^23.0.0",
     "babel-eslint": "7.2.3",
     "chai": "^3.2.0",
     "chai-subset": "^1.1.0",
