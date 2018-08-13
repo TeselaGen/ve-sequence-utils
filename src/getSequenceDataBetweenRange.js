@@ -16,6 +16,7 @@ module.exports = function getSequenceDataBetweenRange(
   range,
   options = {}
 ) {
+  if (!range) return seqData
   const { exclude = {}, excludePartial = {} } = options;
   const seqDataToUse = tidyUpSequenceData(seqData);
   let seqDataToReturn = extend(
