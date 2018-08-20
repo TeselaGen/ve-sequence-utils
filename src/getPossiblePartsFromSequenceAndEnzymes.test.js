@@ -3,7 +3,7 @@ var should = chai.should();
 var chaiSubset = require("chai-subset");
 chai.use(chaiSubset);
 var getPossiblePartsFromSequenceAndEnzymes = require("./getPossiblePartsFromSequenceAndEnzymes");
-var enzymeList = require("./enzymeList.json");
+var enzymeList = require("./enzymeList");
 // var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe("getPossiblePartsFromSequenceAndEnzymes", function() {
   //bamhi
