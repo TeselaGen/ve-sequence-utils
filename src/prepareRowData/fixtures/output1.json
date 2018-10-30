@@ -87,6 +87,7 @@
                 "enclosingRangeType": "end"
             }
         ],
+        "guides": [],
         "sequence": "gagag"
     },
     {
@@ -138,6 +139,7 @@
             }
         ],
         "primers": [],
+        "guides": [],
         "sequence": "agaga"
     },
     {
@@ -189,6 +191,7 @@
                 "enclosingRangeType": "beginning"
             }
         ],
+        "guides": [],
         "sequence": "gagag"
     },
     {
@@ -240,6 +243,7 @@
                 "enclosingRangeType": "beginning"
             }
         ],
+        "guides": [],
         "sequence": "a"
     }
 ]

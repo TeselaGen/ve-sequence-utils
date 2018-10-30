@@ -1,23 +1,23 @@
-var output1 = require("./fixtures/output1.json");
+const output1 = require("./fixtures/output1.json");
 
-// var tap = require('tap');
+// const tap = require('tap');
 // tap.mochaGlobals();
-var expect = require("chai").expect;
-var prepareRowData = require("./index.js");
+const expect = require("chai").expect;
+const prepareRowData = require("./index.js");
 describe("prepareRowData", function() {
   it("maps overlapping annotations to rows correctly", function() {
-    var annotation1 = {
+    const annotation1 = {
       start: 0,
       end: 9,
       id: "a"
     };
-    var annotation2 = {
+    const annotation2 = {
       start: 10,
       end: 4,
       id: "b"
     };
-    var bpsPerRow = 5;
-    var sequenceData = {
+    const bpsPerRow = 5;
+    const sequenceData = {
       sequence: "gagagagagagagaga",
       features: [annotation1],
       translations: [annotation1],
@@ -26,7 +26,8 @@ describe("prepareRowData", function() {
       orfs: [annotation2],
       primers: [annotation2]
     };
-    var rowData = prepareRowData(sequenceData, bpsPerRow);
+    const rowData = prepareRowData(sequenceData, bpsPerRow);
+    console.log('rowData:',JSON.stringify(rowData,null,4))
     expect(rowData).to.deep.equal(output1);
   });
 });
