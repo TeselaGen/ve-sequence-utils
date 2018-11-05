@@ -146,7 +146,6 @@ describe("getSequenceDataBetweenRange", function() {
         }
       }
     );
-    console.log('res.parts:',res.parts)
     res.should.containSubset({
       sequence: "tgcatgc",
       features: [
@@ -192,7 +191,6 @@ describe("getSequenceDataBetweenRange", function() {
       { exclude: { features: true } }
     );
     res.features.length.should.equal(0)
-    console.log('res.features:',res.features)
     res.should.containSubset({
       sequence: "tgcatgc",
       features: [],

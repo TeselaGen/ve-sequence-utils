@@ -27,7 +27,7 @@ describe("prepareRowData", function() {
       primers: [annotation2]
     };
     const rowData = prepareRowData(sequenceData, bpsPerRow);
-    console.log('rowData:',JSON.stringify(rowData,null,4))
+    // console.log('rowData:',JSON.stringify(rowData,null,4))
     expect(rowData).to.deep.equal(output1);
   });
 });
