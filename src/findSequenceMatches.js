@@ -2,7 +2,7 @@ const {
   modulateRangeBySequenceLength,
   flipContainedRange
 } = require("ve-range-utils");
-const { reduce, uniqWith, isEqual } = require("lodash");
+const { reduce, uniqBy } = require("lodash");
 const escapeStringRegexp = require("escape-string-regexp");
 const getAminoAcidStringFromSequenceString = require("./getAminoAcidStringFromSequenceString");
 const { ambiguous_dna_values, extended_protein_values } = require("./bioData");
@@ -104,7 +104,9 @@ function findSequenceMatchesTopStrand(sequence, searchString, options = {}) {
     /* eslint-enable no-cond-assign*/
   });
 
-  return uniqWith(ranges, isEqual);
+  return uniqBy(ranges, (e) => {
+    return e.start + "-" + e.end
+  });
 }
 
 function convertAmbiguousStringToRegex(string, isProtein) {
