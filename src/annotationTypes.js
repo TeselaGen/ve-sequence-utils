@@ -4,11 +4,13 @@ module.exports = [
   "cutsites",
   "orfs",
   "translations",
-  "primers"
+  "primers",
+  "guides"
 ];
 module.exports.modifiableTypes = [
   "features",
   "parts",
   "translations",
-  "primers"
+  "primers",
+  "guides"
 ];

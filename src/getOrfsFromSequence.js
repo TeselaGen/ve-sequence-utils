@@ -36,14 +36,15 @@ module.exports = function getOrfsFromSequence(options) {
     //we'll pass in double the sequence and then trim excess orfs
     sequence += sequence;
   }
-  const re = useAdditionalOrfStartCodons 
-  ? /(?=((?:A[TU]G|G[TU]G|C[TU]G)(?:.{3})*?(?:[TU]AG|[TU]AA|[TU]GA)))/gi
-  : /(?=((?:A[TU]G)(?:.{3})*?(?:[TU]AG|[TU]AA|[TU]GA)))/gi;
+  const re = useAdditionalOrfStartCodons
+    ? /(?=((?:A[TU]G|G[TU]G|C[TU]G)(?:.{3})*?(?:[TU]AG|[TU]AA|[TU]GA)))/gi
+    : /(?=((?:A[TU]G)(?:.{3})*?(?:[TU]AG|[TU]AA|[TU]GA)))/gi;
   // const str = 'tatgaatgaatgffffffatgfftaaftaafatgfatgfffffsdfatgffatgfffstaafftaafffffffffffffffatgtaaataa\n\natgffftaaf\n\natgffatgftaafftaa\n\natgatgftaafftaa\n\natgatgtaataa\n\ntttttttttttttaatgatgfffffffffftaa';
   let m;
   const orfRanges = [];
   //loop through orf hits!
-  /* eslint-disable no-cond-assign*/ 
+  /* eslint-disable no-cond-assign*/
+
   while ((m = re.exec(sequence)) !== null) {
     //stuff to get the regex to work
     if (m.index === re.lastIndex) {
@@ -68,6 +69,7 @@ module.exports = function getOrfsFromSequence(options) {
           internalStartCodonIndices: [],
           frame: start % 3,
           forward: forward,
+          annotationTypePlural: "orfs",
           isOrf: true,
           id: ObjectId().str
         });
@@ -107,7 +109,7 @@ module.exports = function getOrfsFromSequence(options) {
     if (!orf.remove) {
       return true;
     }
-    return false
+    return false;
   });
   return nonDuplicatedOrfRanges;
 };

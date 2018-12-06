@@ -1,7 +1,18 @@
 const condensePairwiseAlignmentDifferences = require("./condensePairwiseAlignmentDifferences.js");
 describe("pairwise alignment differences", function() {
+  it("it should ignore start and end where dashes are ", function() {
+    const result = condensePairwiseAlignmentDifferences(
+      "cccccccGCTAG--Tccc",
+      "-------GCTAGAAT---"
+    );
+    expect(result).toBe("WWWWWWWGGGGGRWWW");
+  });
   it("1 insertion of >1 bp", function() {
     const result = condensePairwiseAlignmentDifferences("GCTAG--T", "GCTAGAAT");
+    expect(result).toBe("GGGGGR");
+  });
+  it("should be case insensitive", function() {
+    const result = condensePairwiseAlignmentDifferences("GctAG-T", "GCTAGAT");
     expect(result).toBe("GGGGGR");
   });
   it("insertion of one bp in the middle of the sequence", function() {

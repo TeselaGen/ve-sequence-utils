@@ -3,7 +3,7 @@
 var chai = require("chai");
 var should = chai.should();
 var cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme.js");
-var enzymeList = require("./enzymeList.json");
+var enzymeList = require("./enzymeList");
 // var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe("a simple, palindromic enzyme", function() {
   //bamhi
@@ -23,7 +23,6 @@ describe("a simple, palindromic enzyme", function() {
       true,
       enzymeList["sapi"]
     );
-    // console.log('cutsites:', cutsites)
     // cutsites.should.be.an.array;
     // cutsites.length.should.equal(1);
     // cutsites[0].start.should.equal(0);
@@ -258,6 +257,7 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
   it("cuts only once if only the upstream cutting end fits within linear sequence", function() {
     // ttttttttttttttttttttrccggyttttttttttttttttttttt
     // 01234567890123456789012345678901234567890123456
+    debugger;
     var cutsites = cutSequenceByRestrictionEnzyme(
       "ttttttttttttttttttttrccggy",
       false,

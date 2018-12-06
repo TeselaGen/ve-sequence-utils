@@ -1,26 +1,26 @@
 //tnr: half finished test.
-// var tap = require('tap');
+// const tap = require('tap');
 // tap.mochaGlobals();
-var chai = require("chai");
+const chai = require("chai");
 chai.should();
-var chaiSubset = require("chai-subset");
+const chaiSubset = require("chai-subset");
 chai.use(chaiSubset);
 
-var tidyUpSequenceData = require("./tidyUpSequenceData");
-var insertSequenceDataAtPosition = require("./insertSequenceDataAtPosition");
+const tidyUpSequenceData = require("./tidyUpSequenceData");
+const insertSequenceDataAtPosition = require("./insertSequenceDataAtPosition");
 
 describe("insertSequenceData", function() {
   it("inserts characters at correct caret position", function() {
-    var seqToInsert = {
+    let seqToInsert = {
       sequence: "atgagagaga"
     };
-    var preInsertSeq = {
+    let preInsertSeq = {
       sequence: "0"
     };
     seqToInsert = tidyUpSequenceData(seqToInsert);
-    var caretPosition = 0;
+    const caretPosition = 0;
     preInsertSeq = tidyUpSequenceData({});
-    var postInsertSeq = insertSequenceDataAtPosition(
+    const postInsertSeq = insertSequenceDataAtPosition(
       seqToInsert,
       preInsertSeq,
       caretPosition
@@ -30,17 +30,23 @@ describe("insertSequenceData", function() {
     );
   });
   it("inserts characters at correct caret position", function() {
-    var seqToInsert = {
+    let seqToInsert = {
       sequence: "atgagagaga"
     };
-    var preInsertSeq = {
+    let preInsertSeq = {
       sequence: "atgagagaga",
-      features: [{ start: 0, end: 9 }]
+      features: [
+        {
+          start: 0,
+          end: 9,
+          locations: [{ start: 0, end: 3 }, { start: 5, end: 9 }]
+        }
+      ]
     };
     seqToInsert = tidyUpSequenceData(seqToInsert);
     preInsertSeq = tidyUpSequenceData(preInsertSeq);
-    var caretPosition = 0;
-    var postInsertSeq = insertSequenceDataAtPosition(
+    const caretPosition = 0;
+    const postInsertSeq = insertSequenceDataAtPosition(
       seqToInsert,
       preInsertSeq,
       caretPosition
@@ -51,6 +57,18 @@ describe("insertSequenceData", function() {
     postInsertSeq.features.length.should.equal(1);
     postInsertSeq.features[0].start.should.equal(
       preInsertSeq.features[0].start + seqToInsert.sequence.length
+    );
+    postInsertSeq.features[0].locations[0].start.should.equal(
+      preInsertSeq.features[0].locations[0].start + seqToInsert.sequence.length
+    );
+    postInsertSeq.features[0].locations[1].start.should.equal(
+      preInsertSeq.features[0].locations[1].start + seqToInsert.sequence.length
+    );
+    postInsertSeq.features[0].locations[0].end.should.equal(
+      preInsertSeq.features[0].locations[0].end + seqToInsert.sequence.length
+    );
+    postInsertSeq.features[0].locations[1].end.should.equal(
+      preInsertSeq.features[0].locations[1].end + seqToInsert.sequence.length
     );
   });
 });

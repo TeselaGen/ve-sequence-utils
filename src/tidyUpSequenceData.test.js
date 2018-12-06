@@ -4,6 +4,20 @@ const chaiSubset = require("chai-subset");
 chai.use(chaiSubset);
 chai.should();
 describe("tidyUpSequenceData", function() {
+  it("should remove unwanted chars if passed that option, while handling annotation start end truncation correctly", function() {
+    const res = tidyUpSequenceData(
+      {
+        sequence: "http://localhost:3344/Standalone",
+        features: [{ start: 3, end: 20 }]
+      },
+      { removeUnwantedChars: true }
+    );
+    res.should.containSubset({
+      sequence: "httcahstStandan",
+      circular: false,
+      features: [{ start: 3, end: 14 }]
+    });
+  });
   it("should add default fields to an empty sequence obj", function() {
     const res = tidyUpSequenceData({});
     res.should.containSubset({
@@ -43,12 +57,10 @@ describe("tidyUpSequenceData", function() {
   });
 
   it("should add feature type = misc_feature if no type is provided", function() {
-    const res = tidyUpSequenceData(
-      {
-        features: [{ start: 4, end: 5 }]
-      },
-    );
-    res.features[0].type.should.equal("misc_feature")
+    const res = tidyUpSequenceData({
+      features: [{ start: 4, end: 5 }]
+    });
+    res.features[0].type.should.equal("misc_feature");
   });
   // it("should normalize strange upper/lower casing in feature types", function() {
   //   const res = tidyUpSequenceData(
@@ -59,30 +71,24 @@ describe("tidyUpSequenceData", function() {
   //   res.features[0].type.should.equal("CDS")
   // });
   it("should not clobber existing feature types", function() {
-    const res = tidyUpSequenceData(
-      {
-        features: [{ start: 4, end: 5, type: "CDS" }]
-      },
-    );
-    res.features[0].type.should.equal("CDS")
+    const res = tidyUpSequenceData({
+      features: [{ start: 4, end: 5, type: "CDS" }]
+    });
+    res.features[0].type.should.equal("CDS");
   });
 
   it("should add correct color based on type for existing features colors", function() {
-    const res = tidyUpSequenceData(
-      {
-        features: [{ start: 4, end: 5,  type: "CDS"}]
-      },
-    );
-    res.features[0].color.should.equal("#EF6500")
+    const res = tidyUpSequenceData({
+      features: [{ start: 4, end: 5, type: "CDS" }]
+    });
+    res.features[0].color.should.equal("#EF6500");
   });
 
   it("should not clobber existing feature colors", function() {
-    const res = tidyUpSequenceData(
-      {
-        features: [{ start: 4, end: 5, color: "#f4f4f4" }]
-      },
-    );
-    res.features[0].color.should.equal("#f4f4f4")
+    const res = tidyUpSequenceData({
+      features: [{ start: 4, end: 5, color: "#f4f4f4" }]
+    });
+    res.features[0].color.should.equal("#f4f4f4");
   });
 
   it("should add new ids to annotations if passed that option", function() {
@@ -92,7 +98,17 @@ describe("tidyUpSequenceData", function() {
       },
       { provideNewIdsForAnnotations: true }
     );
-    res.features[0].id.should.not.equal(123)
+    res.features[0].id.should.not.equal(123);
+  });
+  it("should add the annotationTypePlural field", function() {
+    const res = tidyUpSequenceData(
+      {
+        features: [{ start: 4, end: 5, id: 123 }, {}]
+      },
+      { provideNewIdsForAnnotations: true }
+    );
+    res.features[0].id.should.not.equal(123);
+    res.features[0].annotationTypePlural.should.equal("features");
   });
 
   it("should add amino acids to a bare translation obj", function() {

@@ -103,6 +103,7 @@ module.exports = function cutSequenceByRestrictionEnzyme(
       upstreamBottomSnip: cutsite.upstreamTopSnip,
       upstreamTopBeforeBottom: !!cutsite.upstreamTopBeforeBottom,
       topSnipBeforeBottom: !!cutsite.topSnipBeforeBottom,
+      annotationTypePlural: "cutsites",
       recognitionSiteRange: {
         start: cutsite.recognitionSiteRange.end,
         end: cutsite.recognitionSiteRange.start

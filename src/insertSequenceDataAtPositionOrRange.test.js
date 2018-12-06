@@ -50,15 +50,15 @@ describe("insertSequenceData", function() {
         sequenceToInsert.sequence.length -
         getRangeLength(range)
     );
-    postInsertSeq.name.should.equal("thomasDaMan!")
-    postInsertSeq.circular.should.equal(true)
+    postInsertSeq.name.should.equal("thomasDaMan!");
+    postInsertSeq.circular.should.equal(true);
   });
   it("inserts characters at correct caret position", function() {
     let sequenceToInsert = {
       sequence: "atgagagaga"
     };
     let sequenceToInsertInto = {
-      sequence: "0"
+      sequence: "g"
     };
     let caretPosition = 0;
     let postInsertSeq = insertSequenceDataAtPositionOrRange(

@@ -14,7 +14,7 @@ module.exports = function insertSequenceDataAtPositionOrRange(
 ) {
   const existingSequenceData = tidyUpSequenceData(_existingSequenceData);
   const sequenceDataToInsert = tidyUpSequenceData(_sequenceDataToInsert);
-  let newSequenceData = cloneDeep(existingSequenceData)
+  let newSequenceData = cloneDeep(existingSequenceData);
   const insertLength = sequenceDataToInsert.sequence.length;
   let caretPosition = caretPositionOrRange;
 
@@ -42,7 +42,7 @@ module.exports = function insertSequenceDataAtPositionOrRange(
       );
     }
     //first clear the newSequenceData's annotations
-    newSequenceData[annotationType] = []
+    newSequenceData[annotationType] = [];
     //in two steps adjust the annotations to the insert
     newSequenceData[annotationType] = newSequenceData[annotationType].concat(
       adjustAnnotationsToInsert(
@@ -68,11 +68,37 @@ function adjustAnnotationsToInsert(
   insertLength
 ) {
   return map(annotationsToBeAdjusted, function(annotation) {
-    return adjustRangeToInsert(annotation, insertStart, insertLength);
+    return {
+      ...adjustRangeToInsert(annotation, insertStart, insertLength),
+      ...(annotation.locations && {
+        locations: annotation.locations.map(loc =>
+          adjustRangeToInsert(loc, insertStart, insertLength)
+        )
+      })
+    };
   });
 }
 function adjustAnnotationsToDelete(annotationsToBeAdjusted, range, maxLength) {
   return map(annotationsToBeAdjusted, function(annotation) {
-    return adjustRangeToDeletionOfAnotherRange(annotation, range, maxLength);
+    const newRange = adjustRangeToDeletionOfAnotherRange(
+      annotation,
+      range,
+      maxLength
+    );
+    const newLocations =
+      annotation.locations &&
+      annotation.locations
+        .map(loc => adjustRangeToDeletionOfAnotherRange(loc, range, maxLength))
+        .filter(range => !!range);
+    if (newLocations && newLocations.length) {
+      return {
+        ...newRange,
+        start: newLocations[0].start,
+        end: newLocations[newLocations.length - 1].end,
+        ...(newLocations.length > 1 && { locations: newLocations })
+      };
+    } else {
+      return newRange;
+    }
   }).filter(range => !!range); //filter any fully deleted ranges
 }
