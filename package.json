@@ -49,7 +49,6 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "5.0.1",
     "eslint-plugin-react": "7.0.1",
-    "fsevents": "^1.2.4",
     "husky": "^0.11.6",
     "install-peerdeps": "^1.2.0",
     "jest": "^23.6.0",
