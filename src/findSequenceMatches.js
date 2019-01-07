@@ -104,8 +104,8 @@ function findSequenceMatchesTopStrand(sequence, searchString, options = {}) {
     /* eslint-enable no-cond-assign*/
   });
 
-  return uniqBy(ranges, (e) => {
-    return e.start + "-" + e.end
+  return uniqBy(ranges, e => {
+    return e.start + "-" + e.end;
   });
 }
 

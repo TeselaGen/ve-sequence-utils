@@ -8,13 +8,12 @@ module.exports = function getReverseComplementSequenceAndAnnoations(
   pSeqObj,
   options = {}
 ) {
-  const seqObj = tidyUpSequenceData(getSequenceDataBetweenRange(pSeqObj, options.range), options);
-  const newSeqObj = Object.assign(
-    {},
-    seqObj,
-    {
-      sequence: getComplementSequenceString(seqObj.sequence)
-    },
+  const seqObj = tidyUpSequenceData(
+    getSequenceDataBetweenRange(pSeqObj, options.range),
+    options
   );
+  const newSeqObj = Object.assign({}, seqObj, {
+    sequence: getComplementSequenceString(seqObj.sequence)
+  });
   return tidyUpSequenceData(newSeqObj, options);
 };

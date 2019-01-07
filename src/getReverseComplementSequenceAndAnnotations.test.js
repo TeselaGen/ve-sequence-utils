@@ -44,7 +44,7 @@ describe("getReverseComplementSequenceAndAnnotations", function() {
           {
             start: 3,
             end: 5
-          },
+          }
         ]
       },
       { range: { start: 0, end: 9 } }
@@ -56,7 +56,7 @@ describe("getReverseComplementSequenceAndAnnotations", function() {
           start: 4,
           end: 6,
           forward: true
-        },
+        }
       ]
     });
   });

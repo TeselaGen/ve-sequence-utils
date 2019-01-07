@@ -5,12 +5,13 @@ module.exports = function condensePairwiseAlignmentDifferences(
   let overviewMinimapTrack = [];
   const referenceSeqSplit = referenceSeq.toLowerCase().split("");
   const alignedSeqSplit = alignedSeq.toLowerCase().split("");
-  const seqLength = alignedSeq.length
+  const seqLength = alignedSeq.length;
   const alignedSeqWithoutLeadingDashes = alignedSeq.replace(/^-+/g, "");
   const alignedSeqWithoutTrailingDashes = alignedSeq.replace(/-+$/g, "");
 
   const startIndex = seqLength - alignedSeqWithoutLeadingDashes.length;
-  const endIndex = seqLength - (seqLength - alignedSeqWithoutTrailingDashes.length);
+  const endIndex =
+    seqLength - (seqLength - alignedSeqWithoutTrailingDashes.length);
   for (let i = 0; i < referenceSeqSplit.length; i++) {
     if (i < startIndex || i >= endIndex) {
       overviewMinimapTrack.push("W");

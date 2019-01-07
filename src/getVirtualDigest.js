@@ -1,4 +1,4 @@
-const {uniqBy} = require("lodash");
+const { uniqBy } = require("lodash");
 
 //UNDER CONSTRUCTION
 
@@ -29,12 +29,14 @@ module.exports = function getVirtualDigest({
     } else {
       pairs.push([
         cutsite1,
-        sortedCutsites[index + 1] ? sortedCutsites[index + 1] : sortedCutsites[0]
+        sortedCutsites[index + 1]
+          ? sortedCutsites[index + 1]
+          : sortedCutsites[0]
       ]);
     }
   });
   // pairs = uniqBy(pairs, ([cut1,cut2]) => {
-  //   return cut1.topSnipPosition > cut2.topSnipPosition ? (cut1.name || "cut1") + "_" + (cut2.name || "cut2") :  (cut2.name || "cut2") + "_" + (cut1.name || "cut1")  
+  //   return cut1.topSnipPosition > cut2.topSnipPosition ? (cut1.name || "cut1") + "_" + (cut2.name || "cut2") :  (cut2.name || "cut2") + "_" + (cut1.name || "cut1")
   // })
 
   pairs.forEach(([cut1, cut2]) => {

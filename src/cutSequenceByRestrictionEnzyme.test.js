@@ -257,7 +257,6 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
   it("cuts only once if only the upstream cutting end fits within linear sequence", function() {
     // ttttttttttttttttttttrccggyttttttttttttttttttttt
     // 01234567890123456789012345678901234567890123456
-    debugger;
     const cutsites = cutSequenceByRestrictionEnzyme(
       "ttttttttttttttttttttrccggy",
       false,

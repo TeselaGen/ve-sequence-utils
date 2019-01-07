@@ -5,10 +5,13 @@ chai.use(chaiSubset);
 chai.should();
 describe("tidyUpSequenceData", function() {
   it("should remove unwanted chars if passed that option, while handling annotation start end truncation correctly", function() {
-    const res = tidyUpSequenceData({
-      sequence: "http://localhost:3344/Standalone",
-      features: [{ start: 3, end: 20 }]
-    }, {removeUnwantedChars :true});
+    const res = tidyUpSequenceData(
+      {
+        sequence: "http://localhost:3344/Standalone",
+        features: [{ start: 3, end: 20 }]
+      },
+      { removeUnwantedChars: true }
+    );
     res.should.containSubset({
       sequence: "httcahstStandan",
       circular: false,

@@ -190,7 +190,7 @@ describe("getSequenceDataBetweenRange", function() {
       },
       { exclude: { features: true } }
     );
-    res.features.length.should.equal(0)
+    res.features.length.should.equal(0);
     res.should.containSubset({
       sequence: "tgcatgc",
       features: [],

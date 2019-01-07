@@ -1,23 +1,26 @@
-const {cloneDeep} = require("lodash");
+const { cloneDeep } = require("lodash");
 const FeatureTypes = require("./FeatureTypes.js");
 const featureColors = require("./featureColors");
 const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
-const bsonObjectid = require('bson-objectid')
+const bsonObjectid = require("bson-objectid");
 
-module.exports = function cleanUpAnnotation(_annotation, {
-  sequenceData={},
-  annotationType,
-  provideNewIdsForAnnotations,
-  messages=[],
-  mutative
-}) {
+module.exports = function cleanUpAnnotation(
+  _annotation,
+  {
+    sequenceData = {},
+    annotationType,
+    provideNewIdsForAnnotations,
+    messages = [],
+    mutative
+  }
+) {
   if (!_annotation || typeof _annotation !== "object") {
     messages.push("Invalid annotation detected and removed");
     return false;
   }
-  let annotation = _annotation
+  let annotation = _annotation;
   if (!mutative) {
-    annotation = cloneDeep(_annotation)
+    annotation = cloneDeep(_annotation);
   }
   annotation.annotationTypePlural = annotationType;
 
@@ -36,8 +39,7 @@ module.exports = function cleanUpAnnotation(_annotation, {
   if (!annotation.id && annotation.id !== 0) {
     annotation.id = bsonObjectid().str;
     messages.push(
-      "Unable to detect valid ID for annotation, setting ID to " +
-        annotation.id
+      "Unable to detect valid ID for annotation, setting ID to " + annotation.id
     );
   }
   if (
@@ -49,9 +51,10 @@ module.exports = function cleanUpAnnotation(_annotation, {
         annotation.start +
         " detected for " +
         annotation.name +
-        " and set to size: " + sequenceData.size 
+        " and set to size: " +
+        sequenceData.size
     ); //setting it to 0 internally, but users will see it as 1
-    annotation.start = sequenceData.size-1;
+    annotation.start = sequenceData.size - 1;
   }
   if (
     !areNonNegativeIntegers([annotation.end]) ||
@@ -62,7 +65,8 @@ module.exports = function cleanUpAnnotation(_annotation, {
         annotation.end +
         " detected for " +
         annotation.name +
-        " and set to seq size: " + sequenceData.size
+        " and set to seq size: " +
+        sequenceData.size
     ); //setting it to 0 internally, but users will see it as 1
     annotation.end = sequenceData.size - 1;
   }
@@ -114,4 +118,4 @@ module.exports = function cleanUpAnnotation(_annotation, {
     annotation.color = featureColors[annotation.type];
   }
   return annotation;
-}
+};

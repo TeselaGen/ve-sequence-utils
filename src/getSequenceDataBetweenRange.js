@@ -1,8 +1,5 @@
-
-
 const { flatMap, extend } = require("lodash");
-const {getRangeLength} = require("ve-range-utils");
-
+const { getRangeLength } = require("ve-range-utils");
 
 const {
   getSequenceWithinRange,
@@ -16,7 +13,7 @@ module.exports = function getSequenceDataBetweenRange(
   range,
   options = {}
 ) {
-  if (!range) return seqData
+  if (!range) return seqData;
   const { exclude = {}, excludePartial = {} } = options;
   const seqDataToUse = tidyUpSequenceData(seqData);
   let seqDataToReturn = extend(
@@ -27,7 +24,7 @@ module.exports = function getSequenceDataBetweenRange(
     },
     annotationTypes.reduce((acc, type) => {
       if (exclude[type]) {
-        acc[type] = []
+        acc[type] = [];
         return acc; //return early cause we're not interested in these annotations
       }
       acc[type] = getAnnotationsBetweenRange(
@@ -50,15 +47,13 @@ function getAnnotationsBetweenRange(
 ) {
   return flatMap(annotationsToBeAdjusted, function(annotation) {
     //map through every annotation and get the overlap of the annotation with the range
-    const overlaps = getZeroedRangeOverlaps(
-      annotation,
-      range,
-      maxLength
-    ).map(overlap => {
-      //we get back 1 or more overlaps here
+    const overlaps = getZeroedRangeOverlaps(annotation, range, maxLength).map(
+      overlap => {
+        //we get back 1 or more overlaps here
 
-      return extend({}, annotation, overlap);
-    });
+        return extend({}, annotation, overlap);
+      }
+    );
     if (shouldExcludePartial) {
       if (overlaps.length > 1) return []; //the annotation has multiple overlaps and thus must be a partial copy so we exclude it completely
       if (overlaps[0]) {

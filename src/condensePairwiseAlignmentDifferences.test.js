@@ -1,7 +1,10 @@
 const condensePairwiseAlignmentDifferences = require("./condensePairwiseAlignmentDifferences.js");
 describe("pairwise alignment differences", function() {
   it("it should ignore start and end where dashes are ", function() {
-    const result = condensePairwiseAlignmentDifferences("cccccccGCTAG--Tccc", "-------GCTAGAAT---");
+    const result = condensePairwiseAlignmentDifferences(
+      "cccccccGCTAG--Tccc",
+      "-------GCTAGAAT---"
+    );
     expect(result).toBe("WWWWWWWGGGGGRWWW");
   });
   it("1 insertion of >1 bp", function() {

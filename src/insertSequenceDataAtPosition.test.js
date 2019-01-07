@@ -35,7 +35,13 @@ describe("insertSequenceData", function() {
     };
     let preInsertSeq = {
       sequence: "atgagagaga",
-      features: [{ start: 0, end: 9, locations: [{start: 0, end: 3}, {start: 5, end: 9}] }]
+      features: [
+        {
+          start: 0,
+          end: 9,
+          locations: [{ start: 0, end: 3 }, { start: 5, end: 9 }]
+        }
+      ]
     };
     seqToInsert = tidyUpSequenceData(seqToInsert);
     preInsertSeq = tidyUpSequenceData(preInsertSeq);

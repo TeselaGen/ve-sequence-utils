@@ -50,17 +50,22 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   annotationTypes.forEach(function(annotationType) {
     if (!Array.isArray(seqData[annotationType])) {
       if (typeof seqData[annotationType] === "object") {
-        seqData[annotationType] = Object.keys(
-          seqData[annotationType]
-        ).map(function(key) {
-          return seqData[annotationType][key];
-        });
+        seqData[annotationType] = Object.keys(seqData[annotationType]).map(
+          function(key) {
+            return seqData[annotationType][key];
+          }
+        );
       } else {
         seqData[annotationType] = [];
       }
     }
     seqData[annotationType] = seqData[annotationType].filter(annotation => {
-      return tidyUpAnnotation(annotation, { ...options, sequenceData: seqData, mutative: true, annotationType });
+      return tidyUpAnnotation(annotation, {
+        ...options,
+        sequenceData: seqData,
+        mutative: true,
+        annotationType
+      });
     });
   });
 
