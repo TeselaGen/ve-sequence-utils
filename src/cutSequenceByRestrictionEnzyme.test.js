@@ -1,10 +1,10 @@
-// var tap = require('tap');
+// const tap = require('tap');
 // tap.mochaGlobals();
-var chai = require("chai");
-var should = chai.should();
-var cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme.js");
-var enzymeList = require("./enzymeList");
-// var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
+const chai = require("chai");
+const should = chai.should();
+const cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme.js");
+const enzymeList = require("./enzymeList");
+// const collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe("a simple, palindromic enzyme", function() {
   //bamhi
   // "bamhi": {
@@ -18,7 +18,7 @@ describe("a simple, palindromic enzyme", function() {
   // ATGATCAGA
   // 012345678
   it("cuts on the reverse strand and the recognition site wraps the origin", function() {
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "gcatccagagagagagagagagagagagagaaga",
       true,
       enzymeList["sapi"]
@@ -36,8 +36,8 @@ describe("a simple, palindromic enzyme", function() {
     // should.not.exist(cutsites[0].upstreamBottomSnip);
   });
   it("cuts a single non-circular cutsite", function() {
-    var cutsites = cutSequenceByRestrictionEnzyme(
-      "ggatcc",
+    const cutsites = cutSequenceByRestrictionEnzyme(
+      "GGATCC",
       true,
       enzymeList["bamhi"]
     );
@@ -54,8 +54,8 @@ describe("a simple, palindromic enzyme", function() {
     should.not.exist(cutsites[0].upstreamBottomSnip);
   });
   it("cuts a single circular cutsite", function() {
-    var cutsites = cutSequenceByRestrictionEnzyme(
-      "ccrrrrggat",
+    const cutsites = cutSequenceByRestrictionEnzyme(
+      "CCrrrrGGAT",
       true,
       enzymeList["bamhi"]
     );
@@ -71,7 +71,7 @@ describe("a simple, palindromic enzyme", function() {
     should.not.exist(cutsites[0].upstreamBottomSnip);
   });
   it("does not cut a circular cutsite if sequence is non-circular", function() {
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "ccrrrrggat",
       false,
       enzymeList["bamhi"]
@@ -89,7 +89,7 @@ describe("a simple, palindromic enzyme", function() {
     //     "topSnipOffset": 1,
     //     "bottomSnipOffset": 5
     // },
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "ggatccttttggatcc",
       true,
       enzymeList["bamhi"]
@@ -116,7 +116,7 @@ describe("a simple, palindromic enzyme", function() {
   it("it does not get into an infinite loop if the enzyme's forward/reverse regex are empty strings", function() {
     // ttttttttttttttttttttrccggyttttttttttttttttttttt
     // 01234567890123456789012345678901234567890123456
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "rccggyttttttttttttttttttttt",
       false,
       {
@@ -147,7 +147,7 @@ describe("non-palindromic enzyme", function() {
   // },
   //
   it("does not cut if the enzyme cuts outside of a linear sequence", function() {
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "cgtctc",
       false,
       enzymeList["bsmbi"]
@@ -156,7 +156,7 @@ describe("non-palindromic enzyme", function() {
     cutsites.length.should.equal(0);
   });
   it("does cut if the enzyme fits within circular sequence", function() {
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "cgtctc",
       true,
       enzymeList["bsmbi"]
@@ -177,7 +177,7 @@ describe("non-palindromic enzyme", function() {
     // rrrrrr
     //        |  dsTopSnip
     //             |  dsBottomSnip
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "cgtctcttttttttttttttttttttttt",
       true,
       enzymeList["bsmbi"]
@@ -199,7 +199,7 @@ describe("non-palindromic enzyme", function() {
     // rrrrrr
     //        |  dsTopSnip
     //             |  dsBottomSnip
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "aaaaaaaaaaaaaaaaaaaaaaagagacg",
       true,
       enzymeList["bsmbi"]
@@ -227,7 +227,7 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
   //     "bottomSnipOffset": 18
   // },
   it("does not cut if the enzyme cuts outside of a linear sequence", function() {
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "rccggy",
       false,
       enzymeList["nmedi"]
@@ -238,7 +238,7 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
   it("does cut twice if the enzyme fits within linear sequence", function() {
     // ttttttttttttttttttttrccggyttttttttttttttttttttt
     // 01234567890123456789012345678901234567890123456
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "ttttttttttttttttttttrccggyttttttttttttttttttttt",
       false,
       enzymeList["nmedi"]
@@ -257,8 +257,8 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
   it("cuts only once if only the upstream cutting end fits within linear sequence", function() {
     // ttttttttttttttttttttrccggyttttttttttttttttttttt
     // 01234567890123456789012345678901234567890123456
-    debugger
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    debugger;
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "ttttttttttttttttttttrccggy",
       false,
       enzymeList["nmedi"]
@@ -277,7 +277,7 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
   it("cuts only once if only the downstream cutting end fits within linear sequence", function() {
     // ttttttttttttttttttttrccggyttttttttttttttttttttt
     // 01234567890123456789012345678901234567890123456
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const cutsites = cutSequenceByRestrictionEnzyme(
       "rccggyttttttttttttttttttttt",
       false,
       enzymeList["nmedi"]

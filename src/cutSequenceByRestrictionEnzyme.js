@@ -287,6 +287,7 @@ function cutSequence(
         bottomSnipPosition,
         topSnipBeforeBottom,
         overhangBps,
+        overhangSize: overhangBps.length,
         upstreamTopBeforeBottom,
         upstreamTopSnip,
         upstreamBottomSnip,

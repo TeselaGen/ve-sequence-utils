@@ -1,24 +1,32 @@
 // this is throwing a weird eslint error
 
 // var ac = require('ve-api-check');
-const {generateRandomRange} = require('ve-range-utils');
-const objectid = require('bson-objectid');
-const randomcolor = require('randomcolor');
+const { generateRandomRange } = require("ve-range-utils");
+const objectid = require("bson-objectid");
 
-module.exports = function generateSequenceData({sequenceLength = 1000,}={}) {
+module.exports = function generateSequenceData({ sequenceLength = 1000 } = {}) {
   return {
     // "sequence" : "gtggatgcatgtgtcatggtcat",
     circular: true,
-    name: "p-"  + randomcolor() + Math.floor(Math.random * 100 ),
+    name: "p-" + Math.floor(Math.random * 100),
     description: "",
     sequence: generateSequence(sequenceLength),
-    translations: generateAnnotations(5, 0, sequenceLength - 1, sequenceLength / 3),
-    features: generateAnnotations(10, 0, sequenceLength - 1, sequenceLength / 3),
+    translations: generateAnnotations(
+      5,
+      0,
+      sequenceLength - 1,
+      sequenceLength / 3
+    ),
+    features: generateAnnotations(
+      10,
+      0,
+      sequenceLength - 1,
+      sequenceLength / 3
+    ),
     primers: generateAnnotations(10, 0, sequenceLength - 1, 50),
     parts: generateAnnotations(10, 0, sequenceLength - 1, sequenceLength / 3)
   };
 };
-
 
 // export default tidyUpSequenceData(exampleData)
 
