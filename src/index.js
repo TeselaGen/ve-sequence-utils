@@ -49,3 +49,5 @@ module.exports.tidyUpSequenceData = require("./tidyUpSequenceData");
 module.exports.tidyUpAnnotation = require("./tidyUpAnnotation");
 module.exports.condensePairwiseAlignmentDifferences = require("./condensePairwiseAlignmentDifferences");
 module.exports.addGapsToSeqReads = require("./addGapsToSeqReads");
+module.exports.getDigestFragmentsForCutsites = require("./getDigestFragmentsForCutsites");
+module.exports.getDigestFragmentsForRestrictionEnzymes = require("./getDigestFragmentsForRestrictionEnzymes");
