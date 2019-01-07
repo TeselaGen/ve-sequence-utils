@@ -16,6 +16,24 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
   // },
   // ATGATCAGA
   // 012345678
+  it("returns 0 digestFragments for a linear seq with no cutsites", function() {
+    const digestFragments = getDigestFragmentsForRestrictionEnzymes(
+      "rrrrrrrrr",
+      false,
+      enzymeList["bsai"]
+    );
+    digestFragments.should.be.an.array;
+    digestFragments.length.should.equal(0);
+  });
+  it("returns 0 digestFragments for a circular seq with no cutsites", function() {
+    const digestFragments = getDigestFragmentsForRestrictionEnzymes(
+      "rrrrrrrrrrrr",
+      false,
+      enzymeList["bsai"]
+    );
+    digestFragments.should.be.an.array;
+    digestFragments.length.should.equal(0);
+  });
   it("gets digestFragments for a single type 2s cutsite cutting in a linear sequence", function() {
     const digestFragments = getDigestFragmentsForRestrictionEnzymes(
       "tagagtagagtagaGGTCTCgtagagtagagtagag",

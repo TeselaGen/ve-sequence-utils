@@ -12,6 +12,7 @@ module.exports = function getDigestFragmentsForCutsites(
   const fragments = [];
   const overlappingEnzymes = [];
   const pairs = [];
+  if (!cutsites.length) return [];
   let sortedCutsites = cutsites.sort((a, b) => {
     return a.topSnipPosition - b.topSnipPosition;
   });
