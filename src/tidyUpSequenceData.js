@@ -32,7 +32,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
       charOverrides
     );
   }
-  seqData.size = seqData.sequence.length;
+  seqData.size = seqData.noSequence ? seqData.size : seqData.sequence.length;
   if (
     seqData.circular === "false" ||
     /* eslint-disable eqeqeq*/
@@ -70,7 +70,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   });
 
   seqData.translations = seqData.translations.map(function(translation) {
-    if (!translation.aminoAcids) {
+    if (!translation.aminoAcids && !seqData.noSequence) {
       translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(
         seqData.sequence,
         translation.forward,

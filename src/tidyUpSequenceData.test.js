@@ -18,6 +18,23 @@ describe("tidyUpSequenceData", function() {
       features: [{ start: 3, end: 14 }]
     });
   });
+  it("should handle the noSequence option correctly and not truncate .size", function() {
+    const res = tidyUpSequenceData({
+      noSequence: true,
+      size: 20
+    });
+    res.should.containSubset({
+      noSequence: true,
+      sequence: "",
+      size: 20,
+      circular: false,
+      features: [],
+      parts: [],
+      translations: [],
+      cutsites: [],
+      orfs: []
+    });
+  });
   it("should add default fields to an empty sequence obj", function() {
     const res = tidyUpSequenceData({});
     res.should.containSubset({
