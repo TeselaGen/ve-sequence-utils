@@ -6,6 +6,8 @@ const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const annotationTypes = require("./annotationTypes");
 const filterSequenceString = require("./filterSequenceString");
 const tidyUpAnnotation = require("./tidyUpAnnotation");
+const filterAminoAcidSequenceString = require("./filterAminoAcidSequenceString");
+const getDegenerateDnaStringFromAaString = require("./getDegenerateDnaStringFromAAString");
 
 module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   const {
@@ -13,7 +15,8 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     logMessages,
     removeUnwantedChars,
     additionalValidChars,
-    charOverrides
+    charOverrides,
+    proteinFilterOptions
   } = options;
   let seqData = cloneDeep(pSeqData); //sequence is usually immutable, so we clone it and return it
   let response = {
@@ -25,14 +28,46 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   if (!seqData.sequence && seqData.sequence !== "") {
     seqData.sequence = "";
   }
+  let needsBackTranslation = false;
+  if (seqData.isProtein) {
+    seqData.circular = false; //there are no circular proteins..
+    if (!seqData.proteinSequence && seqData.proteinSequence !== "") {
+      seqData.proteinSequence = seqData.sequence; //if there is no proteinSequence, assign seqData.sequence
+    }
+    if (
+      !seqData.sequence ||
+      seqData.sequence.length !== seqData.proteinSequence.length * 3
+    ) {
+      //if we don't have a sequence or it is clear that the DNA sequence doesn't match the proteinSequence, add a back translation
+      needsBackTranslation = true;
+    }
+  }
   if (removeUnwantedChars) {
-    seqData.sequence = filterSequenceString(
-      seqData.sequence,
-      additionalValidChars,
-      charOverrides
+    if (seqData.isProtein) {
+      seqData.proteinSequence = filterAminoAcidSequenceString(
+        seqData.proteinSequence,
+        { includeStopCodon: true, ...proteinFilterOptions }
+      );
+    } else {
+      seqData.sequence = filterSequenceString(
+        seqData.sequence,
+        additionalValidChars,
+        charOverrides
+      );
+    }
+  }
+  if (seqData.isProtein && needsBackTranslation) {
+    //backtranslate the
+    seqData.sequence = getDegenerateDnaStringFromAaString(
+      seqData.proteinSequence
     );
   }
-  seqData.size = seqData.noSequence ? seqData.size : seqData.sequence.length;
+
+  seqData.size = seqData.noSequence
+    ? seqData.size
+    : seqData.isProtein
+    ? seqData.proteinSequence.length
+    : seqData.sequence.length;
   if (
     seqData.circular === "false" ||
     /* eslint-disable eqeqeq*/

@@ -5,7 +5,8 @@ module.exports = function filterAminoAcidSequenceString(
 ) {
   options = options || {};
   if (options.includeStopCodon) {
-    return sequenceString.replace(/[^xtgalmfwkqespvicyhrndu\.]/gi, "");
+    //tnrtodo this maybe needs the stop codon char in it?
+    return sequenceString.replace(/[^xtgalmfwkqespvicyhrndu.*]/gi, "");
   }
   // ac.throw(ac.string, sequenceString);
   return sequenceString.replace(/[^xtgalmfwkqespvicyhrndu]/gi, "");

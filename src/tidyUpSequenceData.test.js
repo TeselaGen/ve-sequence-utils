@@ -18,6 +18,26 @@ describe("tidyUpSequenceData", function() {
       features: [{ start: 3, end: 14 }]
     });
   });
+  it("should handle a protein sequence being passed in with isProtein set to true", function() {
+    const res = tidyUpSequenceData(
+      {
+        isProtein: true,
+        circular: true,
+        sequence: "gagiuhwgagalasjglj*.",
+        features: [{ start: 3, end: 10 }, { start: 10, end: 20 }]
+      },
+      { removeUnwantedChars: true }
+    );
+    console.log(`res:`, JSON.stringify(res, null, 4));
+    res.should.containSubset({
+      isProtein: true,
+      size: 18, //size should refer to the amino acids
+      sequence: "ggngcnggnauhugacayuggggngcnggngcnyungcnwsnggnyuntrrtrr", //degenerate sequence
+      proteinSequence: "gagiuhwgagalasgl*.",
+      circular: false,
+      features: [{ start: 3, end: 10 }, { start: 10, end: 17 }]
+    });
+  });
   it("should handle the noSequence option correctly and not truncate .size", function() {
     const res = tidyUpSequenceData({
       noSequence: true,
