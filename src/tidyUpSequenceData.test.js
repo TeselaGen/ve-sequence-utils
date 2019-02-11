@@ -28,7 +28,6 @@ describe("tidyUpSequenceData", function() {
       },
       { removeUnwantedChars: true }
     );
-    console.log(`res:`, JSON.stringify(res, null, 4));
     res.should.containSubset({
       isProtein: true,
       size: 18, //size should refer to the amino acids
