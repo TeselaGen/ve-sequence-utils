@@ -56,10 +56,18 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
       );
     }
   }
-  if (seqData.isProtein && needsBackTranslation) {
-    //backtranslate the
-    seqData.sequence = getDegenerateDnaStringFromAaString(
-      seqData.proteinSequence
+  if (seqData.isProtein) {
+    if (needsBackTranslation) {
+      //backtranslate the
+      seqData.sequence = getDegenerateDnaStringFromAaString(
+        seqData.proteinSequence
+      );
+    }
+    seqData.aminoAcidDataForEachBaseOfDNA = getAminoAcidDataForEachBaseOfDna(
+      seqData.proteinSequence,
+      true,
+      null,
+      true
     );
   }
 

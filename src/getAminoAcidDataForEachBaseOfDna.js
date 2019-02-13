@@ -2,6 +2,8 @@ const { translateRange, getSequenceWithinRange } = require("ve-range-utils");
 let revComp = require("./getReverseComplementSequenceString");
 let getAA = require("./getAminoAcidFromSequenceTriplet");
 // var ac = require('ve-api-check');
+const proteinAlphabet = require("./proteinAlphabet");
+
 // ac.throw([ac.string,ac.bool],arguments);
 /**
  * @private
@@ -9,6 +11,7 @@ let getAA = require("./getAminoAcidFromSequenceTriplet");
  * from the sequenceString and the direction of the translation
  * @param  {String} sequenceString The dna sequenceString.
  * @param  {boolean} forward Should we find forward facing orfs or reverse facing orfs
+ * @param  {boolean} isProteinSequence We're passing in a sequence of AA chars instead of DNA chars (slightly confusing but we'll still use the dna indexing for rendering in OVE)
  * @return [{
         aminoAcid: 
         positionInCodon: 
@@ -17,8 +20,12 @@ let getAA = require("./getAminoAcidFromSequenceTriplet");
 module.exports = function getAminoAcidDataForEachBaseOfDna(
   originalSequenceString,
   forward,
-  optionalSubrangeRange
+  optionalSubrangeRange,
+  isProteinSequence
 ) {
+  let originalSequenceStringLength = isProteinSequence
+    ? originalSequenceString.length * 3
+    : originalSequenceString.length;
   let sequenceString = originalSequenceString;
   let startOffset = 0;
   if (optionalSubrangeRange) {
@@ -28,6 +35,9 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(
     );
     startOffset = optionalSubrangeRange.start;
   }
+  let sequenceStringLength = isProteinSequence
+    ? sequenceString.length * 3
+    : sequenceString.length;
 
   // ac.throw([ac.string,ac.bool],arguments);
   let aminoAcidDataForEachBaseOfDNA = [];
@@ -36,17 +46,17 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(
   let aminoAcidIndex = 0;
   if (!forward) {
     //compute the start of the amino acid sequence, but only if translating in the reverse direction
-    aminoAcidIndex = Math.floor((sequenceString.length - 1) / 3);
+    aminoAcidIndex = Math.floor((sequenceStringLength - 1) / 3);
     //because we're translating in the reverse direction, we need to
     //check to see if there are untranslated amino acids at the start of the sequenceString
-    revCompGapLength = sequenceString.length % 3;
+    revCompGapLength = sequenceStringLength % 3;
     codonRange = translateRange(
       {
         start: 0,
         end: revCompGapLength - 1
       },
       startOffset,
-      originalSequenceString.length
+      originalSequenceStringLength
     );
 
     if (revCompGapLength > 0) {
@@ -67,22 +77,32 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(
   //compute the bulk of the sequence
   for (
     let index = 2 + revCompGapLength;
-    index < sequenceString.length;
+    index < sequenceStringLength;
     index += 3
   ) {
-    let triplet = sequenceString.slice(index - 2, index + 1);
-    if (!forward) {
-      //we reverse the triplet
-      triplet = revComp(triplet);
+    let aminoAcid;
+    if (isProteinSequence) {
+      console.log(
+        `sequenceString[(index + 1) / 3]:`,
+        JSON.stringify(sequenceString[(index - 2) / 3], null, 4)
+      );
+      aminoAcid =
+        proteinAlphabet[sequenceString[(index - 2) / 3].toUpperCase()];
+    } else {
+      let triplet = sequenceString.slice(index - 2, index + 1);
+      if (!forward) {
+        //we reverse the triplet
+        triplet = revComp(triplet);
+      }
+      aminoAcid = getAA(triplet);
     }
-    let aminoAcid = getAA(triplet);
     codonRange = translateRange(
       {
         start: index - 2,
         end: index
       },
       startOffset,
-      originalSequenceString.length
+      originalSequenceStringLength
     );
 
     aminoAcidDataForEachBaseOfDNA.push({
@@ -119,14 +139,14 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(
   //compute the end of the sequence
   //we'll never hit the following logic if translating in the reverse direction
   let lengthOfEndBpsNotCoveredByAminoAcids =
-    sequenceString.length - aminoAcidDataForEachBaseOfDNA.length;
+    sequenceStringLength - aminoAcidDataForEachBaseOfDNA.length;
   codonRange = translateRange(
     {
-      start: sequenceString.length - lengthOfEndBpsNotCoveredByAminoAcids,
-      end: sequenceString.length - 1
+      start: sequenceStringLength - lengthOfEndBpsNotCoveredByAminoAcids,
+      end: sequenceStringLength - 1
     },
     startOffset,
-    originalSequenceString.length
+    originalSequenceStringLength
   );
   for (let j = 0; j < lengthOfEndBpsNotCoveredByAminoAcids; j++) {
     aminoAcidDataForEachBaseOfDNA.push({
@@ -139,7 +159,7 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(
     });
   }
 
-  if (sequenceString.length !== aminoAcidDataForEachBaseOfDNA.length) {
+  if (sequenceStringLength !== aminoAcidDataForEachBaseOfDNA.length) {
     throw new Error("something went wrong!");
   }
   return aminoAcidDataForEachBaseOfDNA;

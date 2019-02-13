@@ -151,6 +151,12 @@ module.exports = {
     threeLettersName: "Stop",
     color: "#FF0000"
   },
+  ".": {
+    value: ".",
+    name: "Stop",
+    threeLettersName: "Stop",
+    color: "#FF0000"
+  },
   "-": {
     value: "-",
     name: "Gap",

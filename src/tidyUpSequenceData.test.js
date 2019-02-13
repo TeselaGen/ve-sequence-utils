@@ -29,6 +29,56 @@ describe("tidyUpSequenceData", function() {
       { removeUnwantedChars: true }
     );
     res.should.containSubset({
+      aminoAcidDataForEachBaseOfDNA: [
+        {
+          aminoAcid: {
+            value: ".",
+            name: "Stop",
+            threeLettersName: "Stop",
+            color: "#FF0000"
+          },
+          positionInCodon: 0,
+          aminoAcidIndex: 17,
+          sequenceIndex: 51,
+          codonRange: {
+            start: 51,
+            end: 53
+          },
+          fullCodon: true
+        },
+        {
+          aminoAcid: {
+            value: ".",
+            name: "Stop",
+            threeLettersName: "Stop",
+            color: "#FF0000"
+          },
+          positionInCodon: 1,
+          aminoAcidIndex: 17,
+          sequenceIndex: 52,
+          codonRange: {
+            start: 51,
+            end: 53
+          },
+          fullCodon: true
+        },
+        {
+          aminoAcid: {
+            value: ".",
+            name: "Stop",
+            threeLettersName: "Stop",
+            color: "#FF0000"
+          },
+          positionInCodon: 2,
+          aminoAcidIndex: 17,
+          sequenceIndex: 53,
+          codonRange: {
+            start: 51,
+            end: 53
+          },
+          fullCodon: true
+        }
+      ],
       isProtein: true,
       size: 18, //size should refer to the amino acids
       sequence: "ggngcnggnauhugacayuggggngcnggngcnyungcnwsnggnyuntrrtrr", //degenerate sequence
