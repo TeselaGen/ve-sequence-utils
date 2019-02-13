@@ -82,10 +82,6 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(
   ) {
     let aminoAcid;
     if (isProteinSequence) {
-      console.log(
-        `sequenceString[(index + 1) / 3]:`,
-        JSON.stringify(sequenceString[(index - 2) / 3], null, 4)
-      );
       aminoAcid =
         proteinAlphabet[sequenceString[(index - 2) / 3].toUpperCase()];
     } else {
