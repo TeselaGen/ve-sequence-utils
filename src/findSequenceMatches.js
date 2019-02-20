@@ -41,10 +41,15 @@ module.exports = function findSequenceMatches(
 };
 
 function findSequenceMatchesTopStrand(sequence, searchString, options = {}) {
-  const { isCircular, isAmbiguous, isProteinSearch } = options;
+  const {
+    isCircular,
+    isAmbiguous,
+    isProteinSequence,
+    isProteinSearch
+  } = options;
   let searchStringToUse = escapeStringRegexp(searchString);
   if (isAmbiguous) {
-    if (isProteinSearch) {
+    if (isProteinSearch || isProteinSequence) {
       searchStringToUse = convertAmbiguousStringToRegex(
         searchStringToUse,
         true

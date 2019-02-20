@@ -1,6 +1,56 @@
 const findSequenceMatches = require("./findSequenceMatches");
 
 describe("findSequenceMatches", function() {
+  it("ambiguous protein sequence with * as stop codon", function() {
+    expect(
+      findSequenceMatches("mmhlrl*", "Mxxlrl*", {
+        isAmbiguous: true,
+        isProteinSequence: true /* isProteinSearch: true */
+      })
+    ).toEqual([
+      {
+        start: 0,
+        end: 6
+      }
+    ]);
+    expect(
+      findSequenceMatches("mmhlrl*", "mx", {
+        isAmbiguous: true,
+        isProteinSequence: true /* isProteinSearch: true */
+      })
+    ).toEqual([
+      {
+        start: 0,
+        end: 1
+      },
+      {
+        start: 1,
+        end: 2
+      }
+    ]);
+  });
+  it("protein sequence with * as stop codon", function() {
+    expect(
+      findSequenceMatches("mmhlrl*", "mMh", {
+        isProteinSequence: true /* isProteinSearch: true */
+      })
+    ).toEqual([
+      {
+        start: 0,
+        end: 2
+      }
+    ]);
+    expect(
+      findSequenceMatches("mmhlrl*", "Mmhlrl*", {
+        isProteinSequence: true /* isProteinSearch: true */
+      })
+    ).toEqual([
+      {
+        start: 0,
+        end: 6
+      }
+    ]);
+  });
   it("returns an empty array when nothing matches", function() {
     expect([]).toEqual(findSequenceMatches("atg", "xtag"));
   });
