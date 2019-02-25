@@ -18,15 +18,25 @@ describe("tidyUpSequenceData", function() {
       features: [{ start: 3, end: 14 }]
     });
   });
+  // const res = tidyUpSequenceData(
+  //   {
+  //     isProtein: true,
+  //     circular: true,
+  //     proteinSequence: "gagiuhwgagalasjglj*.",
+  //     features: [{ start: 3, end: 10 }, { start: 10, end: 20 }]
+  //   },
+  //   { convertAnnotationsFromAAIndices: true, removeUnwantedChars: true }
+  // );
+
   it("should handle a protein sequence being passed in with isProtein set to true", function() {
     const res = tidyUpSequenceData(
       {
         isProtein: true,
         circular: true,
-        sequence: "gagiuhwgagalasjglj*.",
+        proteinSequence: "gagiuhwgagalasjglj*.",
         features: [{ start: 3, end: 10 }, { start: 10, end: 20 }]
       },
-      { removeUnwantedChars: true }
+      { convertAnnotationsFromAAIndices: true, removeUnwantedChars: true }
     );
     res.should.containSubset({
       aminoAcidDataForEachBaseOfDNA: [
@@ -80,11 +90,12 @@ describe("tidyUpSequenceData", function() {
         }
       ],
       isProtein: true,
-      size: 18, //size should refer to the amino acids
+      size: 54, //size should refer to the DNA length
+      proteinSize: 18, //proteinSize should refer to the amino acid length
       sequence: "ggngcnggnauhugacayuggggngcnggngcnyungcnwsnggnyuntrrtrr", //degenerate sequence
       proteinSequence: "gagiuhwgagalasgl*.",
       circular: false,
-      features: [{ start: 3, end: 10 }, { start: 10, end: 17 }]
+      features: [{ start: 9, end: 32 }, { start: 30, end: 53 }]
     });
   });
   it("should handle the noSequence option correctly and not truncate .size", function() {
@@ -197,22 +208,22 @@ describe("tidyUpSequenceData", function() {
     res.features[0].annotationTypePlural.should.equal("features");
   });
 
-  it("should add amino acids to a bare translation obj", function() {
-    const res = tidyUpSequenceData({
-      sequence: "gtagagatagagataga",
-      size: 0,
-      circular: false,
-      features: [],
-      parts: [],
-      translations: [
-        {
-          start: 0,
-          end: 10
-        }
-      ],
-      cutsites: [],
-      orfs: []
-    });
-    // res.should.containSubset({})
-  });
+  // it("should add amino acids to a bare translation obj", function() {
+  //   const res = tidyUpSequenceData({
+  //     sequence: "gtagagatagagataga",
+  //     size: 0,
+  //     circular: false,
+  //     features: [],
+  //     parts: [],
+  //     translations: [
+  //       {
+  //         start: 0,
+  //         end: 10
+  //       }
+  //     ],
+  //     cutsites: [],
+  //     orfs: []
+  //   });
+  //   // res.should.containSubset({})
+  // });
 });

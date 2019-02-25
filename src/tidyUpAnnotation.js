@@ -8,12 +8,14 @@ module.exports = function cleanUpAnnotation(
   _annotation,
   {
     sequenceData = {},
+    convertAnnotationsFromAAIndices,
     annotationType,
     provideNewIdsForAnnotations,
     messages = [],
     mutative
   }
 ) {
+  const { size, circular } = sequenceData;
   if (!_annotation || typeof _annotation !== "object") {
     messages.push("Invalid annotation detected and removed");
     return false;
@@ -26,7 +28,10 @@ module.exports = function cleanUpAnnotation(
 
   annotation.start = parseInt(annotation.start, 10);
   annotation.end = parseInt(annotation.end, 10);
-
+  if (convertAnnotationsFromAAIndices) {
+    annotation.start = annotation.start * 3;
+    annotation.end = annotation.end * 3 + 2;
+  }
   if (!annotation.name || typeof annotation.name !== "string") {
     messages.push(
       'Unable to detect valid name for annotation, setting name to "Untitled annotation"'
@@ -44,7 +49,7 @@ module.exports = function cleanUpAnnotation(
   }
   if (
     !areNonNegativeIntegers([annotation.start]) ||
-    annotation.start > sequenceData.size - 1
+    annotation.start > size - 1
   ) {
     messages.push(
       "Invalid annotation start: " +
@@ -52,31 +57,28 @@ module.exports = function cleanUpAnnotation(
         " detected for " +
         annotation.name +
         " and set to size: " +
-        sequenceData.size
+        size
     ); //setting it to 0 internally, but users will see it as 1
-    annotation.start = sequenceData.size - 1;
+    annotation.start = size - 1;
   }
-  if (
-    !areNonNegativeIntegers([annotation.end]) ||
-    annotation.end > sequenceData.size - 1
-  ) {
+  if (!areNonNegativeIntegers([annotation.end]) || annotation.end > size - 1) {
     messages.push(
       "Invalid annotation end:  " +
         annotation.end +
         " detected for " +
         annotation.name +
         " and set to seq size: " +
-        sequenceData.size
+        size
     ); //setting it to 0 internally, but users will see it as 1
-    annotation.end = sequenceData.size - 1;
+    annotation.end = size - 1;
   }
-  if (annotation.start > annotation.end && sequenceData.circular === false) {
+  if (annotation.start > annotation.end && circular === false) {
     messages.push(
       "Invalid circular annotation detected for " +
         annotation.name +
         ". end set to 1"
     ); //setting it to 0 internally, but users will see it as 1
-    annotation.end = sequenceData.size;
+    annotation.end = size;
   }
 
   if (

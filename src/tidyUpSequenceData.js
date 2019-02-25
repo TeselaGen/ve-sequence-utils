@@ -16,7 +16,8 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     removeUnwantedChars,
     additionalValidChars,
     charOverrides,
-    proteinFilterOptions
+    proteinFilterOptions,
+    convertAnnotationsFromAAIndices
   } = options;
   let seqData = cloneDeep(pSeqData); //sequence is usually immutable, so we clone it and return it
   let response = {
@@ -25,8 +26,11 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   if (!seqData) {
     seqData = {};
   }
-  if (!seqData.sequence && seqData.sequence !== "") {
+  if (!seqData.sequence) {
     seqData.sequence = "";
+  }
+  if (!seqData.proteinSequence) {
+    seqData.proteinSequence = "";
   }
   let needsBackTranslation = false;
   if (seqData.isProtein) {
@@ -58,7 +62,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   }
   if (seqData.isProtein) {
     if (needsBackTranslation) {
-      //backtranslate the
+      //backtranslate the AA sequence
       seqData.sequence = getDegenerateDnaStringFromAaString(
         seqData.proteinSequence
       );
@@ -71,11 +75,10 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     );
   }
 
-  seqData.size = seqData.noSequence
-    ? seqData.size
-    : seqData.isProtein
-    ? seqData.proteinSequence.length
-    : seqData.sequence.length;
+  seqData.size = seqData.noSequence ? seqData.size : seqData.sequence.length;
+  seqData.proteinSize = seqData.noSequence
+    ? seqData.proteinSize
+    : seqData.proteinSequence.length;
   if (
     seqData.circular === "false" ||
     /* eslint-disable eqeqeq*/
@@ -106,6 +109,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
       return tidyUpAnnotation(annotation, {
         ...options,
         sequenceData: seqData,
+        convertAnnotationsFromAAIndices,
         mutative: true,
         annotationType
       });
@@ -139,7 +143,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     });
   }
   if (logMessages && response.messages.length > 0) {
-    console.log("tidyUpSequenceData messages:", response.messages);
+    console.info("tidyUpSequenceData messages:", response.messages);
   }
   return seqData;
 };
