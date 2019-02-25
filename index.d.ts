@@ -65,7 +65,7 @@ interface tidyUpSequenceDataOptions {
   /**
    * convert from AA indexed {start,end} to a DNA bp indexed {start,end}
    */
-  convertAnnotationsFromAAIndices: string;
+  convertAnnotationsFromAAIndices: boolean;
   additionalValidChars: string;
   charOverrides: string;
   proteinFilterOptions: object;

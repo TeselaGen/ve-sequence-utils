@@ -4198,7 +4198,7 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fsevents@^1.0.0, fsevents@^1.2.2, fsevents@^1.2.3, fsevents@^1.2.4:
+fsevents@^1.0.0, fsevents@^1.2.2, fsevents@^1.2.3:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.4.tgz#f41dcb1af2582af3692da36fc55cbd8e1041c426"
   integrity sha512-z8H8/diyk76B7q5wg+Ud0+CqzcAF3mBBI/bA5ne5zrRUUIvNkJY//D3BqyH571KuAC4Nr7Rw7CjWX4r0y9DvNg==
@@ -10263,6 +10263,16 @@ ve-range-utils@2.5.1:
   integrity sha512-lsteLSyaWoLUX55KwRQAokZqzgOteTLuhCBKy40kAsLNGsilmRwEfOvfOACuZdtWotutIacYwAa53GqE8GBsUA==
   dependencies:
     lodash "^4.17.4"
+    validate.io-nonnegative-integer-array "^1.0.1"
+
+ve-sequence-utils@^3.3.16:
+  version "3.3.16"
+  resolved "https://registry.yarnpkg.com/ve-sequence-utils/-/ve-sequence-utils-3.3.16.tgz#ac1a7bdf4187953b0990b16b3154decd07066a1b"
+  integrity sha512-JTARqUoYZECY2OpMZFhG6P3+YtpovgNbju36hWeYFaxfMXB8LE7L33BJ4TvIyI+OKP5UCf/gRMZMmTzZUa+9AA==
+  dependencies:
+    bson-objectid "^1.1.1"
+    escape-string-regexp "^1.0.5"
+    string-splice "^1.3.0"
     validate.io-nonnegative-integer-array "^1.0.1"
 
 verror@1.10.0:

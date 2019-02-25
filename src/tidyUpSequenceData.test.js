@@ -4,18 +4,48 @@ const chaiSubset = require("chai-subset");
 chai.use(chaiSubset);
 chai.should();
 describe("tidyUpSequenceData", function() {
-  it("should remove unwanted chars if passed that option, while handling annotation start end truncation correctly", function() {
+  it("should remove unwanted chars if passed that option, while handling annotation start,end (and location start,end) truncation correctly", function() {
     const res = tidyUpSequenceData(
       {
         sequence: "http://localhost:3344/Standalone",
-        features: [{ start: 3, end: 20 }]
+        features: [
+          {
+            start: 3,
+            end: 20,
+            locations: [
+              {
+                start: 3,
+                end: 5
+              },
+              {
+                start: 10,
+                end: 20
+              }
+            ]
+          }
+        ]
       },
       { removeUnwantedChars: true }
     );
     res.should.containSubset({
       sequence: "httcahstStandan",
       circular: false,
-      features: [{ start: 3, end: 14 }]
+      features: [
+        {
+          start: 3,
+          end: 14,
+          locations: [
+            {
+              start: 3,
+              end: 5
+            },
+            {
+              start: 10,
+              end: 14
+            }
+          ]
+        }
+      ]
     });
   });
   // const res = tidyUpSequenceData(

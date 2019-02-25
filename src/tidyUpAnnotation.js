@@ -26,12 +26,6 @@ module.exports = function cleanUpAnnotation(
   }
   annotation.annotationTypePlural = annotationType;
 
-  annotation.start = parseInt(annotation.start, 10);
-  annotation.end = parseInt(annotation.end, 10);
-  if (convertAnnotationsFromAAIndices) {
-    annotation.start = annotation.start * 3;
-    annotation.end = annotation.end * 3 + 2;
-  }
   if (!annotation.name || typeof annotation.name !== "string") {
     messages.push(
       'Unable to detect valid name for annotation, setting name to "Untitled annotation"'
@@ -47,39 +41,28 @@ module.exports = function cleanUpAnnotation(
       "Unable to detect valid ID for annotation, setting ID to " + annotation.id
     );
   }
-  if (
-    !areNonNegativeIntegers([annotation.start]) ||
-    annotation.start > size - 1
-  ) {
-    messages.push(
-      "Invalid annotation start: " +
-        annotation.start +
-        " detected for " +
-        annotation.name +
-        " and set to size: " +
-        size
-    ); //setting it to 0 internally, but users will see it as 1
-    annotation.start = size - 1;
-  }
-  if (!areNonNegativeIntegers([annotation.end]) || annotation.end > size - 1) {
-    messages.push(
-      "Invalid annotation end:  " +
-        annotation.end +
-        " detected for " +
-        annotation.name +
-        " and set to seq size: " +
-        size
-    ); //setting it to 0 internally, but users will see it as 1
-    annotation.end = size - 1;
-  }
-  if (annotation.start > annotation.end && circular === false) {
-    messages.push(
-      "Invalid circular annotation detected for " +
-        annotation.name +
-        ". end set to 1"
-    ); //setting it to 0 internally, but users will see it as 1
-    annotation.end = size;
-  }
+
+  //run this for the annotation itself
+  coerceLocation({
+    location: annotation,
+    convertAnnotationsFromAAIndices,
+    size,
+    messages,
+    circular,
+    name: annotation.name
+  });
+  //and for each location
+  annotation.locations &&
+    annotation.locations.forEach(location => {
+      coerceLocation({
+        location,
+        convertAnnotationsFromAAIndices,
+        size,
+        messages,
+        circular,
+        name: annotation.name
+      });
+    });
 
   if (
     annotation.forward === true ||
@@ -121,3 +104,47 @@ module.exports = function cleanUpAnnotation(
   }
   return annotation;
 };
+
+function coerceLocation({
+  location,
+  convertAnnotationsFromAAIndices,
+  size,
+  messages,
+  circular,
+  name
+}) {
+  location.start = parseInt(location.start, 10);
+  location.end = parseInt(location.end, 10);
+  if (convertAnnotationsFromAAIndices) {
+    location.start = location.start * 3;
+    location.end = location.end * 3 + 2;
+  }
+  if (!areNonNegativeIntegers([location.start]) || location.start > size - 1) {
+    messages.push(
+      "Invalid annotation start: " +
+        location.start +
+        " detected for " +
+        location.name +
+        " and set to size: " +
+        size
+    ); //setting it to 0 internally, but users will see it as 1
+    location.start = size - 1;
+  }
+  if (!areNonNegativeIntegers([location.end]) || location.end > size - 1) {
+    messages.push(
+      "Invalid annotation end:  " +
+        location.end +
+        " detected for " +
+        location.name +
+        " and set to seq size: " +
+        size
+    ); //setting it to 0 internally, but users will see it as 1
+    location.end = size - 1;
+  }
+  if (location.start > location.end && circular === false) {
+    messages.push(
+      "Invalid circular annotation detected for " + name + ". end set to 1"
+    ); //setting it to 0 internally, but users will see it as 1
+    location.end = size;
+  }
+}
