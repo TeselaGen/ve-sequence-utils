@@ -72,6 +72,73 @@ interface tidyUpSequenceDataOptions {
 
 }
 
+
+// enzymeList
+// featureColors
+// DNAComplementMap
+// FeatureTypes
+
+
+// getDigestFragmentsForCutsites 
+// getDigestFragmentsForRestrictionEnzymes
+// addGapsToSeqReads
+// getInsertBetweenVals
+// adjustBpsToReplaceOrInsert
+// getLeftAndRightOfSequenceInRangeGivenPosition
+// annotationTypes
+// bioData
+// getOrfsFromSequence
+// calculatePercentGC
+// getOverlapBetweenTwoSequences
+// calculateTm
+// getPossiblePartsFromSequenceAndEnzymes
+// condensePairwiseAlignmentDifferences
+// getReverseAminoAcidStringFromSequenceString
+// convertDnaCaretPositionOrRangeToAA
+// getReverseComplementAminoAcidStringFromSequenceString
+// convertDnaCaretPositionToAACaretPosition
+// getReverseComplementAnnotation
+// convertDnaRangeToAARange
+// cutSequenceByRestrictionEnzyme
+// getReverseComplementSequenceAndAnnotations
+// deleteSequenceDataAtRange
+// getReverseComplementSequenceString
+// getSequenceDataBetweenRange
+// doesEnzymeChopOutsideOfRecognitionSite
+// getVirtualDigest
+// guessIfSequenceIsDnaAndNotProtein
+// filterAminoAcidSequenceString
+// filterSequenceString
+// insertGapsIntoRefSeq
+// findNearestRangeOfSequenceOverlapToPosition
+// insertSequenceDataAtPosition
+// findOrfsInPlasmid
+// insertSequenceDataAtPositionOrRange
+// findSequenceMatches
+// mapAnnotationsToRows
+// generateSequenceData
+// prepareCircularViewData
+// getAllInsertionsInSeqReads
+// prepareRowData
+// getAminoAcidDataForEachBaseOfDna
+// prepareRowData_output1
+// getAminoAcidFromSequenceTriplet
+// proteinAlphabet
+// getAminoAcidStringFromSequenceString
+// rotateBpsToPosition
+// getCodonRangeForAASliver
+// rotateSequenceDataToPosition
+// getComplementAminoAcidStringFromSequenceString
+// getComplementSequenceAndAnnotations
+// threeLetterSequenceStringToAminoAcidMap
+// getComplementSequenceString
+// tidyUpAnnotation
+// getCutsiteType
+// tidyUpSequenceData
+// getCutsitesFromSequence
+// getDegenerateDnaStringFromAAString
+
+
 // /*~ If this module has methods, declare them as functions like so.
 //  */
 // interface WithUpsertOptions {

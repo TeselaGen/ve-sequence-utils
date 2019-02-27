@@ -2,8 +2,8 @@
   "name": "ve-sequence-utils",
   "version": "3.3.17",
   "description": "sequence utility functions",
-  "main": "lib",
-  "//types": "./index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./index.d.ts",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
     "build": "nwb build-react-component --copy-files --no-demo",

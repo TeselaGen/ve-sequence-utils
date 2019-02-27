@@ -11,12 +11,34 @@ chai.use(chaiSubset);
 const insertSequenceDataAtPositionOrRange = require("./insertSequenceDataAtPositionOrRange");
 
 describe("insertSequenceData", function() {
-  it("inserts characters at correct range", function() {
+  it("inserts protein and dna characters at correct caret", function() {
     let sequenceToInsert = {
-      sequence: "atgagagaga"
+      sequence: "atagatagg",
+      proteinSequence: "IDR"
     };
     let sequenceToInsertInto = {
-      sequence: "atagatag"
+      //  012345
+      sequence: "atgagagagaaa",
+      proteinSequence: "MREK"
+    };
+    let caret = 3;
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      caret
+    );
+    postInsertSeq.sequence.should.equal("atgatagataggagagagaaa");
+    postInsertSeq.proteinSequence.should.equal("MIDRREK");
+  });
+  it("inserts protein and dna characters at correct range", function() {
+    let sequenceToInsert = {
+      sequence: "atagatagg",
+      proteinSequence: "IDR"
+    };
+    let sequenceToInsertInto = {
+      //  012345
+      sequence: "atgagagagaaa",
+      proteinSequence: "MREK"
     };
     let range = { start: 3, end: 5 };
     let postInsertSeq = insertSequenceDataAtPositionOrRange(
@@ -24,6 +46,23 @@ describe("insertSequenceData", function() {
       sequenceToInsertInto,
       range
     );
+    postInsertSeq.sequence.should.equal("atgatagatagggagaaa");
+    postInsertSeq.proteinSequence.should.equal("MIDREK");
+  });
+  it("inserts characters at correct range", function() {
+    let sequenceToInsert = {
+      sequence: "rrrrrrr"
+    };
+    let sequenceToInsertInto = {
+      sequence: "atgagagaga"
+    };
+    let range = { start: 3, end: 5 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.should.equal("atgrrrrrrrgaga");
     postInsertSeq.sequence.length.should.equal(
       sequenceToInsertInto.sequence.length +
         sequenceToInsert.sequence.length -

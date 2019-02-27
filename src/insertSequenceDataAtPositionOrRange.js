@@ -1,4 +1,6 @@
 const { map, cloneDeep } = require("lodash");
+const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
+
 const {
   adjustRangeToInsert,
   adjustRangeToDeletionOfAnotherRange
@@ -24,6 +26,14 @@ module.exports = function insertSequenceDataAtPositionOrRange(
     sequenceDataToInsert.sequence,
     caretPositionOrRange
   );
+  newSequenceData.proteinSequence = adjustBpsToReplaceOrInsert(
+    existingSequenceData.proteinSequence,
+    sequenceDataToInsert.proteinSequence,
+    convertDnaCaretPositionOrRangeToAa(caretPositionOrRange)
+  );
+  // if (existingSequenceData.isProtein) {
+
+  // }
 
   //handle the insert
   modifiableTypes.forEach(annotationType => {

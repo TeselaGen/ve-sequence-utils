@@ -1,7 +1,7 @@
 // const ac = require('ve-api-check');
 // ac.throw([ac.posInt, ac.posInt, ac.bool], arguments);
-const mapAnnotationsToRows = require("../mapAnnotationsToRows");
-const annotationTypes = require("../annotationTypes");
+const mapAnnotationsToRows = require("./mapAnnotationsToRows");
+const annotationTypes = require("./annotationTypes");
 module.exports = function prepareRowData(sequenceData, bpsPerRow) {
   // ac.throw([ac.sequenceData, ac.posInt], arguments);
   const sequenceLength = sequenceData.sequence.length;

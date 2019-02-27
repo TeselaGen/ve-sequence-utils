@@ -9,7 +9,8 @@ const spliceString = require("string-splice");
 module.exports = function adjustBpsToReplaceOrInsert(
   bpString,
   insertString = "",
-  caretPositionOrRange
+  caretPositionOrRange,
+  isProtein
 ) {
   let stringToReturn = bpString;
 

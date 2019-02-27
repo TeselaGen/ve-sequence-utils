@@ -51,3 +51,4 @@ module.exports.condensePairwiseAlignmentDifferences = require("./condensePairwis
 module.exports.addGapsToSeqReads = require("./addGapsToSeqReads");
 module.exports.getDigestFragmentsForCutsites = require("./getDigestFragmentsForCutsites");
 module.exports.getDigestFragmentsForRestrictionEnzymes = require("./getDigestFragmentsForRestrictionEnzymes");
+module.exports.convertDnaCaretPositionOrRangeToAA = require("./convertDnaCaretPositionOrRangeToAA");
