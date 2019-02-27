@@ -1,5 +1,6 @@
 const { flatMap, extend } = require("lodash");
 const { getRangeLength } = require("ve-range-utils");
+const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
 
 const {
   getSequenceWithinRange,
@@ -20,7 +21,11 @@ module.exports = function getSequenceDataBetweenRange(
     {},
     seqDataToUse,
     {
-      sequence: getSequenceWithinRange(range, seqDataToUse.sequence)
+      sequence: getSequenceWithinRange(range, seqDataToUse.sequence),
+      proteinSequence: getSequenceWithinRange(
+        convertDnaCaretPositionOrRangeToAa(range),
+        seqDataToUse.proteinSequence
+      )
     },
     annotationTypes.reduce((acc, type) => {
       if (exclude[type]) {

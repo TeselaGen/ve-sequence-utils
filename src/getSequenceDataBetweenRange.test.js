@@ -12,6 +12,7 @@ describe("getSequenceDataBetweenRange", function() {
   it("should return an empty sequence if given an invalid range", function() {
     const res = getSequenceDataBetweenRange(
       {
+        isProtein: true,
         sequence: "atgcatgc",
         features: [
           {
@@ -28,14 +29,46 @@ describe("getSequenceDataBetweenRange", function() {
     );
     res.should.containSubset({
       sequence: "",
+      isProtein: true,
+      proteinSequence: "",
       features: [],
       parts: []
+    });
+  });
+  it("protein sequence non circular feature, non circular range", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        sequence: "atgcatgcatgc",
+        proteinSequence: "MHAC",
+        features: [
+          {
+            start: 0,
+            end: 7,
+            name: "happy"
+          }
+        ]
+      },
+      {
+        start: 3,
+        end: 8
+      }
+    );
+    res.should.containSubset({
+      sequence: "catgca",
+      proteinSequence: "HA",
+      features: [
+        {
+          start: 0,
+          end: 4,
+          name: "happy"
+        }
+      ]
     });
   });
   it("non circular feature, non circular range", function() {
     const res = getSequenceDataBetweenRange(
       {
-        sequence: "atgcatgc",
+        sequence: "atgcatgca",
         features: [
           {
             start: 0,
