@@ -3,7 +3,7 @@
   "version": "3.3.19",
   "description": "sequence utility functions",
   "main": "./lib/index.js",
-  "types": "./index.d.ts",
+  "//types": "./index.d.ts",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
     "build": "nwb build-react-component --copy-files --no-demo",
