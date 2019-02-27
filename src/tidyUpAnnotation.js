@@ -15,7 +15,7 @@ module.exports = function cleanUpAnnotation(
     mutative
   }
 ) {
-  const { size, circular } = sequenceData;
+  const { size, circular, isProtein } = sequenceData;
   if (!_annotation || typeof _annotation !== "object") {
     messages.push("Invalid annotation detected and removed");
     return false;
@@ -44,6 +44,7 @@ module.exports = function cleanUpAnnotation(
 
   //run this for the annotation itself
   coerceLocation({
+    isProtein,
     location: annotation,
     convertAnnotationsFromAAIndices,
     size,
@@ -55,6 +56,7 @@ module.exports = function cleanUpAnnotation(
   annotation.locations &&
     annotation.locations.forEach(location => {
       coerceLocation({
+        isProtein,
         location,
         convertAnnotationsFromAAIndices,
         size,
@@ -109,12 +111,14 @@ function coerceLocation({
   location,
   convertAnnotationsFromAAIndices,
   size,
+  isProtein,
   messages,
   circular,
   name
 }) {
   location.start = parseInt(location.start, 10);
   location.end = parseInt(location.end, 10);
+
   if (convertAnnotationsFromAAIndices) {
     location.start = location.start * 3;
     location.end = location.end * 3 + 2;
@@ -128,7 +132,7 @@ function coerceLocation({
         " and set to size: " +
         size
     ); //setting it to 0 internally, but users will see it as 1
-    location.start = size - 1;
+    location.start = size - (isProtein ? 3 : 1);
   }
   if (!areNonNegativeIntegers([location.end]) || location.end > size - 1) {
     messages.push(

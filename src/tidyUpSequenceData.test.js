@@ -64,7 +64,11 @@ describe("tidyUpSequenceData", function() {
         isProtein: true,
         circular: true,
         proteinSequence: "gagiuhwgagalasjglj*.",
-        features: [{ start: 3, end: 10 }, { start: 10, end: 20 }]
+        features: [
+          { start: 3, end: 10 },
+          { start: 10, end: 20 },
+          { name: "iDon'tFit", start: 25, end: 35 }
+        ]
       },
       { convertAnnotationsFromAAIndices: true, removeUnwantedChars: true }
     );
@@ -125,7 +129,15 @@ describe("tidyUpSequenceData", function() {
       sequence: "ggngcnggnauhugacayuggggngcnggngcnyungcnwsnggnyuntrrtrr", //degenerate sequence
       proteinSequence: "gagiuhwgagalasgl*.",
       circular: false,
-      features: [{ start: 9, end: 32 }, { start: 30, end: 53 }]
+      features: [
+        { start: 9, end: 32 },
+        { start: 30, end: 53 },
+        {
+          name: "iDon'tFit",
+          start: 51,
+          end: 53
+        }
+      ]
     });
   });
   it("should handle the noSequence option correctly and not truncate .size", function() {
