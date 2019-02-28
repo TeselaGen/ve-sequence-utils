@@ -42,12 +42,12 @@ function generateSequence(m = 9) {
 function generateAnnotations(
   numberOfAnnotationsToGenerate,
   start,
-  stop,
+  end,
   maxLength
 ) {
   let result = {};
   for (let i = 0; i < numberOfAnnotationsToGenerate; i++) {
-    const annotation = generateAnnotation(start, stop, maxLength);
+    const annotation = generateAnnotation(start, end, maxLength);
     result[annotation.id] = annotation;
   }
   return result;
@@ -57,8 +57,8 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateAnnotation(start, stop, maxLength) {
-  let range = generateRandomRange(start, stop, maxLength);
+function generateAnnotation(start, end, maxLength) {
+  let range = generateRandomRange(start, end, maxLength);
   return {
     ...range,
     name: getRandomInt(0, 100000).toString(),
