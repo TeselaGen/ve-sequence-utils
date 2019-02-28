@@ -2,6 +2,7 @@ module.exports.adjustBpsToReplaceOrInsert = require("./adjustBpsToReplaceOrInser
 module.exports.annotationTypes = require("./annotationTypes");
 module.exports.calculatePercentGC = require("./calculatePercentGC");
 module.exports.calculateTm = require("./calculateTm");
+module.exports.bioData = require("./bioData");
 module.exports.cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme");
 module.exports.deleteSequenceDataAtRange = require("./deleteSequenceDataAtRange");
 module.exports.DNAComplementMap = require("./DNAComplementMap");
