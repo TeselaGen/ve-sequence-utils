@@ -1,3 +1,9 @@
+module.exports.convertDnaRangeToAARange = require("./convertDnaRangeToAARange");
+module.exports.getAllInsertionsInSeqReads = require("./getAllInsertionsInSeqReads");
+module.exports.convertDnaCaretPositionToAACaretPosition = require("./convertDnaCaretPositionToAACaretPosition");
+module.exports.getDegenerateDnaStringFromAAString = require("./getDegenerateDnaStringFromAAString");
+module.exports.getVirtualDigest = require("./getVirtualDigest");
+module.exports.insertGapsIntoRefSeq = require("./insertGapsIntoRefSeq");
 module.exports.adjustBpsToReplaceOrInsert = require("./adjustBpsToReplaceOrInsert");
 module.exports.annotationTypes = require("./annotationTypes");
 module.exports.calculatePercentGC = require("./calculatePercentGC");
