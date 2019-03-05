@@ -1,6 +1,4 @@
-module.exports.convertDnaRangeToAARange = require("./convertDnaRangeToAARange");
 module.exports.getAllInsertionsInSeqReads = require("./getAllInsertionsInSeqReads");
-module.exports.convertDnaCaretPositionToAACaretPosition = require("./convertDnaCaretPositionToAACaretPosition");
 module.exports.getDegenerateDnaStringFromAAString = require("./getDegenerateDnaStringFromAAString");
 module.exports.getVirtualDigest = require("./getVirtualDigest");
 module.exports.insertGapsIntoRefSeq = require("./insertGapsIntoRefSeq");
@@ -59,3 +57,4 @@ module.exports.addGapsToSeqReads = require("./addGapsToSeqReads");
 module.exports.getDigestFragmentsForCutsites = require("./getDigestFragmentsForCutsites");
 module.exports.getDigestFragmentsForRestrictionEnzymes = require("./getDigestFragmentsForRestrictionEnzymes");
 module.exports.convertDnaCaretPositionOrRangeToAA = require("./convertDnaCaretPositionOrRangeToAA");
+module.exports.convertAACaretPositionOrRangeToDna = require("./convertAACaretPositionOrRangeToDna");
