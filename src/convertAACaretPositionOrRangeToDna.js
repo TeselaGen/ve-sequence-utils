@@ -1,6 +1,11 @@
 module.exports = function convertAACaretPositionOrRangeToDna(rangeOrCaret) {
   if (typeof rangeOrCaret === "object" && rangeOrCaret !== null) {
-    return convertAARangeToDnaRange(rangeOrCaret);
+    return convertAARangeToDnaRange({
+      ...rangeOrCaret,
+      locations: rangeOrCaret.locations
+        ? rangeOrCaret.locations.map(convertAARangeToDnaRange)
+        : undefined
+    });
   } else {
     return convertAACaretPositionToDnaCaretPosition(rangeOrCaret);
   }
