@@ -162,5 +162,37 @@ module.exports = {
     name: "Gap",
     threeLettersName: "Gap",
     color: "#FF0000"
+  },
+  B: {
+    value: "B",
+    threeLettersName: "ND",
+    color: "purple",
+    isAmbiguous: true,
+    name: "B",
+    aliases: "ND"
+  },
+  J: {
+    value: "J",
+    threeLettersName: "IL",
+    color: "purple",
+    isAmbiguous: true,
+    name: "J",
+    aliases: "IL"
+  },
+  X: {
+    value: "X",
+    threeLettersName: "ACDEFGHIKLMNPQRSTVWY",
+    color: "purple",
+    isAmbiguous: true,
+    name: "X",
+    aliases: "ACDEFGHIKLMNPQRSTVWY"
+  },
+  Z: {
+    value: "Z",
+    threeLettersName: "QE",
+    color: "purple",
+    isAmbiguous: true,
+    name: "Z",
+    aliases: "QE"
   }
 };
