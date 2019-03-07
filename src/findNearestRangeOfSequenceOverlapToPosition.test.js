@@ -1,8 +1,8 @@
-var assert = require("assert");
-var findNearestRangeOfSequenceOverlapToPosition = require("./findNearestRangeOfSequenceOverlapToPosition");
+import assert from 'assert';
+import findNearestRangeOfSequenceOverlapToPosition from './findNearestRangeOfSequenceOverlapToPosition';
 describe("findNearestRangeOfSequenceOverlapToPosition", function() {
   it("should find the nearest overlap range to the given position", function() {
-    var range = findNearestRangeOfSequenceOverlapToPosition(
+    let range = findNearestRangeOfSequenceOverlapToPosition(
       "gagagtagagatagagtagagatagagatagagagagagccagcagacgacgagcagcctacgtcatcatagagagagaag",
       "atagagagag",
       17
@@ -11,7 +11,7 @@ describe("findNearestRangeOfSequenceOverlapToPosition", function() {
     assert.equal(range.end, 36);
   });
   it("should find the nearest overlap range to the given position at the end of the sequence", function() {
-    var range = findNearestRangeOfSequenceOverlapToPosition(
+    let range = findNearestRangeOfSequenceOverlapToPosition(
       "gagagtagagatagagtagagatagagatagagagagagccagcagacgacgagcagcctacgtcatcatagagagagaag",
       "atagagagag",
       0
@@ -20,7 +20,7 @@ describe("findNearestRangeOfSequenceOverlapToPosition", function() {
     assert.equal(range.end, 77);
   });
   it("should find the nearest overlap range even when that range overlaps the origin", function() {
-    var range = findNearestRangeOfSequenceOverlapToPosition(
+    let range = findNearestRangeOfSequenceOverlapToPosition(
       "agagaggagagtagagatagagtagagatagagatagagagagagccagcagacgacgagcagcctacgtcatcatagagagagaagatag",
       "atagagagag",
       0

@@ -1,5 +1,5 @@
-var expect = require("chai").expect;
-var getOverlapBetweenTwoSequences = require("./getOverlapBetweenTwoSequences.js");
+import { expect } from 'chai';
+import getOverlapBetweenTwoSequences from './getOverlapBetweenTwoSequences.js';
 describe("getOverlapBetweenTwoSequences", function() {
   it("should get the range overlap given a seq and a seq to search in", function() {
     expect(getOverlapBetweenTwoSequences("gtt", "agttaa")).to.deep.equal({

@@ -1,22 +1,22 @@
-var prepareCircularViewData = require("./prepareCircularViewData");
-var expect = require("chai").expect;
-var mapAnnotationsToRows = require("./mapAnnotationsToRows.js");
+import prepareCircularViewData from './prepareCircularViewData';
+import { expect } from 'chai';
+import mapAnnotationsToRows from './mapAnnotationsToRows.js';
 describe("prepareCircularViewData", function() {
   it("maps overlapping annotations to rows correctly", function() {
-    var annotation1 = {
+    let annotation1 = {
       start: 0,
       end: 9,
       id: "a"
     };
-    var annotation2 = {
+    let annotation2 = {
       start: 0,
       end: 9,
       id: "b"
     };
-    var annotations = [annotation1, annotation2];
-    var sequenceLength = 10;
-    var bpsPerRow = 5;
-    var annotationsToRowsMap = mapAnnotationsToRows(
+    let annotations = [annotation1, annotation2];
+    let sequenceLength = 10;
+    let bpsPerRow = 5;
+    let annotationsToRowsMap = mapAnnotationsToRows(
       annotations,
       sequenceLength,
       bpsPerRow
@@ -61,20 +61,20 @@ describe("prepareCircularViewData", function() {
     });
   });
   it("correctly calculates y-offset for annotation split by origin", function() {
-    var annotation1 = {
+    let annotation1 = {
       start: 7,
       end: 9,
       id: "a"
     };
-    var annotation2 = {
+    let annotation2 = {
       start: 5,
       end: 3,
       id: "b"
     };
-    var annotations = [annotation1, annotation2];
-    var sequenceLength = 10;
-    var bpsPerRow = 10;
-    var annotationsToRowsMap = mapAnnotationsToRows(
+    let annotations = [annotation1, annotation2];
+    let sequenceLength = 10;
+    let bpsPerRow = 10;
+    let annotationsToRowsMap = mapAnnotationsToRows(
       annotations,
       sequenceLength,
       bpsPerRow
@@ -109,20 +109,20 @@ describe("prepareCircularViewData", function() {
     });
   });
   it("correctly calculates y-offset for annotation split by origin (different ordering of annotations)", function() {
-    var annotation1 = {
+    let annotation1 = {
       start: 5,
       end: 3,
       id: "a"
     };
-    var annotation2 = {
+    let annotation2 = {
       start: 7,
       end: 9,
       id: "b"
     };
-    var annotations = [annotation1, annotation2];
-    var sequenceLength = 10;
-    var bpsPerRow = 10;
-    var annotationsToRowsMap = mapAnnotationsToRows(
+    let annotations = [annotation1, annotation2];
+    let sequenceLength = 10;
+    let bpsPerRow = 10;
+    let annotationsToRowsMap = mapAnnotationsToRows(
       annotations,
       sequenceLength,
       bpsPerRow
@@ -158,15 +158,15 @@ describe("prepareCircularViewData", function() {
   });
 
   it("maps single annotation to rows correctly", function() {
-    var annotation1 = {
+    let annotation1 = {
       start: 0,
       end: 9,
       id: "a"
     };
-    var annotations = [annotation1];
-    var sequenceLength = 10;
-    var bpsPerRow = 5;
-    var annotationsToRowsMap = mapAnnotationsToRows(
+    let annotations = [annotation1];
+    let sequenceLength = 10;
+    let bpsPerRow = 5;
+    let annotationsToRowsMap = mapAnnotationsToRows(
       annotations,
       sequenceLength,
       bpsPerRow

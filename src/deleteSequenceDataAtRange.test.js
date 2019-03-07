@@ -1,15 +1,16 @@
 //tnr: half finished test.
 // let tap = require('tap');
 // tap.mochaGlobals();
-const chai = require("chai");
-const { getRangeLength } = require("ve-range-utils");
-const { cloneDeep } = require("lodash");
+import chai from 'chai';
+
+import { getRangeLength } from 've-range-utils';
+import { cloneDeep } from 'lodash';
 
 chai.should();
-const chaiSubset = require("chai-subset");
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-const deleteSequenceDataAtRange = require("./deleteSequenceDataAtRange");
+import deleteSequenceDataAtRange from './deleteSequenceDataAtRange';
 
 describe("deleteSequenceDataAtRange", function() {
   it("Deletes everything if the range spans the whole sequence", function() {

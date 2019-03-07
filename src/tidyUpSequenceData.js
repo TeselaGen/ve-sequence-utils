@@ -1,15 +1,16 @@
 // tnrtodo: figure out where to insert this validation exactly..
-const bsonObjectid = require("bson-objectid");
-const getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
-const { cloneDeep } = require("lodash");
-const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
-const annotationTypes = require("./annotationTypes");
-const filterSequenceString = require("./filterSequenceString");
-const tidyUpAnnotation = require("./tidyUpAnnotation");
-const filterAminoAcidSequenceString = require("./filterAminoAcidSequenceString");
-const getDegenerateDnaStringFromAaString = require("./getDegenerateDnaStringFromAAString");
+import bsonObjectid from 'bson-objectid';
 
-module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
+import getAminoAcidDataForEachBaseOfDna from './getAminoAcidDataForEachBaseOfDna';
+import { cloneDeep } from 'lodash';
+import areNonNegativeIntegers from 'validate.io-nonnegative-integer-array';
+import annotationTypes from './annotationTypes';
+import filterSequenceString from './filterSequenceString';
+import tidyUpAnnotation from './tidyUpAnnotation';
+import filterAminoAcidSequenceString from './filterAminoAcidSequenceString';
+import getDegenerateDnaStringFromAaString from './getDegenerateDnaStringFromAAString';
+
+export default function tidyUpSequenceData(pSeqData, options = {}) {
   const {
     annotationsAsObjects,
     logMessages,
@@ -146,4 +147,4 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     console.info("tidyUpSequenceData messages:", response.messages);
   }
   return seqData;
-};
+}

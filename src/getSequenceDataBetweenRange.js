@@ -1,15 +1,11 @@
-const { flatMap, extend } = require("lodash");
-const { getRangeLength } = require("ve-range-utils");
-const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
+import { flatMap, extend } from 'lodash';
+import { getRangeLength } from 've-range-utils';
+import convertDnaCaretPositionOrRangeToAa from './convertDnaCaretPositionOrRangeToAA';
+import { getSequenceWithinRange, getZeroedRangeOverlaps } from 've-range-utils';
+import tidyUpSequenceData from './tidyUpSequenceData';
+import annotationTypes from './annotationTypes';
 
-const {
-  getSequenceWithinRange,
-  getZeroedRangeOverlaps
-} = require("ve-range-utils");
-const tidyUpSequenceData = require("./tidyUpSequenceData");
-const annotationTypes = require("./annotationTypes");
-
-module.exports = function getSequenceDataBetweenRange(
+export default function getSequenceDataBetweenRange(
   seqData,
   range,
   options = {}
@@ -42,7 +38,7 @@ module.exports = function getSequenceDataBetweenRange(
     }, {})
   );
   return tidyUpSequenceData(seqDataToReturn);
-};
+}
 
 function getAnnotationsBetweenRange(
   annotationsToBeAdjusted,

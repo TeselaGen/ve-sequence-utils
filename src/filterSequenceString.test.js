@@ -1,4 +1,4 @@
-const filterSequenceString = require("./filterSequenceString");
+import filterSequenceString from './filterSequenceString';
 
 describe("filterSequenceString", function() {
   it("should filter out unwanted chars", function() {

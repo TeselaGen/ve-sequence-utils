@@ -1,10 +1,13 @@
 //var tap = require('tap');
 //tap.mochaGlobals();
-var getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna.js");
-var getAA = require("./getAminoAcidFromSequenceTriplet");
+import getAminoAcidDataForEachBaseOfDna from './getAminoAcidDataForEachBaseOfDna.js';
+
+import getAA from './getAminoAcidFromSequenceTriplet';
+
 // var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
-var assert = require("assert");
-var aaData;
+import assert from 'assert';
+
+let aaData;
 describe("getAminoAcidDataForEachBaseOfDna tranlates a", function() {
   //: It gets correct amino acid mapping and position in codon for each basepair in sequence
   it("1 amino acid long sequence", function() {

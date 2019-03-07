@@ -1,5 +1,6 @@
 //UNDER CONSTRUCTION
-const getVirtualDigest = require("./getVirtualDigest");
+import getVirtualDigest from './getVirtualDigest';
+
 describe("getVirtualDigest", function() {
   // it('should be further developed', function() {
 

@@ -7253,7 +7253,7 @@ const enzymesArray = [
   ]
 ];
 
-module.exports = enzymesArray.reduce((acc, enzyme) => {
+export default enzymesArray.reduce((acc, enzyme) => {
   acc[enzyme[0].toLowerCase()] = {
     name: enzyme[0],
     site: enzyme[1],

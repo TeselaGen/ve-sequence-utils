@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   "features",
   "parts",
   "cutsites",
@@ -7,7 +7,8 @@ module.exports = [
   "primers",
   "guides"
 ];
-module.exports.modifiableTypes = [
+
+export const modifiableTypes = [
   "features",
   "parts",
   "translations",

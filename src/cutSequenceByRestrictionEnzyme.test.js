@@ -1,9 +1,10 @@
 // const tap = require('tap');
 // tap.mochaGlobals();
-const chai = require("chai");
+import chai from 'chai';
+
 const should = chai.should();
-const cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme.js");
-const enzymeList = require("./enzymeList");
+import cutSequenceByRestrictionEnzyme from './cutSequenceByRestrictionEnzyme.js';
+import enzymeList from './enzymeList';
 // const collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe("a simple, palindromic enzyme", function() {
   //bamhi

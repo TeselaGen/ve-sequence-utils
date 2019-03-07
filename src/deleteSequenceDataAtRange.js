@@ -1,8 +1,8 @@
-const { getRangeLength } = require("ve-range-utils");
-const insertSequenceDataAtPositionOrRange = require("./insertSequenceDataAtPositionOrRange");
-const tidyUpSequenceData = require("./tidyUpSequenceData");
+import { getRangeLength } from 've-range-utils';
+import insertSequenceDataAtPositionOrRange from './insertSequenceDataAtPositionOrRange';
+import tidyUpSequenceData from './tidyUpSequenceData';
 
-module.exports = function deleteSequenceDataAtRange(sequenceData, range) {
+export default function deleteSequenceDataAtRange(sequenceData, range) {
   if (
     getRangeLength(range, sequenceData.sequence.length) ===
     sequenceData.sequence.length
@@ -11,4 +11,4 @@ module.exports = function deleteSequenceDataAtRange(sequenceData, range) {
     return tidyUpSequenceData({});
   }
   return insertSequenceDataAtPositionOrRange({}, sequenceData, range);
-};
+}

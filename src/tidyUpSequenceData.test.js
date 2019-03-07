@@ -1,6 +1,6 @@
-const tidyUpSequenceData = require("./tidyUpSequenceData");
-const chai = require("chai");
-const chaiSubset = require("chai-subset");
+import tidyUpSequenceData from './tidyUpSequenceData';
+import chai from 'chai';
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 chai.should();
 describe("tidyUpSequenceData", function() {

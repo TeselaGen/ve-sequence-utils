@@ -1,10 +1,10 @@
-const { cloneDeep } = require("lodash");
-const FeatureTypes = require("./FeatureTypes.js");
-const featureColors = require("./featureColors");
-const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
-const bsonObjectid = require("bson-objectid");
+import { cloneDeep } from 'lodash';
+import FeatureTypes from './FeatureTypes.js';
+import featureColors from './featureColors';
+import areNonNegativeIntegers from 'validate.io-nonnegative-integer-array';
+import bsonObjectid from 'bson-objectid';
 
-module.exports = function cleanUpAnnotation(
+export default function cleanUpAnnotation(
   _annotation,
   {
     sequenceData = {},
@@ -105,7 +105,7 @@ module.exports = function cleanUpAnnotation(
     annotation.color = featureColors[annotation.type];
   }
   return annotation;
-};
+}
 
 function coerceLocation({
   location,

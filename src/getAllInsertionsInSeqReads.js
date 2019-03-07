@@ -1,5 +1,5 @@
 // seqReads should be an array of objects [{name, seq, pos, cigar}, {name, seq, pos, cigar}, ...]
-module.exports = function getAllInsertionsInSeqReads(seqReads) {
+export default function getAllInsertionsInSeqReads(seqReads) {
   let allInsertionsInSeqReads = [];
   seqReads.forEach(seqRead => {
     // split cigar string at M, D, or I (match, deletion, or insertion), e.g. ["2M", "3I", "39M", "3D"...]
@@ -60,32 +60,4 @@ module.exports = function getAllInsertionsInSeqReads(seqReads) {
   // sortedInsertions is an array of objects [{bpPos: bp pos of insertion, number: # of insertions}, {bpPos, number}, ...]
   // console.log("combine duplicates/overlaps", sortedInsertions)
   return sortedInsertions;
-};
-
-// function getAllInsertionsInSeqReads(seqReads) {
-//   let allInsertionBpPosInSeqReads = [];
-//   seqReads.forEach(seqRead => {
-//     // split cigar string at M, D, or I (match, deletion, or insertion)
-//     // ["2M", "3I", "39M", "3D"...]
-//     const splitSeqRead = seqRead.cigar.match(/([0-9]*[MDI])/g)
-//     splitSeqRead.forEach(component => {
-//       // keeping bpPos 1-based
-//       let bpPosOfInsertion = seqRead.pos;
-// if (component.slice(-1) === "I") {
-//   const numberOfInsertions = Number(component.slice(0, -1));
-//   const componentIndex = splitSeqRead.indexOf(component);
-//   for (let i = 0; i < componentIndex; i++) {
-//       const previousComponentNumber = Number(splitSeqRead[i].slice(0, -1));
-//       bpPosOfInsertion += previousComponentNumber;
-//     }
-//   for (let i = 1; i <= numberOfInsertions; i++) {
-//     allInsertionBpPosInSeqReads.push(bpPosOfInsertion - i);
-//   }
-// }
-//   });
-// });
-//   // allInsertionBpPosInSeqReads should be an array of bp pos [6, 15, 9, 2, 23...]
-//   // remove duplicates, organize in ascending order
-// const uniqueInsertionBpPos = [...new Set(allInsertionBpPosInSeqReads)].sort(function(a, b) { return a - b });
-//   return uniqueInsertionBpPos;
-// }
+}

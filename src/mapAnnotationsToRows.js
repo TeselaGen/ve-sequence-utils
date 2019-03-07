@@ -1,16 +1,11 @@
 // const ac = require('ve-api-check');
 // ac.throw([ac.string,ac.bool],arguments);
-const {
-  each
-  // some, sortBy, uniq
-} = require("lodash");
-// const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
-const {
-  getYOffsetForPotentiallyCircularRange,
-  splitRangeIntoTwoPartsIfItIsCircular
-} = require("ve-range-utils");
+import { each } from 'lodash';
 
-module.exports = function mapAnnotationsToRows(
+// const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
+import { getYOffsetForPotentiallyCircularRange, splitRangeIntoTwoPartsIfItIsCircular } from 've-range-utils';
+
+export default function mapAnnotationsToRows(
   annotations,
   sequenceLength,
   bpsPerRow
@@ -52,7 +47,7 @@ module.exports = function mapAnnotationsToRows(
     }
   });
   return annotationsToRowsMap;
-};
+}
 
 function mapAnnotationToRows({
   annotation,

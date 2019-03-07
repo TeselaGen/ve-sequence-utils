@@ -1,16 +1,17 @@
-const { cloneDeep } = require("lodash");
-const { getYOffsetsForPotentiallyCircularRanges } = require("ve-range-utils");
-const annotationTypes = require("./annotationTypes");
+import { cloneDeep } from 'lodash';
+import { getYOffsetsForPotentiallyCircularRanges } from 've-range-utils';
+import annotationTypes from './annotationTypes';
+
 //basically just adds yOffsets to the annotations
-module.exports = function prepareCircularViewData(sequenceData) {
-  var clonedSeqData = cloneDeep(sequenceData);
+export default function prepareCircularViewData(sequenceData) {
+  let clonedSeqData = cloneDeep(sequenceData);
   annotationTypes.forEach(function(annotationType) {
     if (annotationType !== "cutsites") {
-      var maxYOffset = getYOffsetsForPotentiallyCircularRanges(
+      let maxYOffset = getYOffsetsForPotentiallyCircularRanges(
         clonedSeqData[annotationType]
       ).maxYOffset;
       clonedSeqData[annotationType].maxYOffset = maxYOffset;
     }
   });
   return clonedSeqData;
-};
+}

@@ -1,4 +1,4 @@
-module.exports = function convertDnaCaretPositionOrRangeToAA(rangeOrCaret) {
+export default function convertDnaCaretPositionOrRangeToAA(rangeOrCaret) {
   if (typeof rangeOrCaret === "object" && rangeOrCaret !== null) {
     return convertDnaRangeToAARange({
       ...rangeOrCaret,
@@ -9,7 +9,7 @@ module.exports = function convertDnaCaretPositionOrRangeToAA(rangeOrCaret) {
   } else {
     return convertDnaCaretPositionToAACaretPosition(rangeOrCaret);
   }
-};
+}
 
 function convertDnaCaretPositionToAACaretPosition(caret) {
   return Math.floor(caret / 3);

@@ -1,7 +1,8 @@
-const DNAComplementMap = require("./DNAComplementMap");
+import DNAComplementMap from './DNAComplementMap';
+
 // const ac = require('ve-api-check');
 // ac.throw([ac.string,ac.bool],arguments);
-module.exports = function getComplementSequenceString(sequence) {
+export default function getComplementSequenceString(sequence) {
   // ac.throw([ac.string],arguments);
   let complementSeqString = "";
   for (let i = 0; i < sequence.length; i++) {
@@ -13,4 +14,4 @@ module.exports = function getComplementSequenceString(sequence) {
     complementSeqString += complementChar;
   }
   return complementSeqString;
-};
+}

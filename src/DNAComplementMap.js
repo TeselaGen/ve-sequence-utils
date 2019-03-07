@@ -26,4 +26,4 @@ const DNAComplementMap = {
   //tnrtodo add more letters here
 };
 
-module.exports = DNAComplementMap;
+export default DNAComplementMap;

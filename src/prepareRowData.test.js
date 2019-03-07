@@ -1,8 +1,9 @@
 // const tap = require('tap');
 // tap.mochaGlobals();
-const expect = require("chai").expect;
-const prepareRowData = require("./prepareRowData");
-const output1 = require("./prepareRowData_output1.json");
+import { expect } from 'chai';
+
+import prepareRowData from './prepareRowData';
+import output1 from './prepareRowData_output1.json';
 
 describe("prepareRowData", function() {
   it("maps overlapping annotations to rows correctly", function() {

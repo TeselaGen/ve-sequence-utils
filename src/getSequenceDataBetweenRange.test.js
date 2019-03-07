@@ -1,12 +1,13 @@
 //tnr: half finished test.
 // const tap = require('tap');
 // tap.mochaGlobals();
-const chai = require("chai");
+import chai from 'chai';
+
 chai.should();
-const chaiSubset = require("chai-subset");
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-const getSequenceDataBetweenRange = require("./getSequenceDataBetweenRange");
+import getSequenceDataBetweenRange from './getSequenceDataBetweenRange';
 
 describe("getSequenceDataBetweenRange", function() {
   it("should return an empty sequence if given an invalid range", function() {

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   "-10_signal": "#4ECDC4",
   "-35_signal": "#F7FFF7",
   "3'clip": "#FF6B6B",
@@ -77,5 +77,5 @@ module.exports = {
   tRNA: "#D1456F",
   V_region: "#7B5EE7",
   variation: "#2EE455",
-}
+};
 

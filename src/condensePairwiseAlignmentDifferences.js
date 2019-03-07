@@ -1,4 +1,4 @@
-module.exports = function condensePairwiseAlignmentDifferences(
+export default function condensePairwiseAlignmentDifferences(
   referenceSeq,
   alignedSeq
 ) {
@@ -82,4 +82,4 @@ module.exports = function condensePairwiseAlignmentDifferences(
     }
   }
   return overviewMinimapTrack.join("");
-};
+}

@@ -1,12 +1,7 @@
-const {
-  splitRangeIntoTwoPartsIfItIsCircular,
-  getSequenceWithinRange,
-  invertRange,
-  isPositionWithinRange
-} = require("ve-range-utils");
-const spliceString = require("string-splice");
+import { splitRangeIntoTwoPartsIfItIsCircular, getSequenceWithinRange, invertRange, isPositionWithinRange } from 've-range-utils';
+import spliceString from 'string-splice';
 
-module.exports = function adjustBpsToReplaceOrInsert(
+export default function adjustBpsToReplaceOrInsert(
   bpString,
   insertString = "",
   caretPositionOrRange,
@@ -43,4 +38,4 @@ module.exports = function adjustBpsToReplaceOrInsert(
     );
   }
   return stringToReturn;
-};
+}

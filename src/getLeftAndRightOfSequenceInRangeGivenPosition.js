@@ -1,11 +1,6 @@
-const {
-  isPositionWithinRange,
-  getSequenceWithinRange,
-  normalizePositionByRangeLength,
-  isPositionCloserToRangeStartThanRangeEnd
-} = require("ve-range-utils");
+import { isPositionWithinRange, getSequenceWithinRange, normalizePositionByRangeLength, isPositionCloserToRangeStartThanRangeEnd } from 've-range-utils';
 
-module.exports = function getLeftAndRightOfSequenceInRangeGivenPosition(
+export default function getLeftAndRightOfSequenceInRangeGivenPosition(
   range,
   position,
   sequence
@@ -36,4 +31,4 @@ module.exports = function getLeftAndRightOfSequenceInRangeGivenPosition(
     }
   }
   return result;
-};
+}

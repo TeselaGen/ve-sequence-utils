@@ -1,4 +1,4 @@
-const { normalizeRange } = require("ve-range-utils");
+import { normalizeRange } from 've-range-utils';
 function findNearestRangeOfSequenceOverlapToPosition(
   sequenceToSearch,
   overlapSequence,
@@ -9,15 +9,15 @@ function findNearestRangeOfSequenceOverlapToPosition(
   if (sequenceToSearch.length < overlapSequence.length) {
     return null;
   }
-  var regex = new RegExp(overlapSequence, "ig");
-  var result;
-  var index;
-  var distance = Infinity;
+  let regex = new RegExp(overlapSequence, "ig");
+  let result;
+  let index;
+  let distance = Infinity;
   while (
     (result = regex.exec(sequenceToSearch + (isLinear ? "" : sequenceToSearch)))
   ) {
     if (result.index > sequenceToSearch.length) break;
-    var newDistance = Math.abs(result.index - positionStart);
+    let newDistance = Math.abs(result.index - positionStart);
     newDistance = isLinear
       ? newDistance //if linear, don't check around the origin
       : Math.min(newDistance, Math.abs(newDistance - sequenceToSearch.length));
@@ -36,4 +36,4 @@ function findNearestRangeOfSequenceOverlapToPosition(
     sequenceToSearch.length
   );
 }
-module.exports = findNearestRangeOfSequenceOverlapToPosition;
+export default findNearestRangeOfSequenceOverlapToPosition;

@@ -1,5 +1,6 @@
-const { normalizePositionByRangeLength1Based } = require("ve-range-utils");
-module.exports = function getInsertBetweenVals(
+import { normalizePositionByRangeLength1Based } from 've-range-utils';
+
+export default function getInsertBetweenVals(
   caretPosition,
   selectionLayer,
   sequenceLength
@@ -24,4 +25,4 @@ module.exports = function getInsertBetweenVals(
   } else {
     return [sequenceLength, 1];
   }
-};
+}

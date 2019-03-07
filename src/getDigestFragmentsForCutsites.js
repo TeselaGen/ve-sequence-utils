@@ -1,10 +1,6 @@
-const {
-  normalizePositionByRangeLength,
-  getRangeLength,
-  isRangeWithinRange
-} = require("ve-range-utils");
+import { normalizePositionByRangeLength, getRangeLength, isRangeWithinRange } from 've-range-utils';
 
-module.exports = function getDigestFragmentsForCutsites(
+export default function getDigestFragmentsForCutsites(
   sequenceLength,
   circular,
   cutsites
@@ -97,4 +93,4 @@ module.exports = function getDigestFragmentsForCutsites(
     return true;
   });
   return fragments;
-};
+}

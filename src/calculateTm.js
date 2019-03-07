@@ -3,7 +3,7 @@
  * @author Nick Elsbree
  * @author Zinovii Dmytriv (original author)
  */
-var calcTmMethods = {
+let calcTmMethods = {
   TABLE_BRESLAUER: "breslauer",
   TABLE_SUGIMOTO: "sugimoto",
   TABLE_UNIFIED: "unified",
@@ -45,16 +45,16 @@ var calcTmMethods = {
       Na = this.Na;
     }
 
-    var sequenceLength = sequence.length;
+    let sequenceLength = sequence.length;
 
     if (sequenceLength == 0) {
       return 0;
     }
 
-    var deltaHTable = this.getDeltaHTable(type);
-    var deltaSTable = this.getDeltaSTable(type);
+    let deltaHTable = this.getDeltaHTable(type);
+    let deltaSTable = this.getDeltaSTable(type);
 
-    var neighbors = new Array(); // List goes in order: aa, at, ac, ag, tt, ta, tc, tg, cc, ca, ct, cg, gg, gt, gc
+    let neighbors = new Array(); // List goes in order: aa, at, ac, ag, tt, ta, tc, tg, cc, ca, ct, cg, gg, gt, gc
 
     neighbors.push(this.calculateReps(sequence, "aa"));
     neighbors.push(this.calculateNumberOfOccurrences(sequence, "at"));
@@ -76,15 +76,15 @@ var calcTmMethods = {
     neighbors.push(this.calculateNumberOfOccurrences(sequence, "gt"));
     neighbors.push(this.calculateNumberOfOccurrences(sequence, "gc"));
 
-    var sumDeltaH = 0.0;
-    var sumDeltaS = 0.0;
+    let sumDeltaH = 0.0;
+    let sumDeltaS = 0.0;
 
-    for (var i = 0; i < 16; i++) {
+    for (let i = 0; i < 16; i++) {
       sumDeltaH = sumDeltaH + neighbors[i] * deltaHTable[i];
       sumDeltaS = sumDeltaS + neighbors[i] * deltaSTable[i];
     }
 
-    var temperature =
+    let temperature =
       -1000.0 * sumDeltaH / (A + -sumDeltaS + R * Math.log(C / 4.0)) -
       273.15 +
       16.6 * Math.LOG10E * Math.log(Na);
@@ -245,17 +245,17 @@ var calcTmMethods = {
 	 * @return {Int} Number of occurrences of target in sequence, with repeats.
 	 */
   calculateReps: function(sequence, target) {
-    var sequenceLength = sequence.length;
+    let sequenceLength = sequence.length;
 
     if (sequenceLength == 0) {
       return 0;
     }
 
-    var numFound = 0;
-    var seqOffset = 0; // Search offset for finding multiple matches.
+    let numFound = 0;
+    let seqOffset = 0; // Search offset for finding multiple matches.
 
     while (true) {
-      var foundSeq = sequence.indexOf(target, seqOffset);
+      let foundSeq = sequence.indexOf(target, seqOffset);
 
       if (foundSeq == -1) {
         break;
@@ -280,16 +280,16 @@ var calcTmMethods = {
 	 * @return {Int} Number of occurrences of target in sequence.
 	 */
   calculateNumberOfOccurrences: function(sequence, target) {
-    var sequenceLength = sequence.length;
+    let sequenceLength = sequence.length;
 
     if (sequenceLength == 0) {
       return 0;
     }
 
-    var numberFound = sequence.split(target).length - 1;
+    let numberFound = sequence.split(target).length - 1;
 
     return numberFound;
   }
 };
 
-module.exports = calcTmMethods.calculateTemperature.bind(calcTmMethods);
+export default calcTmMethods.calculateTemperature.bind(calcTmMethods);

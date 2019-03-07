@@ -1,15 +1,11 @@
-const { map, cloneDeep } = require("lodash");
-const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
+import { map, cloneDeep } from 'lodash';
+import convertDnaCaretPositionOrRangeToAa from './convertDnaCaretPositionOrRangeToAA';
+import { adjustRangeToInsert, adjustRangeToDeletionOfAnotherRange } from 've-range-utils';
+import tidyUpSequenceData from './tidyUpSequenceData';
+import { modifiableTypes } from './annotationTypes';
+import adjustBpsToReplaceOrInsert from './adjustBpsToReplaceOrInsert';
 
-const {
-  adjustRangeToInsert,
-  adjustRangeToDeletionOfAnotherRange
-} = require("ve-range-utils");
-const tidyUpSequenceData = require("./tidyUpSequenceData");
-const modifiableTypes = require("./annotationTypes").modifiableTypes;
-const adjustBpsToReplaceOrInsert = require("./adjustBpsToReplaceOrInsert");
-
-module.exports = function insertSequenceDataAtPositionOrRange(
+export default function insertSequenceDataAtPositionOrRange(
   _sequenceDataToInsert,
   _existingSequenceData,
   caretPositionOrRange
@@ -70,7 +66,7 @@ module.exports = function insertSequenceDataAtPositionOrRange(
     );
   });
   return newSequenceData;
-};
+}
 
 function adjustAnnotationsToInsert(
   annotationsToBeAdjusted,

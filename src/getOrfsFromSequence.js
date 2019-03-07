@@ -1,6 +1,8 @@
 // const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
-const ObjectId = require("bson-objectid");
-const getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
+import ObjectId from 'bson-objectid';
+
+import getReverseComplementSequenceString from './getReverseComplementSequenceString';
+
 // const ac = require('ve-api-check');
 /**
  * @private
@@ -11,7 +13,7 @@ const getReverseComplementSequenceString = require("./getReverseComplementSequen
  * @param  {boolean} forward Should we find forward facing orfs or reverse facing orfs
  * @return {Teselagen.bio.orf.ORF[]} The list of ORFs found.
  */
-module.exports = function getOrfsFromSequence(options) {
+export default function getOrfsFromSequence(options) {
   // ac.throw([ac.shape({
   //     sequence: ac.string,
   //     minimumOrfSize: ac.posInt,
@@ -112,7 +114,7 @@ module.exports = function getOrfsFromSequence(options) {
     return false;
   });
   return nonDuplicatedOrfRanges;
-};
+}
 
 //   const potentiallyDuplicatedOrfs = calculateOrfs(frame, sequence, minimumOrfSize, forward);
 

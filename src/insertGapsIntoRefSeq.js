@@ -1,8 +1,8 @@
-const getAllInsertionsInSeqReads = require("./getAllInsertionsInSeqReads.js");
+import getAllInsertionsInSeqReads from './getAllInsertionsInSeqReads.js';
 
 // seqReads should be an array of objects [{name, seq, pos, cigar}, {name, seq, pos, cigar}, ...]
 // add gaps in reference sequence where there are insertions
-module.exports = function insertGapsIntoRefSeq(refSeq, seqReads) {
+export default function insertGapsIntoRefSeq(refSeq, seqReads) {
   // turn ref seq into an array ["A", "T", "C", "G"...]
   let refSeqWithGaps = refSeq.split("");
   const allInsertionsInSeqReads = getAllInsertionsInSeqReads(seqReads);
@@ -22,7 +22,7 @@ module.exports = function insertGapsIntoRefSeq(refSeq, seqReads) {
   }
   // refSeqWithGaps is a string "GGGA--GA-C--ACC"
   return refSeqWithGaps.join("");
-};
+}
 
 // allInsertionsInSeqReads.forEach(insertion => {
 //       // adding gap at the bp pos of insertion

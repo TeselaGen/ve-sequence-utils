@@ -1,10 +1,11 @@
 // this is throwing a weird eslint error
 
 // var ac = require('ve-api-check');
-const { generateRandomRange } = require("ve-range-utils");
-const objectid = require("bson-objectid");
+import { generateRandomRange } from 've-range-utils';
 
-module.exports = function generateSequenceData({ sequenceLength = 1000 } = {}) {
+import objectid from 'bson-objectid';
+
+export default function generateSequenceData({ sequenceLength = 1000 } = {}) {
   return {
     // "sequence" : "gtggatgcatgtgtcatggtcat",
     circular: true,
@@ -26,7 +27,7 @@ module.exports = function generateSequenceData({ sequenceLength = 1000 } = {}) {
     primers: generateAnnotations(10, 0, sequenceLength - 1, 50),
     parts: generateAnnotations(10, 0, sequenceLength - 1, sequenceLength / 3)
   };
-};
+}
 
 // export default tidyUpSequenceData(exampleData)
 

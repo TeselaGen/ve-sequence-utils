@@ -1,12 +1,10 @@
-const { map } = require("lodash");
-const {
-  adjustRangeToRotation
-} = require("ve-range-utils");
-const tidyUpSequenceData = require("./tidyUpSequenceData");
-const modifiableTypes = require("./annotationTypes").modifiableTypes;
-const rotateBpsToPosition = require("./rotateBpsToPosition");
+import { map } from 'lodash';
+import { adjustRangeToRotation } from 've-range-utils';
+import tidyUpSequenceData from './tidyUpSequenceData';
+import { modifiableTypes } from './annotationTypes';
+import rotateBpsToPosition from './rotateBpsToPosition';
 
-module.exports = function rotateSequenceDataToPosition(
+export default function rotateSequenceDataToPosition(
   sequenceData,
   caretPosition
 ) {
@@ -29,7 +27,7 @@ module.exports = function rotateSequenceDataToPosition(
     );
   });
   return newSequenceData;
-};
+}
 
 function adjustAnnotationsToRotation(
   annotationsToBeAdjusted,

@@ -24,9 +24,9 @@ const AminoAcidToDegenerateDnaMap = {
   ".": "trr"
 };
 
-module.exports = function getDegenerateDnaStringFromAAString(aaString) {
+export default function getDegenerateDnaStringFromAAString(aaString) {
   return aaString
     .split("")
     .map(char => AminoAcidToDegenerateDnaMap[char.toLowerCase()] || "xxx")
     .join("");
-};
+}

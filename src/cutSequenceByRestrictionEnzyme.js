@@ -1,13 +1,8 @@
-const { assign } = require("lodash");
-const getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
+import { assign } from 'lodash';
+import getReverseComplementSequenceString from './getReverseComplementSequenceString';
+import { getSequenceWithinRange, normalizePositionByRangeLength, reversePositionInRange } from 've-range-utils';
 
-const {
-  getSequenceWithinRange,
-  normalizePositionByRangeLength,
-  reversePositionInRange
-} = require("ve-range-utils");
-
-module.exports = function cutSequenceByRestrictionEnzyme(
+export default function cutSequenceByRestrictionEnzyme(
   pSequence,
   circular,
   restrictionEnzyme
@@ -111,7 +106,7 @@ module.exports = function cutSequenceByRestrictionEnzyme(
       forward: false
     });
   }
-};
+}
 
 function cutSequence(
   forwardRegExpPattern,

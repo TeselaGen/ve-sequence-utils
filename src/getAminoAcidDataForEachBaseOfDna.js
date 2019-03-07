@@ -1,8 +1,9 @@
-const { translateRange, getSequenceWithinRange } = require("ve-range-utils");
-let revComp = require("./getReverseComplementSequenceString");
-let getAA = require("./getAminoAcidFromSequenceTriplet");
+import { translateRange, getSequenceWithinRange } from 've-range-utils';
+import revComp from './getReverseComplementSequenceString';
+import getAA from './getAminoAcidFromSequenceTriplet';
+
 // var ac = require('ve-api-check');
-const proteinAlphabet = require("./proteinAlphabet");
+import proteinAlphabet from './proteinAlphabet';
 
 // ac.throw([ac.string,ac.bool],arguments);
 /**
@@ -17,7 +18,7 @@ const proteinAlphabet = require("./proteinAlphabet");
         positionInCodon: 
       }]
  */
-module.exports = function getAminoAcidDataForEachBaseOfDna(
+export default function getAminoAcidDataForEachBaseOfDna(
   originalSequenceString,
   forward,
   optionalSubrangeRange,
@@ -159,4 +160,4 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(
     throw new Error("something went wrong!");
   }
   return aminoAcidDataForEachBaseOfDNA;
-};
+}

@@ -1,16 +1,16 @@
-module.exports = function getCodonRangeForAASliver(
+export default function getCodonRangeForAASliver(
   aminoAcidPositionInSequence,
   aminoAcidSliver,
   AARepresentationOfTranslation,
   relativeAAPositionInTranslation
 ) {
-  var AASliverOneBefore =
+  let AASliverOneBefore =
     AARepresentationOfTranslation[relativeAAPositionInTranslation - 1];
   if (
     AASliverOneBefore &&
     AASliverOneBefore.aminoAcidIndex === aminoAcidSliver.aminoAcidIndex
   ) {
-    var AASliverTwoBefore =
+    let AASliverTwoBefore =
       AARepresentationOfTranslation[relativeAAPositionInTranslation - 2];
     if (
       AASliverTwoBefore &&
@@ -42,7 +42,7 @@ module.exports = function getCodonRangeForAASliver(
         end: aminoAcidPositionInSequence + 2
       };
     } else {
-      var AASliverOneAhead =
+      let AASliverOneAhead =
         AARepresentationOfTranslation[relativeAAPositionInTranslation - 2];
       if (
         AASliverOneAhead &&
@@ -60,4 +60,4 @@ module.exports = function getCodonRangeForAASliver(
       }
     }
   }
-};
+}

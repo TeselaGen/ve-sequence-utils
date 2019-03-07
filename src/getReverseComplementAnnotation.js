@@ -1,4 +1,4 @@
-module.exports = function getReverseComplementAnnotation(
+export default function getReverseComplementAnnotation(
   annotation,
   sequenceLength
 ) {
@@ -19,4 +19,4 @@ module.exports = function getReverseComplementAnnotation(
     end: sequenceLength - (annotation.start + 1),
     forward: !annotation.forward
   });
-};
+}

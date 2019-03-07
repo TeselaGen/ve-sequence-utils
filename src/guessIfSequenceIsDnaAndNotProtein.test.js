@@ -1,6 +1,6 @@
-const chai = require("chai");
+import chai from 'chai';
 chai.should();
-const guessIfSequenceIsDnaAndNotProtein = require('./guessIfSequenceIsDnaAndNotProtein')
+import guessIfSequenceIsDnaAndNotProtein from './guessIfSequenceIsDnaAndNotProtein';
 describe('guessIfSequenceIsDnaAndNotProtein', function() {
     it('should correctly guess that a DNA seq is DNA', function() {
         guessIfSequenceIsDnaAndNotProtein("gtatacc").should.equal(true)

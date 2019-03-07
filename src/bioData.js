@@ -1,7 +1,9 @@
 //Adapted from biopython. Check the BIOPYTHON_LICENSE for licensing info
 
-module.exports.protein_letters = "ACDEFGHIKLMNPQRSTVWY";
-module.exports.extended_protein_letters = "ACDEFGHIKLMNPQRSTVWYBXZJUO.*-";
+export const protein_letters = "ACDEFGHIKLMNPQRSTVWY";
+
+export const extended_protein_letters = "ACDEFGHIKLMNPQRSTVWYBXZJUO.*-";
+
 // #   B = "Asx";  aspartic acid or asparagine (D or N)
 // #   X = "Xxx";  unknown or 'other' amino acid
 // #   Z = "Glx";  glutamic acid or glutamine (E or Q)
@@ -24,7 +26,7 @@ module.exports.extended_protein_letters = "ACDEFGHIKLMNPQRSTVWYBXZJUO.*-";
 // #   O = "Pyl";  pyrrolysine
 // #   http://www.chem.qmul.ac.uk/iubmb/newsletter/2009.html#item35
 
-module.exports.protein_letters_1to3 = {
+export const protein_letters_1to3 = {
   A: "Ala",
   C: "Cys",
   D: "Asp",
@@ -46,6 +48,7 @@ module.exports.protein_letters_1to3 = {
   W: "Trp",
   Y: "Tyr"
 };
+
 // module.exports.protein_letters_1to3_extended = dict(
 //   list(protein_letters_1to3.items()) +
 //     list(
@@ -60,21 +63,22 @@ module.exports.protein_letters_1to3 = {
 //     )
 // );
 
-module.exports.ambiguous_dna_letters = "GATCRYWSMKHBVDN";
-module.exports.unambiguous_dna_letters = "GATC";
-module.exports.ambiguous_rna_letters = "GAUCRYWSMKHBVDN";
-module.exports.unambiguous_rna_letters = "GAUC";
+export const ambiguous_dna_letters = "GATCRYWSMKHBVDN";
+
+export const unambiguous_dna_letters = "GATC";
+export const ambiguous_rna_letters = "GAUCRYWSMKHBVDN";
+export const unambiguous_rna_letters = "GAUC";
 
 // #   B == 5-bromouridine
 // #   D == 5,6-dihydrouridine
 // #   S == thiouridine
 // #   W == wyosine
-module.exports.extended_dna_letters = "GATCBDSW";
+export const extended_dna_letters = "GATCBDSW";
 
 // # are there extended forms?
 // # extended_rna_letters = "GAUCBDSW"
 
-module.exports.ambiguous_dna_values = {
+export const ambiguous_dna_values = {
   A: "A",
   C: "C",
   G: "G",
@@ -92,7 +96,8 @@ module.exports.ambiguous_dna_values = {
   X: "GATC",
   N: "GATC"
 };
-module.exports.ambiguous_rna_values = {
+
+export const ambiguous_rna_values = {
   A: "A",
   C: "C",
   G: "G",
@@ -111,7 +116,7 @@ module.exports.ambiguous_rna_values = {
   N: "GAUC"
 };
 
-module.exports.ambiguous_dna_complement = {
+export const ambiguous_dna_complement = {
   A: "T",
   C: "G",
   G: "C",
@@ -130,7 +135,7 @@ module.exports.ambiguous_dna_complement = {
   N: "N"
 };
 
-module.exports.ambiguous_rna_complement = {
+export const ambiguous_rna_complement = {
   A: "U",
   C: "G",
   G: "C",
@@ -152,7 +157,7 @@ module.exports.ambiguous_rna_complement = {
 // # Mass data taken from PubChem
 
 // # Average masses of monophosphate deoxy nucleotides
-module.exports.unambiguous_dna_weights = {
+export const unambiguous_dna_weights = {
   A: 331.2218,
   C: 307.1971,
   G: 347.2212,
@@ -160,7 +165,7 @@ module.exports.unambiguous_dna_weights = {
 };
 
 // # Monoisotopic masses of monophospate deoxy nucleotides
-module.exports.monoisotopic_unambiguous_dna_weights = {
+export const monoisotopic_unambiguous_dna_weights = {
   A: 331.06817,
   C: 307.056936,
   G: 347.063084,
@@ -171,14 +176,14 @@ module.exports.monoisotopic_unambiguous_dna_weights = {
 //   unambiguous_dna_weights
 // );
 
-module.exports.unambiguous_rna_weights = {
+export const unambiguous_rna_weights = {
   A: 347.2212,
   C: 323.1965,
   G: 363.2206,
   U: 324.1813
 };
 
-module.exports.monoisotopic_unambiguous_rna_weights = {
+export const monoisotopic_unambiguous_rna_weights = {
   A: 347.063084,
   C: 323.051851,
   G: 363.057999,
@@ -213,7 +218,7 @@ module.exports.monoisotopic_unambiguous_rna_weights = {
 //                _make_ambiguous_ranges(ambiguous_rna_values,
 //                                       unambiguous_rna_weights)
 
-module.exports.protein_weights = {
+export const protein_weights = {
   A: 89.0932,
   C: 121.1582,
   D: 133.1027,
@@ -238,7 +243,7 @@ module.exports.protein_weights = {
   Y: 181.1885
 };
 
-module.exports.monoisotopic_protein_weights = {
+export const monoisotopic_protein_weights = {
   A: 89.047678,
   C: 121.019749,
   D: 133.037508,
@@ -263,7 +268,7 @@ module.exports.monoisotopic_protein_weights = {
   Y: 181.073893
 };
 
-module.exports.extended_protein_values = {
+export const extended_protein_values = {
   A: "A",
   B: "ND",
   C: "C",
@@ -306,7 +311,7 @@ module.exports.extended_protein_values = {
 
 // # For Center of Mass Calculation.
 // # Taken from http://www.chem.qmul.ac.uk/iupac/AtWt/ & PyMol
-module.exports.atom_weights = {
+export const atom_weights = {
   H: 1.00794,
   D: 2.0141,
   He: 4.002602,

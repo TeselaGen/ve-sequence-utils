@@ -1,8 +1,8 @@
-const getDigestFragmentsForCutsites = require("./getDigestFragmentsForCutsites");
-const cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme");
-const { flatMap } = require("lodash");
+import getDigestFragmentsForCutsites from './getDigestFragmentsForCutsites';
+import cutSequenceByRestrictionEnzyme from './cutSequenceByRestrictionEnzyme';
+import { flatMap } from 'lodash';
 
-module.exports = function getDigestFragmentsForRestrictionEnzymes(
+export default function getDigestFragmentsForRestrictionEnzymes(
   sequence,
   circular,
   restrictionEnzymeOrEnzymes
@@ -18,4 +18,4 @@ module.exports = function getDigestFragmentsForRestrictionEnzymes(
     );
   });
   return getDigestFragmentsForCutsites(sequence.length, circular, cutsites);
-};
+}

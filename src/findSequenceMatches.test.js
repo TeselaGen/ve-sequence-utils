@@ -1,4 +1,4 @@
-const findSequenceMatches = require("./findSequenceMatches");
+import findSequenceMatches from './findSequenceMatches';
 
 describe("findSequenceMatches", function() {
   it("ambiguous protein sequence with * as stop codon", function() {

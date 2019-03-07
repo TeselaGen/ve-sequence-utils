@@ -1,12 +1,13 @@
 //tnr: half finished test.
 // let tap = require('tap');
 // tap.mochaGlobals();
-const chai = require("chai");
+import chai from 'chai';
+
 chai.should();
-const chaiSubset = require("chai-subset");
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-const adjustBpsToReplaceOrInsert = require("./adjustBpsToReplaceOrInsert");
+import adjustBpsToReplaceOrInsert from './adjustBpsToReplaceOrInsert';
 
 describe("adjustBpsToReplaceOrInsert", function() {
   it("inserts characters at correct caret position", function() {

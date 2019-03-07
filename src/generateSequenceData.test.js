@@ -1,9 +1,8 @@
-const generateSequenceData = require('./generateSequenceData')
-const chai = require("chai");
-const { getRangeLength } = require("ve-range-utils");
+import generateSequenceData from './generateSequenceData';
+import chai from 'chai';
+import chaiSubset from 'chai-subset';
 
 chai.should();
-const chaiSubset = require("chai-subset");
 chai.use(chaiSubset);
 
 describe('generateSequenceData', function() {

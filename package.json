@@ -14,6 +14,27 @@
     "lint": "eslint . ./",
     "precommit": "lint-staged && npm test"
   },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg",
+        {
+          "exclude": [
+            "__tests__/**/*"
+          ]
+        }
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ],
+      [
+        "@pika/plugin-build-types"
+      ]
+    ]
+  },
   "author": "",
   "keywords": [
     "sequence",
@@ -40,6 +61,10 @@
     "validate.io-nonnegative-integer-array": "^1.0.1"
   },
   "devDependencies": {
+    "@pika/plugin-build-node": "^0.3.14",
+    "@pika/plugin-build-types": "^0.3.14",
+    "@pika/plugin-build-web": "^0.3.14",
+    "@pika/plugin-standard-pkg": "^0.3.14",
     "@types/jest": "^23.3.11",
     "babel-eslint": "7.2.3",
     "chai": "^3.2.0",

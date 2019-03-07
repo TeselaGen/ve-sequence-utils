@@ -1,5 +1,5 @@
-var getAminoAcidStringFromSequenceString = require("./getAminoAcidStringFromSequenceString");
-var assert = require("assert");
+import getAminoAcidStringFromSequenceString from './getAminoAcidStringFromSequenceString';
+import assert from 'assert';
 
 describe("getAminoAcidStringFromSequenceString", function() {
   it("computes a aa string from dna", function() {

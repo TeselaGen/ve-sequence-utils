@@ -1,5 +1,5 @@
-var calculatePercentGC = require("./calculatePercentGC");
-var assert = require("assert");
+import calculatePercentGC from './calculatePercentGC';
+import assert from 'assert';
 
 describe("calculatePercentGC", function() {
   it("should return the percent GC of a given sequence string", function() {

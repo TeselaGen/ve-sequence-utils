@@ -1,9 +1,10 @@
 // var tap = require('tap');
 // tap.mochaGlobals();
-var chai = require("chai");
+import chai from 'chai';
+
 chai.should();
-var doesEnzymeChopOutsideOfRecognitionSite = require("./doesEnzymeChopOutsideOfRecognitionSite.js");
-var enzymeList = require("./enzymeList");
+import doesEnzymeChopOutsideOfRecognitionSite from './doesEnzymeChopOutsideOfRecognitionSite.js';
+import enzymeList from './enzymeList';
 
 describe("doesEnzymeChopOutsideOfRecognitionSite", function() {
   //bamhi

@@ -1,7 +1,7 @@
 // this is throwing a weird eslint error
 
 // var ac = require('ve-api-check');
-module.exports = function filterSequenceString(
+export default function filterSequenceString(
   sequenceString,
   additionalValidChars = "",
   charOverrides
@@ -19,4 +19,4 @@ module.exports = function filterSequenceString(
   } else {
     return sequenceString;
   }
-};
+}

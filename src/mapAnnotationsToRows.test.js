@@ -1,10 +1,11 @@
 // const tap = require('tap');
 // tap.mochaGlobals();
-const chai = require("chai");
-const expect = require("chai").expect;
-const chaiSubset = require("chai-subset");
+import chai from 'chai';
+
+import { expect } from 'chai';
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
-const mapAnnotationsToRows = require("./mapAnnotationsToRows.js");
+import mapAnnotationsToRows from './mapAnnotationsToRows.js';
 describe("mapAnnotationsToRows", function() {
   it("maps overlapping annotations with joined locations to rows correctly", function() {
     const annotation1 = {

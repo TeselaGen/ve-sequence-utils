@@ -1,8 +1,10 @@
 // const ac = require('ve-api-check');
 // ac.throw([ac.posInt, ac.posInt, ac.bool], arguments);
-const mapAnnotationsToRows = require("./mapAnnotationsToRows");
-const annotationTypes = require("./annotationTypes");
-module.exports = function prepareRowData(sequenceData, bpsPerRow) {
+import mapAnnotationsToRows from './mapAnnotationsToRows';
+
+import annotationTypes from './annotationTypes';
+
+export default function prepareRowData(sequenceData, bpsPerRow) {
   // ac.throw([ac.sequenceData, ac.posInt], arguments);
   const sequenceLength = sequenceData.sequence.length;
   const totalRows = Math.ceil(sequenceLength / bpsPerRow) || 1; //this check makes sure there is always at least 1 row!
@@ -35,4 +37,4 @@ module.exports = function prepareRowData(sequenceData, bpsPerRow) {
     rows[rowNumber] = row;
   }
   return rows;
-};
+}

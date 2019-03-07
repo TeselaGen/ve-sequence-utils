@@ -1,5 +1,5 @@
 // var ac = require('ve-api-check');
-module.exports = function filterAminoAcidSequenceString(
+export default function filterAminoAcidSequenceString(
   sequenceString,
   options
 ) {
@@ -10,4 +10,4 @@ module.exports = function filterAminoAcidSequenceString(
   }
   // ac.throw(ac.string, sequenceString);
   return sequenceString.replace(/[^xtgalmfwkqespvicyhrndu]/gi, "");
-};
+}

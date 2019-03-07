@@ -1,5 +1,5 @@
-const src = require("./index");
-const fs = require("fs");
+import src from './index';
+import fs from 'fs';
 
 describe("index.js", () => {
   it(`should export all functions defined`, done => {

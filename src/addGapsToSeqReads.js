@@ -1,6 +1,7 @@
 // const getAllInsertionsInSeqReads = require("./getAllInsertionsInSeqReads.js");
-const insertGapsIntoRefSeq = require("./insertGapsIntoRefSeq.js");
-const { cloneDeep } = require("lodash");
+import insertGapsIntoRefSeq from './insertGapsIntoRefSeq.js';
+
+import { cloneDeep } from 'lodash';
 
 // bam.seq: NTGTAAGTCGTGAAAAAANCNNNCATATTNCGGAGGTAAAAATGAAAA...
 // bam.pos: 43
@@ -10,7 +11,7 @@ const { cloneDeep } = require("lodash");
 // refSeq should be an object { name, sequence }
 // seqReads should be an array of objects [{name, seq, pos, cigar}, {name, seq, pos, cigar}, ...]
 // add gaps into sequencing reads before starting bp pos and from own deletions & all seq reads' insertions, minus own insertions
-module.exports = function addGapsToSeqReads(refSeq, seqReads) {
+export default function addGapsToSeqReads(refSeq, seqReads) {
   // remove unaligned seq reads for now
   for (let i = 0; i < seqReads.length; i++) {
     if (seqReads[i].cigar === null) {
@@ -412,4 +413,4 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
   // e.g. [{ name: "ref seq", sequence: "GG---GA--GA-C--A---CC---"}, { name: "r1", sequence: "-----GATTGA-C-----------"}...]
   // console.log('seqReadsWithGaps:',seqReadsWithGaps)
   return seqReadsWithGaps;
-};
+}

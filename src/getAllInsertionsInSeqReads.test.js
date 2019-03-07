@@ -1,4 +1,4 @@
-const getAllInsertionsInSeqReads = require("./getAllInsertionsInSeqReads.js");
+import getAllInsertionsInSeqReads from './getAllInsertionsInSeqReads.js';
 
 describe("get bp pos of all insertions in seq reads after bowtie2 alignment", function() {
   it("allInsertionsInSeqReads should be an array of objects [{bpPos: bp pos of insertion, number: # of insertions}, {bpPos, number}, ...]", function() {

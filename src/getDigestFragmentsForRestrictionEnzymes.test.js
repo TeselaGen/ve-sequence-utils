@@ -1,9 +1,8 @@
-const chai = require("chai");
+import chai from 'chai';
 
 const should = chai.should();
-const getDigestFragmentsForRestrictionEnzymes = require("./getDigestFragmentsForRestrictionEnzymes.js");
-
-const enzymeList = require("./enzymeList");
+import getDigestFragmentsForRestrictionEnzymes from './getDigestFragmentsForRestrictionEnzymes.js';
+import enzymeList from './enzymeList';
 describe("getDigestFragmentsForRestrictionEnzymes", function() {
   //bamhi
   // "bamhi": {

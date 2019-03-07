@@ -1,8 +1,8 @@
-const chai = require("chai");
+import chai from 'chai';
 chai.should();
-const chaiSubset = require("chai-subset");
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
-const getReverseComplementSequenceAndAnnotations = require("./getReverseComplementSequenceAndAnnotations");
+import getReverseComplementSequenceAndAnnotations from './getReverseComplementSequenceAndAnnotations';
 describe("getReverseComplementSequenceAndAnnotations", function() {
   it("reverse complements an annotation ", function() {
     const newSeq = getReverseComplementSequenceAndAnnotations({

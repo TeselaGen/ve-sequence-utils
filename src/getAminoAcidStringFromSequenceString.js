@@ -1,6 +1,6 @@
-const getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
+import getAminoAcidDataForEachBaseOfDna from './getAminoAcidDataForEachBaseOfDna';
 
-module.exports = function getAminoAcidStringFromSequenceString(sequenceString) {
+export default function getAminoAcidStringFromSequenceString(sequenceString) {
   const aminoAcidsPerBase = getAminoAcidDataForEachBaseOfDna(
     sequenceString,
     true
@@ -15,4 +15,4 @@ module.exports = function getAminoAcidStringFromSequenceString(sequenceString) {
   });
   aaString = aaArray.join("");
   return aaString;
-};
+}

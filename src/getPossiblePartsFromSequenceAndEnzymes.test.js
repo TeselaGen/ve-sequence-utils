@@ -1,9 +1,9 @@
-var chai = require("chai");
-var should = chai.should();
-var chaiSubset = require("chai-subset");
+import chai from 'chai';
+let should = chai.should();
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
-var getPossiblePartsFromSequenceAndEnzymes = require("./getPossiblePartsFromSequenceAndEnzymes");
-var enzymeList = require("./enzymeList");
+import getPossiblePartsFromSequenceAndEnzymes from './getPossiblePartsFromSequenceAndEnzymes';
+import enzymeList from './enzymeList';
 // var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe("getPossiblePartsFromSequenceAndEnzymes", function() {
   //bamhi
@@ -18,12 +18,12 @@ describe("getPossiblePartsFromSequenceAndEnzymes", function() {
   //     "usReverse": 0
   // },
   it("cuts using a single palindromic enzyme", function() {
-    var sequence = {
+    let sequence = {
       sequence:
         "tggttgtagtagttagttgatgttatagggatcctgtagtatttatgtagtagtatgatgtagagtagtagtggatcctattatatata",
       circular: true
     };
-    var parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [
+    let parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [
       enzymeList["bamhi"]
     ]);
     parts.should.be.an.array;
@@ -113,7 +113,7 @@ describe("getPossiblePartsFromSequenceAndEnzymes", function() {
     ]);
   });
   it("cuts using two golden gate enzymes", function() {
-    var sequence = {
+    let sequence = {
       //                sapi ->
       sequence:
         "tggttgtagtGCTCTTCagttagttgatgttatagggatcctgtagtatttatgtagtaGGAGACCtatgatgtagggtcatcagtagtagtggatcctattatatata",
@@ -121,7 +121,7 @@ describe("getPossiblePartsFromSequenceAndEnzymes", function() {
       //                                                                 <- bsai
       circular: true
     };
-    var parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [
+    let parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [
       enzymeList["sapi"],
       enzymeList["bsai"]
     ]);

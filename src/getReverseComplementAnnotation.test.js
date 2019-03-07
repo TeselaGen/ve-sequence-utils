@@ -1,14 +1,14 @@
-var chai = require("chai");
-var should = chai.should();
-var chaiSubset = require("chai-subset");
+import chai from 'chai';
+let should = chai.should();
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
-var getReverseComplementAnnotation = require("./getReverseComplementAnnotation");
+import getReverseComplementAnnotation from './getReverseComplementAnnotation';
 describe("getReverseComplementAnnotation", function() {
   it("reverse complements an annotation ", function() {
     //0123456789
     //---abc----   //normal
     //----cba---   //reverse complemented
-    var newAnn = getReverseComplementAnnotation(
+    let newAnn = getReverseComplementAnnotation(
       {
         start: 3,
         end: 5
@@ -25,7 +25,7 @@ describe("getReverseComplementAnnotation", function() {
     //0123456789
     //cde-----ab   //normal
     //ab-----edc   //reverse complemented
-    var newAnn = getReverseComplementAnnotation(
+    let newAnn = getReverseComplementAnnotation(
       {
         start: 8,
         end: 2

@@ -1,4 +1,4 @@
-module.exports = function getCutsiteType(restrictionEnzyme) {
+export default function getCutsiteType(restrictionEnzyme) {
   const { topSnipOffset, bottomSnipOffset } = restrictionEnzyme;
   if (topSnipOffset === bottomSnipOffset) {
     return "blunt";
@@ -7,4 +7,4 @@ module.exports = function getCutsiteType(restrictionEnzyme) {
   } else {
     return "3' overhang";
   }
-};
+}

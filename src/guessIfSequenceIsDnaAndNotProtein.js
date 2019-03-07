@@ -1,4 +1,4 @@
-module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options={}) {
+export default function guessIfSequenceIsDnaAndNotProtein(seq, options={}) {
   const {
     threshold = 0.90, 
     dnaLetters = ['G', 'A', 'T', 'C']
@@ -25,4 +25,4 @@ module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options={}) {
     return true //it is DNA
   }
   return false //it is protein
-};
+}

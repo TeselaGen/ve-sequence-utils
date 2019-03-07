@@ -1,4 +1,4 @@
-const insertGapsIntoRefSeq = require("./insertGapsIntoRefSeq.js");
+import insertGapsIntoRefSeq from './insertGapsIntoRefSeq.js';
 
 describe("insert gaps into ref seq from seq reads' insertions", function() {
   it("ref seq with all insertions", function() {

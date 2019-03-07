@@ -1,3 +1,3 @@
-const insertSequenceDataAtPositionOrRange = require("./insertSequenceDataAtPositionOrRange");
+import insertSequenceDataAtPositionOrRange from './insertSequenceDataAtPositionOrRange';
 
-module.exports = insertSequenceDataAtPositionOrRange;
+export default insertSequenceDataAtPositionOrRange;

@@ -1,9 +1,9 @@
-module.exports = function rotateBpsToPosition(
+export default function rotateBpsToPosition(
   bps,
   caretPosition,
 ) {
   return arrayRotate(bps.split(""), caretPosition).join("")
-};
+}
 
 
 function arrayRotate(arr, count) {

@@ -1,4 +1,4 @@
-const rotateSequenceDataToPosition = require("./rotateSequenceDataToPosition");
+import rotateSequenceDataToPosition from './rotateSequenceDataToPosition';
 describe("rotateSequenceDataToPosition", function() {
   it("should rotate vanilla sequence data correctly", function() {
     const newData = rotateSequenceDataToPosition(

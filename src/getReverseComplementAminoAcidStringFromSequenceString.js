@@ -1,7 +1,7 @@
 
-const getAminoAcidStringFromSequenceString = require('./getAminoAcidStringFromSequenceString');
-const getReverseComplementSequenceString = require('./getReverseComplementSequenceString');
+import getAminoAcidStringFromSequenceString from './getAminoAcidStringFromSequenceString';
+import getReverseComplementSequenceString from './getReverseComplementSequenceString';
 
-module.exports = function getReverseComplementAminoAcidStringFromSequenceString(sequenceString) {
+export default function getReverseComplementAminoAcidStringFromSequenceString(sequenceString) {
   return getAminoAcidStringFromSequenceString(getReverseComplementSequenceString(sequenceString))
-};
+}

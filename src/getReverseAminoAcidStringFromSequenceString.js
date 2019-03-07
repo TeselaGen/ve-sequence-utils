@@ -1,14 +1,14 @@
-var getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
+import getAminoAcidDataForEachBaseOfDna from './getAminoAcidDataForEachBaseOfDna';
 
-module.exports = function getReverseAminoAcidStringFromSequenceString(
+export default function getReverseAminoAcidStringFromSequenceString(
   sequenceString
 ) {
-  var aminoAcidsPerBase = getAminoAcidDataForEachBaseOfDna(
+  let aminoAcidsPerBase = getAminoAcidDataForEachBaseOfDna(
     sequenceString,
     false
   );
-  var aaArray = [];
-  var aaString = "";
+  let aaArray = [];
+  let aaString = "";
   aminoAcidsPerBase.forEach(function(aa) {
     if (!aa.fullCodon) {
       return;
@@ -17,4 +17,4 @@ module.exports = function getReverseAminoAcidStringFromSequenceString(
   });
   aaString = aaArray.join("");
   return aaString;
-};
+}

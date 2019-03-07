@@ -1,4 +1,4 @@
-const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
+import convertDnaCaretPositionOrRangeToAa from './convertDnaCaretPositionOrRangeToAA';
 describe("convertDnaCaretPositionOrRangeToAa", function() {
   it(`should convert dna ranges and carets to AA ranges and carets`, () => {
     const res = convertDnaCaretPositionOrRangeToAa({

@@ -1,4 +1,4 @@
-const condensePairwiseAlignmentDifferences = require("./condensePairwiseAlignmentDifferences.js");
+import condensePairwiseAlignmentDifferences from './condensePairwiseAlignmentDifferences.js';
 describe("pairwise alignment differences", function() {
   it("it should ignore start and end where dashes are ", function() {
     const result = condensePairwiseAlignmentDifferences(

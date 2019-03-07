@@ -1,14 +1,11 @@
-const {
-  modulateRangeBySequenceLength,
-  flipContainedRange
-} = require("ve-range-utils");
-const { reduce, uniqBy } = require("lodash");
-const escapeStringRegexp = require("escape-string-regexp");
-const getAminoAcidStringFromSequenceString = require("./getAminoAcidStringFromSequenceString");
-const { ambiguous_dna_values, extended_protein_values } = require("./bioData");
-const getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
+import { modulateRangeBySequenceLength, flipContainedRange } from 've-range-utils';
+import { reduce, uniqBy } from 'lodash';
+import escapeStringRegexp from 'escape-string-regexp';
+import getAminoAcidStringFromSequenceString from './getAminoAcidStringFromSequenceString';
+import { ambiguous_dna_values, extended_protein_values } from './bioData';
+import getReverseComplementSequenceString from './getReverseComplementSequenceString';
 
-module.exports = function findSequenceMatches(
+export default function findSequenceMatches(
   sequence,
   searchString,
   options = {}
@@ -38,7 +35,7 @@ module.exports = function findSequenceMatches(
     matches = [...matches, ...flippedReverseMatches];
   }
   return matches;
-};
+}
 
 function findSequenceMatchesTopStrand(sequence, searchString, options = {}) {
   const {

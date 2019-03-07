@@ -1,4 +1,4 @@
-module.exports = function doesEnzymeChopOutsideOfRecognitionSite(enzyme) {
+export default function doesEnzymeChopOutsideOfRecognitionSite(enzyme) {
   if (
     enzyme.topSnipOffset > enzyme.site.length ||
     enzyme.bottomSnipOffset > enzyme.site.length
@@ -7,4 +7,4 @@ module.exports = function doesEnzymeChopOutsideOfRecognitionSite(enzyme) {
   } else {
     return false;
   }
-};
+}

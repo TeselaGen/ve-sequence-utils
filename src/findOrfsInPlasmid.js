@@ -1,5 +1,6 @@
-const getOrfsFromSequence = require("./getOrfsFromSequence.js");
-module.exports = function findOrfsInPlasmid(
+import getOrfsFromSequence from './getOrfsFromSequence.js';
+
+export default function findOrfsInPlasmid(
   sequence,
   circular,
   minimumOrfSize,
@@ -22,4 +23,4 @@ module.exports = function findOrfsInPlasmid(
     useAdditionalOrfStartCodons
   });
   return forwardOrfs.concat(reverseOrfs);
-};
+}

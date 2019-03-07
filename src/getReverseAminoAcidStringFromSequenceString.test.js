@@ -1,5 +1,5 @@
-var getReverseAminoAcidStringFromSequenceString = require("./getReverseAminoAcidStringFromSequenceString");
-var assert = require("assert");
+import getReverseAminoAcidStringFromSequenceString from './getReverseAminoAcidStringFromSequenceString';
+import assert from 'assert';
 
 describe("getReverseAminoAcidStringFromSequenceString", function() {
   it("computes a aa string from dna", function() {

@@ -1,0 +1,2 @@
+import insertSequenceDataAtPositionOrRange from "./insertSequenceDataAtPositionOrRange.js";
+export default insertSequenceDataAtPositionOrRange;

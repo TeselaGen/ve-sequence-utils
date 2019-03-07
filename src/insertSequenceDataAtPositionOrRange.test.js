@@ -1,14 +1,15 @@
 //tnr: half finished test.
 // let tap = require('tap');
 // tap.mochaGlobals();
-const chai = require("chai");
-const { getRangeLength } = require("ve-range-utils");
+import chai from 'chai';
+
+import { getRangeLength } from 've-range-utils';
 
 chai.should();
-const chaiSubset = require("chai-subset");
+import chaiSubset from 'chai-subset';
 chai.use(chaiSubset);
 
-const insertSequenceDataAtPositionOrRange = require("./insertSequenceDataAtPositionOrRange");
+import insertSequenceDataAtPositionOrRange from './insertSequenceDataAtPositionOrRange';
 
 describe("insertSequenceData", function() {
   it("inserts protein and dna characters at correct caret", function() {

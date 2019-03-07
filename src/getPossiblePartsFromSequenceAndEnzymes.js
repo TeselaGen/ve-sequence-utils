@@ -1,10 +1,8 @@
-const getComplementSequenceString = require("./getComplementSequenceString");
-const {
-  //   getSequenceWithinRange,
-  normalizePositionByRangeLength
-} = require("ve-range-utils");
-const cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme");
-module.exports = function getPossiblePartsFromSequenceAndEnzyme(
+import getComplementSequenceString from './getComplementSequenceString';
+import { normalizePositionByRangeLength } from 've-range-utils';
+import cutSequenceByRestrictionEnzyme from './cutSequenceByRestrictionEnzyme';
+
+export default function getPossiblePartsFromSequenceAndEnzyme(
   seqData,
   restrictionEnzymes
 ) {
@@ -69,7 +67,7 @@ module.exports = function getPossiblePartsFromSequenceAndEnzyme(
     });
     return parts;
   }
-};
+}
 
 function getPartBetweenEnzymesWithInclusiveOverhangs(cut1, cut2, seqLen) {
   let firstCutOffset = getEnzymeRelativeOffset(cut1.restrictionEnzyme);

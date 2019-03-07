@@ -1,14 +1,10 @@
-const { uniqBy } = require("lodash");
+import { uniqBy } from 'lodash';
 
 //UNDER CONSTRUCTION
 
-const {
-  // getSequenceWithinRange,
-  normalizePositionByRangeLength,
-  getRangeLength
-} = require("ve-range-utils");
+import { normalizePositionByRangeLength, getRangeLength } from 've-range-utils';
 
-module.exports = function getVirtualDigest({
+export default function getVirtualDigest({
   cutsites,
   sequenceLength,
   isCircular,
@@ -94,7 +90,7 @@ module.exports = function getVirtualDigest({
     fragments,
     overlappingEnzymes
   };
-};
+}
 
 function addSizeAndId(frag, sequenceLength) {
   const size = getRangeLength(
