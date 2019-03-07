@@ -166,7 +166,7 @@ module.exports = {
   B: {
     value: "B",
     threeLettersName: "ND",
-    color: "purple",
+    color: "lightpurple",
     isAmbiguous: true,
     name: "B",
     aliases: "ND"
@@ -174,7 +174,7 @@ module.exports = {
   J: {
     value: "J",
     threeLettersName: "IL",
-    color: "purple",
+    color: "lightpurple",
     isAmbiguous: true,
     name: "J",
     aliases: "IL"
@@ -182,7 +182,7 @@ module.exports = {
   X: {
     value: "X",
     threeLettersName: "ACDEFGHIKLMNPQRSTVWY",
-    color: "purple",
+    color: "lightpurple",
     isAmbiguous: true,
     name: "X",
     aliases: "ACDEFGHIKLMNPQRSTVWY"
@@ -190,7 +190,7 @@ module.exports = {
   Z: {
     value: "Z",
     threeLettersName: "QE",
-    color: "purple",
+    color: "lightpurple",
     isAmbiguous: true,
     name: "Z",
     aliases: "QE"
