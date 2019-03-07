@@ -1,7 +1,5 @@
 const { map } = require("lodash");
-const {
-  adjustRangeToRotation
-} = require("ve-range-utils");
+const { adjustRangeToRotation } = require("ve-range-utils");
 const tidyUpSequenceData = require("./tidyUpSequenceData");
 const modifiableTypes = require("./annotationTypes").modifiableTypes;
 const rotateBpsToPosition = require("./rotateBpsToPosition");
@@ -37,6 +35,13 @@ function adjustAnnotationsToRotation(
   maxLength
 ) {
   return map(annotationsToBeAdjusted, function(annotation) {
-    return adjustRangeToRotation(annotation, positionToRotateTo, maxLength);
+    return {
+      ...adjustRangeToRotation(annotation, positionToRotateTo, maxLength),
+      locations: annotation.locations
+        ? annotation.locations.map(location =>
+            adjustRangeToRotation(location, positionToRotateTo, maxLength)
+          )
+        : undefined
+    };
   }).filter(range => !!range); //filter any fully deleted ranges
 }

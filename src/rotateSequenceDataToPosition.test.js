@@ -15,13 +15,30 @@ describe("rotateSequenceDataToPosition", function() {
       {
         //         0123456
         sequence: "atgaccc",
-        features: [{
-          start: 4,
-          end: 4
-        }, {
-          start: 1,
-          end: 0
-        }]
+        features: [
+          {
+            start: 4,
+            end: 4
+          },
+          {
+            start: 1,
+            end: 0
+          },
+          {
+            start: 2,
+            end: 6,
+            locations: [
+              {
+                start: 2,
+                end: 3
+              },
+              {
+                start: 4,
+                end: 6
+              }
+            ]
+          }
+        ]
       },
       4
     );
@@ -35,7 +52,20 @@ describe("rotateSequenceDataToPosition", function() {
         start: 4,
         end: 3
       },
-
+      {
+        start: 5,
+        end: 2,
+        locations: [
+          {
+            start: 5,
+            end: 6
+          },
+          {
+            start: 0,
+            end: 2
+          }
+        ]
+      }
     ]);
   });
 });
