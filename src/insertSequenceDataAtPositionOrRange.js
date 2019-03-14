@@ -1,3 +1,4 @@
+const { getRangeLength } = require("ve-range-utils");
 const { map, cloneDeep } = require("lodash");
 const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
 
@@ -19,6 +20,17 @@ module.exports = function insertSequenceDataAtPositionOrRange(
   let newSequenceData = cloneDeep(existingSequenceData);
   const insertLength = sequenceDataToInsert.sequence.length;
   let caretPosition = caretPositionOrRange;
+
+  if (
+    caretPositionOrRange.start > -1 &&
+    getRangeLength(
+      caretPositionOrRange,
+      existingSequenceData.sequence.length
+    ) === existingSequenceData.sequence.length
+  ) {
+    //handle the case where we're deleting everything!
+    return tidyUpSequenceData({});
+  }
 
   //update the sequence
   newSequenceData.sequence = adjustBpsToReplaceOrInsert(

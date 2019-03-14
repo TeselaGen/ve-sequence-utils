@@ -131,4 +131,19 @@ describe("insertSequenceData", function() {
       sequenceToInsertInto.features[0].start + sequenceToInsert.sequence.length
     );
   });
+  it("deletes the whole sequence is nothing is being inserted and the range spans the entire sequence ", function() {
+    let sequenceToInsert = {};
+    let sequenceToInsertInto = {
+      sequence: "atgagagaga",
+      features: [{ start: 0, end: 9 }]
+    };
+    let range = { start: 0, end: 9 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.length.should.equal(0);
+    postInsertSeq.features.length.should.equal(0);
+  });
 });
