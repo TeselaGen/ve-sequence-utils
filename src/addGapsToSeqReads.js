@@ -6,6 +6,7 @@ const { cloneDeep } = require("lodash");
 // bam.pos: 43
 // bam.cigar: 36M2D917M3I17M7I2M1I6M5I4M1D6M12I8M
 // (note: bam.cigar is null if the sequencing read is unaligned)
+// bam.reversed: true (if reversed)
 
 // refSeq should be an object { name, sequence }
 // seqReads should be an array of objects [{name, seq, pos, cigar}, {name, seq, pos, cigar}, ...]
@@ -312,7 +313,9 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
     // eachSeqReadWithGaps is a string "GGGA--GA-C--ACC"
     seqReadsWithGaps.push({
       name: seqRead.name,
-      sequence: eachSeqReadWithGaps.join("")
+      sequence: eachSeqReadWithGaps.join(""),
+      reversed: seqRead.reversed,
+      cigar: seqRead.cigar
     });
   });
 
