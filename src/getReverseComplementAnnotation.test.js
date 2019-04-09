@@ -19,7 +19,7 @@ describe("getReverseComplementAnnotation", function() {
       start: 4,
       end: 6,
       forward: true,
-      strand: true
+      strand: 1
     });
   });
   it("reverse complements an annotation crossing origin", function() {
@@ -29,7 +29,8 @@ describe("getReverseComplementAnnotation", function() {
     const newAnn = getReverseComplementAnnotation(
       {
         start: 8,
-        end: 2
+        end: 2,
+        strand: 1
       },
       10
     );
@@ -37,7 +38,7 @@ describe("getReverseComplementAnnotation", function() {
       start: 7,
       end: 1,
       forward: true,
-      strand: true
+      strand: -1
     });
   });
 });

@@ -18,6 +18,6 @@ module.exports = function getReverseComplementAnnotation(
     start: sequenceLength - (annotation.end + 1),
     end: sequenceLength - (annotation.start + 1),
     forward: !annotation.forward,
-    strand: !annotation.strand
+    strand: annotation.strand === 1 ? -1 : 1
   });
 };
