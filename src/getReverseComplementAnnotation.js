@@ -17,6 +17,7 @@ module.exports = function getReverseComplementAnnotation(
   return Object.assign({}, annotation, {
     start: sequenceLength - (annotation.end + 1),
     end: sequenceLength - (annotation.start + 1),
-    forward: !annotation.forward
+    forward: !annotation.forward,
+    strand: !annotation.strand
   });
 };
