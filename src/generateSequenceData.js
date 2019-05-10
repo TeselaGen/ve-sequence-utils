@@ -4,35 +4,41 @@
 const { generateRandomRange } = require("ve-range-utils");
 const objectid = require("bson-objectid");
 
-module.exports = function generateSequenceData({ sequenceLength = 1000 } = {}) {
+module.exports = function generateSequenceData({
+  isProtein,
+  sequenceLength = 1000
+} = {}) {
+  let proteinSequence = isProtein && generateSequence(sequenceLength, true);
+  let sequence = !isProtein && generateSequence(sequenceLength);
+
   return {
-    // "sequence" : "gtggatgcatgtgtcatggtcat",
-    circular: true,
+    circular: isProtein ? false : Math.random() > 0.5,
     name: "p-" + Math.floor(Math.random * 100),
     description: "",
-    sequence: generateSequence(sequenceLength),
-    translations: generateAnnotations(
-      5,
-      0,
-      sequenceLength - 1,
-      sequenceLength / 3
-    ),
+    isProtein,
+    sequence,
+    proteinSequence,
+    translations: isProtein
+      ? undefined
+      : generateAnnotations(5, 0, sequenceLength - 1, sequenceLength / 3),
     features: generateAnnotations(
       10,
       0,
       sequenceLength - 1,
       sequenceLength / 3
     ),
-    primers: generateAnnotations(10, 0, sequenceLength - 1, 50),
+    primers: isProtein
+      ? undefined
+      : generateAnnotations(10, 0, sequenceLength - 1, 50),
     parts: generateAnnotations(10, 0, sequenceLength - 1, sequenceLength / 3)
   };
 };
 
 // export default tidyUpSequenceData(exampleData)
 
-function generateSequence(m = 9) {
+function generateSequence(m = 9, isProtein) {
   let s = "";
-  let r = "gatc";
+  let r = isProtein ? "" : "gatc";
   for (let i = 0; i < m; i++) {
     s += r.charAt(Math.floor(Math.random() * r.length));
   }

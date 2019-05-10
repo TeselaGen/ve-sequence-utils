@@ -55,7 +55,7 @@ module.exports = function insertSequenceDataAtPositionOrRange(
     if (caretPositionOrRange && caretPositionOrRange.start > -1) {
       //we have a range! so let's delete it!
       const range = caretPositionOrRange;
-      caretPosition = range.start;
+      caretPosition = range.start > range.end ? 0 : range.start;
       //update all annotations for the deletion
       existingAnnotations = adjustAnnotationsToDelete(
         existingAnnotations,

@@ -69,6 +69,35 @@ describe("insertSequenceData", function() {
         getRangeLength(range)
     );
   });
+  it("inserts characters at correct origin spanning range", function() {
+    let sequenceToInsert = {
+      sequence: "rrrrrrr",
+      // fffffff
+      features: [{ name: "feat1", start: 0, end: 6 }]
+    };
+    let sequenceToInsertInto = {
+      sequence: "atgagagaga",
+      //     fff
+      features: [{ name: "feat2", start: 4, end: 6 }]
+    };
+    let range = { start: 8, end: 2 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.should.equal("rrrrrrragaga");
+    //   fffffff fff
+    postInsertSeq.features.should.containSubset([
+      { name: "feat1", start: 0, end: 6 },
+      { name: "feat2", start: 8, end: 10 }
+    ]);
+    postInsertSeq.sequence.length.should.equal(
+      sequenceToInsertInto.sequence.length +
+        sequenceToInsert.sequence.length -
+        getRangeLength(range, sequenceToInsertInto.sequence.length)
+    );
+  });
   it("inserts characters at correct range, and doesn't clobber other properties on the existing sequence data", function() {
     let sequenceToInsert = {
       sequence: "atgagagaga"
