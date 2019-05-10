@@ -72,12 +72,12 @@ describe("insertSequenceData", function() {
   it("inserts characters at correct origin spanning range", function() {
     let sequenceToInsert = {
       sequence: "rrrrrrr",
-      // fffffff
+      //         fffffff
       features: [{ name: "feat1", start: 0, end: 6 }]
     };
     let sequenceToInsertInto = {
       sequence: "atgagagaga",
-      //     fff
+      //             fff
       features: [{ name: "feat2", start: 4, end: 6 }]
     };
     let range = { start: 8, end: 2 };
@@ -87,10 +87,76 @@ describe("insertSequenceData", function() {
       range
     );
     postInsertSeq.sequence.should.equal("rrrrrrragaga");
-    //   fffffff fff
+    //                                   fffffff fff
     postInsertSeq.features.should.containSubset([
       { name: "feat1", start: 0, end: 6 },
       { name: "feat2", start: 8, end: 10 }
+    ]);
+    postInsertSeq.sequence.length.should.equal(
+      sequenceToInsertInto.sequence.length +
+        sequenceToInsert.sequence.length -
+        getRangeLength(range, sequenceToInsertInto.sequence.length)
+    );
+  });
+  it("inserts characters at correct origin spanning range with {maintainOriginSplit: true} option", function() {
+    let sequenceToInsert = {
+      sequence: "rrrrrrr",
+      //         fffffff
+      features: [{ name: "feat1", start: 0, end: 6 }]
+    };
+    let sequenceToInsertInto = {
+      //         sss     ss
+      sequence: "atgagagaga",
+      //             fff
+      features: [{ name: "feat2", start: 4, end: 6 }]
+    };
+    let range = { start: 8, end: 2 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range,
+      {
+        maintainOriginSplit: true
+      }
+    );
+    postInsertSeq.sequence.should.equal("rrrrragagarr");
+    //                                   fffff fff ff
+    postInsertSeq.features.should.containSubset([
+      { name: "feat1", start: 10, end: 4 },
+      { name: "feat2", start: 6, end: 8 }
+    ]);
+    postInsertSeq.sequence.length.should.equal(
+      sequenceToInsertInto.sequence.length +
+        sequenceToInsert.sequence.length -
+        getRangeLength(range, sequenceToInsertInto.sequence.length)
+    );
+  });
+  it("inserts characters at correct origin spanning range with {maintainOriginSplit: true} option", function() {
+    let sequenceToInsert = {
+      sequence: "r",
+      //         fffffff
+      features: [{ name: "feat1", start: 0, end: 0 }]
+    };
+    let sequenceToInsertInto = {
+      //         sss     ss
+      sequence: "atgagagaga",
+      //             fff
+      features: [{ name: "feat2", start: 4, end: 6 }]
+    };
+    let range = { start: 8, end: 2 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range,
+      {
+        maintainOriginSplit: true
+      }
+    );
+    postInsertSeq.sequence.should.equal("agagar");
+    //                                    fff f
+    postInsertSeq.features.should.containSubset([
+      { name: "feat1", start: 5, end: 5 },
+      { name: "feat2", start: 1, end: 3 }
     ]);
     postInsertSeq.sequence.length.should.equal(
       sequenceToInsertInto.sequence.length +

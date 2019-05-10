@@ -1,6 +1,7 @@
 const { getRangeLength } = require("ve-range-utils");
 const { map, cloneDeep } = require("lodash");
 const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
+const rotateSequenceDataToPosition = require("./rotateSequenceDataToPosition");
 
 const {
   adjustRangeToInsert,
@@ -13,8 +14,13 @@ const adjustBpsToReplaceOrInsert = require("./adjustBpsToReplaceOrInsert");
 module.exports = function insertSequenceDataAtPositionOrRange(
   _sequenceDataToInsert,
   _existingSequenceData,
-  caretPositionOrRange
+  caretPositionOrRange,
+  options = {}
 ) {
+  //maintainOriginSplit means that if you're inserting around the origin with n bps selected before the origin
+  //when inserting new seq, n bps of the new seq should go in before the origin and the rest should be
+  //inserted at the sequence start
+  const { maintainOriginSplit } = options;
   const existingSequenceData = tidyUpSequenceData(_existingSequenceData);
   const sequenceDataToInsert = tidyUpSequenceData(_sequenceDataToInsert);
   let newSequenceData = cloneDeep(existingSequenceData);
@@ -81,6 +87,21 @@ module.exports = function insertSequenceDataAtPositionOrRange(
       )
     );
   });
+  if (
+    maintainOriginSplit &&
+    caretPositionOrRange &&
+    caretPositionOrRange.start > caretPositionOrRange.end
+  ) {
+    //we're replacing around the origin and maintainOriginSplit=true
+    //so rotate the resulting seqData n bps
+
+    const caretPosToRotateTo =
+      existingSequenceData.sequence.length - caretPositionOrRange.start;
+    return rotateSequenceDataToPosition(
+      newSequenceData,
+      Math.min(caretPosToRotateTo, sequenceDataToInsert.sequence.length)
+    );
+  }
   return newSequenceData;
 };
 
