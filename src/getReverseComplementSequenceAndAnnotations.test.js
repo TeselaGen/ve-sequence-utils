@@ -35,7 +35,8 @@ describe("getReverseComplementSequenceAndAnnotations", function() {
       ]
     });
   });
-  it("handles a range option correctly and reverse complements a subset of the sequnce ", function() {
+
+  it("handles a range option correctly and reverse complements a subset of the sequence ", function() {
     const newSeq = getReverseComplementSequenceAndAnnotations(
       {
         sequence: "aaatttcccgttt",
@@ -58,6 +59,47 @@ describe("getReverseComplementSequenceAndAnnotations", function() {
           forward: true
         }
       ]
+    });
+  });
+  it("handles a range option correctly and reverse complements a subset of the sequence across the origin ", function() {
+    const newSeq = getReverseComplementSequenceAndAnnotations(
+      {
+        sequence: "aaatttcccgttt",
+        //         0123456789
+        //         rrr   rrrrrrr
+        //            fffff
+        circular: true,
+        features: [
+          {
+            start: 3,
+            end: 7
+          }
+        ]
+      },
+      { range: { start: 6, end: 2 } }
+    );
+    newSeq.should.containSubset({
+      sequence: "tttaaacggg",
+      features: [
+        {
+          start: 8,
+          end: 9,
+          forward: true
+        }
+      ]
+    });
+  });
+  it("handles a range option correctly and reverse complements a subset of the sequence across the origin ", function() {
+    const newSeq = getReverseComplementSequenceAndAnnotations(
+      {
+        sequence: "cccttt"
+        //         012345
+        //         rr  rr
+      },
+      { range: { start: 4, end: 1 } }
+    );
+    newSeq.should.containSubset({
+      sequence: "ggaa"
     });
   });
 });
