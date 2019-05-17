@@ -24,6 +24,12 @@ describe("adjustBpsToReplaceOrInsert", function() {
       "tttgggaaacccxxx"
     );
   });
+  it("can replace whole sequence with upper case", function() {
+    adjustBpsToReplaceOrInsert("tttgggaaaccc", "TTTGGGAAACCC", {
+      start: 0,
+      end: 11
+    }).should.equal("TTTGGGAAACCC");
+  });
   it("inserts characters at correct range 0 0", function() {
     adjustBpsToReplaceOrInsert("tttgggaaaccc", "xxx", {
       start: 0,

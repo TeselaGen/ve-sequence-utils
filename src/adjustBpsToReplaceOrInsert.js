@@ -1,6 +1,7 @@
 const {
   splitRangeIntoTwoPartsIfItIsCircular,
   getSequenceWithinRange,
+  getRangeLength,
   invertRange,
   isPositionWithinRange
 } = require("ve-range-utils");
@@ -15,8 +16,11 @@ module.exports = function adjustBpsToReplaceOrInsert(
   let stringToReturn = bpString;
 
   if (caretPositionOrRange && caretPositionOrRange.start > -1) {
-    // invertRange()
-    // getSequenceWithinRange()
+    if (
+      getRangeLength(caretPositionOrRange, bpString.length) === bpString.length
+    ) {
+      return insertString;
+    }
     const ranges = splitRangeIntoTwoPartsIfItIsCircular(
       invertRange(caretPositionOrRange, bpString.length)
     );
