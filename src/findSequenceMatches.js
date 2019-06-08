@@ -25,6 +25,7 @@ module.exports = function findSequenceMatches(
       searchString,
       options
     );
+
     const flippedReverseMatches = reverseMatches.map(range => {
       return {
         ...flipContainedRange(
