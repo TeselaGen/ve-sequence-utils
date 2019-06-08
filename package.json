@@ -60,7 +60,7 @@
     "npm-check": "^5.0.1",
     "nwb": "^0.23.0",
     "prettier": "^1.15.3",
-    "ve-range-utils": "2.5.1",
+    "ve-range-utils": "2.5.5",
     "ve-sequence-utils": "^3.3.16"
   }
 }
