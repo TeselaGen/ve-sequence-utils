@@ -60,6 +60,9 @@ module.exports = function getOrfsFromSequence(options) {
       if (end >= originalSequenceLength) {
         end -= originalSequenceLength;
       }
+      // console.log(`m[1]:`,m[1])
+      // console.log(`start:`,start)
+      // console.log(`originalSequenceLength:`,originalSequenceLength)
       if (start < originalSequenceLength) {
         //only keep orfs that *begin* before the original sequence length (only the case when dealing with circular orfs)
         orfRanges.push({
@@ -83,15 +86,25 @@ module.exports = function getOrfsFromSequence(options) {
     const indexOfAlreadyExistingOrf = orfEnds[orf.end];
 
     if (typeof indexOfAlreadyExistingOrf !== "undefined") {
+      let internalOrf = orf;
+      let containingOrf = orfRanges[indexOfAlreadyExistingOrf];
+      if (containingOrf.length < internalOrf.length) {
+        internalOrf = orfRanges[indexOfAlreadyExistingOrf];
+        containingOrf = orf;
+        orfEnds[orf.end] = index;
+      }
       const internalStartCodonIndex = forward
-        ? orf.start
-        : originalSequenceLength - orf.start - 1; //use either the start or the end depending on the direction of the orf
+        ? internalOrf.start
+        : originalSequenceLength - internalOrf.start - 1; //use either the start or the end depending on the direction of the internalOrf
       //we know because of how the regex works that larger orfs come first in the array
-      orfRanges[indexOfAlreadyExistingOrf].internalStartCodonIndices.push(
+      containingOrf.internalStartCodonIndices = [
+        ...containingOrf.internalStartCodonIndices,
+        ...internalOrf.internalStartCodonIndices,
         internalStartCodonIndex
-      );
+      ];
+      // console.log(`internalOrf.remove:`,internalOrf.remove)
       //set a flag that we'll use to remove all these shorter, duplicated orfs
-      orf.remove = true;
+      internalOrf.remove = true;
     } else {
       orfEnds[orf.end] = index;
       if (!forward) {
@@ -113,134 +126,3 @@ module.exports = function getOrfsFromSequence(options) {
   });
   return nonDuplicatedOrfRanges;
 };
-
-//   const potentiallyDuplicatedOrfs = calculateOrfs(frame, sequence, minimumOrfSize, forward);
-
-//   if (!forward) {
-//     //we'll reverse the orfs start and end before (potentially) trimming them
-//     potentiallyDuplicatedOrfs.forEach(function(orf) {
-//       const endHolder = orf.end;
-//       orf.end = orf.start;
-//       orf.start = endHolder;
-//     });
-//   }
-//   const nonDuplicatedOrfs;
-//   if (circular) {
-//     // we'll trim the excess orfs
-//     nonDuplicatedOrfs = [];
-//     potentiallyDuplicatedOrfs.forEach(function(orf) {
-//       if (orf.start >= originalSequenceLength) {
-//         //eliminate this orf because there must already be a normal orf with the same start bp (just shifted by 1 sequence length)
-//       } else {
-//         if (orf.end >= originalSequenceLength) {
-//           orf.end -= originalSequenceLength;
-//         }
-//         nonDuplicatedOrfs.push(orf);
-//       }
-//     });
-//   } else {
-//     //non circular so
-//     nonDuplicatedOrfs = potentiallyDuplicatedOrfs;
-//   }
-//   return nonDuplicatedOrfs;
-
-//   function calculateOrfs(frame, sequence, minimumOrfSize, forward) {
-//     const allOrfs = [];
-//     const sequenceLength = sequence.length;
-
-//     // const index = frame;
-//     const triplet;
-//     // const aaSymbol;
-//     // const aaString = '';
-//     // const startIndex = -1;
-//     // const endIndex = -1;
-//     const startCodonIndices = [];
-//     const stopCodonIndices = [];
-//     const possibleStopCodon;
-//     const possibleStartCodon;
-//     // Loop through sequence and generate list of ORFs.
-//     for (const index = frame; index < sequenceLength; index += 3) {
-//       triplet = sequence.slice(index, index + 3);
-//       if (triplet.length === 3) {
-//         // aaSymbol = getAminoAcidFromSequenceTriplet(triplet);
-//         // aaString += aaSymbol.value;
-//         possibleStartCodon = isStartCodon(triplet);
-//         possibleStopCodon = isStopCodon(triplet);
-
-//         // If we've found a start codon, add its index to startCodonIndices.
-//         if (possibleStartCodon) {
-//           startCodonIndices.push(index);
-//         }
-//         if (possibleStopCodon) {
-//           stopCodonIndices.push(index);
-//         }
-//       }
-//     }
-
-//     //loop through the start codons and see if any of them form orfs
-//     startCodonIndices.forEach(function(startCodonIndex) {
-//       stopCodonIndices.some(function(stopCodonIndex) {
-//         if (stopCodonIndex - startCodonIndex > 0) {
-//           const orf = {
-//             start: startCodonIndex,
-//             end: stopCodonIndex,
-//             forward: forward,
-//             frame: frame,
-//             startCodonIndices: startCodonIndices,
-//             id: ObjectID().str
-//           };
-//           allOrfs.push(orf);
-//           return true; //break the some loop
-//         }
-//       });
-//     });
-//     //after this we'll need to do a 'reduce' step to shave off the orfs that don't meet the minimum size requirements
-//     //as well as the orfs with the same stop bp
-//     //tnrtodo: inspect this function and make sure it is reducing the orfs correctly!
-//     const trimmedOrfs = [];
-//     allOrfs.forEach(function(orf) {
-//       if (orf.end - orf.start + 1 >= minimumOrfSize) { //make sure the orf size is >= to the minimum size
-//         const indexOfOrfWithSameStopBp = findIndex(trimmedOrfs, function(trimmedOrf) { //find any orfs with the same stop bp in the trimmed orf array
-//           return trimmedOrf.end === orf.end;
-//         });
-//         if (indexOfOrfWithSameStopBp === -1) {
-//           trimmedOrfs.push(orf);
-//         } else {
-//           if (trimmedOrfs[indexOfOrfWithSameStopBp].start > orf.start) {
-//             trimmedOrfs[indexOfOrfWithSameStopBp] = orf; //replace the old orf at that position with this new orf because it is longer
-//           }
-//         }
-//       }
-//     });
-//     return trimmedOrfs;
-//   }
-// };
-
-// function isStartCodon(codon) {
-//   return (codon == 'atg' || codon == 'aug' && codon.indexOf("-") === -1);
-// }
-// /**
-//  * {Calculates whether a three character string is a stop codon.
-//  * @param  {String} codon a three character string.
-//  * @return {Boolean} shows whether the nucleotides make up a stop codon
-//  */
-// function isStopCodon(codon) {
-//   return (codon == 'taa' || codon == 'tag' || codon == 'tga' || codon == 'uaa' || codon == 'uag' || codon == 'uga');
-// }
-
-/**
- * @private
- * Sorting function for sorting codons.
- * @param a
- * @param b
- * @return {Int} Sort order.
- */
-// function codonsSort(a, b) {
-//   if (a > b) {
-//     return 1;
-//   } else if (a < b) {
-//     return -1;
-//   } else {
-//     return 0;
-//   }
-// }

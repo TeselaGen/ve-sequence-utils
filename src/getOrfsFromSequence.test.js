@@ -14,7 +14,7 @@ describe("getOrfsFromSequence", function() {
       circular: false
     });
     expect(orfs).to.be.length(0);
-    const orf = orfs[0];
+    // const orf = orfs[0];
     // expect(orf).to.be.an('object');
     // expect(orf.start).to.equal(11);
     // expect(orf.end).to.equal(0);
@@ -113,7 +113,7 @@ describe("getOrfsFromSequence", function() {
       minimumOrfSize: 0,
       forward: true,
       circular: false,
-      useAdditionalOrfStartCodons: true,
+      useAdditionalOrfStartCodons: true
     });
     expect(orfs).to.be.length(1);
     let orf = orfs[0];
@@ -130,7 +130,7 @@ describe("getOrfsFromSequence", function() {
       minimumOrfSize: 0,
       forward: true,
       circular: false,
-      useAdditionalOrfStartCodons: true,
+      useAdditionalOrfStartCodons: true
     });
     expect(orfs).to.be.length(1);
     orf = orfs[0];
@@ -159,6 +159,42 @@ describe("getOrfsFromSequence", function() {
     expect(orf.isOrf).to.equal(true);
     expect(orf.frame).to.equal(0);
     expect(orf.internalStartCodonIndices).to.deep.equal([]);
+    expect(orf.id).to.be.a("string");
+  });
+  it("finds a single correct orf in simple circular sequence", function() {
+    const orfs = getOrfsFromSequence({
+      sequence: "tgtaaa",
+      minimumOrfSize: 0,
+      forward: true,
+      circular: true
+    });
+    expect(orfs).to.be.length(1);
+    const orf = orfs[0];
+    expect(orf).to.be.an("object");
+    expect(orf.start).to.equal(5);
+    expect(orf.end).to.equal(4);
+    expect(orf.forward).to.equal(true);
+    expect(orf.isOrf).to.equal(true);
+    expect(orf.frame).to.equal(2);
+    expect(orf.internalStartCodonIndices).to.deep.equal([]);
+    expect(orf.id).to.be.a("string");
+  });
+  it("finds multiple internal start codons correctly for orfs that span the origin", function() {
+    const orfs = getOrfsFromSequence({
+      sequence: "tgATGTAAatga",
+      minimumOrfSize: 0,
+      forward: true,
+      circular: true
+    });
+    expect(orfs).to.be.length(1);
+    const orf = orfs[0];
+    expect(orf).to.be.an("object");
+    expect(orf.start).to.equal(8);
+    expect(orf.end).to.equal(7);
+    expect(orf.forward).to.equal(true);
+    expect(orf.isOrf).to.equal(true);
+    expect(orf.frame).to.equal(2);
+    expect(orf.internalStartCodonIndices).to.deep.equal([2, 11]);
     expect(orf.id).to.be.a("string");
   });
   it("doesnt find orfs in simple sequence with no orfs", function() {
