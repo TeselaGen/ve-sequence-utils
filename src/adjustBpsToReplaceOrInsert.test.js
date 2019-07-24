@@ -30,6 +30,12 @@ describe("adjustBpsToReplaceOrInsert", function() {
       end: 11
     }).should.equal("TTTGGGAAACCC");
   });
+  it("can replace whole sequence with just a couple chars", function() {
+    adjustBpsToReplaceOrInsert("tttgggaaaccc", "xx", {
+      start: 0,
+      end: 11
+    }).should.equal("xx");
+  });
   it("inserts characters at correct range 0 0", function() {
     adjustBpsToReplaceOrInsert("tttgggaaaccc", "xxx", {
       start: 0,
