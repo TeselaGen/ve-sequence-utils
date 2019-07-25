@@ -204,6 +204,28 @@ describe("insertSequenceData", function() {
       sequenceToInsertInto.sequence.length + sequenceToInsert.sequence.length
     );
   });
+  it("inserts characters when whole sequence is selected but maintains properties like circularity, name", function() {
+    let sequenceToInsert = {
+      sequence: "atgagagaga"
+    };
+    let sequenceToInsertInto = {
+      sequence: "ggggaaaa",
+      circular: true,
+      name: "testName"
+    };
+    let range = { start: 0, end: 7 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.length.should.equal(
+      sequenceToInsert.sequence.length
+    );
+    postInsertSeq.circular.should.equal(sequenceToInsertInto.circular);
+    postInsertSeq.name.should.equal(sequenceToInsertInto.name);
+  });
+
   it("inserts characters at correct caret position", function() {
     let sequenceToInsert = {
       sequence: "atgagagaga"
