@@ -17,6 +17,20 @@
                 "enclosingRangeType": "beginningAndEnd"
             }
         ],
+        "warnings": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "end"
+            }
+        ],
         "parts": [
             {
                 "id": "a",
@@ -108,6 +122,7 @@
                 "enclosingRangeType": "beginningAndEnd"
             }
         ],
+        "warnings": [],
         "parts": [
             {
                 "id": "a",
@@ -147,6 +162,20 @@
         "start": 10,
         "end": 14,
         "features": [],
+        "warnings": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 10,
+                "end": 14,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
         "parts": [],
         "cutsites": [
             {
@@ -199,6 +228,20 @@
         "start": 15,
         "end": 15,
         "features": [],
+        "warnings": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 15,
+                "end": 15,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
         "parts": [],
         "cutsites": [
             {

@@ -24,7 +24,8 @@ describe("prepareRowData", function() {
       parts: { a: annotation1 },
       cutsites: { b: annotation2 },
       orfs: [annotation2],
-      primers: [annotation2]
+      primers: [annotation2],
+      warnings: [annotation2]
     };
     const rowData = prepareRowData(sequenceData, bpsPerRow);
     // console.log('rowData:',JSON.stringify(rowData,null,4))

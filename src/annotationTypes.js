@@ -1,5 +1,6 @@
 module.exports = [
   "features",
+  "warnings",
   "parts",
   "cutsites",
   "orfs",
