@@ -31,6 +31,34 @@
                 "enclosingRangeType": "end"
             }
         ],
+        "assemblyPieces": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "end"
+            }
+        ],
+        "lineageAnnotations": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 0,
+                "end": 4,
+                "yOffset": 0,
+                "enclosingRangeType": "end"
+            }
+        ],
         "parts": [
             {
                 "id": "a",
@@ -123,6 +151,8 @@
             }
         ],
         "warnings": [],
+        "assemblyPieces": [],
+        "lineageAnnotations": [],
         "parts": [
             {
                 "id": "a",
@@ -163,6 +193,34 @@
         "end": 14,
         "features": [],
         "warnings": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 10,
+                "end": 14,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "assemblyPieces": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 10,
+                "end": 14,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "lineageAnnotations": [
             {
                 "id": "b",
                 "annotation": {
@@ -229,6 +287,34 @@
         "end": 15,
         "features": [],
         "warnings": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 15,
+                "end": 15,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "assemblyPieces": [
+            {
+                "id": "b",
+                "annotation": {
+                    "start": 10,
+                    "end": 4,
+                    "id": "b"
+                },
+                "start": 15,
+                "end": 15,
+                "yOffset": 0,
+                "enclosingRangeType": "beginning"
+            }
+        ],
+        "lineageAnnotations": [
             {
                 "id": "b",
                 "annotation": {

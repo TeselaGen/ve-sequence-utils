@@ -4,7 +4,7 @@ const featureColors = require("./featureColors");
 const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const bsonObjectid = require("bson-objectid");
 
-module.exports = function cleanUpAnnotation(
+module.exports = function tidyUpAnnotation(
   _annotation,
   {
     sequenceData = {},

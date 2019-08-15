@@ -103,7 +103,6 @@ module.exports = function cutSequenceByRestrictionEnzyme(
       upstreamBottomSnip: cutsite.upstreamTopSnip,
       upstreamTopBeforeBottom: !!cutsite.upstreamTopBeforeBottom,
       topSnipBeforeBottom: !!cutsite.topSnipBeforeBottom,
-      annotationTypePlural: "cutsites",
       recognitionSiteRange: {
         start: cutsite.recognitionSiteRange.end,
         end: cutsite.recognitionSiteRange.start
@@ -135,10 +134,10 @@ function cutSequence(
   let startIndex = 0;
   let subSequence = sequence;
 
-  while (matchIndex != -1) {
+  while (matchIndex !== -1) {
     let recognitionSiteRange = {};
-    var start; //start and end should fully enclose the enzyme snips and the recognition site!
-    var end;
+    let start; //start and end should fully enclose the enzyme snips and the recognition site!
+    let end;
     let upstreamTopSnip = null; //upstream top snip position
     let upstreamBottomSnip = null; //upstream bottom snip position
     let upstreamTopBeforeBottom = false;
@@ -162,7 +161,7 @@ function cutSequence(
     //as well as all of the bp's between the snip sites
 
     //if the cutsite is type 1, it cuts both upstream and downstream of its recognition site (cutsite type 0's cut only downstream)
-    if (restrictionEnzyme.cutType == 1) {
+    if (restrictionEnzyme.cutType === 1) {
       //double cutter, add upstream cutsite here
       upstreamTopSnip = recognitionSiteRange.end - restrictionEnzyme.usForward;
       upstreamBottomSnip =
@@ -290,9 +289,11 @@ function cutSequence(
         overhangSize: overhangBps.length,
         upstreamTopBeforeBottom,
         upstreamTopSnip,
+        annotationTypePlural: "cutsites",
         upstreamBottomSnip,
         recognitionSiteRange,
         forward: true,
+        name: restrictionEnzyme.name,
         restrictionEnzyme
       };
       restrictionCutSites.push(restrictionCutSite);

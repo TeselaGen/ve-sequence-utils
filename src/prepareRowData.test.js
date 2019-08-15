@@ -25,10 +25,11 @@ describe("prepareRowData", function() {
       cutsites: { b: annotation2 },
       orfs: [annotation2],
       primers: [annotation2],
-      warnings: [annotation2]
+      warnings: [annotation2],
+      assemblyPieces: [annotation2],
+      lineageAnnotations: [annotation2]
     };
     const rowData = prepareRowData(sequenceData, bpsPerRow);
-    // console.log('rowData:',JSON.stringify(rowData,null,4))
     expect(rowData).to.deep.equal(output1);
   });
 });

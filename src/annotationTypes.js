@@ -1,6 +1,8 @@
 module.exports = [
   "features",
   "warnings",
+  "assemblyPieces",
+  "lineageAnnotations",
   "parts",
   "cutsites",
   "orfs",
@@ -10,6 +12,9 @@ module.exports = [
 ];
 module.exports.modifiableTypes = [
   "features",
+  "assemblyPieces",
+  "lineageAnnotations",
+  "warnings",
   "parts",
   "translations",
   "primers",

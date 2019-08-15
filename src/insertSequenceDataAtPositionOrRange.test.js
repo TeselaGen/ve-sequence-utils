@@ -232,7 +232,8 @@ describe("insertSequenceData", function() {
     };
     let sequenceToInsertInto = {
       sequence: "atgagagaga",
-      features: [{ start: 0, end: 9 }]
+      features: [{ start: 0, end: 9 }],
+      warnings: [{ start: 0, end: 9 }]
     };
     let caretPosition = 0;
     let postInsertSeq = insertSequenceDataAtPositionOrRange(
@@ -247,12 +248,17 @@ describe("insertSequenceData", function() {
     postInsertSeq.features[0].start.should.equal(
       sequenceToInsertInto.features[0].start + sequenceToInsert.sequence.length
     );
+    postInsertSeq.warnings.length.should.equal(1);
+    postInsertSeq.warnings[0].start.should.equal(
+      sequenceToInsertInto.warnings[0].start + sequenceToInsert.sequence.length
+    );
   });
   it("deletes the whole sequence is nothing is being inserted and the range spans the entire sequence ", function() {
     let sequenceToInsert = {};
     let sequenceToInsertInto = {
       sequence: "atgagagaga",
-      features: [{ start: 0, end: 9 }]
+      features: [{ start: 0, end: 9 }],
+      warnings: [{ start: 0, end: 9 }]
     };
     let range = { start: 0, end: 9 };
     let postInsertSeq = insertSequenceDataAtPositionOrRange(
@@ -262,5 +268,6 @@ describe("insertSequenceData", function() {
     );
     postInsertSeq.sequence.length.should.equal(0);
     postInsertSeq.features.length.should.equal(0);
+    postInsertSeq.warnings.length.should.equal(0);
   });
 });
