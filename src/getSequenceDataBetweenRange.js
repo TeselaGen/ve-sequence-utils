@@ -21,6 +21,11 @@ module.exports = function getSequenceDataBetweenRange(
     {},
     seqDataToUse,
     {
+      circular:
+        seqDataToUse.sequence.length ===
+        getRangeLength(range, seqData.sequence.length)
+          ? seqDataToUse.circular
+          : false,
       sequence: getSequenceWithinRange(range, seqDataToUse.sequence),
       proteinSequence: getSequenceWithinRange(
         convertDnaCaretPositionOrRangeToAa(range),

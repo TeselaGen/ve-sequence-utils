@@ -9,6 +9,51 @@ chai.use(chaiSubset);
 const getSequenceDataBetweenRange = require("./getSequenceDataBetweenRange");
 
 describe("getSequenceDataBetweenRange", function() {
+  it("should set circular to false if a sub range is selected of a circular sequence", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        circular: true,
+        sequence: "atgcatgc"
+      },
+      {
+        start: 1,
+        end: 5
+      }
+    );
+    res.should.containSubset({
+      circular: false
+    });
+  });
+  it("should maintain circularity if the full entire sequence is selected from a circular sequence", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        circular: true,
+        sequence: "atgcatgc"
+      },
+      {
+        start: 3,
+        end: 2
+      }
+    );
+    res.should.containSubset({
+      circular: true
+    });
+  });
+  it("should maintain circular=false if the full entire sequence is selected from a linear sequence", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        circular: false,
+        sequence: "atgcatgc"
+      },
+      {
+        start: 3,
+        end: 2
+      }
+    );
+    res.should.containSubset({
+      circular: false
+    });
+  });
   it("should return an empty sequence if given an invalid range", function() {
     const res = getSequenceDataBetweenRange(
       {
