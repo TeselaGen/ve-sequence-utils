@@ -1,5 +1,6 @@
 const getComplementSequenceString = require("./getComplementSequenceString");
-const calculatePercentGc = require("../lib/calculatePercentGC");
+const calculatePercentGc = require("./calculatePercentGC");
+
 // sources of formulas:
 // - https://tmcalculator.neb.com/#!/help
 // - Tm calculation: SantaLucia (1998) PNAS 95:1460-5
@@ -18,7 +19,7 @@ module.exports = function calculateNebTm(
         `Degenerate bases prohibited in Tm calculation of sequence ${sequence}`
       );
     }
-    const seq = [...sequence.toUpperCase()];
+    const seq = sequence.toUpperCase().split("");
     // enthalpy, entropy
     let h = 0;
     let s = 0;
@@ -87,8 +88,16 @@ module.exports = function calculateNebTm(
         const dimer = seq[i] + seq[i + 1];
         const complement = getComplementSequenceString(dimer).toUpperCase();
         const dimerDuplex = `${dimer}/${complement}`;
-        h += sequenceToEnthalpyMap[dimerDuplex] || 0;
-        s += sequenceToEntropyMap[dimerDuplex] || 0;
+        if (
+          !sequenceToEnthalpyMap[dimerDuplex] ||
+          !sequenceToEntropyMap[dimerDuplex]
+        ) {
+          throw new Error(
+            `Could not find value for ${dimerDuplex} of sequence ${sequence}`
+          );
+        }
+        h += sequenceToEnthalpyMap[dimerDuplex];
+        s += sequenceToEntropyMap[dimerDuplex];
       }
     }
     // this calculated Tm assumes 1 M monovalent cation concentration
@@ -115,5 +124,4 @@ module.exports = function calculateNebTm(
   } catch (err) {
     return `Error calculating Tm for sequence ${sequence}: ${err}`;
   }
-  // pass in 2 primer seqs, output Ta
 };
