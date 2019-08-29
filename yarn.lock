@@ -2092,9 +2092,9 @@ bser@^2.0.0:
     node-int64 "^0.4.0"
 
 bson-objectid@^1.1.1:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/bson-objectid/-/bson-objectid-1.2.4.tgz#5932784c407dc033d8e1064c31f2ce3005d5a00b"
-  integrity sha512-z511nO3HgvLpB0Ax2+kfM2HRfgGKB0VbMnRKh5yNM9Eoh2o1/DRFXBrsoTpvjR09vNIHUMUmcwFFYhSU+0PBGQ==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/bson-objectid/-/bson-objectid-1.3.0.tgz#f0f4c7c949fece975f12790510d75d7fe39fb456"
+  integrity sha512-YcB+lRJEEEIcHNLKyhmHujW7OCVE3+xr9IpEhlprBZnXgF3hqeePeexIsAaOtu1SbkgZRlJVUxvYZ3ngUOyIew==
 
 buffer-alloc-unsafe@^1.1.0:
   version "1.1.0"
