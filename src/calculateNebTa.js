@@ -3,7 +3,7 @@ const calculateTm = require("./calculateNebTm");
 module.exports = function calculateNebTa(
   sequences,
   primerConc,
-  { monovalentCationConc } = {}
+  { monovalentCationConc, polymerase } = {}
 ) {
   try {
     if (sequences.length !== 2) {
@@ -16,8 +16,17 @@ module.exports = function calculateNebTa(
     );
     meltingTemperatures.sort((a, b) => a - b);
     const lowerMeltingTemp = meltingTemperatures[0];
-    // annealing temperature as lower melting temperature of the two primers + 1 degC is standard for Q5 protocol
-    const annealingTemp = lowerMeltingTemp + 1;
+    let annealingTemp;
+    if (polymerase === "Q5") {
+      // Ta = Tm_lower+1°C is standard for Q5
+      annealingTemp = lowerMeltingTemp + 1;
+      if (annealingTemp > 72) {
+        // "Annealing temperature for experiments with this enzyme should typically not exceed 72°C"
+        annealingTemp = 72;
+      }
+    } else {
+      annealingTemp = lowerMeltingTemp - 3;
+    }
     return annealingTemp;
   } catch (err) {
     return `Error calculating annealing temperature: ${err}`;
