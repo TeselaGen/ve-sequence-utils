@@ -68,6 +68,7 @@ describe("insertSequenceData", function() {
         sequenceToInsert.sequence.length -
         getRangeLength(range)
     );
+    postInsertSeq.sequence.length.should.equal(postInsertSeq.size);
   });
   it("inserts characters at correct origin spanning range", function() {
     let sequenceToInsert = {

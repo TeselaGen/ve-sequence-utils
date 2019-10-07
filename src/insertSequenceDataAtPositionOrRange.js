@@ -51,11 +51,13 @@ module.exports = function insertSequenceDataAtPositionOrRange(
     sequenceDataToInsert.sequence,
     caretPositionOrRange
   );
+  newSequenceData.size = newSequenceData.sequence.length;
   newSequenceData.proteinSequence = adjustBpsToReplaceOrInsert(
     existingSequenceData.proteinSequence,
     sequenceDataToInsert.proteinSequence,
     convertDnaCaretPositionOrRangeToAa(caretPositionOrRange)
   );
+  newSequenceData.proteinSize = newSequenceData.proteinSequence.length;
   // if (existingSequenceData.isProtein) {
 
   // }
