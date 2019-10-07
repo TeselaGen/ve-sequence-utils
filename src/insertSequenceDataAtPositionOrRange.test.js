@@ -49,7 +49,7 @@ describe("insertSequenceData", function() {
     postInsertSeq.sequence.should.equal("atgatagatagggagaaa");
     postInsertSeq.proteinSequence.should.equal("MIDREK");
   });
-  it("inserts characters at correct range", function() {
+  it("inserts characters at correct range and computes the new size correctly", function() {
     let sequenceToInsert = {
       sequence: "rrrrrrr"
     };
