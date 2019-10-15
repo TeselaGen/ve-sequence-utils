@@ -1,3 +1,9 @@
+const diffUtils = require("./diffUtils");
+
+module.exports.diffUtils = diffUtils;
+module.exports.getDiffFromSeqs = diffUtils.getDiffFromSeqs;
+module.exports.patchSeqWithDiff = diffUtils.patchSeqWithDiff;
+module.exports.reverseSeqDiff = diffUtils.reverseSeqDiff;
 module.exports.getAllInsertionsInSeqReads = require("./getAllInsertionsInSeqReads");
 module.exports.getDegenerateDnaStringFromAAString = require("./getDegenerateDnaStringFromAAString");
 module.exports.getVirtualDigest = require("./getVirtualDigest");
