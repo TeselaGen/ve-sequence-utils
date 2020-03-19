@@ -5,7 +5,8 @@ const { flatMap } = require("lodash");
 module.exports = function getDigestFragmentsForRestrictionEnzymes(
   sequence,
   circular,
-  restrictionEnzymeOrEnzymes
+  restrictionEnzymeOrEnzymes,
+  opts
 ) {
   const restrictionEnzymes = Array.isArray(restrictionEnzymeOrEnzymes)
     ? restrictionEnzymeOrEnzymes
@@ -17,5 +18,10 @@ module.exports = function getDigestFragmentsForRestrictionEnzymes(
       restrictionEnzyme
     );
   });
-  return getDigestFragmentsForCutsites(sequence.length, circular, cutsites);
+  return getDigestFragmentsForCutsites(
+    sequence.length,
+    circular,
+    cutsites,
+    opts
+  );
 };

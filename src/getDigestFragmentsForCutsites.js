@@ -1,13 +1,13 @@
 const {
   normalizePositionByRangeLength,
-  getRangeLength,
-  isRangeWithinRange
+  getRangeLength
 } = require("ve-range-utils");
 
 module.exports = function getDigestFragmentsForCutsites(
   sequenceLength,
   circular,
-  cutsites
+  cutsites,
+  opts = {}
 ) {
   const fragments = [];
   const overlappingEnzymes = [];
@@ -41,6 +41,14 @@ module.exports = function getDigestFragmentsForCutsites(
   sortedCutsites.forEach((cutsite1, index) => {
     if (!circular && !sortedCutsites[index + 1]) {
       return; //don't push a pair if the sequence is linear and we've reached the end of our cutsites array
+    }
+    if (opts.computePartialDigests) {
+      sortedCutsites.forEach((cs, index2) => {
+        if (index2 === index + 1 || index2 === 0) {
+          return;
+        }
+        pairs.push([cutsite1, sortedCutsites[index2]]);
+      });
     }
     pairs.push([
       cutsite1,

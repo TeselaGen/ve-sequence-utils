@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-expressions */
 const chai = require("chai");
 
-const should = chai.should();
+chai.should();
 const getDigestFragmentsForRestrictionEnzymes = require("./getDigestFragmentsForRestrictionEnzymes.js");
 
 const enzymeList = require("./enzymeList");
@@ -181,4 +182,49 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
     digestFragments[1].end.should.equal(6);
     digestFragments[1].size.should.equal(21);
   });
+  it("gets digestFragments for multiple cutsites cutting in a circular sequence when computePartialDigests=true", function() {
+    const digestFragments = getDigestFragmentsForRestrictionEnzymes(
+      "ggatcctttttttggatcc",
+      true,
+      enzymeList["bamhi"],
+      { computePartialDigests: true }
+    );
+
+    digestFragments.should.be.an.array;
+    digestFragments.length.should.equal(3);
+    digestFragments[0].start.should.equal(1);
+    digestFragments[0].end.should.equal(13);
+    digestFragments[0].size.should.equal(13);
+
+    digestFragments[1].start.should.equal(14);
+    digestFragments[1].end.should.equal(13);
+    digestFragments[1].size.should.equal(19);
+
+    digestFragments[2].start.should.equal(14);
+    digestFragments[2].end.should.equal(0);
+    digestFragments[2].size.should.equal(6);
+  });
+  //tnrtodo: this test should be enabled and checked for correctness
+  //   it("gets digestFragments for multiple cutsites cutting in a linear sequence when computePartialDigests=true", function() {
+  //     const digestFragments = getDigestFragmentsForRestrictionEnzymes(
+  //       "ggatcctttttttggatcc",
+  //       false,
+  //       enzymeList["bamhi"],
+  //       { computePartialDigests: true }
+  //     );
+  // console.log(`digestFragments:`,digestFragments)
+  //     digestFragments.should.be.an.array;
+  //     digestFragments.length.should.equal(9);
+  //     digestFragments[0].start.should.equal(1);
+  //     digestFragments[0].end.should.equal(13);
+  //     digestFragments[0].size.should.equal(13);
+
+  //     digestFragments[1].start.should.equal(14);
+  //     digestFragments[1].end.should.equal(13);
+  //     digestFragments[1].size.should.equal(19);
+
+  //     digestFragments[2].start.should.equal(14);
+  //     digestFragments[2].end.should.equal(0);
+  //     digestFragments[2].size.should.equal(6);
+  //   });
 });
