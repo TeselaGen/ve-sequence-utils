@@ -15,6 +15,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     logMessages,
     removeUnwantedChars,
     additionalValidChars,
+    noTranslationData,
     charOverrides,
     proteinFilterOptions,
     convertAnnotationsFromAAIndices
@@ -116,16 +117,18 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     });
   });
 
-  seqData.translations = seqData.translations.map(function(translation) {
-    if (!translation.aminoAcids && !seqData.noSequence) {
-      translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(
-        seqData.sequence,
-        translation.forward,
-        translation
-      );
-    }
-    return translation;
-  });
+  if (!noTranslationData) {
+    seqData.translations = seqData.translations.map(function(translation) {
+      if (!translation.aminoAcids && !seqData.noSequence) {
+        translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(
+          seqData.sequence,
+          translation.forward,
+          translation
+        );
+      }
+      return translation;
+    });
+  }
 
   if (annotationsAsObjects) {
     annotationTypes.forEach(function(name) {
