@@ -1,9 +1,10 @@
+/* eslint-disable eqeqeq */
 /**
  * DNA melting temperature calculator.
  * @author Nick Elsbree
  * @author Zinovii Dmytriv (original author)
  */
-var calcTmMethods = {
+const calcTmMethods = {
   TABLE_BRESLAUER: "breslauer",
   TABLE_SUGIMOTO: "sugimoto",
   TABLE_UNIFIED: "unified",
@@ -14,14 +15,14 @@ var calcTmMethods = {
   Na: 50e-3, // Monovalent salt concentration. 50mM is typical for PCR.
 
   /**
-	 * Calculates temperature for DNA sequence using a given algorithm.
-	 * @param  {String} sequence The DNA sequence to use.
-	 * @param  {String} type Either Teselagen.bio.tools.TemperatureCalculator.TABLE_BRESLAUER, TABLE_SUGIMOTO, or TABLE_UNIFIED
-	 * @param  {Double} A Helix initation for deltaS. Defaults to -10.8.
-	 * @param  {Double} R The gas constant, in cal/(K*mol). Defaults to 0.5e-6M.
-	 * @param  {Double} Na THe monovalent salt concentration. Defaults to 50e-3M.
-	 * @return {Double} Temperature for the given sequence, in Celsius.
-	 */
+   * Calculates temperature for DNA sequence using a given algorithm.
+   * @param  {String} sequence The DNA sequence to use.
+   * @param  {String} type Either Teselagen.bio.tools.TemperatureCalculator.TABLE_BRESLAUER, TABLE_SUGIMOTO, or TABLE_UNIFIED
+   * @param  {Double} A Helix initation for deltaS. Defaults to -10.8.
+   * @param  {Double} R The gas constant, in cal/(K*mol). Defaults to 0.5e-6M.
+   * @param  {Double} Na THe monovalent salt concentration. Defaults to 50e-3M.
+   * @return {Double} Temperature for the given sequence, in Celsius.
+   */
   calculateTemperature: function(sequence, type, A, R, C, Na) {
     if (typeof type === "undefined") {
       type = this.TABLE_BRESLAUER;
@@ -45,16 +46,16 @@ var calcTmMethods = {
       Na = this.Na;
     }
 
-    var sequenceLength = sequence.length;
+    const sequenceLength = sequence.length;
 
     if (sequenceLength == 0) {
       return 0;
     }
 
-    var deltaHTable = this.getDeltaHTable(type);
-    var deltaSTable = this.getDeltaSTable(type);
+    const deltaHTable = this.getDeltaHTable(type);
+    const deltaSTable = this.getDeltaSTable(type);
 
-    var neighbors = new Array(); // List goes in order: aa, at, ac, ag, tt, ta, tc, tg, cc, ca, ct, cg, gg, gt, gc
+    const neighbors = []; // List goes in order: aa, at, ac, ag, tt, ta, tc, tg, cc, ca, ct, cg, gg, gt, gc
 
     neighbors.push(this.calculateReps(sequence, "aa"));
     neighbors.push(this.calculateNumberOfOccurrences(sequence, "at"));
@@ -76,16 +77,16 @@ var calcTmMethods = {
     neighbors.push(this.calculateNumberOfOccurrences(sequence, "gt"));
     neighbors.push(this.calculateNumberOfOccurrences(sequence, "gc"));
 
-    var sumDeltaH = 0.0;
-    var sumDeltaS = 0.0;
+    let sumDeltaH = 0.0;
+    let sumDeltaS = 0.0;
 
-    for (var i = 0; i < 16; i++) {
+    for (let i = 0; i < 16; i++) {
       sumDeltaH = sumDeltaH + neighbors[i] * deltaHTable[i];
       sumDeltaS = sumDeltaS + neighbors[i] * deltaSTable[i];
     }
 
-    var temperature =
-      -1000.0 * sumDeltaH / (A + -sumDeltaS + R * Math.log(C / 4.0)) -
+    const temperature =
+      (-1000.0 * sumDeltaH) / (A + -sumDeltaS + R * Math.log(C / 4.0)) -
       273.15 +
       16.6 * Math.LOG10E * Math.log(Na);
 
@@ -98,11 +99,11 @@ var calcTmMethods = {
   },
 
   /**
-	 * @private
-	 * Function to return deltaH table for given algorithm.
-	 * @param {String} type Algorithm to get table for.
-	 * @return {Number[]} deltaH table for given algorithm.
-	 */
+   * @private
+   * Function to return deltaH table for given algorithm.
+   * @param {String} type Algorithm to get table for.
+   * @return {Number[]} deltaH table for given algorithm.
+   */
   getDeltaHTable: function(type) {
     if (type == this.TABLE_BRESLAUER) {
       return [
@@ -167,11 +168,11 @@ var calcTmMethods = {
   },
 
   /**
-	 * @private
-	 * Function to return deltaS table for given algorithm.
-	 * @param {String} type Algorithm to get table for.
-	 * @return {Number[]} deltaS table for given algorithm.
-	 */
+   * @private
+   * Function to return deltaS table for given algorithm.
+   * @param {String} type Algorithm to get table for.
+   * @return {Number[]} deltaS table for given algorithm.
+   */
   getDeltaSTable: function(type) {
     if (type == this.TABLE_BRESLAUER) {
       return [
@@ -236,26 +237,26 @@ var calcTmMethods = {
   },
 
   /**
-	 * @private
-	 * Finds number of occurrences of target in sequence.
-	 * Will find repeating sequences, meaning that
-	 * calculateReps("aaa", "aa") returns 2 rather than 1.
-	 * @param  {String} sequence The string to search through.
-	 * @param  {String} target   The string to search for.
-	 * @return {Int} Number of occurrences of target in sequence, with repeats.
-	 */
+   * @private
+   * Finds number of occurrences of target in sequence.
+   * Will find repeating sequences, meaning that
+   * calculateReps("aaa", "aa") returns 2 rather than 1.
+   * @param  {String} sequence The string to search through.
+   * @param  {String} target   The string to search for.
+   * @return {Int} Number of occurrences of target in sequence, with repeats.
+   */
   calculateReps: function(sequence, target) {
-    var sequenceLength = sequence.length;
+    const sequenceLength = sequence.length;
 
     if (sequenceLength == 0) {
       return 0;
     }
 
-    var numFound = 0;
-    var seqOffset = 0; // Search offset for finding multiple matches.
+    let numFound = 0;
+    let seqOffset = 0; // Search offset for finding multiple matches.
 
     while (true) {
-      var foundSeq = sequence.indexOf(target, seqOffset);
+      const foundSeq = sequence.indexOf(target, seqOffset);
 
       if (foundSeq == -1) {
         break;
@@ -273,20 +274,20 @@ var calcTmMethods = {
   },
 
   /**
-	 * @private
-	 * Counts number of occurrences of target in sequence, without repeating.
-	 * @param  {String} sequence The string to search through.
-	 * @param  {String} target   The string to search for.
-	 * @return {Int} Number of occurrences of target in sequence.
-	 */
+   * @private
+   * Counts number of occurrences of target in sequence, without repeating.
+   * @param  {String} sequence The string to search through.
+   * @param  {String} target   The string to search for.
+   * @return {Int} Number of occurrences of target in sequence.
+   */
   calculateNumberOfOccurrences: function(sequence, target) {
-    var sequenceLength = sequence.length;
+    const sequenceLength = sequence.length;
 
     if (sequenceLength == 0) {
       return 0;
     }
 
-    var numberFound = sequence.split(target).length - 1;
+    const numberFound = sequence.split(target).length - 1;
 
     return numberFound;
   }
