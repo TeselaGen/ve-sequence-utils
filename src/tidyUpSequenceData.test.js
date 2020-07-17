@@ -65,7 +65,7 @@ describe("tidyUpSequenceData", function() {
         circular: true,
         proteinSequence: "gagiuhwgagalasjglj*.",
         features: [
-          { start: 3, end: 10 },
+          { start: 3, end: 10, forward: false },
           { start: 10, end: 20 },
           { name: "iDon'tFit", start: 25, end: 35 }
         ]
@@ -130,12 +130,13 @@ describe("tidyUpSequenceData", function() {
       proteinSequence: "gagiuhwgagalasgl*.",
       circular: false,
       features: [
-        { start: 9, end: 32 },
-        { start: 30, end: 53 },
+        { start: 9, end: 32, forward: true },
+        { start: 30, end: 53, forward: true },
         {
           name: "iDon'tFit",
           start: 51,
-          end: 53
+          end: 53,
+          forward: true
         }
       ]
     });
