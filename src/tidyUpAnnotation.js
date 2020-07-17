@@ -67,6 +67,7 @@ module.exports = function tidyUpAnnotation(
     });
 
   if (
+    isProtein ||
     annotation.forward === true ||
     annotation.forward === "true" ||
     annotation.strand === 1 ||
