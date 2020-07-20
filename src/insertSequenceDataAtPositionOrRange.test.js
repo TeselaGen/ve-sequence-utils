@@ -11,13 +11,44 @@ chai.use(chaiSubset);
 const insertSequenceDataAtPositionOrRange = require("./insertSequenceDataAtPositionOrRange");
 
 describe("insertSequenceData", function() {
+  it("adjusts annotations to protein-only inserts correctly", function() {
+    let sequenceToInsert = {
+      proteinSequence: "IDR",
+      isProtein: true
+    };
+    let sequenceToInsertInto = {
+      //  012345
+      features: [{ name: "feat2", start: 0, end: 5 }],
+      //         M  R  E  K
+      //         012345678901
+      sequence: "atgagagagaaa",
+      proteinSequence: "MREK",
+      isProtein: true
+    };
+    //         M  I  D  R  R  E  K
+    //         012345678901234567890
+    //         atgauhgaymngagagagaaa
+    let caret = 3;
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      caret
+    );
+    postInsertSeq.sequence.should.equal("atgauhgaymngagagagaaa");
+    postInsertSeq.proteinSequence.should.equal("MIDRREK");
+    postInsertSeq.features.should.containSubset([
+      { name: "feat2", start: 0, end: 14 }
+    ]);
+  });
   it("inserts protein and dna characters at correct caret", function() {
     let sequenceToInsert = {
+      isProtein: true,
       sequence: "atagatagg",
       proteinSequence: "IDR"
     };
     let sequenceToInsertInto = {
       //  012345
+      isProtein: true,
       sequence: "atgagagagaaa",
       proteinSequence: "MREK"
     };
@@ -32,11 +63,13 @@ describe("insertSequenceData", function() {
   });
   it("inserts protein and dna characters at correct range", function() {
     let sequenceToInsert = {
+      isProtein: true,
       sequence: "atagatagg",
       proteinSequence: "IDR"
     };
     let sequenceToInsertInto = {
       //  012345
+      isProtein: true,
       sequence: "atgagagagaaa",
       proteinSequence: "MREK"
     };

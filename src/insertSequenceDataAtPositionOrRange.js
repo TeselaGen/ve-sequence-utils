@@ -24,7 +24,9 @@ module.exports = function insertSequenceDataAtPositionOrRange(
   let existingSequenceData = tidyUpSequenceData(_existingSequenceData);
   const sequenceDataToInsert = tidyUpSequenceData(_sequenceDataToInsert);
   let newSequenceData = cloneDeep(existingSequenceData);
-  const insertLength = sequenceDataToInsert.sequence.length;
+  const insertLength = sequenceDataToInsert.proteinSequence
+    ? sequenceDataToInsert.proteinSequence.length * 3
+    : sequenceDataToInsert.sequence.length;
   let caretPosition = caretPositionOrRange;
 
   if (
@@ -108,7 +110,7 @@ module.exports = function insertSequenceDataAtPositionOrRange(
       existingSequenceData.sequence.length - caretPositionOrRange.start;
     return rotateSequenceDataToPosition(
       newSequenceData,
-      Math.min(caretPosToRotateTo, sequenceDataToInsert.sequence.length)
+      Math.min(caretPosToRotateTo, insertLength)
     );
   }
   return newSequenceData;
