@@ -1,15 +1,15 @@
-// var tap = require('tap');
+// const tap = require('tap');
 // tap.mochaGlobals();
-var chai = require("chai");
-var should = chai.should();
-var cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme.js");
-var enzymeList = require("./enzymeList");
-var getLeftAndRightOfSequenceInRangeGivenPosition = require("./getLeftAndRightOfSequenceInRangeGivenPosition");
-// var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
+const chai = require("chai");
+chai.should();
+const cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme.js");
+const enzymeList = require("./aliasedEnzymesByName");
+const getLeftAndRightOfSequenceInRangeGivenPosition = require("./getLeftAndRightOfSequenceInRangeGivenPosition");
+// const collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe("getLeftAndRightOfSequenceInRangeGivenPosition", function() {
   it("gets the left and right of the range correctly given a position inside the range", function() {
-    var sequence = "aaaaaaaaaattttttttttgggggggggg";
-    var result = getLeftAndRightOfSequenceInRangeGivenPosition(
+    const sequence = "aaaaaaaaaattttttttttgggggggggg";
+    const result = getLeftAndRightOfSequenceInRangeGivenPosition(
       { start: 9, end: 20 },
       10,
       sequence
@@ -19,8 +19,8 @@ describe("getLeftAndRightOfSequenceInRangeGivenPosition", function() {
   });
 
   it("gets the left and right of the range correctly given a position outside the range", function() {
-    var sequence = "aaaaaaaaaattttttttttgggggggggg";
-    var result = getLeftAndRightOfSequenceInRangeGivenPosition(
+    const sequence = "aaaaaaaaaattttttttttgggggggggg";
+    const result = getLeftAndRightOfSequenceInRangeGivenPosition(
       { start: 9, end: 20 },
       6,
       sequence
@@ -30,8 +30,8 @@ describe("getLeftAndRightOfSequenceInRangeGivenPosition", function() {
   });
 
   it("gets the left and right of the range correctly given a position outside the range", function() {
-    var sequence = "aaaaaaaaaattttttttttgggggggggg";
-    var result = getLeftAndRightOfSequenceInRangeGivenPosition(
+    const sequence = "aaaaaaaaaattttttttttgggggggggg";
+    const result = getLeftAndRightOfSequenceInRangeGivenPosition(
       { start: 9, end: 20 },
       24,
       sequence
@@ -50,14 +50,14 @@ describe("getLeftAndRightOfSequenceInRangeGivenPosition", function() {
   //     "bottomSnipOffset": 5
   // },
   it("cuts a single circular cutsite", function() {
-    var sequence = "ccrrrrggat";
-    var cutsites = cutSequenceByRestrictionEnzyme(
+    const sequence = "ccrrrrggat";
+    const cutsites = cutSequenceByRestrictionEnzyme(
       sequence,
       true,
       enzymeList["bamhi"]
     );
-    var cutsite = cutsites[0];
-    var result = getLeftAndRightOfSequenceInRangeGivenPosition(
+    const cutsite = cutsites[0];
+    const result = getLeftAndRightOfSequenceInRangeGivenPosition(
       cutsite.recognitionSiteRange,
       cutsite.topSnipPosition,
       sequence

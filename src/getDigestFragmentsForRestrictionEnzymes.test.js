@@ -4,7 +4,7 @@ const chai = require("chai");
 chai.should();
 const getDigestFragmentsForRestrictionEnzymes = require("./getDigestFragmentsForRestrictionEnzymes.js");
 
-const enzymeList = require("./enzymeList");
+const enzymeList = require("./aliasedEnzymesByName");
 describe("getDigestFragmentsForRestrictionEnzymes", function() {
   //bamhi
   // "bamhi": {

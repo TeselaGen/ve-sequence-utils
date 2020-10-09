@@ -1,9 +1,9 @@
-// var tap = require('tap');
+// const tap = require('tap');
 // tap.mochaGlobals();
-var chai = require("chai");
+const chai = require("chai");
 chai.should();
-var doesEnzymeChopOutsideOfRecognitionSite = require("./doesEnzymeChopOutsideOfRecognitionSite.js");
-var enzymeList = require("./enzymeList");
+const doesEnzymeChopOutsideOfRecognitionSite = require("./doesEnzymeChopOutsideOfRecognitionSite.js");
+const enzymeList = require("./aliasedEnzymesByName");
 
 describe("doesEnzymeChopOutsideOfRecognitionSite", function() {
   //bamhi
@@ -18,7 +18,7 @@ describe("doesEnzymeChopOutsideOfRecognitionSite", function() {
   // ATGATCAGA
   // 012345678
   it("should return a result for every enzyme", function() {
-    Object.keys(enzymeList).map(function(key) {
+    Object.keys(enzymeList).forEach(function(key) {
       doesEnzymeChopOutsideOfRecognitionSite(enzymeList[key]);
     });
   });

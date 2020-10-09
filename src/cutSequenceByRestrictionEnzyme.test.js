@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-expressions */
 // const tap = require('tap');
 // tap.mochaGlobals();
 const chai = require("chai");
 const should = chai.should();
 const cutSequenceByRestrictionEnzyme = require("./cutSequenceByRestrictionEnzyme.js");
-const enzymeList = require("./enzymeList");
+const enzymeList = require("./aliasedEnzymesByName");
 // const collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe("a simple, palindromic enzyme", function() {
   //bamhi
@@ -17,23 +18,23 @@ describe("a simple, palindromic enzyme", function() {
   // },
   // ATGATCAGA
   // 012345678
-  it("cuts on the reverse strand and the recognition site wraps the origin", function() {
+  it.skip("cuts on the reverse strand and the recognition site wraps the origin", function() {
     const cutsites = cutSequenceByRestrictionEnzyme(
       "gcatccagagagagagagagagagagagagaaga",
       true,
       enzymeList["sapi"]
     );
-    // cutsites.should.be.an.array;
-    // cutsites.length.should.equal(1);
-    // cutsites[0].start.should.equal(0);
-    // cutsites[0].end.should.equal(5);
-    // cutsites[0].recognitionSiteRange.start.should.equal(0);
-    // cutsites[0].recognitionSiteRange.end.should.equal(5);
-    // cutsites[0].topSnipPosition.should.equal(1);
-    // cutsites[0].bottomSnipPosition.should.equal(5);
-    // cutsites[0].topSnipBeforeBottom.should.equal(true);
-    // should.not.exist(cutsites[0].upstreamTopSnip);
-    // should.not.exist(cutsites[0].upstreamBottomSnip);
+    cutsites.should.be.an.array;
+    cutsites.length.should.equal(1);
+    cutsites[0].start.should.equal(0);
+    cutsites[0].end.should.equal(5);
+    cutsites[0].recognitionSiteRange.start.should.equal(0);
+    cutsites[0].recognitionSiteRange.end.should.equal(5);
+    cutsites[0].topSnipPosition.should.equal(1);
+    cutsites[0].bottomSnipPosition.should.equal(5);
+    cutsites[0].topSnipBeforeBottom.should.equal(true);
+    should.not.exist(cutsites[0].upstreamTopSnip);
+    should.not.exist(cutsites[0].upstreamBottomSnip);
   });
   it("cuts a single non-circular cutsite", function() {
     const cutsites = cutSequenceByRestrictionEnzyme(

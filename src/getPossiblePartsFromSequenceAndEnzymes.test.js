@@ -1,10 +1,10 @@
-var chai = require("chai");
-var should = chai.should();
-var chaiSubset = require("chai-subset");
+const chai = require("chai");
+chai.should();
+const chaiSubset = require("chai-subset");
 chai.use(chaiSubset);
-var getPossiblePartsFromSequenceAndEnzymes = require("./getPossiblePartsFromSequenceAndEnzymes");
-var enzymeList = require("./enzymeList");
-// var collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
+const getPossiblePartsFromSequenceAndEnzymes = require("./getPossiblePartsFromSequenceAndEnzymes");
+const enzymeList = require("./aliasedEnzymesByName");
+// const collapseOverlapsGeneratedFromRangeComparisonIfPossible = require('./collapseOverlapsGeneratedFromRangeComparisonIfPossible.js');
 describe("getPossiblePartsFromSequenceAndEnzymes", function() {
   //bamhi
   // "bamhi": {
@@ -18,14 +18,15 @@ describe("getPossiblePartsFromSequenceAndEnzymes", function() {
   //     "usReverse": 0
   // },
   it("cuts using a single palindromic enzyme", function() {
-    var sequence = {
+    const sequence = {
       sequence:
         "tggttgtagtagttagttgatgttatagggatcctgtagtatttatgtagtagtatgatgtagagtagtagtggatcctattatatata",
       circular: true
     };
-    var parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [
+    const parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [
       enzymeList["bamhi"]
     ]);
+    // eslint-disable-next-line no-unused-expressions
     parts.should.be.an.array;
     parts.length.should.equal(2);
     parts[0].start.should.equal(29);
@@ -113,7 +114,7 @@ describe("getPossiblePartsFromSequenceAndEnzymes", function() {
     ]);
   });
   it("cuts using two golden gate enzymes", function() {
-    var sequence = {
+    const sequence = {
       //                sapi ->
       sequence:
         "tggttgtagtGCTCTTCagttagttgatgttatagggatcctgtagtatttatgtagtaGGAGACCtatgatgtagggtcatcagtagtagtggatcctattatatata",
@@ -121,7 +122,7 @@ describe("getPossiblePartsFromSequenceAndEnzymes", function() {
       //                                                                 <- bsai
       circular: true
     };
-    var parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [
+    const parts = getPossiblePartsFromSequenceAndEnzymes(sequence, [
       enzymeList["sapi"],
       enzymeList["bsai"]
     ]);
