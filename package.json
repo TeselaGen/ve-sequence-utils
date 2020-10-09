@@ -1,6 +1,6 @@
 {
   "name": "ve-sequence-utils",
-  "version": "3.3.56",
+  "version": "4.0.0",
   "description": "sequence utility functions",
   "main": "lib",
   "//types": "./index.d.ts",
