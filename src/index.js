@@ -7,6 +7,7 @@ module.exports.reverseSeqDiff = diffUtils.reverseSeqDiff;
 module.exports.getAllInsertionsInSeqReads = require("./getAllInsertionsInSeqReads");
 module.exports.getDegenerateDnaStringFromAAString = require("./getDegenerateDnaStringFromAAString");
 module.exports.getVirtualDigest = require("./getVirtualDigest");
+module.exports.isEnzymeType2S = require("./isEnzymeType2S");
 module.exports.insertGapsIntoRefSeq = require("./insertGapsIntoRefSeq");
 module.exports.adjustBpsToReplaceOrInsert = require("./adjustBpsToReplaceOrInsert");
 module.exports.annotationTypes = require("./annotationTypes");

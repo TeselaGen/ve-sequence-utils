@@ -721,7 +721,8 @@ const aliasedEnzymes = [
     forwardRegex: "gcagtg",
     reverseRegex: "cactgc",
     topSnipOffset: 8,
-    bottomSnipOffset: 6
+    bottomSnipOffset: 6,
+    isType2S: true
   },
   {
     aliases: [
@@ -896,6 +897,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["BseRI"],
+    isType2S: true,
     site: "gaggag",
     forwardRegex: "gag{2}ag",
     reverseRegex: "ctc{2}tc",
@@ -1059,6 +1061,7 @@ const aliasedEnzymes = [
       "BstTS5I",
       "BpuAI"
     ],
+    isType2S: true,
     site: "gaagac",
     forwardRegex: "ga{2}gac",
     reverseRegex: "gtct{2}c",
@@ -1312,6 +1315,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["BfuAI", "BspMI", "Acc36I", "BveI"],
+    isType2S: true,
     site: "acctgc",
     forwardRegex: "ac{2}tgc",
     reverseRegex: "gcag{2}t",
@@ -1501,6 +1505,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["BmrI", "BfiI", "BmuI"],
+    isType2S: true,
     site: "actggg",
     forwardRegex: "actg{3}",
     reverseRegex: "c{3}agt",
@@ -1533,6 +1538,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["EcoPI"],
+    isType2S: true,
     site: "agacc",
     forwardRegex: "agac{2}",
     reverseRegex: "g{2}tct",
@@ -1549,6 +1555,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["BpuSI", "BspLU11III", "BstOZ616I", "BslFI", "FaqI", "BsmFI"],
+    isType2S: true,
     site: "gggac",
     forwardRegex: "g{3}ac",
     reverseRegex: "gtc{3}",
@@ -1659,7 +1666,8 @@ const aliasedEnzymes = [
     forwardRegex: "g{2}atg",
     reverseRegex: "catc{2}",
     topSnipOffset: 7,
-    bottomSnipOffset: 5
+    bottomSnipOffset: 5,
+    isType2S: true
   },
   {
     aliases: ["AvrII", "AspA2I", "XmaJI", "BlnI", "AvrBII", "BspA2I"],
@@ -1741,6 +1749,7 @@ const aliasedEnzymes = [
       "Bco5I",
       "BcoKI"
     ],
+    isType2S: true,
     site: "ctcttc",
     forwardRegex: "ctct{2}c",
     reverseRegex: "ga{2}gag",
@@ -1885,7 +1894,8 @@ const aliasedEnzymes = [
     forwardRegex: "ga{2}tgc",
     reverseRegex: "gcat{2}c",
     topSnipOffset: 7,
-    bottomSnipOffset: 5
+    bottomSnipOffset: 5,
+    isType2S: true
   },
   {
     aliases: [
@@ -2785,7 +2795,8 @@ const aliasedEnzymes = [
     forwardRegex: "cag[agr]ag",
     reverseRegex: "ct[cty]ctg",
     topSnipOffset: 27,
-    bottomSnipOffset: 25
+    bottomSnipOffset: 25,
+    isType2S: true
   },
   {
     aliases: ["BcoDI", "BsoMAI", "BsmAI", "Alw26I", "BstMAI"],
@@ -2793,7 +2804,8 @@ const aliasedEnzymes = [
     forwardRegex: "gtctc",
     reverseRegex: "gagac",
     topSnipOffset: 6,
-    bottomSnipOffset: 10
+    bottomSnipOffset: 10,
+    isType2S: true
   },
   {
     aliases: [
@@ -2868,7 +2880,8 @@ const aliasedEnzymes = [
     forwardRegex: "ctga{2}g",
     reverseRegex: "ct{2}cag",
     topSnipOffset: 22,
-    bottomSnipOffset: 20
+    bottomSnipOffset: 20,
+    isType2S: true
   },
   {
     aliases: [
@@ -2973,7 +2986,8 @@ const aliasedEnzymes = [
     forwardRegex: "c{2}t{2}c",
     reverseRegex: "ga{2}g{2}",
     topSnipOffset: 11,
-    bottomSnipOffset: 10
+    bottomSnipOffset: 10,
+    isType2S: true
   },
   {
     aliases: ["BseII", "BsaKI", "Uba1408II", "MwhI"],
@@ -3240,7 +3254,8 @@ const aliasedEnzymes = [
     forwardRegex: "ca{2}g[abcdghkmnrstvwy]ac",
     reverseRegex: "gt[abcdghkmnrstvwy]ct{2}g",
     topSnipOffset: 27,
-    bottomSnipOffset: 25
+    bottomSnipOffset: 25,
+    isType2S: true
   },
   {
     aliases: [
@@ -3361,7 +3376,8 @@ const aliasedEnzymes = [
     forwardRegex: "ga{2}ga",
     reverseRegex: "tct{2}c",
     topSnipOffset: 13,
-    bottomSnipOffset: 12
+    bottomSnipOffset: 12,
+    isType2S: true
   },
   {
     aliases: [
@@ -3407,7 +3423,8 @@ const aliasedEnzymes = [
     forwardRegex: "g{2}atg",
     reverseRegex: "catc{2}",
     topSnipOffset: 15,
-    bottomSnipOffset: 19
+    bottomSnipOffset: 19,
+    isType2S: true
   },
   {
     aliases: ["BstZ2I", "Uba1191I", "Uba1190I"],
@@ -3439,7 +3456,8 @@ const aliasedEnzymes = [
     forwardRegex: "acg{2}c",
     reverseRegex: "gc{2}gt",
     topSnipOffset: 17,
-    bottomSnipOffset: 18
+    bottomSnipOffset: 18,
+    isType2S: true
   },
   {
     aliases: [
@@ -3520,7 +3538,8 @@ const aliasedEnzymes = [
     forwardRegex: "gagtc",
     reverseRegex: "gactc",
     topSnipOffset: 10,
-    bottomSnipOffset: 10
+    bottomSnipOffset: 10,
+    isType2S: true
   },
   {
     aliases: ["BseB631I", "VanI", "Bpu86I", "Tsp219I", "BsoJI"],
@@ -3770,7 +3789,8 @@ const aliasedEnzymes = [
     forwardRegex: "cg[agr]g{2}ac",
     reverseRegex: "gtc{2}[cty]cg",
     topSnipOffset: 27,
-    bottomSnipOffset: 25
+    bottomSnipOffset: 25,
+    isType2S: true
   },
   {
     aliases: ["LweI", "SfaNI", "BspST5I", "BmsI", "PhaI"],
@@ -3778,7 +3798,8 @@ const aliasedEnzymes = [
     forwardRegex: "gcatc",
     reverseRegex: "gatgc",
     topSnipOffset: 10,
-    bottomSnipOffset: 14
+    bottomSnipOffset: 14,
+    isType2S: true
   },
   {
     aliases: [
@@ -3790,6 +3811,7 @@ const aliasedEnzymes = [
       "Eco31I",
       "Bli736I"
     ],
+    isType2S: true,
     site: "ggtctc",
     forwardRegex: "g{2}tctc",
     reverseRegex: "gagac{2}",
@@ -4088,7 +4110,8 @@ const aliasedEnzymes = [
     forwardRegex: "gcgatg",
     reverseRegex: "catcgc",
     topSnipOffset: 16,
-    bottomSnipOffset: 20
+    bottomSnipOffset: 20,
+    isType2S: true
   },
   {
     aliases: ["Bme142I", "LpnI"],
@@ -4166,7 +4189,8 @@ const aliasedEnzymes = [
     forwardRegex: "gcagc",
     reverseRegex: "gctgc",
     topSnipOffset: 13,
-    bottomSnipOffset: 17
+    bottomSnipOffset: 17,
+    isType2S: true
   },
   {
     aliases: ["BspACI", "SsiI", "AciI"],
@@ -4306,7 +4330,8 @@ const aliasedEnzymes = [
     forwardRegex: "ta[agr]c{2}a",
     reverseRegex: "tg{2}[cty]ta",
     topSnipOffset: 17,
-    bottomSnipOffset: 15
+    bottomSnipOffset: 15,
+    isType2S: true
   },
   {
     aliases: [
@@ -4375,7 +4400,8 @@ const aliasedEnzymes = [
     forwardRegex: "ct{2}gag",
     reverseRegex: "ctca{2}g",
     topSnipOffset: 22,
-    bottomSnipOffset: 20
+    bottomSnipOffset: 20,
+    isType2S: true
   },
   {
     aliases: [
@@ -4879,7 +4905,8 @@ const aliasedEnzymes = [
     forwardRegex: "acg{2}c",
     reverseRegex: "gc{2}gt",
     topSnipOffset: 17,
-    bottomSnipOffset: 19
+    bottomSnipOffset: 19,
+    isType2S: true
   },
   {
     aliases: ["CstMI"],
@@ -4887,7 +4914,8 @@ const aliasedEnzymes = [
     forwardRegex: "a{2}g{2}ag",
     reverseRegex: "ctc{2}t{2}",
     topSnipOffset: 26,
-    bottomSnipOffset: 24
+    bottomSnipOffset: 24,
+    isType2S: true
   },
   {
     aliases: ["Acc65I", "Asp718I", "SthI", "AhaB8I"],
@@ -4903,7 +4931,8 @@ const aliasedEnzymes = [
     forwardRegex: "g{2}atc",
     reverseRegex: "gatc{2}",
     topSnipOffset: 9,
-    bottomSnipOffset: 10
+    bottomSnipOffset: 10,
+    isType2S: true
   },
   {
     aliases: ["BspGI"],
@@ -4919,7 +4948,8 @@ const aliasedEnzymes = [
     forwardRegex: "ctcag",
     reverseRegex: "ctgag",
     topSnipOffset: 14,
-    bottomSnipOffset: 12
+    bottomSnipOffset: 12,
+    isType2S: true
   },
   {
     aliases: ["MunI", "MfeI"],
@@ -4975,7 +5005,8 @@ const aliasedEnzymes = [
     forwardRegex: "gacgc",
     reverseRegex: "gcgtc",
     topSnipOffset: 10,
-    bottomSnipOffset: 15
+    bottomSnipOffset: 15,
+    isType2S: true
   },
   {
     aliases: ["PaeBI", "PspALI", "SmaI", "CfrJ4I"],
@@ -4995,6 +5026,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["Esp3I", "BstGZ53I", "BsmBI"],
+    isType2S: true,
     site: "cgtctc",
     forwardRegex: "cgtctc",
     reverseRegex: "gagacg",
@@ -5025,7 +5057,8 @@ const aliasedEnzymes = [
     forwardRegex: "ctgatg",
     reverseRegex: "catcag",
     topSnipOffset: 31,
-    bottomSnipOffset: 33
+    bottomSnipOffset: 33,
+    isType2S: true
   },
   {
     aliases: [
@@ -5050,7 +5083,8 @@ const aliasedEnzymes = [
     forwardRegex: "catcgac",
     reverseRegex: "gtcgatg",
     topSnipOffset: 27,
-    bottomSnipOffset: 25
+    bottomSnipOffset: 25,
+    isType2S: true
   },
   {
     aliases: ["BstDEI", "BstJZ301I", "HpyF3I", "DdeI"],
@@ -5090,7 +5124,8 @@ const aliasedEnzymes = [
     forwardRegex: "gcatc",
     reverseRegex: "gatgc",
     topSnipOffset: 9,
-    bottomSnipOffset: 11
+    bottomSnipOffset: 11,
+    isType2S: true
   },
   {
     aliases: ["KteAI", "Uba1393I", "Uba1220I"],
@@ -5126,6 +5161,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["VpaK32I", "PciSI", "LguI", "BspQI", "SapI"],
+    isType2S: true,
     site: "gctcttc",
     forwardRegex: "gctct{2}c",
     reverseRegex: "ga{2}gagc",
@@ -5162,7 +5198,8 @@ const aliasedEnzymes = [
     forwardRegex: "ca{2}[agr]ca",
     reverseRegex: "tg[cty]t{2}g",
     topSnipOffset: 17,
-    bottomSnipOffset: 15
+    bottomSnipOffset: 15,
+    isType2S: true
   },
   {
     aliases: ["BbvCI", "AbeI"],
@@ -5186,7 +5223,8 @@ const aliasedEnzymes = [
     forwardRegex: "c{2}tc",
     reverseRegex: "gag{2}",
     topSnipOffset: 11,
-    bottomSnipOffset: 10
+    bottomSnipOffset: 10,
+    isType2S: true
   },
   {
     aliases: ["SspD5I"],
@@ -5194,7 +5232,8 @@ const aliasedEnzymes = [
     forwardRegex: "g{2}tga",
     reverseRegex: "tcac{2}",
     topSnipOffset: 13,
-    bottomSnipOffset: 13
+    bottomSnipOffset: 13,
+    isType2S: true
   },
   {
     aliases: ["AspCNI"],
@@ -5226,7 +5265,8 @@ const aliasedEnzymes = [
     forwardRegex: "ctg{2}ag",
     reverseRegex: "ctc{2}ag",
     topSnipOffset: 22,
-    bottomSnipOffset: 20
+    bottomSnipOffset: 20,
+    isType2S: true
   },
   {
     aliases: [
@@ -5432,7 +5472,8 @@ const aliasedEnzymes = [
     forwardRegex: "g{2}tga",
     reverseRegex: "tcac{2}",
     topSnipOffset: 13,
-    bottomSnipOffset: 12
+    bottomSnipOffset: 12,
+    isType2S: true
   },
   {
     aliases: ["Uba1303I", "BstZ5I", "BscNI"],
@@ -5528,7 +5569,8 @@ const aliasedEnzymes = [
     forwardRegex: "c[agr]t{2}gac",
     reverseRegex: "gtca{2}[cty]g",
     topSnipOffset: 28,
-    bottomSnipOffset: 26
+    bottomSnipOffset: 26,
+    isType2S: true
   },
   {
     aliases: ["CjeNII"],
@@ -5560,7 +5602,8 @@ const aliasedEnzymes = [
     forwardRegex: "c{3}gc",
     reverseRegex: "gcg{3}",
     topSnipOffset: 9,
-    bottomSnipOffset: 11
+    bottomSnipOffset: 11,
+    isType2S: true
   },
   {
     aliases: ["HpyCH4IV", "MaeII"],
@@ -5576,7 +5619,8 @@ const aliasedEnzymes = [
     forwardRegex: "cac{3}a",
     reverseRegex: "tg{3}tg",
     topSnipOffset: 17,
-    bottomSnipOffset: 15
+    bottomSnipOffset: 15,
+    isType2S: true
   },
   {
     aliases: ["UbaN9I"],
@@ -5604,6 +5648,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["AarI"],
+    isType2S: true,
     site: "cacctgc",
     forwardRegex: "cac{2}tgc",
     reverseRegex: "gcag{2}tg",
@@ -5648,7 +5693,8 @@ const aliasedEnzymes = [
     forwardRegex: "gca{2}tg",
     reverseRegex: "cat{2}gc",
     topSnipOffset: 8,
-    bottomSnipOffset: 6
+    bottomSnipOffset: 6,
+    isType2S: true
   },
   {
     aliases: [
@@ -5698,7 +5744,8 @@ const aliasedEnzymes = [
     forwardRegex: "catcag",
     reverseRegex: "ctgatg",
     topSnipOffset: 27,
-    bottomSnipOffset: 25
+    bottomSnipOffset: 25,
+    isType2S: true
   },
   {
     aliases: ["Hpy188I"],
@@ -5770,7 +5817,8 @@ const aliasedEnzymes = [
     forwardRegex: "cagctc",
     reverseRegex: "gagctg",
     topSnipOffset: 13,
-    bottomSnipOffset: 17
+    bottomSnipOffset: 17,
+    isType2S: true
   },
   {
     aliases: ["BseNI", "BsrI", "Bse1I", "Tsp1I", "BsrSI", "Bst11I"],
@@ -5778,7 +5826,8 @@ const aliasedEnzymes = [
     forwardRegex: "actg{2}",
     reverseRegex: "c{2}agt",
     topSnipOffset: 6,
-    bottomSnipOffset: 4
+    bottomSnipOffset: 4,
+    isType2S: true
   },
   {
     aliases: ["FnuAI", "HinfI", "CviBI", "HhaII", "SscL1I"],
@@ -5842,7 +5891,8 @@ const aliasedEnzymes = [
     forwardRegex: "[acm]{2}cga{2}g",
     reverseRegex: "ct{2}cg[gkt]{2}",
     topSnipOffset: 32,
-    bottomSnipOffset: 34
+    bottomSnipOffset: 34,
+    isType2S: true
   },
   {
     aliases: ["HaeI"],
@@ -5858,7 +5908,8 @@ const aliasedEnzymes = [
     forwardRegex: "c{2}[cty]cag",
     reverseRegex: "ctg[agr]g{2}",
     topSnipOffset: 21,
-    bottomSnipOffset: 19
+    bottomSnipOffset: 19,
+    isType2S: true
   },
   {
     aliases: ["FokI"],
@@ -5866,7 +5917,8 @@ const aliasedEnzymes = [
     forwardRegex: "g{2}atg",
     reverseRegex: "catc{2}",
     topSnipOffset: 14,
-    bottomSnipOffset: 18
+    bottomSnipOffset: 18,
+    isType2S: true
   },
   {
     aliases: [
@@ -6006,7 +6058,8 @@ const aliasedEnzymes = [
     forwardRegex: "gagtc",
     reverseRegex: "gactc",
     topSnipOffset: 9,
-    bottomSnipOffset: 10
+    bottomSnipOffset: 10,
+    isType2S: true
   },
   {
     aliases: ["BfuI", "BciVI"],
@@ -6014,7 +6067,8 @@ const aliasedEnzymes = [
     forwardRegex: "gtatc{2}",
     reverseRegex: "g{2}atac",
     topSnipOffset: 12,
-    bottomSnipOffset: 11
+    bottomSnipOffset: 11,
+    isType2S: true
   },
   {
     aliases: ["TthHB27I"],
@@ -6046,7 +6100,8 @@ const aliasedEnzymes = [
     forwardRegex: "c{2}atc",
     reverseRegex: "gatg{2}",
     topSnipOffset: 9,
-    bottomSnipOffset: 10
+    bottomSnipOffset: 10,
+    isType2S: true
   },
   {
     aliases: ["BseMII"],
@@ -6054,7 +6109,8 @@ const aliasedEnzymes = [
     forwardRegex: "ctcag",
     reverseRegex: "ctgag",
     topSnipOffset: 15,
-    bottomSnipOffset: 13
+    bottomSnipOffset: 13,
+    isType2S: true
   },
   {
     aliases: ["BstENI", "EcoNI", "XagI"],
@@ -6078,7 +6134,8 @@ const aliasedEnzymes = [
     forwardRegex: "tc{2}[agr]ac",
     reverseRegex: "gt[cty]g{2}a",
     topSnipOffset: 26,
-    bottomSnipOffset: 24
+    bottomSnipOffset: 24,
+    isType2S: true
   },
   {
     aliases: ["AjiI", "BmgBI", "BtrI"],
@@ -6270,7 +6327,8 @@ const aliasedEnzymes = [
     forwardRegex: "gc{2}gag",
     reverseRegex: "ctcg{2}c",
     topSnipOffset: 27,
-    bottomSnipOffset: 25
+    bottomSnipOffset: 25,
+    isType2S: true
   },
   {
     aliases: ["DrdIV"],
@@ -6278,7 +6336,8 @@ const aliasedEnzymes = [
     forwardRegex: "tacgac",
     reverseRegex: "gtcgta",
     topSnipOffset: 26,
-    bottomSnipOffset: 24
+    bottomSnipOffset: 24,
+    isType2S: true
   },
   {
     aliases: ["BscQII"],
@@ -6342,7 +6401,8 @@ const aliasedEnzymes = [
     forwardRegex: "ga{2}gac",
     reverseRegex: "gtct{2}c",
     topSnipOffset: 13,
-    bottomSnipOffset: 17
+    bottomSnipOffset: 17,
+    isType2S: true
   },
   {
     aliases: ["Kaz48kI", "PssI"],
@@ -6382,7 +6442,8 @@ const aliasedEnzymes = [
     forwardRegex: "c{3}aca",
     reverseRegex: "tgtg{3}",
     topSnipOffset: 18,
-    bottomSnipOffset: 15
+    bottomSnipOffset: 15,
+    isType2S: true
   },
   {
     aliases: ["EciI"],
@@ -6390,7 +6451,8 @@ const aliasedEnzymes = [
     forwardRegex: "g{2}cg{2}a",
     reverseRegex: "tc{2}gc{2}",
     topSnipOffset: 17,
-    bottomSnipOffset: 15
+    bottomSnipOffset: 15,
+    isType2S: true
   },
   {
     aliases: ["Eco57MI"],
@@ -6398,7 +6460,8 @@ const aliasedEnzymes = [
     forwardRegex: "ctg[agr]ag",
     reverseRegex: "ct[cty]cag",
     topSnipOffset: 22,
-    bottomSnipOffset: 20
+    bottomSnipOffset: 20,
+    isType2S: true
   },
   {
     aliases: ["AspJI", "Ppu1253I"],
@@ -6430,7 +6493,8 @@ const aliasedEnzymes = [
     forwardRegex: "cgc{3}a[agr]",
     reverseRegex: "[cty]tg{3}cg",
     topSnipOffset: 27,
-    bottomSnipOffset: 25
+    bottomSnipOffset: 25,
+    isType2S: true
   },
   {
     aliases: ["BsxI"],
@@ -6454,7 +6518,8 @@ const aliasedEnzymes = [
     forwardRegex: "atcgac",
     reverseRegex: "gtcgat",
     topSnipOffset: 26,
-    bottomSnipOffset: 24
+    bottomSnipOffset: 24,
+    isType2S: true
   },
   {
     aliases: ["AlwNI", "CaiI"],
@@ -6518,7 +6583,8 @@ const aliasedEnzymes = [
     forwardRegex: "acg{2}a",
     reverseRegex: "tc{2}gt",
     topSnipOffset: 16,
-    bottomSnipOffset: 14
+    bottomSnipOffset: 14,
+    isType2S: true
   },
   {
     aliases: ["CviAII"],
@@ -6598,7 +6664,8 @@ const aliasedEnzymes = [
     forwardRegex: "c{3}g",
     reverseRegex: "cg{3}",
     topSnipOffset: 8,
-    bottomSnipOffset: 12
+    bottomSnipOffset: 12,
+    isType2S: true
   },
   {
     aliases: ["CdpI"],
@@ -6606,7 +6673,8 @@ const aliasedEnzymes = [
     forwardRegex: "gcg{2}ag",
     reverseRegex: "ctc{2}gc",
     topSnipOffset: 26,
-    bottomSnipOffset: 24
+    bottomSnipOffset: 24,
+    isType2S: true
   },
   {
     aliases: ["Asp90I"],
@@ -6654,7 +6722,8 @@ const aliasedEnzymes = [
     forwardRegex: "gtgcag",
     reverseRegex: "ctgcac",
     topSnipOffset: 22,
-    bottomSnipOffset: 20
+    bottomSnipOffset: 20,
+    isType2S: true
   },
   {
     aliases: ["AquIV"],
@@ -6662,7 +6731,8 @@ const aliasedEnzymes = [
     forwardRegex: "g[agr]g{2}a{2}g",
     reverseRegex: "ct{2}c{2}[cty]c",
     topSnipOffset: 26,
-    bottomSnipOffset: 24
+    bottomSnipOffset: 24,
+    isType2S: true
   },
   {
     aliases: ["SciI"],
@@ -6702,7 +6772,8 @@ const aliasedEnzymes = [
     forwardRegex: "gactc",
     reverseRegex: "gagtc",
     topSnipOffset: 9,
-    bottomSnipOffset: 11
+    bottomSnipOffset: 11,
+    isType2S: true
   },
   {
     aliases: ["FatI"],
@@ -6814,7 +6885,8 @@ const aliasedEnzymes = [
     forwardRegex: "cagcag",
     reverseRegex: "ctgctg",
     topSnipOffset: 31,
-    bottomSnipOffset: 33
+    bottomSnipOffset: 33,
+    isType2S: true
   },
   {
     aliases: ["Nli3877I"],
@@ -6862,7 +6934,8 @@ const aliasedEnzymes = [
     forwardRegex: "gag{2}ag",
     reverseRegex: "ctc{2}tc",
     topSnipOffset: 26,
-    bottomSnipOffset: 24
+    bottomSnipOffset: 24,
+    isType2S: true
   },
   {
     aliases: ["FaiI"],
@@ -6878,7 +6951,8 @@ const aliasedEnzymes = [
     forwardRegex: "ca{2}cac",
     reverseRegex: "gtgt{2}g",
     topSnipOffset: 27,
-    bottomSnipOffset: 25
+    bottomSnipOffset: 25,
+    isType2S: true
   },
   {
     aliases: ["NgoAV"],
@@ -6950,7 +7024,8 @@ const aliasedEnzymes = [
     forwardRegex: "atga{2}",
     reverseRegex: "t{2}cat",
     topSnipOffset: 16,
-    bottomSnipOffset: 14
+    bottomSnipOffset: 14,
+    isType2S: true
   },
   {
     aliases: ["SspI"],
@@ -6982,7 +7057,8 @@ const aliasedEnzymes = [
     forwardRegex: "catcac",
     reverseRegex: "gtgatg",
     topSnipOffset: 25,
-    bottomSnipOffset: 23
+    bottomSnipOffset: 23,
+    isType2S: true
   },
   {
     aliases: ["PacI"],
@@ -6994,6 +7070,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["BarI"],
+    isType2S: true,
     site: "gaagnnnnnntac",
     forwardRegex: "ga{2}g[abcdghkmnrstvwy]{6}tac",
     reverseRegex: "gta[abcdghkmnrstvwy]{6}ct{2}c",
@@ -7005,6 +7082,7 @@ const aliasedEnzymes = [
   },
   {
     aliases: ["CspCI"],
+    isType2S: true,
     site: "caannnnngtgg",
     forwardRegex: "ca{2}[abcdghkmnrstvwy]{5}gtg{2}",
     reverseRegex: "c{2}ac[abcdghkmnrstvwy]{5}t{2}g",
@@ -7023,7 +7101,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 18,
     cutType: 1,
     usForward: 13,
-    usReverse: 18
+    usReverse: 18,
+    isType2S: true
   },
   {
     aliases: ["CjePI"],
@@ -7034,7 +7113,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 20,
     cutType: 1,
     usForward: 26,
-    usReverse: 20
+    usReverse: 20,
+    isType2S: true
   },
   {
     aliases: ["CjeI"],
@@ -7045,7 +7125,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 20,
     cutType: 1,
     usForward: 26,
-    usReverse: 20
+    usReverse: 20,
+    isType2S: true
   },
   {
     aliases: ["PsrI"],
@@ -7056,7 +7137,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 20,
     cutType: 1,
     usForward: 25,
-    usReverse: 20
+    usReverse: 20,
+    isType2S: true
   },
   {
     aliases: ["ArsI"],
@@ -7067,7 +7149,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 19,
     cutType: 1,
     usForward: 24,
-    usReverse: 19
+    usReverse: 19,
+    isType2S: true
   },
   {
     aliases: ["TstI"],
@@ -7078,7 +7161,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 19,
     cutType: 1,
     usForward: 24,
-    usReverse: 19
+    usReverse: 19,
+    isType2S: true
   },
   {
     aliases: ["Bsp24I"],
@@ -7089,7 +7173,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 19,
     cutType: 1,
     usForward: 24,
-    usReverse: 19
+    usReverse: 19,
+    isType2S: true
   },
   {
     aliases: ["AloI"],
@@ -7100,7 +7185,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 20,
     cutType: 1,
     usForward: 25,
-    usReverse: 20
+    usReverse: 20,
+    isType2S: true
   },
   {
     aliases: ["FalI"],
@@ -7111,7 +7197,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 19,
     cutType: 1,
     usForward: 24,
-    usReverse: 19
+    usReverse: 19,
+    isType2S: true
   },
   {
     aliases: ["AjuI"],
@@ -7122,7 +7209,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 20,
     cutType: 1,
     usForward: 25,
-    usReverse: 20
+    usReverse: 20,
+    isType2S: true
   },
   {
     aliases: ["AlfI"],
@@ -7133,7 +7221,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 22,
     cutType: 1,
     usForward: 24,
-    usReverse: 22
+    usReverse: 22,
+    isType2S: true
   },
   {
     aliases: ["NgoAVIII"],
@@ -7144,7 +7233,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 22,
     cutType: 1,
     usForward: 24,
-    usReverse: 22
+    usReverse: 22,
+    isType2S: true
   },
   {
     aliases: ["HaeIV"],
@@ -7155,7 +7245,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 20,
     cutType: 1,
     usForward: 25,
-    usReverse: 20
+    usReverse: 20,
+    isType2S: true
   },
   {
     aliases: ["BdaI"],
@@ -7166,7 +7257,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 22,
     cutType: 1,
     usForward: 24,
-    usReverse: 22
+    usReverse: 22,
+    isType2S: true
   },
   {
     aliases: ["PpiI"],
@@ -7177,7 +7269,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 20,
     cutType: 1,
     usForward: 25,
-    usReverse: 20
+    usReverse: 20,
+    isType2S: true
   },
   {
     aliases: ["BcgI"],
@@ -7188,7 +7281,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 22,
     cutType: 1,
     usForward: 24,
-    usReverse: 22
+    usReverse: 22,
+    isType2S: true
   },
   {
     aliases: ["BplI"],
@@ -7199,7 +7293,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 19,
     cutType: 1,
     usForward: 24,
-    usReverse: 19
+    usReverse: 19,
+    isType2S: true
   },
   {
     aliases: ["BsaXI"],
@@ -7210,7 +7305,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 18,
     cutType: 1,
     usForward: 21,
-    usReverse: 18
+    usReverse: 18,
+    isType2S: true
   },
   {
     aliases: ["Hin4I"],
@@ -7221,7 +7317,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 19,
     cutType: 1,
     usForward: 24,
-    usReverse: 19
+    usReverse: 19,
+    isType2S: true
   },
   {
     aliases: ["BaeI"],
@@ -7232,7 +7329,8 @@ const aliasedEnzymes = [
     bottomSnipOffset: 18,
     cutType: 1,
     usForward: 23,
-    usReverse: 18
+    usReverse: 18,
+    isType2S: true
   },
   {
     aliases: ["SdeOSI"],
@@ -7243,9 +7341,26 @@ const aliasedEnzymes = [
     bottomSnipOffset: 21,
     cutType: 1,
     usForward: 23,
-    usReverse: 21
+    usReverse: 21,
+    isType2S: true
   }
 ];
+
+// aliasedEnzymes.forEach((enz) => {
+//   const is2s = isEnzymeType2S(enz);
+//   if (is2s) {
+//     enz.isType2S = true;
+//   }
+// });
+
+// require("jsonfile").writeFile(
+//   require("path").join(__dirname, "TEMP.json"),
+//   aliasedEnzymes,
+//   { spaces: 4 },
+//   function(err) {
+//     if (err) console.error("error writing json", err);
+//   }
+// );
 
 const aliasedEnzymesByName = {};
 
