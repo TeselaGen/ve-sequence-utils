@@ -50,7 +50,7 @@
     "eslint": "6",
     "eslint-config-teselagen": "5.0.3",
     "husky": "^0.11.6",
-    "jest": "^23.6.0",
+    "jest": "^26.5.2",
     "jsonfile": "^2.3.1",
     "lint-staged": "^9.2.1",
     "lodash": "^4.17.11",
