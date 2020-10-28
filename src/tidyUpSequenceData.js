@@ -47,6 +47,10 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
       needsBackTranslation = true;
     }
   }
+  if (seqData.isRna) {
+    //flip all t's to u's
+    seqData.sequence = seqData.sequence.replace(/t/gi, "u");
+  }
   if (removeUnwantedChars) {
     if (seqData.isProtein) {
       seqData.proteinSequence = filterAminoAcidSequenceString(
@@ -56,7 +60,9 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     } else {
       seqData.sequence = filterSequenceString(
         seqData.sequence,
-        additionalValidChars,
+        `${additionalValidChars || ""}${
+          seqData.isRna || seqData.isMixedRnaAndDna ? "u" : "" //if it is rna or mixed, allow u's
+        }`,
         charOverrides
       );
     }

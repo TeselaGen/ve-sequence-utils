@@ -141,6 +141,16 @@ describe("tidyUpSequenceData", function() {
       ]
     });
   });
+  it("isRna should make the t's converted to u's", function() {
+    const res = tidyUpSequenceData({
+      sequence: "tgatavagauugagcctttuuu",
+      isRna: true
+    });
+    res.should.containSubset({
+      sequence: "ugauavagauugagccuuuuuu",
+      isRna: true
+    });
+  });
   it("should handle the noSequence option correctly and not truncate .size", function() {
     const res = tidyUpSequenceData({
       noSequence: true,

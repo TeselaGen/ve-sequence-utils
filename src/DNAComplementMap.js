@@ -1,10 +1,12 @@
 const DNAComplementMap = {
   a: "t",
   t: "a",
+  u: "a",
   c: "g",
   g: "c",
   A: "T",
   T: "A",
+  U: "A",
   C: "G",
   G: "C",
   r: "y",
