@@ -11,7 +11,7 @@ module.exports = function filterSequenceString(
     return sequenceString.replace(
       new RegExp(
         `[^${charOverrides ||
-          `atgcyrswkmbvdhn${additionalValidChars.split("").join("\\")}`}]`,
+          `atgcyrswkmbvdhnu${additionalValidChars.split("").join("\\")}`}]`,
         "gi"
       ),
       ""

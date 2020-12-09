@@ -1,8 +1,5 @@
-module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options={}) {
-  const {
-    threshold = 0.90, 
-    dnaLetters = ['G', 'A', 'T', 'C']
-  } = options
+module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options = {}) {
+  const { threshold = 0.9, dnaLetters = ["G", "A", "T", "C", "U"] } = options;
 
   // Guess if the given sequence is DNA or Protein.
 
@@ -11,18 +8,18 @@ module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options={}) {
   //   which letters are considered DNA; for instance, adding N might be useful if
   //   you are expecting data with ambiguous bases.
   const dnaLetterMap = dnaLetters.reduce((acc, letter) => {
-    acc[letter.toUpperCase()]  = true
-    return acc
-  }, {})
-  let count = 0
+    acc[letter.toUpperCase()] = true;
+    return acc;
+  }, {});
+  let count = 0;
   for (let index = 0; index < seq.length; index++) {
     const letter = seq[index];
     if (dnaLetterMap[letter.toUpperCase()]) {
-      count = count  +1
+      count = count + 1;
     }
   }
-  if (count/seq.length > threshold) {
-    return true //it is DNA
+  if (count / seq.length > threshold) {
+    return true; //it is DNA
   }
-  return false //it is protein
+  return false; //it is protein
 };
