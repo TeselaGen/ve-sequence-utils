@@ -1,4 +1,16 @@
+<!-- TOC -->
 
+- [[CHANGELOG](Changelog.md)](#changelogchangelogmd)
+- [About this Repo](#about-this-repo)
+- [Editing This Repo:](#editing-this-repo)
+  - [All collaborators:](#all-collaborators)
+- [Updating this repo:](#updating-this-repo)
+  - [Teselagen collaborators:](#teselagen-collaborators)
+  - [Outside collaborators:](#outside-collaborators)
+
+<!-- /TOC -->
+
+## [CHANGELOG](Changelog.md)
 ## About this Repo
 This is a collection of dna sequence utility functions.
 
@@ -16,7 +28,7 @@ All sequences and annotations (unless otherwise specified) are assumed to have 0
   feature.end = 4
   1-based inclusive end:
   feature.end = 5
-  ```
+```
 
 ## Editing This Repo:
 ### All collaborators: 
