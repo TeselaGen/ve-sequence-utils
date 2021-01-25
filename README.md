@@ -1,6 +1,6 @@
 <!-- TOC -->
 
-- [[CHANGELOG](Changelog.md)](#changelogchangelogmd)
+- [[CHANGELOG](CHANGELOG.md)](#changelogchangelogmd)
 - [About this Repo](#about-this-repo)
 - [Editing This Repo:](#editing-this-repo)
   - [All collaborators:](#all-collaborators)
@@ -10,7 +10,7 @@
 
 <!-- /TOC -->
 
-## [CHANGELOG](Changelog.md)
+## [CHANGELOG](CHANGELOG.md)
 ## About this Repo
 This is a collection of dna sequence utility functions.
 
