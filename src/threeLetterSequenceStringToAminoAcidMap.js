@@ -1,4 +1,4 @@
-var proteinAlphabet = require("./proteinAlphabet");
+let proteinAlphabet = require("./proteinAlphabet");
 module.exports = {
   gct: proteinAlphabet.A,
   gcc: proteinAlphabet.A,
@@ -97,5 +97,7 @@ module.exports = {
   gug: proteinAlphabet.V,
   taa: proteinAlphabet["*"],
   tag: proteinAlphabet["*"],
-  tga: proteinAlphabet["*"]
+  tga: proteinAlphabet["*"],
+  "...": proteinAlphabet["."],
+  "---": proteinAlphabet["-"]
 };

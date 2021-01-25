@@ -13,7 +13,8 @@
     "test-watch": "yarn test --watch",
     "test-debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand ",
     "lint": "eslint . ./",
-    "precommit": "lint-staged && npm test"
+    "precommit": "lint-staged && npm test",
+    "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "author": "",
   "keywords": [
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.11",
+    "auto-changelog": "^2.2.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "chai": "^3.2.0",

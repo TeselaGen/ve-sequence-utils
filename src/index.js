@@ -68,3 +68,5 @@ module.exports.getDigestFragmentsForCutsites = require("./getDigestFragmentsForC
 module.exports.getDigestFragmentsForRestrictionEnzymes = require("./getDigestFragmentsForRestrictionEnzymes");
 module.exports.convertDnaCaretPositionOrRangeToAA = require("./convertDnaCaretPositionOrRangeToAA");
 module.exports.convertAACaretPositionOrRangeToDna = require("./convertAACaretPositionOrRangeToDna");
+module.exports.aminoAcidToDegenerateDnaMap = require("./aminoAcidToDegenerateDnaMap");
+module.exports.degenerateDnaToAminoAcidMap = require("./degenerateDnaToAminoAcidMap");

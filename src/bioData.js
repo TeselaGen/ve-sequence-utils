@@ -75,6 +75,7 @@ module.exports.extended_dna_letters = "GATCBDSW";
 // # extended_rna_letters = "GAUCBDSW"
 
 module.exports.ambiguous_dna_values = {
+  ".": ".",
   A: "A",
   C: "C",
   G: "G",
@@ -93,6 +94,7 @@ module.exports.ambiguous_dna_values = {
   N: "GATC"
 };
 module.exports.ambiguous_rna_values = {
+  ".": ".",
   A: "A",
   C: "C",
   G: "G",
@@ -112,6 +114,7 @@ module.exports.ambiguous_rna_values = {
 };
 
 module.exports.ambiguous_dna_complement = {
+  ".": ".",
   A: "T",
   C: "G",
   G: "C",
@@ -131,6 +134,7 @@ module.exports.ambiguous_dna_complement = {
 };
 
 module.exports.ambiguous_rna_complement = {
+  ".": ".",
   A: "U",
   C: "G",
   G: "C",
@@ -294,7 +298,7 @@ module.exports.extended_protein_values = {
   Y: "Y",
   Z: "QE",
   "*": "\\*\\.",
-  ".": "\\*\\.",
+  ".": "\\.\\.",
   "-": "\\-"
 };
 

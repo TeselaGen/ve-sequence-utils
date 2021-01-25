@@ -62,7 +62,7 @@ module.exports = function getAminoAcidDataForEachBaseOfDna(
     if (revCompGapLength > 0) {
       for (let i = 0; i < revCompGapLength; i++) {
         aminoAcidDataForEachBaseOfDNA.push({
-          aminoAcid: getAA("xxx"), //fake xxx triplet returns the gap amino acid
+          aminoAcid: getAA("xxx"), //fake xxx triplet returns the ambiguous X amino acid
           positionInCodon: revCompGapLength - i - 1,
           aminoAcidIndex,
           sequenceIndex: codonRange.start + i,

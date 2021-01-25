@@ -1,4 +1,5 @@
 const DNAComplementMap = {
+  ".": ".",
   a: "t",
   t: "a",
   u: "a",

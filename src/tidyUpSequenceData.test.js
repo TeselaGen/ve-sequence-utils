@@ -77,8 +77,8 @@ describe("tidyUpSequenceData", function() {
         {
           aminoAcid: {
             value: ".",
-            name: "Stop",
-            threeLettersName: "Stop",
+            name: "Gap",
+            threeLettersName: "Gap",
             color: "#FF0000"
           },
           positionInCodon: 0,
@@ -93,8 +93,8 @@ describe("tidyUpSequenceData", function() {
         {
           aminoAcid: {
             value: ".",
-            name: "Stop",
-            threeLettersName: "Stop",
+            name: "Gap",
+            threeLettersName: "Gap",
             color: "#FF0000"
           },
           positionInCodon: 1,
@@ -109,8 +109,8 @@ describe("tidyUpSequenceData", function() {
         {
           aminoAcid: {
             value: ".",
-            name: "Stop",
-            threeLettersName: "Stop",
+            name: "Gap",
+            threeLettersName: "Gap",
             color: "#FF0000"
           },
           positionInCodon: 2,
@@ -126,7 +126,7 @@ describe("tidyUpSequenceData", function() {
       isProtein: true,
       size: 54, //size should refer to the DNA length
       proteinSize: 18, //proteinSize should refer to the amino acid length
-      sequence: "ggngcnggnauhugacayuggggngcnggngcnyungcnwsnggnyuntrrtrr", //degenerate sequence
+      sequence: "ggngcnggnauhugacayuggggngcnggngcnyungcnwsnggnyuntrr...", //degenerate sequence
       proteinSequence: "gagiuhwgagalasgl*.",
       circular: false,
       features: [

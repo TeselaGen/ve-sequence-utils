@@ -152,9 +152,10 @@ module.exports = {
     color: "#FF0000"
   },
   ".": {
+    //tnr: this is actually a deletion/gap character (previously we had this as a stop character which is incorrect) https://www.dnabaser.com/articles/IUPAC%20ambiguity%20codes.html
     value: ".",
-    name: "Stop",
-    threeLettersName: "Stop",
+    name: "Gap",
+    threeLettersName: "Gap",
     color: "#FF0000"
   },
   "-": {
