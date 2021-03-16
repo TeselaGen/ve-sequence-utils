@@ -56,6 +56,14 @@ function getAnnotationsBetweenRange(
   shouldExcludePartial
 ) {
   return flatMap(annotationsToBeAdjusted, function(annotation) {
+    if (annotation.locations && annotation.locations.length) {
+      annotation.locations = getAnnotationsBetweenRange(
+        annotation.locations,
+        range,
+        maxLength,
+        shouldExcludePartial
+      );
+    }
     //map through every annotation and get the overlap of the annotation with the range
     const overlaps = getZeroedRangeOverlaps(annotation, range, maxLength).map(
       overlap => {

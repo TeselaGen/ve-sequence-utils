@@ -138,6 +138,86 @@ describe("getSequenceDataBetweenRange", function() {
       ]
     });
   });
+  it("feature with locations, non circular range", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        sequence: "atgcatgca",
+        features: [
+          {
+            start: 0,
+            end: 7,
+            locations: [
+              { start: 0, end: 1 },
+              { start: 2, end: 5 },
+              { start: 6, end: 7 }
+            ],
+            name: "happy"
+          }
+        ]
+      },
+      {
+        start: 2,
+        end: 3
+      }
+    );
+    res.should.containSubset({
+      sequence: "gc",
+      features: [
+        {
+          start: 0,
+          end: 1,
+          locations: [
+            {
+              start: 0,
+              end: 1
+            }
+          ],
+          name: "happy"
+        }
+      ]
+    });
+  });
+  it("feature with locations, non circular enclosing range", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        sequence: "gggatgcatgca",
+        //         012345678901
+        //              ffffff
+        //              ll  ll
+        //            ccccccccc
+        //            012345678
+        features: [
+          {
+            start: 5,
+            end: 10,
+            locations: [
+              { start: 5, end: 6 },
+              { start: 9, end: 10 }
+            ],
+            name: "happy"
+          }
+        ]
+      },
+      {
+        start: 3,
+        end: 11
+      }
+    );
+    res.should.containSubset({
+      sequence: "atgcatgca",
+      features: [
+        {
+          start: 2,
+          end: 7,
+          locations: [
+            { start: 2, end: 3 },
+            { start: 6, end: 7 }
+          ],
+          name: "happy"
+        }
+      ]
+    });
+  });
   it("non circular feature, circular range", function() {
     const res = getSequenceDataBetweenRange(
       {
