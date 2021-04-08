@@ -47,7 +47,6 @@ module.exports = {
   precursor_RNA: "#443200",
   prim_transcript: "#665E4C",
   primer_bind: "#53d969",
-  primer: "#FF8282",
   promoter: "#31B440",
   protein_bind: "#2E2E2E",
   protein_domain: "#4D4B4B",
@@ -76,6 +75,5 @@ module.exports = {
   transposon: "#B6E436",
   tRNA: "#D1456F",
   V_region: "#7B5EE7",
-  variation: "#2EE455",
-}
-
+  variation: "#2EE455"
+};

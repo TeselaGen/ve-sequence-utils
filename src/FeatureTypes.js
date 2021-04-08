@@ -50,7 +50,6 @@ module.exports = [
   "precursor_RNA",
   "prim_transcript",
   "primer_bind",
-  "primer",
   "promoter",
   "proprotein",
   "protein_bind",
