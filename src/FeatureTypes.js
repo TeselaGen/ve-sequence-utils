@@ -21,6 +21,7 @@ module.exports = [
   "gap",
   "GC_signal",
   "gene",
+  "Het",
   "iDNA",
   "intron",
   "J_region",
@@ -65,7 +66,9 @@ module.exports = [
   "S_region",
   "satellite",
   "scRNA",
+  "SecStr",
   "sig_peptide",
+  "Site",
   "snoRNA",
   "snRNA",
   "source",
@@ -84,8 +87,5 @@ module.exports = [
   "unsure",
   "V_region",
   "V_segment",
-  "variation",
-  "SecStr",
-  "Het",
-  "Site"
+  "variation"
 ];
