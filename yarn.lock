@@ -3672,10 +3672,10 @@ eslint-config-react-app@^5.0.0, eslint-config-react-app@^5.0.1:
   dependencies:
     confusing-browser-globals "^1.0.8"
 
-eslint-config-teselagen@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-teselagen/-/eslint-config-teselagen-5.0.3.tgz#548c2c9f24c9987b113a13a6d0b2aa254e7a62d3"
-  integrity sha512-q55alvy3hT1/9o7iZCAwKbgEh+4c7sf/zczTG/l4UhyqbQx9a/JjXsWcMui+PQM+2fWJkSJXOUJu+bRjd8gu6Q==
+eslint-config-teselagen@5.0.9:
+  version "5.0.9"
+  resolved "https://registry.yarnpkg.com/eslint-config-teselagen/-/eslint-config-teselagen-5.0.9.tgz#65c9bf66e75986388a7bb34b908fd71e63d18239"
+  integrity sha512-kNWaG2a9g9E1RpQLruNv1P3f8k3VnTCMJY/DSGqVYI0XIoL5U7eAW1hVvb0vCKWyKVDmMsuGqr1S3+oyWuZeyw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^1.13.0"
     "@typescript-eslint/parser" "^1.13.0"
