@@ -57,7 +57,7 @@
     "lint-staged": "^9.2.1",
     "lodash": "^4.17.11",
     "npm-check": "^5.0.1",
-    "nwb": "^0.23.0",
+    "nwb": "^0.25.2",
     "prettier": "^1.15.3",
     "ve-range-utils": "2.5.5",
     "ve-sequence-utils": "^3.3.16"
