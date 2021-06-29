@@ -1,4 +1,7 @@
 const diffUtils = require("./diffUtils");
+const { autoAnnotate, convertApELikeRegexToRegex } = require("./autoAnnotate");
+module.exports.autoAnnotate = autoAnnotate;
+module.exports.convertApELikeRegexToRegex = convertApELikeRegexToRegex;
 
 module.exports.diffUtils = diffUtils;
 module.exports.getDiffFromSeqs = diffUtils.getDiffFromSeqs;
