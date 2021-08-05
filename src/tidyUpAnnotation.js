@@ -1,5 +1,6 @@
 const { cloneDeep } = require("lodash");
-const FeatureTypes = require("./FeatureTypes.js");
+const teselagenFeatureTypes = require("./teselagenFeatureTypes.js");
+const genbankFeatureTypes = require("./genbankFeatureTypes.js");
 const featureColors = require("./featureColors");
 const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const bsonObjectid = require("bson-objectid");
@@ -84,7 +85,7 @@ module.exports = function tidyUpAnnotation(
   if (
     !annotation.type ||
     typeof annotation.type !== "string" ||
-    FeatureTypes.some(function(featureType) {
+    [...genbankFeatureTypes, ...teselagenFeatureTypes].some(function(featureType) {
       if (featureType.toLowerCase === annotation.type.toLowerCase()) {
         annotation.type = featureType; //this makes sure the annotation.type is being set to the exact value of the accepted featureType
         return true;

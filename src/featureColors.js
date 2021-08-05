@@ -75,5 +75,8 @@ module.exports = {
   transposon: "#B6E436",
   tRNA: "#D1456F",
   V_region: "#7B5EE7",
-  variation: "#2EE455"
+  variation: "#2EE455",
+  "j5_warning": "red",
+  "j5_assembly_piece": "#2965CC",
+  "j5_lineage_annotation": "#8F398F"
 };
