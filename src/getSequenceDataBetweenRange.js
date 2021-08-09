@@ -1,6 +1,7 @@
 const { flatMap, extend } = require("lodash");
 const { getRangeLength } = require("ve-range-utils");
 const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
+const insertSequenceDataAtPosition = require("./insertSequenceDataAtPosition");
 
 const {
   getSequenceWithinRange,
@@ -46,6 +47,21 @@ module.exports = function getSequenceDataBetweenRange(
       return acc;
     }, {})
   );
+  if (range.overlapsSelf) {
+    const extendedSeqData = insertSequenceDataAtPosition(
+      { sequence: seqDataToReturn.sequence },
+      seqDataToUse,
+      range.start
+    );
+    return getSequenceDataBetweenRange(
+      extendedSeqData,
+      {
+        start: range.end + 1,
+        end: range.end
+      },
+      options
+    );
+  }
   return tidyUpSequenceData(seqDataToReturn);
 };
 

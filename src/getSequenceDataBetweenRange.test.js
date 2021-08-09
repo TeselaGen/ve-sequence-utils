@@ -9,6 +9,55 @@ chai.use(chaiSubset);
 const getSequenceDataBetweenRange = require("./getSequenceDataBetweenRange");
 
 describe("getSequenceDataBetweenRange", function() {
+  it("should handle range.overlapsSelf flag", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        circular: true,
+        //         0123456789012
+        //         ffffffff gg
+        sequence: "tttggggaaaccc",
+        //          ttg
+        features: [
+          {
+            start: 0,
+            end: 7,
+            name: "happy"
+          },
+          {
+            start: 9,
+            end: 10,
+            name: "grumpy"
+          }
+        ]
+      },
+      {
+        start: 1,
+        end: 3,
+        overlapsSelf: true
+      }
+    );
+    res.should.containSubset({
+      sequence: "ttggggaaaccctttg",
+      features: [
+        {
+          start: 0,
+          end: 6,
+          name: "happy"
+        },
+        {
+          start: 12,
+          end: 15,
+          name: "happy"
+        },
+        {
+          start: 8,
+          end: 9,
+          name: "grumpy"
+        }
+      ]
+    });
+  });
+
   it("should set circular to false if a sub range is selected of a circular sequence", function() {
     const res = getSequenceDataBetweenRange(
       {
