@@ -6,11 +6,87 @@ const chaiSubset = require("chai-subset");
 chai.use(chaiSubset);
 const mapAnnotationsToRows = require("./mapAnnotationsToRows.js");
 describe("mapAnnotationsToRows", function() {
+  it("maps overlapsSelf=true annotations to the same y-offset correctly", function() {
+    const annotation1 = {
+      start: 1,
+      end: 3,
+      id: "a"
+    };
+
+    const annotationWraps = {
+      start: 1,
+      end: 3,
+      overlapsSelf: true,
+      id: "overlaps self"
+    };
+    const annotationWrapsAddon = {
+      start: 4,
+      end: 0,
+      overlapsSelf: true,
+      isWrappedAddon: true,
+      id: "overlaps self"
+    };
+    const annotation3 = {
+      start: 0,
+      end: 0,
+      id: "b"
+    };
+
+    const annotation4 = {
+      start: 0,
+      end: 0,
+      id: "c"
+    };
+
+    const annotations = [
+      annotation1,
+      annotationWraps,
+      annotationWrapsAddon,
+      annotation3,
+      annotation4
+    ];
+    const sequenceLength = 10;
+    const bpsPerRow = 5;
+    const annotationsToRowsMap = mapAnnotationsToRows(
+      annotations,
+      sequenceLength,
+      bpsPerRow
+    );
+    expect(annotationsToRowsMap[0]).to.containSubset([
+      {
+        annotation: annotationWraps,
+        start: 1,
+        end: 3,
+        id: annotationWraps.id,
+        yOffset: 1,
+        enclosingRangeType: "beginningAndEnd"
+      },
+      {
+        annotation: annotationWrapsAddon,
+        start: 0,
+        end: 0,
+        id: annotationWrapsAddon.id,
+        yOffset: 1,
+        enclosingRangeType: "end"
+      },
+      {
+        annotation: annotationWrapsAddon,
+        start: 4,
+        end: 4,
+        id: annotationWrapsAddon.id,
+        yOffset: 1,
+        enclosingRangeType: "beginning"
+      }
+    ]);
+  });
   it("maps overlapping annotations with joined locations to rows correctly", function() {
     const annotation1 = {
       start: 0,
       end: 9,
-      locations: [{ start: 0, end: 1 }, { start: 7, end: 9 }],
+      locations: [
+        { start: 0, end: 1 },
+        { start: 7, end: 9 }
+      ],
       id: "a"
     };
     const annotation2 = {

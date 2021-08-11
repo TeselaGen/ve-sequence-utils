@@ -1,7 +1,10 @@
 // const ac = require('ve-api-check');
 // ac.throw([ac.string,ac.bool],arguments);
 const {
-  each
+  each,
+  forEach,
+  startsWith,
+  filter
   // some, sortBy, uniq
 } = require("lodash");
 // const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
@@ -25,12 +28,35 @@ module.exports = function mapAnnotationsToRows(
 
   const annotationsToRowsMap = {};
   const yOffsetLevelMap = {};
+  const wrappedAnnotations = {};
 
   each(annotations, function(annotation) {
     const containsLocations = !!(
       annotation.locations && annotation.locations.length
     );
+    if (annotation.overlapsSelf) {
+      //if the annotation overlaps itself, first send a fake full spanning annotation thru the mapping function
+      if (!wrappedAnnotations[annotation.id]) {
+        mapAnnotationToRows({
+          wrappedAnnotations,
+          annotation: {
+            start: 0,
+            end: sequenceLength - 1,
+            id: `__tempAnnRemoveMe__${annotation.id}`
+          },
+          sequenceLength,
+          bpsPerRow,
+          annotationsToRowsMap,
+          yOffsetLevelMap,
+          containsLocations
+        });
+        wrappedAnnotations[annotation.id] = true;
+        // annotation.yOffset = wrappedAnnotations[annotation.id];
+      }
+    }
+
     mapAnnotationToRows({
+      wrappedAnnotations,
       annotation,
       sequenceLength,
       bpsPerRow,
@@ -41,6 +67,7 @@ module.exports = function mapAnnotationsToRows(
     if (containsLocations) {
       annotation.locations.forEach(location => {
         mapAnnotationToRows({
+          wrappedAnnotations,
           annotation,
           sequenceLength,
           bpsPerRow,
@@ -51,10 +78,17 @@ module.exports = function mapAnnotationsToRows(
       });
     }
   });
+  forEach(annotationsToRowsMap, (annotationsForRow, i) => {
+    annotationsToRowsMap[i] = filter(
+      annotationsForRow,
+      ann => !startsWith(ann.id, "__tempAnnRemoveMe__")
+    );
+  });
   return annotationsToRowsMap;
 };
 
 function mapAnnotationToRows({
+  wrappedAnnotations,
   annotation,
   sequenceLength,
   bpsPerRow,
@@ -89,39 +123,46 @@ function mapAnnotationToRows({
         rowNumber === endingRow
           ? range.end
           : rowNumber * bpsPerRow + bpsPerRow - 1;
-
-      if (location) {
-        //if there's a location then we will just use the previous yOffset for its parent annotation
+      if (annotation.overlapsSelf) {
         annotationsForRow.forEach(ann => {
-          if (ann.id === annotation.id) {
+          if (ann.id === `__tempAnnRemoveMe__${annotation.id}`) {
             yOffset = ann.yOffset;
           }
         });
       } else {
-        //we need to pass both ranges into this function so that we can correctly
-        //get the y-offset for circular features that start and end on the same row
-        //we pass the entire annotation range here and compare it only with ranges that have already been added to the row
-        if (
-          index > 0 && //second half of an annotation range
-          annotationsForRow.length && //there are already annotations within the row
-          annotationsForRow[annotationsForRow.length - 1].annotation ===
-            annotation
-        ) {
-          //the first chunk of the annotation has already been pushed into the row,
-          //so set the yOffset for the range chunk to the already calculated yOffset
-          yOffset = annotationsForRow[annotationsForRow.length - 1].yOffset;
+        if (location) {
+          //if there's a location then we will just use the previous yOffset for its parent annotation
+          annotationsForRow.forEach(ann => {
+            if (ann.id === annotation.id) {
+              yOffset = ann.yOffset;
+            }
+          });
         } else {
-          yOffset = getYOffsetForPotentiallyCircularRange(
-            annotation,
-            yOffsetsForRow
-          );
+          //we need to pass both ranges into this function so that we can correctly
+          //get the y-offset for circular features that start and end on the same row
+          //we pass the entire annotation range here and compare it only with ranges that have already been added to the row
+          if (
+            index > 0 && //second half of an annotation range
+            annotationsForRow.length && //there are already annotations within the row
+            annotationsForRow[annotationsForRow.length - 1].annotation ===
+              annotation
+          ) {
+            //the first chunk of the annotation has already been pushed into the row,
+            //so set the yOffset for the range chunk to the already calculated yOffset
+            yOffset = annotationsForRow[annotationsForRow.length - 1].yOffset;
+          } else {
+            yOffset = getYOffsetForPotentiallyCircularRange(
+              annotation,
+              yOffsetsForRow
+            );
+          }
+          //add the new yOffset to the yOffset array
+          if (!yOffsetsForRow[yOffset]) yOffsetsForRow[yOffset] = [];
+          yOffsetsForRow[yOffset].push({
+            start: start,
+            end: end
+          });
         }
-        //add the new yOffset to the yOffset array
-        if (!yOffsetsForRow[yOffset]) yOffsetsForRow[yOffset] = [];
-        yOffsetsForRow[yOffset].push({
-          start: start,
-          end: end
-        });
       }
 
       annotationsForRow.push({
@@ -138,42 +179,3 @@ function mapAnnotationToRows({
   });
   // return annotationsToRowsMap;
 }
-
-//
-// function calculateNecessaryYOffsetForAnnotationInRow(annotationsAlreadyAddedToRow, ranges) {
-//     const blockedYOffsets = [];
-//   //adjust the yOffset of the range being pushed in by checking its range against other ranges already in the row
-//     each(annotationsAlreadyAddedToRow, function(comparisonRange) {
-//         //check for overlap with other annotations
-//         ranges.forEach(function(range){
-//             if (checkIfNonCircularRangesOverlap(range, comparisonRange)) {
-//                 blockedYOffsets.push(comparisonRange.yOffset);
-//                 return true //break the some loop so we only add the blocked offset once
-//             }
-//         });
-//     });
-
-//     const newYOffset = 0;
-//   //sort and remove duplicates from the blockedYOffsets array
-//   //then starting with newYOffset = 1, see if there is space for the location
-//     if (blockedYOffsets.length > 0) {
-//         const sortedBlockedYOffsets = sortBy(blockedYOffsets, function(n) {
-//             return n;
-//         });
-//         const sortedUniqueBlockedYOffsets = uniq(sortedBlockedYOffsets, true); //true here specifies that the array has already been sorted
-//         const stillPotentiallyBlocked = true;
-//         while (stillPotentiallyBlocked) {
-//       //sortedUniqueBlockedYOffsets is an array starting with 1 eg. [1,2,4,5,6]
-//       //so we loop through it using the index of newYOffset-1, and if there is a gap
-//       //in the array, we break the loop and that becomes our final newYOffset
-//             if (sortedUniqueBlockedYOffsets[newYOffset] !== newYOffset) {
-//         //the newYOffset isn't blocked
-//                 stillPotentiallyBlocked = false;
-//             } else {
-//         //it is blocked
-//                 newYOffset++;
-//             }
-//         }
-//     }
-//     return newYOffset;
-// }
