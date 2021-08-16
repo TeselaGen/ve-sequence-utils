@@ -17,6 +17,14 @@ describe("getSequenceDataBetweenRange", function() {
         //         ffffffff gg
         sequence: "tttggggaaaccc",
         //          ttg
+        parts: [
+          {
+            start: 1,
+            end: 3,
+            name: "iOverlapMyself",
+            overlapsSelf: true
+          }
+        ],
         features: [
           {
             start: 0,
@@ -36,8 +44,16 @@ describe("getSequenceDataBetweenRange", function() {
         overlapsSelf: true
       }
     );
+    res.parts[0].overlapsSelf.should.equal(false); //if the range perfectly overlaps the selfOverlapped annotation, the annotation should no longer be wrapping
     res.should.containSubset({
       sequence: "ttggggaaaccctttg",
+      parts: [
+        {
+          start: 0,
+          end: 15,
+          name: "iOverlapMyself"
+        }
+      ],
       features: [
         {
           start: 0,

@@ -1,4 +1,4 @@
-const { flatMap, extend } = require("lodash");
+const { flatMap, extend, forEach } = require("lodash");
 const { getRangeLength } = require("ve-range-utils");
 const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
 const insertSequenceDataAtPosition = require("./insertSequenceDataAtPosition");
@@ -53,7 +53,8 @@ module.exports = function getSequenceDataBetweenRange(
       seqDataToUse,
       range.start
     );
-    return getSequenceDataBetweenRange(
+
+    const toRet = getSequenceDataBetweenRange(
       extendedSeqData,
       {
         start: range.end + 1,
@@ -61,6 +62,21 @@ module.exports = function getSequenceDataBetweenRange(
       },
       options
     );
+    annotationTypes.forEach(type => {
+      //we need to go through and adjust any anns where overlapsSelf=true to no longer overlap themselves if they match the range completely
+      forEach(toRet[type], ann => {
+        if (
+          ann.overlapsSelf &&
+          ann.start === 0 &&
+          getRangeLength(ann, seqDataToUse.sequence.length) ===
+            getRangeLength(range, seqDataToUse.sequence.length)
+        ) {
+          ann.overlapsSelf = false;
+          ann.end = toRet.sequence.length - 1;
+        }
+      });
+    });
+    return tidyUpSequenceData(toRet);
   }
   return tidyUpSequenceData(seqDataToReturn);
 };
