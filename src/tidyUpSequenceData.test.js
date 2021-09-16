@@ -126,7 +126,7 @@ describe("tidyUpSequenceData", function() {
       isProtein: true,
       size: 54, //size should refer to the DNA length
       proteinSize: 18, //proteinSize should refer to the amino acid length
-      sequence: "ggngcnggnauhugacayuggggngcnggngcnyungcnwsnggnyuntrr...", //degenerate sequence
+      sequence: "ggngcnggnathtgacaytggggngcnggngcnytngcnwsnggnytntrr...", //degenerate sequence
       proteinSequence: "gagiuhwgagalasgl*.",
       circular: false,
       features: [

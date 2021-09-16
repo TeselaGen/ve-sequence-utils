@@ -34,7 +34,7 @@ describe("insertSequenceData", function() {
       sequenceToInsertInto,
       caret
     );
-    postInsertSeq.sequence.should.equal("atgauhgaymngagagagaaa");
+    postInsertSeq.sequence.should.equal("atgathgaymgnagagagaaa");
     postInsertSeq.proteinSequence.should.equal("MIDRREK");
     postInsertSeq.features.should.containSubset([
       { name: "feat2", start: 0, end: 14 }
