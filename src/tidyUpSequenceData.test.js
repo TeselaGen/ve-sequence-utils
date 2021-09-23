@@ -14,7 +14,7 @@ describe("tidyUpSequenceData", function() {
             end: 20,
             locations: [
               {
-                start: 3,
+                start: "3", //this should be converted to an int :)
                 end: 5
               },
               {

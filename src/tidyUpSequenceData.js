@@ -2,7 +2,6 @@
 const bsonObjectid = require("bson-objectid");
 const getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
 const { cloneDeep } = require("lodash");
-const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const annotationTypes = require("./annotationTypes");
 const filterSequenceString = require("./filterSequenceString");
 const tidyUpAnnotation = require("./tidyUpAnnotation");
@@ -140,7 +139,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     annotationTypes.forEach(function(name) {
       seqData[name] = seqData[name].reduce(function(acc, item) {
         let itemId;
-        if (areNonNegativeIntegers(item.id) || item.id) {
+        if (item.id || item.id === 0) {
           itemId = item.id;
         } else {
           itemId = bsonObjectid().str;

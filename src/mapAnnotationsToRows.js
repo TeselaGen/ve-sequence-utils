@@ -1,13 +1,4 @@
-// const ac = require('ve-api-check');
-// ac.throw([ac.string,ac.bool],arguments);
-const {
-  each,
-  forEach,
-  startsWith,
-  filter
-  // some, sortBy, uniq
-} = require("lodash");
-// const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
+const { each, forEach, startsWith, filter } = require("lodash");
 const {
   getYOffsetForPotentiallyCircularRange,
   splitRangeIntoTwoPartsIfItIsCircular
@@ -18,14 +9,6 @@ module.exports = function mapAnnotationsToRows(
   sequenceLength,
   bpsPerRow
 ) {
-  // ac.throw(ac.arrayOf(ac.shape({
-  //     start: ac.posInt,
-  //     end: ac.posInt,
-  //     // id: ac.oneOfType([ac.object, ac.string])
-  // })), annotations);
-  // ac.throw(ac.posInt, sequenceLength);
-  // ac.throw(ac.posInt, bpsPerRow);
-
   const annotationsToRowsMap = {};
   const yOffsetLevelMap = {};
   const wrappedAnnotations = {};

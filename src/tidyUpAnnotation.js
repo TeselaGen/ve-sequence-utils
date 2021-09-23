@@ -1,7 +1,6 @@
 const { cloneDeep } = require("lodash");
 const FeatureTypes = require("./FeatureTypes.js");
 const featureColors = require("./featureColors");
-const areNonNegativeIntegers = require("validate.io-nonnegative-integer-array");
 const bsonObjectid = require("bson-objectid");
 
 module.exports = function tidyUpAnnotation(
@@ -124,7 +123,11 @@ function coerceLocation({
     location.start = location.start * 3;
     location.end = location.end * 3 + 2;
   }
-  if (!areNonNegativeIntegers([location.start]) || location.start > size - 1) {
+  if (
+    location.start < 0 ||
+    !(location.start <= size - 1) ||
+    location.start > size - 1
+  ) {
     messages.push(
       "Invalid annotation start: " +
         location.start +
@@ -135,7 +138,11 @@ function coerceLocation({
     ); //setting it to 0 internally, but users will see it as 1
     location.start = size - (isProtein ? 3 : 1);
   }
-  if (!areNonNegativeIntegers([location.end]) || location.end > size - 1) {
+  if (
+    location.end < 0 ||
+    !(location.end <= size - 1) ||
+    location.end > size - 1
+  ) {
     messages.push(
       "Invalid annotation end:  " +
         location.end +

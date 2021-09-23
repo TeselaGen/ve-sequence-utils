@@ -1,4 +1,3 @@
-// const areNonNegativeIntegers = require('validate.io-nonnegative-integer-array');
 const ObjectId = require("bson-objectid");
 const getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
 // const ac = require('ve-api-check');
