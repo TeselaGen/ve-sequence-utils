@@ -1,4 +1,4 @@
-const { annotateSingleSeq } = require("./annotateSingleSeq");
+const annotateSingleSeq = require("./annotateSingleSeq");
 const { expect } = require("chai");
 
 describe("annotateSingleSeq", function() {

@@ -26,4 +26,4 @@ function annotateSingleSeq({ fullSeq, searchSeq }) {
     return { matches: [] };
   }
 }
-module.exports = { annotateSingleSeq };
+module.exports = annotateSingleSeq;

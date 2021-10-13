@@ -11009,10 +11009,10 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-ve-range-utils@2.6.3:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/ve-range-utils/-/ve-range-utils-2.6.3.tgz#ef7e36efcfba563860f6ff89350ad8f6ae28f244"
-  integrity sha512-HiUuyaiqKRirrc1/5P4/XpnFOvb1Z+lpcwyHn+mc1LecXipNViBIVfCQU8LIxbScFXuvTzgClS1ywdJRvs6HWA==
+ve-range-utils@2.6.5:
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/ve-range-utils/-/ve-range-utils-2.6.5.tgz#3b2a1194d1201faae05d07e4ab81df5c25dce85a"
+  integrity sha512-5p+Ga1NAQ4sURjbHRUEHary+xUcfeZONzsajDn67rLpwkfwn2LN5E+PPZTB4aMdr8u2sOE5ArM921zNefMJWVg==
   dependencies:
     lodash "^4.17.4"
 
