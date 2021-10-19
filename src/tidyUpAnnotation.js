@@ -84,8 +84,8 @@ module.exports = function tidyUpAnnotation(
   if (
     !annotation.type ||
     typeof annotation.type !== "string" ||
-    FeatureTypes.some(function(featureType) {
-      if (featureType.toLowerCase === annotation.type.toLowerCase()) {
+    !FeatureTypes.some(function(featureType) {
+      if (featureType.toLowerCase() === annotation.type.toLowerCase()) {
         annotation.type = featureType; //this makes sure the annotation.type is being set to the exact value of the accepted featureType
         return true;
       }
