@@ -10,6 +10,7 @@ module.exports = function tidyUpAnnotation(
     convertAnnotationsFromAAIndices,
     annotationType,
     provideNewIdsForAnnotations,
+    doNotProvideIdsForAnnotations,
     messages = [],
     mutative
   }
@@ -34,7 +35,7 @@ module.exports = function tidyUpAnnotation(
   if (provideNewIdsForAnnotations) {
     annotation.id = bsonObjectid().str;
   }
-  if (!annotation.id && annotation.id !== 0) {
+  if (!annotation.id && annotation.id !== 0 && !doNotProvideIdsForAnnotations) {
     annotation.id = bsonObjectid().str;
     messages.push(
       "Unable to detect valid ID for annotation, setting ID to " + annotation.id

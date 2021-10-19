@@ -4,6 +4,7 @@ module.exports = {
     name: "Alanine",
     threeLettersName: "Ala",
     hydrophobicity: 1.8,
+    colorByFamily: "#00FFFF",
     color: "#FF5C5C"
   },
   R: {
@@ -11,6 +12,7 @@ module.exports = {
     name: "Arginine",
     threeLettersName: "Arg",
     hydrophobicity: -4.5,
+    colorByFamily: "#FFC0CB",
     color: "#190000"
   },
   N: {
@@ -18,6 +20,7 @@ module.exports = {
     name: "Asparagine",
     threeLettersName: "Asn",
     hydrophobicity: -3.5,
+    colorByFamily: "#D3D3D3",
     color: "#4D0000"
   },
   D: {
@@ -25,6 +28,7 @@ module.exports = {
     name: "Aspartic acid",
     threeLettersName: "Asp",
     hydrophobicity: -3.5,
+    colorByFamily: "#EE82EE",
     color: "#4D0000"
   },
   C: {
@@ -32,6 +36,7 @@ module.exports = {
     name: "Cysteine",
     threeLettersName: "Cys",
     hydrophobicity: 2.5,
+    colorByFamily: "#FFFF00",
     color: "#FF8080"
   },
   E: {
@@ -39,6 +44,7 @@ module.exports = {
     name: "Glutamic acid",
     threeLettersName: "Glu",
     hydrophobicity: -3.5,
+    colorByFamily: "#EE82EE",
     color: "#4D0000"
   },
   Q: {
@@ -46,6 +52,7 @@ module.exports = {
     name: "Glutamine",
     threeLettersName: "Gln",
     hydrophobicity: -3.5,
+    colorByFamily: "#D3D3D3",
     color: "#4D0000"
   },
   G: {
@@ -53,6 +60,7 @@ module.exports = {
     name: "Glycine",
     threeLettersName: "Gly",
     hydrophobicity: -0.4,
+    colorByFamily: "#00FFFF",
     color: "#EB0000"
   },
   H: {
@@ -60,6 +68,7 @@ module.exports = {
     name: "Histidine",
     threeLettersName: "His",
     hydrophobicity: -3.2,
+    colorByFamily: "#FFC0CB",
     color: "#5C0000"
   },
   I: {
@@ -67,6 +76,7 @@ module.exports = {
     name: "Isoleucine ",
     threeLettersName: "Ile",
     hydrophobicity: 4.5,
+    colorByFamily: "#00FFFF",
     color: "#FFE6E6"
   },
   L: {
@@ -74,6 +84,7 @@ module.exports = {
     name: "Leucine",
     threeLettersName: "Leu",
     hydrophobicity: 3.8,
+    colorByFamily: "#00FFFF",
     color: "#FFC2C2"
   },
   K: {
@@ -81,6 +92,7 @@ module.exports = {
     name: "Lysine",
     threeLettersName: "Lys",
     hydrophobicity: -3.9,
+    colorByFamily: "#FFC0CB",
     color: "#380000"
   },
   M: {
@@ -88,6 +100,7 @@ module.exports = {
     name: "Methionine",
     threeLettersName: "Met",
     hydrophobicity: 1.9,
+    colorByFamily: "#FFFF00",
     color: "#FF6161"
   },
   F: {
@@ -95,6 +108,7 @@ module.exports = {
     name: "Phenylalanine",
     threeLettersName: "Phe",
     hydrophobicity: 2.8,
+    colorByFamily: "#FFA500",
     color: "#FF8F8F"
   },
   P: {
@@ -102,6 +116,7 @@ module.exports = {
     name: "Proline",
     threeLettersName: "Pro",
     hydrophobicity: -1.6,
+    colorByFamily: "#00FFFF",
     color: "#AD0000"
   },
   S: {
@@ -109,6 +124,7 @@ module.exports = {
     name: "Serine",
     threeLettersName: "Ser",
     hydrophobicity: -0.8,
+    colorByFamily: "#90EE90",
     color: "#D60000"
   },
   T: {
@@ -116,12 +132,14 @@ module.exports = {
     name: "Threonine",
     threeLettersName: "Thr",
     hydrophobicity: -0.7,
+    colorByFamily: "#90EE90",
     color: "#DB0000"
   },
   U: {
     value: "U",
     name: "Selenocysteine",
     threeLettersName: "Sec",
+    colorByFamily: "#FF0000",
     color: "#FF0000"
   },
   W: {
@@ -129,6 +147,7 @@ module.exports = {
     name: "Tryptophan",
     threeLettersName: "Trp",
     hydrophobicity: -0.9,
+    colorByFamily: "#FFA500",
     color: "#D10000"
   },
   Y: {
@@ -136,6 +155,7 @@ module.exports = {
     name: "Tyrosine",
     threeLettersName: "Tyr",
     hydrophobicity: -1.3,
+    colorByFamily: "#FFA500",
     color: "#BD0000"
   },
   V: {
@@ -143,30 +163,35 @@ module.exports = {
     name: "Valine",
     threeLettersName: "Val",
     hydrophobicity: 4.2,
+    colorByFamily: "#00FFFF",
     color: "#FFD6D6"
   },
   "*": {
     value: "*",
     name: "Stop",
     threeLettersName: "Stop",
+    colorByFamily: "#FF0000",
     color: "#FF0000"
   },
   ".": {
     //tnr: this is actually a deletion/gap character (previously we had this as a stop character which is incorrect) https://www.dnabaser.com/articles/IUPAC%20ambiguity%20codes.html
     value: ".",
     name: "Gap",
-    threeLettersName: "Gap",
+    threeLettersName: "Stop",
+    colorByFamily: "#FF0000",
     color: "#FF0000"
   },
   "-": {
     value: "-",
     name: "Gap",
     threeLettersName: "Gap",
+    colorByFamily: "#FF0000",
     color: "#FF0000"
   },
   B: {
     value: "B",
     threeLettersName: "ND",
+    colorByFamily: "lightpurple",
     color: "lightpurple",
     isAmbiguous: true,
     name: "B",
@@ -175,6 +200,7 @@ module.exports = {
   J: {
     value: "J",
     threeLettersName: "IL",
+    colorByFamily: "lightpurple",
     color: "lightpurple",
     isAmbiguous: true,
     name: "J",
@@ -183,6 +209,7 @@ module.exports = {
   X: {
     value: "X",
     threeLettersName: "ACDEFGHIKLMNPQRSTVWY",
+    colorByFamily: "#FFFFFF",
     color: "lightpurple",
     isAmbiguous: true,
     name: "X",
@@ -191,6 +218,7 @@ module.exports = {
   Z: {
     value: "Z",
     threeLettersName: "QE",
+    colorByFamily: "lightpurple",
     color: "lightpurple",
     isAmbiguous: true,
     name: "Z",

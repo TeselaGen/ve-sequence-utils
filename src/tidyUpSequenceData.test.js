@@ -1,3 +1,5 @@
+const assert = require("assert");
+
 const tidyUpSequenceData = require("./tidyUpSequenceData");
 const chai = require("chai");
 const chaiSubset = require("chai-subset");
@@ -78,7 +80,8 @@ describe("tidyUpSequenceData", function() {
           aminoAcid: {
             value: ".",
             name: "Gap",
-            threeLettersName: "Gap",
+            threeLettersName: "Stop",
+            colorByFamily: "#FF0000",
             color: "#FF0000"
           },
           positionInCodon: 0,
@@ -94,7 +97,8 @@ describe("tidyUpSequenceData", function() {
           aminoAcid: {
             value: ".",
             name: "Gap",
-            threeLettersName: "Gap",
+            threeLettersName: "Stop",
+            colorByFamily: "#FF0000",
             color: "#FF0000"
           },
           positionInCodon: 1,
@@ -110,7 +114,8 @@ describe("tidyUpSequenceData", function() {
           aminoAcid: {
             value: ".",
             name: "Gap",
-            threeLettersName: "Gap",
+            threeLettersName: "Stop",
+            colorByFamily: "#FF0000",
             color: "#FF0000"
           },
           positionInCodon: 2,
@@ -249,6 +254,16 @@ describe("tidyUpSequenceData", function() {
       { provideNewIdsForAnnotations: true }
     );
     res.features[0].id.should.not.equal(123);
+  });
+  it("should not add ids even if the ids are missing if doNotProvideIdsForAnnotations=true", function() {
+    const res = tidyUpSequenceData(
+      {
+        features: [{ start: 4, end: 5 }, {}]
+      },
+      { doNotProvideIdsForAnnotations: true }
+    );
+
+    assert.strictEqual(res.features[0].id, undefined);
   });
   it("should add the annotationTypePlural field", function() {
     const res = tidyUpSequenceData(

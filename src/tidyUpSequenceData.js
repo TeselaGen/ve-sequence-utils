@@ -16,6 +16,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     additionalValidChars,
     noTranslationData,
     charOverrides,
+    doNotProvideIdsForAnnotations,
     proteinFilterOptions,
     convertAnnotationsFromAAIndices
   } = options;
@@ -143,7 +144,9 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
           itemId = item.id;
         } else {
           itemId = bsonObjectid().str;
-          item.id = itemId; //assign the newly created id to the item d
+          if (!doNotProvideIdsForAnnotations) {
+            item.id = itemId; //assign the newly created id to the item
+          }
         }
         acc[itemId] = item;
         return acc;
