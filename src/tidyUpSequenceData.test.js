@@ -80,9 +80,7 @@ describe("tidyUpSequenceData", function() {
           aminoAcid: {
             value: ".",
             name: "Gap",
-            threeLettersName: "Stop",
-            colorByFamily: "#FF0000",
-            color: "#FF0000"
+            threeLettersName: "Gap"
           },
           positionInCodon: 0,
           aminoAcidIndex: 17,
@@ -97,9 +95,7 @@ describe("tidyUpSequenceData", function() {
           aminoAcid: {
             value: ".",
             name: "Gap",
-            threeLettersName: "Stop",
-            colorByFamily: "#FF0000",
-            color: "#FF0000"
+            threeLettersName: "Gap"
           },
           positionInCodon: 1,
           aminoAcidIndex: 17,
@@ -114,9 +110,7 @@ describe("tidyUpSequenceData", function() {
           aminoAcid: {
             value: ".",
             name: "Gap",
-            threeLettersName: "Stop",
-            colorByFamily: "#FF0000",
-            color: "#FF0000"
+            threeLettersName: "Gap"
           },
           positionInCodon: 2,
           aminoAcidIndex: 17,

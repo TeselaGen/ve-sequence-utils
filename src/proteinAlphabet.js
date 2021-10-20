@@ -5,7 +5,7 @@ module.exports = {
     threeLettersName: "Ala",
     hydrophobicity: 1.8,
     colorByFamily: "#00FFFF",
-    color: "#FF5C5C"
+    color: "hsl(327.3, 100%, 69%)"
   },
   R: {
     value: "R",
@@ -13,7 +13,7 @@ module.exports = {
     threeLettersName: "Arg",
     hydrophobicity: -4.5,
     colorByFamily: "#FFC0CB",
-    color: "#190000"
+    color: "hsl(258.1, 100%, 69%)"
   },
   N: {
     value: "N",
@@ -21,7 +21,7 @@ module.exports = {
     threeLettersName: "Asn",
     hydrophobicity: -3.5,
     colorByFamily: "#D3D3D3",
-    color: "#4D0000"
+    color: "hsl(268.9, 100%, 69%)"
   },
   D: {
     value: "D",
@@ -29,7 +29,7 @@ module.exports = {
     threeLettersName: "Asp",
     hydrophobicity: -3.5,
     colorByFamily: "#EE82EE",
-    color: "#4D0000"
+    color: "hsl(268.9, 100%, 69%)"
   },
   C: {
     value: "C",
@@ -37,7 +37,7 @@ module.exports = {
     threeLettersName: "Cys",
     hydrophobicity: 2.5,
     colorByFamily: "#FFFF00",
-    color: "#FF8080"
+    color: "hsl(335.1, 100%, 69%)"
   },
   E: {
     value: "E",
@@ -45,7 +45,7 @@ module.exports = {
     threeLettersName: "Glu",
     hydrophobicity: -3.5,
     colorByFamily: "#EE82EE",
-    color: "#4D0000"
+    color: "hsl(268.9, 100%, 69%)"
   },
   Q: {
     value: "Q",
@@ -53,7 +53,7 @@ module.exports = {
     threeLettersName: "Gln",
     hydrophobicity: -3.5,
     colorByFamily: "#D3D3D3",
-    color: "#4D0000"
+    color: "hsl(268.9, 100%, 69%)"
   },
   G: {
     value: "G",
@@ -61,7 +61,7 @@ module.exports = {
     threeLettersName: "Gly",
     hydrophobicity: -0.4,
     colorByFamily: "#00FFFF",
-    color: "#EB0000"
+    color: "hsl(303.1, 100%, 69%)"
   },
   H: {
     value: "H",
@@ -69,7 +69,7 @@ module.exports = {
     threeLettersName: "His",
     hydrophobicity: -3.2,
     colorByFamily: "#FFC0CB",
-    color: "#5C0000"
+    color: "hsl(272.2, 100%, 69%)"
   },
   I: {
     value: "I",
@@ -77,7 +77,7 @@ module.exports = {
     threeLettersName: "Ile",
     hydrophobicity: 4.5,
     colorByFamily: "#00FFFF",
-    color: "#FFE6E6"
+    color: "hsl(356.9, 100%, 69%)"
   },
   L: {
     value: "L",
@@ -85,7 +85,7 @@ module.exports = {
     threeLettersName: "Leu",
     hydrophobicity: 3.8,
     colorByFamily: "#00FFFF",
-    color: "#FFC2C2"
+    color: "hsl(349.4, 100%, 69%)"
   },
   K: {
     value: "K",
@@ -93,7 +93,7 @@ module.exports = {
     threeLettersName: "Lys",
     hydrophobicity: -3.9,
     colorByFamily: "#FFC0CB",
-    color: "#380000"
+    color: "hsl(264.7, 100%, 69%)"
   },
   M: {
     value: "M",
@@ -101,7 +101,7 @@ module.exports = {
     threeLettersName: "Met",
     hydrophobicity: 1.9,
     colorByFamily: "#FFFF00",
-    color: "#FF6161"
+    color: "hsl(328.5, 100%, 69%)"
   },
   F: {
     value: "F",
@@ -109,7 +109,7 @@ module.exports = {
     threeLettersName: "Phe",
     hydrophobicity: 2.8,
     colorByFamily: "#FFA500",
-    color: "#FF8F8F"
+    color: "hsl(338.4, 100%, 69%)"
   },
   P: {
     value: "P",
@@ -117,7 +117,7 @@ module.exports = {
     threeLettersName: "Pro",
     hydrophobicity: -1.6,
     colorByFamily: "#00FFFF",
-    color: "#AD0000"
+    color: "hsl(289.9, 100%, 69%)"
   },
   S: {
     value: "S",
@@ -125,7 +125,7 @@ module.exports = {
     threeLettersName: "Ser",
     hydrophobicity: -0.8,
     colorByFamily: "#90EE90",
-    color: "#D60000"
+    color: "hsl(298.6, 100%, 69%)"
   },
   T: {
     value: "T",
@@ -133,14 +133,14 @@ module.exports = {
     threeLettersName: "Thr",
     hydrophobicity: -0.7,
     colorByFamily: "#90EE90",
-    color: "#DB0000"
+    color: "hsl(299.8, 100%, 69%)"
   },
   U: {
     value: "U",
     name: "Selenocysteine",
     threeLettersName: "Sec",
     colorByFamily: "#FF0000",
-    color: "#FF0000"
+    color: "hsl(0, 100%, 69%)"
   },
   W: {
     value: "W",
@@ -148,7 +148,7 @@ module.exports = {
     threeLettersName: "Trp",
     hydrophobicity: -0.9,
     colorByFamily: "#FFA500",
-    color: "#D10000"
+    color: "hsl(297.6, 100%, 69%)"
   },
   Y: {
     value: "Y",
@@ -156,7 +156,7 @@ module.exports = {
     threeLettersName: "Tyr",
     hydrophobicity: -1.3,
     colorByFamily: "#FFA500",
-    color: "#BD0000"
+    color: "hsl(293.2, 100%, 69%)"
   },
   V: {
     value: "V",
@@ -164,35 +164,35 @@ module.exports = {
     threeLettersName: "Val",
     hydrophobicity: 4.2,
     colorByFamily: "#00FFFF",
-    color: "#FFD6D6"
+    color: "hsl(353.6, 100%, 69%)"
   },
   "*": {
     value: "*",
     name: "Stop",
     threeLettersName: "Stop",
     colorByFamily: "#FF0000",
-    color: "#FF0000"
+    color: "hsl(0, 100%, 69%)"
   },
   ".": {
     //tnr: this is actually a deletion/gap character (previously we had this as a stop character which is incorrect) https://www.dnabaser.com/articles/IUPAC%20ambiguity%20codes.html
     value: ".",
     name: "Gap",
-    threeLettersName: "Stop",
+    threeLettersName: "Gap",
     colorByFamily: "#FF0000",
-    color: "#FF0000"
+    color: "hsl(0, 100%, 69%)"
   },
   "-": {
     value: "-",
     name: "Gap",
     threeLettersName: "Gap",
     colorByFamily: "#FF0000",
-    color: "#FF0000"
+    color: "hsl(0, 100%, 69%)"
   },
   B: {
     value: "B",
     threeLettersName: "ND",
-    colorByFamily: "lightpurple",
-    color: "lightpurple",
+    colorByFamily: "#D3D3D3",
+    color: "hsl(268.9, 100%, 69%)",
     isAmbiguous: true,
     name: "B",
     aliases: "ND"
@@ -200,8 +200,8 @@ module.exports = {
   J: {
     value: "J",
     threeLettersName: "IL",
-    colorByFamily: "lightpurple",
-    color: "lightpurple",
+    colorByFamily: "#00FFFF",
+    color: "hsl(352, 100%, 69%)",
     isAmbiguous: true,
     name: "J",
     aliases: "IL"
@@ -210,7 +210,7 @@ module.exports = {
     value: "X",
     threeLettersName: "ACDEFGHIKLMNPQRSTVWY",
     colorByFamily: "#FFFFFF",
-    color: "lightpurple",
+    color: "hsl(60, 100%, 69%)",
     isAmbiguous: true,
     name: "X",
     aliases: "ACDEFGHIKLMNPQRSTVWY"
@@ -218,8 +218,8 @@ module.exports = {
   Z: {
     value: "Z",
     threeLettersName: "QE",
-    colorByFamily: "lightpurple",
-    color: "lightpurple",
+    colorByFamily: "#D3D3D3",
+    color: "hsl(268.9, 100%, 69%)",
     isAmbiguous: true,
     name: "Z",
     aliases: "QE"
