@@ -29,6 +29,10 @@ module.exports = function insertSequenceDataAtPositionOrRange(
     : sequenceDataToInsert.sequence.length;
   let caretPosition = caretPositionOrRange;
 
+  const isInsertSameLengthAsSelection =
+    sequenceDataToInsert.sequence.length ===
+    getRangeLength(caretPositionOrRange, existingSequenceData.sequence.length);
+
   if (
     caretPositionOrRange.start > -1 &&
     getRangeLength(
@@ -43,8 +47,52 @@ module.exports = function insertSequenceDataAtPositionOrRange(
         return (acc[type] = []);
       }, {}),
       sequence: "",
-      proteinSequence: ""
+      proteinSequence: "",
+      chromatogramData: undefined
     });
+    newSequenceData.chromatogramData = undefined;
+  } else if (
+    newSequenceData.chromatogramData &&
+    newSequenceData.chromatogramData.baseTraces &&
+    !isInsertSameLengthAsSelection
+  ) {
+    //handle chromatogramData updates
+    if (caretPositionOrRange && caretPositionOrRange.start > -1) {
+      if (caretPositionOrRange.start > caretPositionOrRange.end) {
+        newSequenceData.chromatogramData = trimChromatogram({
+          chromatogramData: newSequenceData.chromatogramData,
+          range: {
+            start: caretPositionOrRange.start,
+            end: newSequenceData.sequence.length
+          }
+        });
+        newSequenceData.chromatogramData = trimChromatogram({
+          chromatogramData: newSequenceData.chromatogramData,
+          range: {
+            start: 0,
+            end: caretPositionOrRange.end
+          }
+        });
+      } else {
+        newSequenceData.chromatogramData = trimChromatogram({
+          chromatogramData: newSequenceData.chromatogramData,
+          range: {
+            start: caretPositionOrRange.start,
+            end: caretPositionOrRange.end
+          }
+        });
+      }
+    }
+    if (sequenceDataToInsert.sequence) {
+      insertIntoChromatogram({
+        chromatogramData: newSequenceData.chromatogramData,
+        caretPosition:
+          caretPositionOrRange.start > -1
+            ? caretPositionOrRange.start
+            : caretPositionOrRange,
+        seqToInsert: sequenceDataToInsert.sequence
+      });
+    }
   }
 
   //update the sequence
@@ -60,9 +108,6 @@ module.exports = function insertSequenceDataAtPositionOrRange(
     convertDnaCaretPositionOrRangeToAa(caretPositionOrRange)
   );
   newSequenceData.proteinSize = newSequenceData.proteinSequence.length;
-  // if (existingSequenceData.isProtein) {
-
-  // }
 
   //handle the insert
   modifiableTypes.forEach(annotationType => {
@@ -105,7 +150,6 @@ module.exports = function insertSequenceDataAtPositionOrRange(
   ) {
     //we're replacing around the origin and maintainOriginSplit=true
     //so rotate the resulting seqData n bps
-
     const caretPosToRotateTo =
       existingSequenceData.sequence.length - caretPositionOrRange.start;
     return rotateSequenceDataToPosition(
@@ -155,4 +199,43 @@ function adjustAnnotationsToDelete(annotationsToBeAdjusted, range, maxLength) {
       return newRange;
     }
   }).filter(range => !!range); //filter any fully deleted ranges
+}
+
+function insertIntoChromatogram({
+  chromatogramData,
+  caretPosition,
+  seqToInsert
+}) {
+  if (!seqToInsert.length) return;
+  let baseTracesToInsert = [];
+  let qualNumsToInsert = [];
+
+  for (let index = 0; index < seqToInsert.length; index++) {
+    qualNumsToInsert.push(0);
+    const toPush = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    baseTracesToInsert.push({
+      aTrace: toPush,
+      cTrace: toPush,
+      gTrace: toPush,
+      tTrace: toPush
+    });
+  }
+
+  chromatogramData.baseCalls &&
+    chromatogramData.baseCalls.splice(caretPosition, 0, seqToInsert);
+  chromatogramData.baseTraces &&
+    chromatogramData.baseTraces.splice(caretPosition, 0, ...baseTracesToInsert);
+  chromatogramData.qualNums &&
+    chromatogramData.qualNums.splice(caretPosition, 0, ...qualNumsToInsert);
+
+  return chromatogramData;
+}
+
+function trimChromatogram({ chromatogramData, range: { start, end } }) {
+  ["qualNums", "baseTraces", "basePos", "baseCalls"].forEach(type => {
+    chromatogramData[type] &&
+      chromatogramData[type].splice(start, end - start + 1);
+  });
+
+  return chromatogramData;
 }

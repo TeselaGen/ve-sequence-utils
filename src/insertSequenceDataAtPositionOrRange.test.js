@@ -3,6 +3,7 @@
 // tap.mochaGlobals();
 const chai = require("chai");
 const { getRangeLength } = require("ve-range-utils");
+const assert = require("assert");
 
 chai.should();
 const chaiSubset = require("chai-subset");
@@ -287,10 +288,11 @@ describe("insertSequenceData", function() {
       sequenceToInsertInto.warnings[0].start + sequenceToInsert.sequence.length
     );
   });
-  it("deletes the whole sequence is nothing is being inserted and the range spans the entire sequence ", function() {
+  it("deletes the whole sequence if nothing is being inserted and the range spans the entire sequence ", function() {
     let sequenceToInsert = {};
     let sequenceToInsertInto = {
       sequence: "atgagagaga",
+      chromatogramData: { baseTraces: [] },
       features: [{ start: 0, end: 9 }],
       warnings: [{ start: 0, end: 9 }]
     };
@@ -303,5 +305,227 @@ describe("insertSequenceData", function() {
     postInsertSeq.sequence.length.should.equal(0);
     postInsertSeq.features.length.should.equal(0);
     postInsertSeq.warnings.length.should.equal(0);
+    assert.deepStrictEqual(postInsertSeq.chromatogramData, undefined);
+  });
+  it("deletes chromatogramData correctly", function() {
+    let sequenceToInsert = {};
+    let sequenceToInsertInto = {
+      sequence: "atgagagaga",
+      chromatogramData: {
+        baseTraces: [
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          }
+        ]
+      }
+    };
+    let range = { start: 2, end: 3 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.length.should.equal(8);
+    postInsertSeq.chromatogramData.baseTraces.length.should.equal(8);
+  });
+  it("properly inserts into chromatogramData", function() {
+    let sequenceToInsert = {
+      sequence: "rrr"
+    };
+    let sequenceToInsertInto = {
+      sequence: "atgagag",
+      chromatogramData: {
+        baseTraces: [
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          }
+        ]
+      }
+    };
+    let range = { start: 3, end: 4 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.length.should.equal(8);
+    postInsertSeq.chromatogramData.baseTraces.length.should.equal(8);
+    postInsertSeq.chromatogramData.baseTraces[4].aTrace.should.deep.equal([
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]);
+  });
+  it("properly inserts into chromatogramData, keeping the chromatogramData intact if the insert length is the same length as the selection range", function() {
+    let sequenceToInsert = {
+      sequence: "rrr"
+    };
+    let sequenceToInsertInto = {
+      sequence: "atgagag",
+      chromatogramData: {
+        baseTraces: [
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          },
+          {
+            aTrace: [0, 2, 6, 8],
+            cTrace: [5, 2, 3, 4],
+            gTrace: [0, 2, 6, 8],
+            tTrace: [5, 2, 3, 4]
+          }
+        ]
+      }
+    };
+    let range = { start: 3, end: 5 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.length.should.equal(7);
+    postInsertSeq.chromatogramData.baseTraces.length.should.equal(7);
+    postInsertSeq.chromatogramData.baseTraces[4].aTrace.should.deep.equal([
+      0,
+      2,
+      6,
+      8
+    ]);
   });
 });
