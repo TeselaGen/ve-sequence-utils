@@ -5,6 +5,7 @@
   "main": "lib",
   "//types": "./index.d.ts",
   "repository": "https://github.com/TeselaGen/ve-sequence-utils",
+  "homepage": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
     "build": "nwb build-react-component --copy-files --no-demo",
     "prepare": "yarn build",
