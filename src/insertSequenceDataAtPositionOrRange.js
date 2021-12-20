@@ -122,7 +122,8 @@ module.exports = function insertSequenceDataAtPositionOrRange(
       existingAnnotations = adjustAnnotationsToDelete(
         existingAnnotations,
         range,
-        existingSequenceData.sequence.length
+        existingSequenceData.sequence.length,
+        options
       );
     }
     //first clear the newSequenceData's annotations
@@ -132,14 +133,16 @@ module.exports = function insertSequenceDataAtPositionOrRange(
       adjustAnnotationsToInsert(
         existingAnnotations,
         caretPosition,
-        insertLength
+        insertLength,
+        options
       )
     );
     newSequenceData[annotationType] = newSequenceData[annotationType].concat(
       adjustAnnotationsToInsert(
         sequenceDataToInsert[annotationType],
         0,
-        caretPosition
+        caretPosition,
+        options
       )
     );
   });
@@ -163,7 +166,8 @@ module.exports = function insertSequenceDataAtPositionOrRange(
 function adjustAnnotationsToInsert(
   annotationsToBeAdjusted,
   insertStart,
-  insertLength
+  insertLength,
+  { allowPrimerBasesToBeEdited }
 ) {
   return map(annotationsToBeAdjusted, function(annotation) {
     return {
@@ -176,7 +180,12 @@ function adjustAnnotationsToInsert(
     };
   });
 }
-function adjustAnnotationsToDelete(annotationsToBeAdjusted, range, maxLength) {
+function adjustAnnotationsToDelete(
+  annotationsToBeAdjusted,
+  range,
+  maxLength,
+  { allowPrimerBasesToBeEdited }
+) {
   return map(annotationsToBeAdjusted, function(annotation) {
     const newRange = adjustRangeToDeletionOfAnotherRange(
       annotation,

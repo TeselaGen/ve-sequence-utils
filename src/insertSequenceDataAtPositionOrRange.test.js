@@ -12,6 +12,33 @@ chai.use(chaiSubset);
 const insertSequenceDataAtPositionOrRange = require("./insertSequenceDataAtPositionOrRange");
 
 describe("insertSequenceData", function() {
+  it("adjusts primers which have bases when allowPrimerBasesToBeEdited=true correctly", function() {
+    // full deletion of bases below primer should delete primer
+
+    let sequenceToInsert = {
+      sequence: "gggaa"
+    };
+
+    let sequenceToInsertInto = {
+      //  012345
+      primers: [
+        { name: "primer1", start: 0, end: 5 },
+        { name: "primerIShouldBeDeleted", start: 3, end: 4 }
+      ],
+      //         012345678901
+      sequence: "atgagagagaaa"
+    };
+    let range = { start: 3, end: 4 };
+    let postInsertSeq = insertSequenceDataAtPositionOrRange(
+      sequenceToInsert,
+      sequenceToInsertInto,
+      range
+    );
+    postInsertSeq.sequence.should.equal("atgathgaymgnagagagaaa");
+    postInsertSeq.features.should.containSubset([
+      { name: "feat2", start: 0, end: 14 }
+    ]);
+  });
   it("adjusts annotations to protein-only inserts correctly", function() {
     let sequenceToInsert = {
       proteinSequence: "IDR",
