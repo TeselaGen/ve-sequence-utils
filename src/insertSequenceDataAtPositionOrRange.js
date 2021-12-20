@@ -53,8 +53,7 @@ module.exports = function insertSequenceDataAtPositionOrRange(
     newSequenceData.chromatogramData = undefined;
   } else if (
     newSequenceData.chromatogramData &&
-    newSequenceData.chromatogramData.baseTraces &&
-    !isInsertSameLengthAsSelection
+    newSequenceData.chromatogramData.baseTraces
   ) {
     //handle chromatogramData updates
     if (caretPositionOrRange && caretPositionOrRange.start > -1) {
@@ -64,14 +63,16 @@ module.exports = function insertSequenceDataAtPositionOrRange(
           range: {
             start: caretPositionOrRange.start,
             end: newSequenceData.sequence.length
-          }
+          },
+          justBaseCalls: isInsertSameLengthAsSelection
         });
         newSequenceData.chromatogramData = trimChromatogram({
           chromatogramData: newSequenceData.chromatogramData,
           range: {
             start: 0,
             end: caretPositionOrRange.end
-          }
+          },
+          justBaseCalls: isInsertSameLengthAsSelection
         });
       } else {
         newSequenceData.chromatogramData = trimChromatogram({
@@ -79,7 +80,8 @@ module.exports = function insertSequenceDataAtPositionOrRange(
           range: {
             start: caretPositionOrRange.start,
             end: caretPositionOrRange.end
-          }
+          },
+          justBaseCalls: isInsertSameLengthAsSelection
         });
       }
     }
@@ -90,7 +92,8 @@ module.exports = function insertSequenceDataAtPositionOrRange(
           caretPositionOrRange.start > -1
             ? caretPositionOrRange.start
             : caretPositionOrRange,
-        seqToInsert: sequenceDataToInsert.sequence
+        seqToInsert: sequenceDataToInsert.sequence,
+        justBaseCalls: isInsertSameLengthAsSelection
       });
     }
   }
@@ -204,9 +207,22 @@ function adjustAnnotationsToDelete(annotationsToBeAdjusted, range, maxLength) {
 function insertIntoChromatogram({
   chromatogramData,
   caretPosition,
-  seqToInsert
+  seqToInsert,
+  justBaseCalls
 }) {
   if (!seqToInsert.length) return;
+
+  chromatogramData.baseCalls &&
+    chromatogramData.baseCalls.splice(
+      caretPosition,
+      0,
+      ...seqToInsert.split("")
+    );
+  if (justBaseCalls) {
+    //return early if just base calls
+    return chromatogramData;
+  }
+
   let baseTracesToInsert = [];
   let qualNumsToInsert = [];
 
@@ -221,8 +237,6 @@ function insertIntoChromatogram({
     });
   }
 
-  chromatogramData.baseCalls &&
-    chromatogramData.baseCalls.splice(caretPosition, 0, seqToInsert);
   chromatogramData.baseTraces &&
     chromatogramData.baseTraces.splice(caretPosition, 0, ...baseTracesToInsert);
   chromatogramData.qualNums &&
@@ -231,8 +245,15 @@ function insertIntoChromatogram({
   return chromatogramData;
 }
 
-function trimChromatogram({ chromatogramData, range: { start, end } }) {
-  ["qualNums", "baseTraces", "basePos", "baseCalls"].forEach(type => {
+function trimChromatogram({
+  chromatogramData,
+  range: { start, end },
+  justBaseCalls
+}) {
+  [
+    "baseCalls",
+    ...(justBaseCalls ? [] : ["qualNums", "baseTraces", "basePos"])
+  ].forEach(type => {
     chromatogramData[type] &&
       chromatogramData[type].splice(start, end - start + 1);
   });

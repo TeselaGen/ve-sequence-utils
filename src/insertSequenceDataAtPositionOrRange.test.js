@@ -312,6 +312,7 @@ describe("insertSequenceData", function() {
     let sequenceToInsertInto = {
       sequence: "atgagagaga",
       chromatogramData: {
+        baseCalls: ["G", "G", "C", "G", "T", "G", "G", "A", "C", "G"],
         baseTraces: [
           {
             aTrace: [0, 2, 6, 8],
@@ -383,6 +384,7 @@ describe("insertSequenceData", function() {
       range
     );
     postInsertSeq.sequence.length.should.equal(8);
+    postInsertSeq.chromatogramData.baseCalls.length.should.equal(8);
     postInsertSeq.chromatogramData.baseTraces.length.should.equal(8);
   });
   it("properly inserts into chromatogramData", function() {
@@ -392,6 +394,7 @@ describe("insertSequenceData", function() {
     let sequenceToInsertInto = {
       sequence: "atgagag",
       chromatogramData: {
+        baseCalls: ["G", "G", "C", "G", "T", "G", "G"],
         baseTraces: [
           {
             aTrace: [0, 2, 6, 8],
@@ -445,6 +448,7 @@ describe("insertSequenceData", function() {
       range
     );
     postInsertSeq.sequence.length.should.equal(8);
+    postInsertSeq.chromatogramData.baseCalls.length.should.equal(8);
     postInsertSeq.chromatogramData.baseTraces.length.should.equal(8);
     postInsertSeq.chromatogramData.baseTraces[4].aTrace.should.deep.equal([
       0,
@@ -467,6 +471,7 @@ describe("insertSequenceData", function() {
     let sequenceToInsertInto = {
       sequence: "atgagag",
       chromatogramData: {
+        baseCalls: ["G", "G", "C", "G", "T", "G", "G"],
         baseTraces: [
           {
             aTrace: [0, 2, 6, 8],
@@ -520,6 +525,16 @@ describe("insertSequenceData", function() {
       range
     );
     postInsertSeq.sequence.length.should.equal(7);
+    postInsertSeq.chromatogramData.baseCalls.length.should.equal(7);
+    postInsertSeq.chromatogramData.baseCalls.should.deep.equal([
+      "G",
+      "G",
+      "C",
+      "r",
+      "r",
+      "r",
+      "G"
+    ]);
     postInsertSeq.chromatogramData.baseTraces.length.should.equal(7);
     postInsertSeq.chromatogramData.baseTraces[4].aTrace.should.deep.equal([
       0,
