@@ -127,6 +127,19 @@
                 "end": 4,
                 "yOffset": 0,
                 "enclosingRangeType": "end"
+            },
+            {
+                "id": "asdfa",
+                "annotation": {
+                    "id": "asdfa",
+                    "start": 1,
+                    "end": 3,
+                    "forward": true
+                },
+                "start": 1,
+                "end": 3,
+                "yOffset": 0,
+                "enclosingRangeType": "beginningAndEnd"
             }
         ],
         "guides": [],

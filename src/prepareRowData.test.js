@@ -24,7 +24,7 @@ describe("prepareRowData", function() {
       parts: { a: annotation1 },
       cutsites: { b: annotation2 },
       orfs: [annotation2],
-      primers: [annotation2],
+      primers: [annotation2, { id: "asdfa", start: 1, end: 3, forward: true }], //reverse primers shouldn't offset forward primers
       warnings: [annotation2],
       assemblyPieces: [annotation2],
       lineageAnnotations: [annotation2]

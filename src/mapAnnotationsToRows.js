@@ -7,12 +7,12 @@ const {
 module.exports = function mapAnnotationsToRows(
   annotations,
   sequenceLength,
-  bpsPerRow
+  bpsPerRow,
+  { splitForwardReverse } = {}
 ) {
   const annotationsToRowsMap = {};
   const yOffsetLevelMap = {};
   const wrappedAnnotations = {};
-
   each(annotations, function(annotation) {
     const containsLocations = !!(
       annotation.locations && annotation.locations.length
@@ -31,7 +31,8 @@ module.exports = function mapAnnotationsToRows(
           bpsPerRow,
           annotationsToRowsMap,
           yOffsetLevelMap,
-          containsLocations
+          containsLocations,
+          splitForwardReverse
         });
         wrappedAnnotations[annotation.id] = true;
         // annotation.yOffset = wrappedAnnotations[annotation.id];
@@ -45,7 +46,8 @@ module.exports = function mapAnnotationsToRows(
       bpsPerRow,
       annotationsToRowsMap,
       yOffsetLevelMap,
-      containsLocations
+      containsLocations,
+      splitForwardReverse
     });
     if (containsLocations) {
       annotation.locations.forEach(location => {
@@ -56,7 +58,8 @@ module.exports = function mapAnnotationsToRows(
           bpsPerRow,
           annotationsToRowsMap,
           yOffsetLevelMap,
-          location
+          location,
+          splitForwardReverse
         });
       });
     }
@@ -78,7 +81,8 @@ function mapAnnotationToRows({
   annotationsToRowsMap,
   yOffsetLevelMap,
   location,
-  containsLocations
+  containsLocations,
+  splitForwardReverse
 }) {
   const ranges = splitRangeIntoTwoPartsIfItIsCircular(
     location || annotation,
@@ -93,13 +97,19 @@ function mapAnnotationToRows({
       if (!annotationsToRowsMap[rowNumber]) {
         annotationsToRowsMap[rowNumber] = [];
       }
+      const key = splitForwardReverse
+        ? annotation.forward
+          ? rowNumber + "_forward"
+          : rowNumber + "_reverse"
+        : rowNumber;
+
       const annotationsForRow = annotationsToRowsMap[rowNumber];
-      if (!yOffsetLevelMap[rowNumber]) {
-        yOffsetLevelMap[rowNumber] = [];
+      if (!yOffsetLevelMap[key]) {
+        yOffsetLevelMap[key] = [];
       }
 
       let yOffset;
-      const yOffsetsForRow = yOffsetLevelMap[rowNumber];
+      const yOffsetsForRow = yOffsetLevelMap[key];
       const start =
         rowNumber === startingRow ? range.start : rowNumber * bpsPerRow;
       const end =

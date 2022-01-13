@@ -12,7 +12,8 @@ module.exports = function prepareRowData(sequenceData, bpsPerRow) {
     rowMap[type] = mapAnnotationsToRows(
       sequenceData[type],
       sequenceLength,
-      bpsPerRow
+      bpsPerRow,
+      { splitForwardReverse: type === "primers" }
     );
   });
 
