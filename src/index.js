@@ -52,6 +52,7 @@ module.exports.getReverseComplementAminoAcidStringFromSequenceString = require("
 module.exports.getReverseComplementAnnotation = require("./getReverseComplementAnnotation");
 module.exports.getReverseComplementSequenceAndAnnotations = require("./getReverseComplementSequenceAndAnnotations");
 module.exports.getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
+module.exports.getReverseSequenceString = require("./getReverseSequenceString");
 module.exports.getSequenceDataBetweenRange = require("./getSequenceDataBetweenRange");
 module.exports.guessIfSequenceIsDnaAndNotProtein = require("./guessIfSequenceIsDnaAndNotProtein");
 module.exports.insertSequenceDataAtPosition = require("./insertSequenceDataAtPosition");
