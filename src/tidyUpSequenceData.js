@@ -1,7 +1,7 @@
 // tnrtodo: figure out where to insert this validation exactly..
 const bsonObjectid = require("bson-objectid");
 const getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
-const { cloneDeep } = require("lodash");
+const { cloneDeep, flatMap } = require("lodash");
 const annotationTypes = require("./annotationTypes");
 const filterSequenceString = require("./filterSequenceString");
 const tidyUpAnnotation = require("./tidyUpAnnotation");
@@ -18,6 +18,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     charOverrides,
     doNotProvideIdsForAnnotations,
     proteinFilterOptions,
+    noCdsTranslations,
     convertAnnotationsFromAAIndices
   } = options;
   let seqData = cloneDeep(pSeqData); //sequence is usually immutable, so we clone it and return it
@@ -124,7 +125,11 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   });
 
   if (!noTranslationData) {
-    seqData.translations = seqData.translations.map(function(translation) {
+    seqData.translations = flatMap(seqData.translations, function(translation) {
+      if (noCdsTranslations && translation.translationType === "CDS Feature") {
+        //filter off cds translations
+        return [];
+      }
       if (!translation.aminoAcids && !seqData.noSequence) {
         translation.aminoAcids = getAminoAcidDataForEachBaseOfDna(
           seqData.sequence,
