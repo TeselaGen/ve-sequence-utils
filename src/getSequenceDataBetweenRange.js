@@ -17,7 +17,7 @@ module.exports = function getSequenceDataBetweenRange(
 ) {
   if (!range) return seqData;
   const { exclude = {}, excludePartial = {} } = options;
-  const seqDataToUse = tidyUpSequenceData(seqData);
+  const seqDataToUse = tidyUpSequenceData(seqData, options);
   let seqDataToReturn = extend(
     {},
     seqDataToUse,
@@ -76,9 +76,9 @@ module.exports = function getSequenceDataBetweenRange(
         }
       });
     });
-    return tidyUpSequenceData(toRet);
+    return tidyUpSequenceData(toRet, options);
   }
-  return tidyUpSequenceData(seqDataToReturn);
+  return tidyUpSequenceData(seqDataToReturn, options);
 };
 
 function getAnnotationsBetweenRange(

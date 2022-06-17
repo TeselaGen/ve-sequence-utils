@@ -217,14 +217,23 @@ describe("tidyUpSequenceData", function() {
     });
     res.features[0].type.should.equal("misc_feature");
   });
-  // it("should normalize strange upper/lower casing in feature types", function() {
-  //   const res = tidyUpSequenceData(
-  //     {
-  //       features: [{ start: 4, end: 5, type: "cDs" }]
-  //     },
-  //   );
-  //   res.features[0].type.should.equal("CDS")
-  // });
+  it("should allow non-standard genbank feature types if allowNonStandardGenbankTypes=true", function() {
+    const res = tidyUpSequenceData(
+      {
+        features: [{ start: 4, end: 5, type: "idontexist" }]
+      },
+      {
+        allowNonStandardGenbankTypes: true
+      }
+    );
+    res.features[0].type.should.equal("idontexist");
+  });
+  it("should normalize strange upper/lower casing in feature types", function() {
+    const res = tidyUpSequenceData({
+      features: [{ start: 4, end: 5, type: "cDs" }]
+    });
+    res.features[0].type.should.equal("CDS");
+  });
   it("should not clobber existing feature types", function() {
     const res = tidyUpSequenceData({
       features: [{ start: 4, end: 5, type: "CDS" }]

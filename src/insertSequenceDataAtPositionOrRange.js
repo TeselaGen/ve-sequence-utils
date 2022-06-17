@@ -21,8 +21,11 @@ module.exports = function insertSequenceDataAtPositionOrRange(
   //when inserting new seq, n bps of the new seq should go in before the origin and the rest should be
   //inserted at the sequence start
   const { maintainOriginSplit } = options;
-  let existingSequenceData = tidyUpSequenceData(_existingSequenceData);
-  const sequenceDataToInsert = tidyUpSequenceData(_sequenceDataToInsert);
+  let existingSequenceData = tidyUpSequenceData(_existingSequenceData, options);
+  const sequenceDataToInsert = tidyUpSequenceData(
+    _sequenceDataToInsert,
+    options
+  );
   let newSequenceData = cloneDeep(existingSequenceData);
   const insertLength = sequenceDataToInsert.proteinSequence
     ? sequenceDataToInsert.proteinSequence.length * 3
@@ -41,15 +44,18 @@ module.exports = function insertSequenceDataAtPositionOrRange(
     ) === existingSequenceData.sequence.length
   ) {
     //handle the case where we're deleting everything!
-    existingSequenceData = tidyUpSequenceData({
-      ...existingSequenceData,
-      ...modifiableTypes.reduce((acc, type) => {
-        return (acc[type] = []);
-      }, {}),
-      sequence: "",
-      proteinSequence: "",
-      chromatogramData: undefined
-    });
+    existingSequenceData = tidyUpSequenceData(
+      {
+        ...existingSequenceData,
+        ...modifiableTypes.reduce((acc, type) => {
+          return (acc[type] = []);
+        }, {}),
+        sequence: "",
+        proteinSequence: "",
+        chromatogramData: undefined
+      },
+      options
+    );
     newSequenceData.chromatogramData = undefined;
   } else if (
     newSequenceData.chromatogramData &&

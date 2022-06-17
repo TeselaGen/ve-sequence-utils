@@ -6,9 +6,10 @@ const rotateBpsToPosition = require("./rotateBpsToPosition");
 
 module.exports = function rotateSequenceDataToPosition(
   sequenceData,
-  caretPosition
+  caretPosition,
+  options
 ) {
-  const newSequenceData = tidyUpSequenceData(sequenceData);
+  const newSequenceData = tidyUpSequenceData(sequenceData, options);
 
   //update the sequence
   newSequenceData.sequence = rotateBpsToPosition(

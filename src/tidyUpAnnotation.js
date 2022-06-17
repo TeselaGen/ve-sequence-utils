@@ -12,7 +12,8 @@ module.exports = function tidyUpAnnotation(
     provideNewIdsForAnnotations,
     doNotProvideIdsForAnnotations,
     messages = [],
-    mutative
+    mutative,
+    allowNonStandardGenbankTypes
   }
 ) {
   const { size, circular, isProtein } = sequenceData;
@@ -89,6 +90,7 @@ module.exports = function tidyUpAnnotation(
         annotation.type = featureType; //this makes sure the annotation.type is being set to the exact value of the accepted featureType
         return true;
       }
+      if (allowNonStandardGenbankTypes) return true;
       return false;
     })
   ) {
