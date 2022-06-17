@@ -4,7 +4,7 @@ const tidyUpSequenceData = require("./tidyUpSequenceData");
 const getSequenceDataBetweenRange = require("./getSequenceDataBetweenRange");
 
 // ac.throw([ac.string,ac.bool],arguments);
-module.exports = function getReverseComplementSequenceAndAnnoations(
+module.exports = function getComplementSequenceAndAnnotations(
   pSeqObj,
   options = {}
 ) {

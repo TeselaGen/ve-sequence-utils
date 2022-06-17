@@ -1,4 +1,4 @@
-const { cloneDeep } = require("lodash");
+const { cloneDeep, get } = require("lodash");
 const FeatureTypes = require("./FeatureTypes.js");
 const featureColors = require("./featureColors");
 const bsonObjectid = require("bson-objectid");
@@ -90,7 +90,11 @@ module.exports = function tidyUpAnnotation(
         annotation.type = featureType; //this makes sure the annotation.type is being set to the exact value of the accepted featureType
         return true;
       }
-      if (allowNonStandardGenbankTypes) return true;
+      if (
+        allowNonStandardGenbankTypes ||
+        get(window || global, "tg_allowNonStandardGenbankTypes")
+      )
+        return true;
       return false;
     })
   ) {
