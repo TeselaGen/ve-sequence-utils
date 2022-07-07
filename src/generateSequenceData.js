@@ -6,7 +6,11 @@ const objectid = require("bson-objectid");
 
 module.exports = function generateSequenceData({
   isProtein,
-  sequenceLength = 1000
+  sequenceLength = 1000,
+  numFeatures,
+  numParts,
+  numPrimers,
+  numTranslations
 } = {}) {
   let proteinSequence = isProtein && generateSequence(sequenceLength, true);
   let sequence = !isProtein && generateSequence(sequenceLength);
@@ -20,17 +24,27 @@ module.exports = function generateSequenceData({
     proteinSequence,
     translations: isProtein
       ? undefined
-      : generateAnnotations(5, 0, sequenceLength - 1, sequenceLength / 3),
+      : generateAnnotations(
+          numTranslations || 5,
+          0,
+          sequenceLength - 1,
+          sequenceLength / 3
+        ),
     features: generateAnnotations(
-      10,
+      numFeatures || 10,
       0,
       sequenceLength - 1,
       sequenceLength / 3
     ),
     primers: isProtein
       ? undefined
-      : generateAnnotations(10, 0, sequenceLength - 1, 50),
-    parts: generateAnnotations(10, 0, sequenceLength - 1, sequenceLength / 3)
+      : generateAnnotations(numPrimers || 10, 0, sequenceLength - 1, 50),
+    parts: generateAnnotations(
+      numParts || 10,
+      0,
+      sequenceLength - 1,
+      sequenceLength / 3
+    )
   };
 };
 
