@@ -60,7 +60,7 @@ module.exports = {
     hydrophobicity: -3.5,
     colorByFamily: "#D3D3D3",
     color: "hsl(268.9, 100%, 69%)",
-    weight: 146.1
+    weight: 146.2
   },
   G: {
     value: "G",
@@ -192,7 +192,8 @@ module.exports = {
     name: "Stop",
     threeLettersName: "Stop",
     colorByFamily: "#FF0000",
-    color: "hsl(0, 100%, 69%)"
+    color: "hsl(0, 100%, 69%)",
+    weight: 0
   },
   ".": {
     //tnr: this is actually a deletion/gap character (previously we had this as a stop character which is incorrect) https://www.dnabaser.com/articles/IUPAC%20ambiguity%20codes.html
@@ -200,14 +201,16 @@ module.exports = {
     name: "Gap",
     threeLettersName: "Gap",
     colorByFamily: "#FF0000",
-    color: "hsl(0, 100%, 69%)"
+    color: "hsl(0, 100%, 69%)",
+    weight: 0
   },
   "-": {
     value: "-",
     name: "Gap",
     threeLettersName: "Gap",
     colorByFamily: "#FF0000",
-    color: "hsl(0, 100%, 69%)"
+    color: "hsl(0, 100%, 69%)",
+    weight: 0,
   },
   B: {
     value: "B",
@@ -216,7 +219,8 @@ module.exports = {
     color: "hsl(268.9, 100%, 69%)",
     isAmbiguous: true,
     name: "B",
-    aliases: "ND"
+    aliases: "ND",
+    weight: 0,
   },
   J: {
     value: "J",
@@ -225,7 +229,8 @@ module.exports = {
     color: "hsl(352, 100%, 69%)",
     isAmbiguous: true,
     name: "J",
-    aliases: "IL"
+    aliases: "IL",
+    weight: 0,
   },
   X: {
     value: "X",
@@ -234,7 +239,8 @@ module.exports = {
     color: "hsl(60, 100%, 69%)",
     isAmbiguous: true,
     name: "X",
-    aliases: "ACDEFGHIKLMNPQRSTVWY"
+    aliases: "ACDEFGHIKLMNPQRSTVWY",
+    weight: 0,
   },
   Z: {
     value: "Z",
@@ -243,6 +249,7 @@ module.exports = {
     color: "hsl(268.9, 100%, 69%)",
     isAmbiguous: true,
     name: "Z",
-    aliases: "QE"
+    aliases: "QE",
+    weight: 0
   }
 };
