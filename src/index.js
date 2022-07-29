@@ -78,3 +78,4 @@ module.exports.aminoAcidToDegenerateDnaMap = require("./aminoAcidToDegenerateDna
 module.exports.aminoAcidToDegenerateRnaMap = require("./aminoAcidToDegenerateRnaMap");
 module.exports.degenerateDnaToAminoAcidMap = require("./degenerateDnaToAminoAcidMap");
 module.exports.degenerateRnaToAminoAcidMap = require("./degenerateRnaToAminoAcidMap");
+module.exports.getMassOfAaString = require("./getMassOfAaString");
