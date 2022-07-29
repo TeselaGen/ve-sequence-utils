@@ -1,6 +1,11 @@
-module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options = {}) {
-  const { threshold = 0.9, dnaLetters = ["G", "A", "T", "C", "U"] } = options;
+const { ambiguous_dna_letters } = require("./bioData");
 
+module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options = {}) {
+  const { threshold = 0.9, loose } = options;
+  const dnaLetters =
+    options.dnaLetters || loose
+      ? ambiguous_dna_letters.split("")
+      : ["G", "A", "T", "C", "U"];
   // Guess if the given sequence is DNA or Protein.
 
   //   It's considered DNA if more than 90% of the sequence is GATCs. The threshold
@@ -12,6 +17,7 @@ module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options = {}) {
     return acc;
   }, {});
   let count = 0;
+  if (!seq || !seq.length) return true;
   for (let index = 0; index < seq.length; index++) {
     const letter = seq[index];
     if (dnaLetterMap[letter.toUpperCase()]) {
