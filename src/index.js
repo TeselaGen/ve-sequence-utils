@@ -79,3 +79,5 @@ module.exports.aminoAcidToDegenerateRnaMap = require("./aminoAcidToDegenerateRna
 module.exports.degenerateDnaToAminoAcidMap = require("./degenerateDnaToAminoAcidMap");
 module.exports.degenerateRnaToAminoAcidMap = require("./degenerateRnaToAminoAcidMap");
 module.exports.getMassOfAaString = require("./getMassOfAaString");
+module.exports.shiftAnnotationsByLen = require("./shiftAnnotationsByLen");
+module.exports.adjustAnnotationsToInsert = require("./adjustAnnotationsToInsert");

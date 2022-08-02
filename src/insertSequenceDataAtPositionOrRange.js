@@ -3,13 +3,11 @@ const { map, cloneDeep } = require("lodash");
 const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
 const rotateSequenceDataToPosition = require("./rotateSequenceDataToPosition");
 
-const {
-  adjustRangeToInsert,
-  adjustRangeToDeletionOfAnotherRange
-} = require("ve-range-utils");
+const { adjustRangeToDeletionOfAnotherRange } = require("ve-range-utils");
 const tidyUpSequenceData = require("./tidyUpSequenceData");
 const modifiableTypes = require("./annotationTypes").modifiableTypes;
 const adjustBpsToReplaceOrInsert = require("./adjustBpsToReplaceOrInsert");
+const adjustAnnotationsToInsert = require("./adjustAnnotationsToInsert");
 
 module.exports = function insertSequenceDataAtPositionOrRange(
   _sequenceDataToInsert,
@@ -169,22 +167,6 @@ module.exports = function insertSequenceDataAtPositionOrRange(
   return newSequenceData;
 };
 
-function adjustAnnotationsToInsert(
-  annotationsToBeAdjusted,
-  insertStart,
-  insertLength
-) {
-  return map(annotationsToBeAdjusted, function(annotation) {
-    return {
-      ...adjustRangeToInsert(annotation, insertStart, insertLength),
-      ...(annotation.locations && {
-        locations: annotation.locations.map(loc =>
-          adjustRangeToInsert(loc, insertStart, insertLength)
-        )
-      })
-    };
-  });
-}
 function adjustAnnotationsToDelete(annotationsToBeAdjusted, range, maxLength) {
   return map(annotationsToBeAdjusted, function(annotation) {
     const newRange = adjustRangeToDeletionOfAnotherRange(
