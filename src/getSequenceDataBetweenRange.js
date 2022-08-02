@@ -1,4 +1,4 @@
-const { flatMap, extend, forEach } = require("lodash");
+const { flatMap, extend, forEach, startCase } = require("lodash");
 const { getRangeLength } = require("ve-range-utils");
 const convertDnaCaretPositionOrRangeToAa = require("./convertDnaCaretPositionOrRangeToAA");
 const insertSequenceDataAtPosition = require("./insertSequenceDataAtPosition");
@@ -18,6 +18,9 @@ module.exports = function getSequenceDataBetweenRange(
   if (!range) return seqData;
   const { exclude = {}, excludePartial = {} } = options;
   const seqDataToUse = tidyUpSequenceData(seqData, options);
+  annotationTypes.forEach(type => {
+    delete seqDataToUse[`filtered${startCase(type)}`];
+  });
   let seqDataToReturn = extend(
     {},
     seqDataToUse,
@@ -78,6 +81,7 @@ module.exports = function getSequenceDataBetweenRange(
     });
     return tidyUpSequenceData(toRet, options);
   }
+
   return tidyUpSequenceData(seqDataToReturn, options);
 };
 
