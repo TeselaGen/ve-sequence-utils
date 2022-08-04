@@ -92,7 +92,10 @@ module.exports = function tidyUpAnnotation(
       }
       if (
         allowNonStandardGenbankTypes ||
-        get(window || global, "tg_allowNonStandardGenbankTypes")
+        get(
+          typeof window !== undefined ? window : global,
+          "tg_allowNonStandardGenbankTypes"
+        )
       )
         return true;
       return false;
