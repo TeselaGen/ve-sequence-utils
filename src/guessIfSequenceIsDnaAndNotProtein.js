@@ -4,7 +4,7 @@ module.exports = function guessIfSequenceIsDnaAndNotProtein(seq, options = {}) {
   const { threshold = 0.9, loose } = options;
   const dnaLetters =
     options.dnaLetters || loose
-      ? ambiguous_dna_letters.split("")
+      ? [...ambiguous_dna_letters.split(""), "U"]
       : ["G", "A", "T", "C", "U"];
   // Guess if the given sequence is DNA or Protein.
 
