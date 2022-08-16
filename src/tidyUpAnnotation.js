@@ -109,6 +109,17 @@ module.exports = function tidyUpAnnotation(
     );
     annotation.type = "misc_feature";
   }
+  if (annotation.notes && typeof annotation.notes === "string") {
+    try {
+      annotation.notes = JSON.parse(annotation.notes);
+    } catch (error) {
+      console.info(
+        `warning 33y00a0912 - couldn't parse notes for ${annotation.name ||
+          ""} ${annotation.notes}:`,
+        error
+      );
+    }
+  }
 
   if (!annotation.color) {
     annotation.color = featureColors[annotation.type];

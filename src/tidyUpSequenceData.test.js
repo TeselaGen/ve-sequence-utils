@@ -211,6 +211,33 @@ describe("tidyUpSequenceData", function() {
     });
     res.features[0].type.should.equal("misc_feature");
   });
+  it("should try to auto-parse annotation.notes into JSON and gracefully handle errors", function() {
+    const res = tidyUpSequenceData({
+      features: [
+        {
+          start: 4,
+          end: 5,
+          notes:
+            '{"gene":["Ampicillin"],"note":["ORF frame 1"],"translation":["MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW*"],"ApEinfo_fwdcolor":["pink"],"ApEinfo_revcolor":["pink"],"ApEinfo_graphicformat":["arrow_data {{0 1 2 0 0 -1} {} 0}"]}'
+        }
+      ]
+    });
+    res.features[0].notes.gene[0].should.equal("Ampicillin");
+    const res2 = tidyUpSequenceData({
+      features: [
+        {
+          start: 4,
+          end: 5,
+          //messed up JSON notes here:
+          notes:
+            '{"gene:["Ampicillin"],"note":["ORF frame 1"],"translation":["MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW*"],"ApEinfo_fwdcolor":["pink"],"ApEinfo_revcolor":["pink"],"ApEinfo_graphicformat":["arrow_data {{0 1 2 0 0 -1} {} 0}"]}'
+        }
+      ]
+    });
+    res2.features[0].notes.should.equal(
+      '{"gene:["Ampicillin"],"note":["ORF frame 1"],"translation":["MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGYIELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVEYSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRLDRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPLLRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIAEIGASLIKHW*"],"ApEinfo_fwdcolor":["pink"],"ApEinfo_revcolor":["pink"],"ApEinfo_graphicformat":["arrow_data {{0 1 2 0 0 -1} {} 0}"]}'
+    );
+  });
   it("should add feature type = misc_feature if an invalid type is provided", function() {
     const res = tidyUpSequenceData({
       features: [{ start: 4, end: 5, type: "idontexist" }]
