@@ -2,7 +2,7 @@
 
 // var ac = require('ve-api-check');
 const { generateRandomRange } = require("ve-range-utils");
-const objectid = require("bson-objectid");
+const bsonObjectId = require("bson-objectid");
 
 module.exports = function generateSequenceData({
   isProtein,
@@ -83,7 +83,7 @@ function generateAnnotation(start, end, maxLength) {
     ...range,
     name: getRandomInt(0, 100000).toString(),
     type: "misc_feature",
-    id: objectid().str,
+    id: bsonObjectId().str,
     forward: Math.random() > 0.5,
     notes: {}
   };

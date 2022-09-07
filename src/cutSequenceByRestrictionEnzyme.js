@@ -1,4 +1,6 @@
 const { assign } = require("lodash");
+const bsonObjectId = require("bson-objectid");
+
 const getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
 
 const {
@@ -12,19 +14,6 @@ module.exports = function cutSequenceByRestrictionEnzyme(
   circular,
   restrictionEnzyme
 ) {
-  // ac.throw([
-  //     ac.string,
-  //     ac.bool,
-  //     ac.shape({
-  //         "name": ac.string,
-  //         "site": ac.string,
-  //         "forwardRegex": ac.string,
-  //         "reverseRegex": ac.string,
-  //         "cutsTwice": ac.number,
-  //         "topSnipOffset": ac.number,
-  //         "bottomSnipOffset": ac.number
-  //     })
-  // ], arguments);
   if (
     restrictionEnzyme.forwardRegex.length === 0 ||
     restrictionEnzyme.reverseRegex.length === 0
@@ -280,6 +269,7 @@ function cutSequence(
       let overhangBps = getSequenceWithinRange(cutRange, originalSequence);
 
       restrictionCutSite = {
+        id: bsonObjectId().str,
         start,
         end,
         topSnipPosition,

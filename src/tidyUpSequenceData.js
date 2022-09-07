@@ -1,5 +1,5 @@
 // tnrtodo: figure out where to insert this validation exactly..
-const bsonObjectid = require("bson-objectid");
+const bsonObjectId = require("bson-objectid");
 const getAminoAcidDataForEachBaseOfDna = require("./getAminoAcidDataForEachBaseOfDna");
 const { cloneDeep, flatMap } = require("lodash");
 const annotationTypes = require("./annotationTypes");
@@ -148,7 +148,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
         if (item.id || item.id === 0) {
           itemId = item.id;
         } else {
-          itemId = bsonObjectid().str;
+          itemId = bsonObjectId().str;
           if (!doNotProvideIdsForAnnotations) {
             item.id = itemId; //assign the newly created id to the item
           }

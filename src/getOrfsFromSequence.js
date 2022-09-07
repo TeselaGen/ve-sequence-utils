@@ -1,4 +1,4 @@
-const ObjectId = require("bson-objectid");
+const bsonObjectId = require("bson-objectid");
 const getReverseComplementSequenceString = require("./getReverseComplementSequenceString");
 // const ac = require('ve-api-check');
 /**
@@ -73,7 +73,7 @@ module.exports = function getOrfsFromSequence(options) {
           forward: forward,
           annotationTypePlural: "orfs",
           isOrf: true,
-          id: ObjectId().str
+          id: bsonObjectId().str
         });
       }
     }

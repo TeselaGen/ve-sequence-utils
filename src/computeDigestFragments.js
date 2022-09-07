@@ -1,0 +1,151 @@
+const { flatMap, cloneDeep } = require("lodash");
+const bsonObjectId = require("bson-objectid");
+
+const {
+  normalizePositionByRangeLength,
+  getRangeLength
+} = require("ve-range-utils");
+const getCutsitesFromSequence = require("./getCutsitesFromSequence");
+
+function computeDigestFragments({
+  cutsites,
+  sequenceLength,
+  circular,
+  //optional:
+  computePartialDigest,
+  computeDigestDisabled,
+  computePartialDigestDisabled,
+  selectionLayerUpdate,
+  updateSelectedFragment
+}) {
+  const fragments = [];
+  const overlappingEnzymes = [];
+  const pairs = [];
+
+  const sortedCutsites = cutsites.sort((a, b) => {
+    return a.topSnipPosition - b.topSnipPosition;
+  });
+  if (!circular) {
+    sortedCutsites.push({
+      id: "seqTerm_" + bsonObjectId().str,
+      start: 0,
+      end: 0,
+      overhangBps: "",
+      topSnipPosition: 0,
+      bottomSnipPosition: 0,
+      upstreamTopSnip: 0,
+      upstreamBottomSnip: 0,
+      upstreamTopBeforeBottom: false,
+      topSnipBeforeBottom: false,
+      recognitionSiteRange: {
+        start: 0,
+        end: 0
+      },
+      forward: true,
+      name: "Sequence_Terminus",
+      restrictionEnzyme: {
+        name: "Sequence_Terminus"
+      }
+    });
+  }
+
+  sortedCutsites.forEach((cutsite1, index) => {
+    if (computePartialDigest && !computePartialDigestDisabled) {
+      sortedCutsites.forEach((cs, index2) => {
+        if (index2 === index + 1 || index2 === 0) {
+          return;
+        }
+        pairs.push([cutsite1, sortedCutsites[index2]]);
+      });
+    }
+    if (!computeDigestDisabled) {
+      pairs.push([
+        cutsite1,
+        sortedCutsites[index + 1]
+          ? sortedCutsites[index + 1]
+          : sortedCutsites[0]
+      ]);
+    }
+  });
+
+  pairs.forEach(r => {
+    let [cut1, cut2] = r;
+
+    const start = normalizePositionByRangeLength(
+      cut1.topSnipPosition,
+      sequenceLength
+    );
+    const end = normalizePositionByRangeLength(
+      cut2.topSnipPosition - 1,
+      sequenceLength
+    );
+    const size = getRangeLength({ start, end }, sequenceLength);
+
+    // const id = uniqid()
+    let isFormedFromLinearEnd;
+    if (cut1.name === "Sequence_Terminus") {
+      cut1 = cloneDeep(cut1);
+      isFormedFromLinearEnd = true;
+      cut1.name = "Linear_Sequence_Start";
+      cut1.restrictionEnzyme.name = "Linear_Sequence_Start";
+    } else if (cut2.name === "Sequence_Terminus") {
+      cut2 = cloneDeep(cut2);
+      isFormedFromLinearEnd = true;
+      cut2.name = "Linear_Sequence_End";
+      cut2.restrictionEnzyme.name = "Linear_Sequence_End";
+    }
+
+    const id = start + "-" + end + "-" + size + "-";
+    const name = `${cut1.restrictionEnzyme.name} -- ${cut2.restrictionEnzyme.name} ${size} bps`;
+    getRangeLength({ start, end }, sequenceLength);
+
+    fragments.push({
+      isFormedFromLinearEnd,
+      madeFromOneCutsite: cut1 === cut2,
+      start,
+      end,
+      size,
+      id,
+      name,
+      cut1,
+      cut2,
+      onFragmentSelect:
+        selectionLayerUpdate && updateSelectedFragment
+          ? () => {
+              selectionLayerUpdate({
+                start,
+                end,
+                name
+              });
+
+              updateSelectedFragment(id);
+            }
+          : undefined
+    });
+  });
+  fragments.filter(fragment => {
+    if (!fragment.size) {
+      overlappingEnzymes.push(fragment);
+      return false;
+    }
+    return true;
+  });
+  return {
+    computePartialDigestDisabled,
+    computeDigestDisabled,
+    fragments,
+    overlappingEnzymes
+  };
+}
+
+function getDigestFragsForSeqAndEnzymes({ sequence, circular, enzymes }) {
+  const cutsitesByName = getCutsitesFromSequence(sequence, circular, enzymes);
+  return computeDigestFragments({
+    cutsites: flatMap(cutsitesByName),
+    sequenceLength: sequence.length,
+    circular
+  });
+}
+
+module.exports.computeDigestFragments = computeDigestFragments;
+module.exports.getDigestFragsForSeqAndEnzymes = getDigestFragsForSeqAndEnzymes;

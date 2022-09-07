@@ -1,7 +1,7 @@
 const { cloneDeep, get } = require("lodash");
 const FeatureTypes = require("./FeatureTypes.js");
 const featureColors = require("./featureColors");
-const bsonObjectid = require("bson-objectid");
+const bsonObjectId = require("bson-objectid");
 
 module.exports = function tidyUpAnnotation(
   _annotation,
@@ -34,10 +34,10 @@ module.exports = function tidyUpAnnotation(
     annotation.name = "Untitled annotation";
   }
   if (provideNewIdsForAnnotations) {
-    annotation.id = bsonObjectid().str;
+    annotation.id = bsonObjectId().str;
   }
   if (!annotation.id && annotation.id !== 0 && !doNotProvideIdsForAnnotations) {
-    annotation.id = bsonObjectid().str;
+    annotation.id = bsonObjectId().str;
     messages.push(
       "Unable to detect valid ID for annotation, setting ID to " + annotation.id
     );
