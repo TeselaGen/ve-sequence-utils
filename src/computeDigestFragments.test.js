@@ -4,7 +4,7 @@ const {
 const aliasedEnzymesByName = require("./aliasedEnzymesByName");
 
 describe("computeDigestFragments", function() {
-  it.only("it should correctly generate fragments for bamhi cutting once in a circular sequence", function() {
+  it("it should correctly generate fragments for bamhi cutting once in a circular sequence", function() {
     const result = getDigestFragsForSeqAndEnzymes({
       sequence: "ggggatccggggggggggggggggggggggggggggggggggggggggg",
       circular: true,
@@ -40,5 +40,21 @@ describe("computeDigestFragments", function() {
     expect(result.fragments[1].end).toEqual(2);
     expect(result.fragments[1].size).toEqual(3);
     expect(result.fragments[1].madeFromOneCutsite).toEqual(false);
+  });
+  it("it should not generate any fragments for bamhi if it doesn't cut in a linear sequence", function() {
+    const result = getDigestFragsForSeqAndEnzymes({
+      sequence: "ggggggggggggggggggggggggggggggggggggggggggggg",
+      circular: false,
+      enzymes: [aliasedEnzymesByName.bamhi]
+    });
+    expect(result.fragments).toHaveLength(0);
+  });
+  it("it should not generate any fragments for bamhi if it doesn't cut in a circular sequence", function() {
+    const result = getDigestFragsForSeqAndEnzymes({
+      sequence: "ggggggggggggggggggggggggggggggggggggggggggggg",
+      circular: true,
+      enzymes: [aliasedEnzymesByName.bamhi]
+    });
+    expect(result.fragments).toHaveLength(0);
   });
 });

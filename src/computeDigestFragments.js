@@ -25,7 +25,7 @@ function computeDigestFragments({
   const sortedCutsites = cutsites.sort((a, b) => {
     return a.topSnipPosition - b.topSnipPosition;
   });
-  if (!circular) {
+  if (!circular && cutsites.length) {
     sortedCutsites.push({
       id: "seqTerm_" + bsonObjectId().str,
       start: 0,
