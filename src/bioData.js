@@ -44,7 +44,9 @@ module.exports.protein_letters_1to3 = {
   T: "Thr",
   V: "Val",
   W: "Trp",
-  Y: "Tyr"
+  Y: "Tyr",
+  O: "Pyl",
+  U: "Sec"
 };
 // module.exports.protein_letters_1to3_extended = dict(
 //   list(protein_letters_1to3.items()) +
