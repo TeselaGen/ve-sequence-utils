@@ -12,6 +12,7 @@ function computeDigestFragments({
   sequenceLength,
   circular,
   //optional:
+  includeOverAndUnderHangs,
   computePartialDigest,
   computeDigestDisabled,
   computePartialDigestDisabled,
@@ -71,17 +72,41 @@ function computeDigestFragments({
   pairs.forEach(r => {
     let [cut1, cut2] = r;
 
-    const start = normalizePositionByRangeLength(
+    let start;
+    let end;
+    let size;
+    start = normalizePositionByRangeLength(
       cut1.topSnipPosition,
       sequenceLength
     );
-    const end = normalizePositionByRangeLength(
+    end = normalizePositionByRangeLength(
       cut2.topSnipPosition - 1,
       sequenceLength
     );
-    const size = getRangeLength({ start, end }, sequenceLength);
+    size = getRangeLength({ start, end }, sequenceLength);
+    let overlapsSelf;
+    if (includeOverAndUnderHangs) {
+      const oldSize = size;
+      start = normalizePositionByRangeLength(
+        cut1.topSnipBeforeBottom
+          ? cut1.topSnipPosition
+          : cut1.bottomSnipPosition,
+        sequenceLength
+      );
+      end = normalizePositionByRangeLength(
+        cut2.topSnipBeforeBottom
+          ? cut2.bottomSnipPosition - 1
+          : cut2.topSnipPosition - 1,
+        sequenceLength
+      );
+      size = getRangeLength({ start, end }, sequenceLength);
+      if (oldSize > size) {
+        //we've got a part that wraps on itself
+        overlapsSelf = true;
+        size += sequenceLength;
+      }
+    }
 
-    // const id = uniqid()
     let isFormedFromLinearEnd;
     if (cut1.name === "Sequence_Terminus") {
       cut1 = cloneDeep(cut1);
@@ -105,6 +130,7 @@ function computeDigestFragments({
       start,
       end,
       size,
+      overlapsSelf,
       id,
       name,
       cut1,
@@ -138,9 +164,15 @@ function computeDigestFragments({
   };
 }
 
-function getDigestFragsForSeqAndEnzymes({ sequence, circular, enzymes }) {
+function getDigestFragsForSeqAndEnzymes({
+  sequence,
+  circular,
+  enzymes,
+  includeOverAndUnderHangs
+}) {
   const cutsitesByName = getCutsitesFromSequence(sequence, circular, enzymes);
   return computeDigestFragments({
+    includeOverAndUnderHangs,
     cutsites: flatMap(cutsitesByName),
     sequenceLength: sequence.length,
     circular

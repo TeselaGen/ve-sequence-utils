@@ -4,6 +4,21 @@ const {
 const aliasedEnzymesByName = require("./aliasedEnzymesByName");
 
 describe("computeDigestFragments", function() {
+  it("it should correctly generate fragments for bamhi cutting once in a circular sequence with includeOverAndUnderHangs=true", function() {
+    const result = getDigestFragsForSeqAndEnzymes({
+      sequence: "ggggatccggggggggggggggggggggggggggggggggggggggggg",
+      circular: true,
+      enzymes: [aliasedEnzymesByName.bamhi],
+      includeOverAndUnderHangs: true
+    });
+    expect(result.fragments).toHaveLength(1);
+    expect(result.fragments[0].overlapsSelf).toEqual(true);
+    expect(result.fragments[0].start).toEqual(3);
+    expect(result.fragments[0].end).toEqual(6);
+    // expect(result.fragments[0].size).toEqual(4);
+    expect(result.fragments[0].size).toEqual(53);
+    expect(result.fragments[0].madeFromOneCutsite).toEqual(true);
+  });
   it("it should correctly generate fragments for bamhi cutting once in a circular sequence", function() {
     const result = getDigestFragsForSeqAndEnzymes({
       sequence: "ggggatccggggggggggggggggggggggggggggggggggggggggg",
