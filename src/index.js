@@ -1,8 +1,18 @@
 const diffUtils = require("./diffUtils");
 const { autoAnnotate, convertApELikeRegexToRegex } = require("./autoAnnotate");
+const {
+  getFeatureColors,
+  getFeatureTypes
+} = require("./featureTypesAndColors");
+module.exports.getFeatureColors = getFeatureColors;
+module.exports.getFeatureTypes = getFeatureTypes;
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+//tnr: these are deprecated exports and should no longer be used!
+module.exports.FeatureTypes = getFeatureTypes();
+module.exports.featureColors = getFeatureColors();
+/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 module.exports.autoAnnotate = autoAnnotate;
 module.exports.convertApELikeRegexToRegex = convertApELikeRegexToRegex;
-
 module.exports.diffUtils = diffUtils;
 module.exports.getDiffFromSeqs = diffUtils.getDiffFromSeqs;
 module.exports.patchSeqWithDiff = diffUtils.patchSeqWithDiff;
@@ -25,8 +35,6 @@ module.exports.DNAComplementMap = require("./DNAComplementMap");
 module.exports.doesEnzymeChopOutsideOfRecognitionSite = require("./doesEnzymeChopOutsideOfRecognitionSite");
 module.exports.aliasedEnzymesByName = require("./aliasedEnzymesByName");
 module.exports.defaultEnzymesByName = require("./defaultEnzymesByName");
-module.exports.featureColors = require("./featureColors");
-module.exports.FeatureTypes = require("./FeatureTypes");
 module.exports.generateSequenceData = require("./generateSequenceData");
 module.exports.filterAminoAcidSequenceString = require("./filterAminoAcidSequenceString");
 module.exports.filterSequenceString = require("./filterSequenceString");

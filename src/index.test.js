@@ -9,7 +9,8 @@ describe("index.js", () => {
         if (
           file.indexOf(".test.js") > -1 ||
           file.indexOf("index.js") > -1 ||
-          file.indexOf("prepareRowData_output1.json") > -1
+          file.indexOf("prepareRowData_output1.json") > -1 ||
+          file.indexOf("featureTypesAndColors") > -1
         ) {
           return;
         }

@@ -1,6 +1,8 @@
-const { cloneDeep, get } = require("lodash");
-const FeatureTypes = require("./FeatureTypes.js");
-const featureColors = require("./featureColors");
+const { cloneDeep, get, some } = require("lodash");
+const {
+  getFeatureColors,
+  getFeatureTypes
+} = require("./featureTypesAndColors");
 const bsonObjectId = require("bson-objectid");
 
 module.exports = function tidyUpAnnotation(
@@ -85,7 +87,7 @@ module.exports = function tidyUpAnnotation(
   if (
     !annotation.type ||
     typeof annotation.type !== "string" ||
-    !FeatureTypes.some(function(featureType) {
+    !some(getFeatureTypes(), function(featureType) {
       if (featureType.toLowerCase() === annotation.type.toLowerCase()) {
         annotation.type = featureType; //this makes sure the annotation.type is being set to the exact value of the accepted featureType
         return true;
@@ -122,7 +124,7 @@ module.exports = function tidyUpAnnotation(
   }
 
   if (!annotation.color) {
-    annotation.color = featureColors[annotation.type];
+    annotation.color = getFeatureColors()[annotation.type];
   }
   return annotation;
 };

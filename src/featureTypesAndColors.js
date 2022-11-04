@@ -1,4 +1,6 @@
-module.exports = {
+const { map, omitBy, get, forEach } = require("lodash");
+
+const featureColors = {
   "-10_signal": "#4ECDC4",
   "-35_signal": "#F7FFF7",
   "3'clip": "#FF6B6B",
@@ -6,6 +8,19 @@ module.exports = {
   "5'clip": "#3E517A",
   "5'UTR": "#BBBBBB",
   "D-loop": "#F13C73",
+  assembly_gap: "#DE9151",
+  centromere: "#F34213",
+  Het: "#BC5D2E",
+  mobile_element: "#6DB1BF",
+  ncRNA: "#FFEAEC",
+  proprotein: "#F39A9D",
+  regulatory: "#3F6C51",
+  SecStr: "#7B4B94",
+  Site: "#7D82B8",
+  telomere: "DE9151",
+  tmRNA: "#B7E3CC",
+  unsure: "#C4FFB2",
+  V_segment: "#D6F7A3",
   allele: "#D86D6D",
   attenuator: "#6B7F9C",
   C_region: "#B5D89D",
@@ -76,4 +91,46 @@ module.exports = {
   tRNA: "#D1456F",
   V_region: "#7B5EE7",
   variation: "#2EE455"
+};
+
+const getFeatureColors = ({
+  returnGenbankMapping,
+  onlyIncludeGenbankCompatible
+} = {}) => {
+  const additionalFeatureTypeToColors =
+    (typeof window !== "undefined" &&
+      get(window, "tg_extra_feature_type_color_map")) ||
+    get(global, "tg_extra_feature_type_color_map");
+  const genbankMapping = {};
+  const toSpread = {};
+  forEach(additionalFeatureTypeToColors, (val, key) => {
+    if (val && val.color) {
+      toSpread[key] = val.color;
+      if (val.genbankMapping) {
+        genbankMapping[key] = val.genbankMapping;
+      }
+    } else {
+      toSpread[key] = val;
+    }
+  });
+  if (returnGenbankMapping) {
+    return genbankMapping;
+  }
+  return omitBy(
+    {
+      ...featureColors,
+      ...(onlyIncludeGenbankCompatible ? {} : toSpread)
+    },
+    val => !val
+  );
+};
+
+const getFeatureTypes = (...r) => {
+  return map(getFeatureColors(...r), (v, k) => k);
+};
+
+module.exports = {
+  getFeatureColors,
+  getFeatureTypes,
+  featureTypes: get
 };
