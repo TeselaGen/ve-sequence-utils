@@ -7267,7 +7267,6 @@
 //   };
 
 //   const hash = getEnzymeHash(enzymeObj);
-//   console.log(`hash:`, hash);
 //   const existing = enzByHash[hash] || [];
 //   enzByHash[hash] = [enzymeObj].concat(existing);
 
@@ -7306,13 +7305,10 @@
 // });
 
 
-// // console.log(`condensedEnz:`,condensedEnz)
 
 // require('jsonfile').writeFile(require('path').join(__dirname, 'aliasedEnzymes.json'), condensedEnz, {spaces: 4}, function (err) {
 //   if (err) console.error('error writing json', err)
 // })
-// // console.log(`enzByHash:`, enzByHash);
-// // console.log(`Object.keys(enzByHash).length:`, Object.keys(enzByHash).length);
 
 // function getEnzymeHash(z) {
 //   return `${z.site}-${z.topSnipOffset}-${z.bottomSnipOffset}-${z.cutType}-${z.usForward}-${z.usReverse}`;

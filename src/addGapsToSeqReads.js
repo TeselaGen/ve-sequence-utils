@@ -413,6 +413,5 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
 
   // seqReadsWithGaps is an array of objects containing the ref seq with gaps first and then all seq reads with gaps
   // e.g. [{ name: "ref seq", sequence: "GG---GA--GA-C--A---CC---"}, { name: "r1", sequence: "-----GATTGA-C-----------"}...]
-  // console.log('seqReadsWithGaps:',seqReadsWithGaps)
   return seqReadsWithGaps;
 };

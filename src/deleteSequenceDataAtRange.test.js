@@ -57,7 +57,6 @@ describe("deleteSequenceDataAtRange", function() {
     let range = { start: 3, end: 5 };
     let postDeleteSeqData = deleteSequenceDataAtRange(existingSequence, range);
     existingSequence.should.deep.equal(clonedExistingSeq);
-    // console.log('existingSequence:',existingSequence)
     postDeleteSeqData.sequence.length.should.equal(
       existingSequence.sequence.length - getRangeLength(range)
     );
@@ -70,7 +69,10 @@ describe("deleteSequenceDataAtRange", function() {
         {
           start: 0,
           end: 9,
-          locations: [{ start: 0, end: 2 }, { start: 4, end: 9 }]
+          locations: [
+            { start: 0, end: 2 },
+            { start: 4, end: 9 }
+          ]
         }
       ]
     };
@@ -82,7 +84,10 @@ describe("deleteSequenceDataAtRange", function() {
         {
           start: 0,
           end: 9,
-          locations: [{ start: 0, end: 2 }, { start: 4, end: 9 }]
+          locations: [
+            { start: 0, end: 2 },
+            { start: 4, end: 9 }
+          ]
         }
       ]
     });
@@ -107,14 +112,16 @@ describe("deleteSequenceDataAtRange", function() {
       start: 3,
       end: 7
     });
-    // console.log("post:", postDeleteSeqData);
     postDeleteSeqData.should.containSubset({
       sequence: "atgga",
       features: [
         {
           start: 0,
           end: 4,
-          locations: [{ start: 0, end: 2 }, { start: 4, end: 4 }]
+          locations: [
+            { start: 0, end: 2 },
+            { start: 4, end: 4 }
+          ]
         }
       ]
     });
@@ -129,7 +136,6 @@ describe("deleteSequenceDataAtRange", function() {
       start: 3,
       end: 3
     });
-    // console.log("post:", postDeleteSeqData);
     postDeleteSeqData.should.containSubset({
       sequence: "atggagaga",
       parts: [{ start: 4, end: 8 }]

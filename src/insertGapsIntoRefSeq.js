@@ -6,7 +6,6 @@ module.exports = function insertGapsIntoRefSeq(refSeq, seqReads) {
   // turn ref seq into an array ["A", "T", "C", "G"...]
   let refSeqWithGaps = refSeq.split("");
   const allInsertionsInSeqReads = getAllInsertionsInSeqReads(seqReads);
-  // console.log("all insertions", allInsertionsInSeqReads)
   for (let i = 0; i < allInsertionsInSeqReads.length; i++) {
     const bpPosOfInsertion = allInsertionsInSeqReads[i].bpPos;
     const numberOfInsertions = allInsertionsInSeqReads[i].number;

@@ -59,9 +59,6 @@ module.exports = function getOrfsFromSequence(options) {
       if (end >= originalSequenceLength) {
         end -= originalSequenceLength;
       }
-      // console.log(`m[1]:`,m[1])
-      // console.log(`start:`,start)
-      // console.log(`originalSequenceLength:`,originalSequenceLength)
       if (start < originalSequenceLength) {
         //only keep orfs that *begin* before the original sequence length (only the case when dealing with circular orfs)
         orfRanges.push({
@@ -101,7 +98,6 @@ module.exports = function getOrfsFromSequence(options) {
         ...internalOrf.internalStartCodonIndices,
         internalStartCodonIndex
       ];
-      // console.log(`internalOrf.remove:`,internalOrf.remove)
       //set a flag that we'll use to remove all these shorter, duplicated orfs
       internalOrf.remove = true;
     } else {

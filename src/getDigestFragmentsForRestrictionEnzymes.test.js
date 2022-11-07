@@ -212,7 +212,6 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
   //       enzymeList["bamhi"],
   //       { computePartialDigests: true }
   //     );
-  // console.log(`digestFragments:`,digestFragments)
   //     digestFragments.should.be.an.array;
   //     digestFragments.length.should.equal(9);
   //     digestFragments[0].start.should.equal(1);

@@ -1,24 +1,32 @@
-const { getFeatureColors } = require("./featureTypesAndColors");
+const {
+  getFeatureToColorMap,
+  getMergedFeatureMap,
+  getGenbankFeatureToColorMap
+} = require("./featureTypesAndColors");
 
-describe("getFeatureColors", function() {
+describe("getFeatureToColorMap", function() {
   it("should pass back feature colors by default ", function() {
-    expect(getFeatureColors().proprotein).toEqual("#F39A9D");
+    expect(getFeatureToColorMap().proprotein).toEqual("#F39A9D");
   });
+
   it("should allow overwriting of colors ", function() {
-    global.tg_extra_feature_type_color_map = {
-      proprotein: undefined,
-      someRandomFeature: {
-        color: "red",
-        genbankMapping: "RBS"
-      }
-    };
-    expect(getFeatureColors().proprotein).toEqual(undefined);
-    expect(getFeatureColors().someRandomFeature).toEqual("red");
+    global.tg_featureTypeOverrides = [
+      { name: "proprotein", isHidden: true },
+      { name: "someRandomFeature", color: "red", genbankEquivalentType: "RBS" }
+    ];
+    expect(getFeatureToColorMap().proprotein).toEqual(undefined);
+    expect(getFeatureToColorMap().someRandomFeature).toEqual("red");
+    expect(getGenbankFeatureToColorMap().someRandomFeature).toEqual(undefined);
+  });
+});
+describe("getMergedFeatureMap", function() {
+  it("should maintain the genbankEquivalentType", function() {
+    global.tg_featureTypeOverrides = [
+      { name: "proprotein", isHidden: true },
+      { name: "someRandomFeature", color: "red", genbankEquivalentType: "RBS" }
+    ];
     expect(
-      getFeatureColors({ onlyIncludeGenbankCompatible: true }).someRandomFeature
-    ).toEqual(undefined);
-    expect(
-      getFeatureColors({ returnGenbankMapping: true }).someRandomFeature
+      getMergedFeatureMap().someRandomFeature.genbankEquivalentType
     ).toEqual("RBS");
   });
 });

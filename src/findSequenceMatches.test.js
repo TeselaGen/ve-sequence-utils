@@ -258,10 +258,6 @@ describe("findSequenceMatches", function() {
       { bottomStrand: true, end: 2, start: 2 },
       { bottomStrand: true, end: 1, start: 1 }
     ]);
-    // console.log(
-    //   'findSequenceMatches("atg", "n", { isAmbiguous: true }):',
-    //   findSequenceMatches("atg", "n", { isAmbiguous: true })
-    // );
     expect(
       findSequenceMatches("atg", "n", {
         isAmbiguous: true,

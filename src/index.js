@@ -1,15 +1,19 @@
 const diffUtils = require("./diffUtils");
 const { autoAnnotate, convertApELikeRegexToRegex } = require("./autoAnnotate");
 const {
-  getFeatureColors,
-  getFeatureTypes
+  genbankFeatureTypes,
+  getFeatureToColorMap,
+  getFeatureTypes,
+  getMergedFeatureMap
 } = require("./featureTypesAndColors");
-module.exports.getFeatureColors = getFeatureColors;
+module.exports.getFeatureToColorMap = getFeatureToColorMap;
 module.exports.getFeatureTypes = getFeatureTypes;
+module.exports.genbankFeatureTypes = genbankFeatureTypes;
+module.exports.getMergedFeatureMap = getMergedFeatureMap;
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 //tnr: these are deprecated exports and should no longer be used!
 module.exports.FeatureTypes = getFeatureTypes();
-module.exports.featureColors = getFeatureColors();
+module.exports.featureColors = getFeatureToColorMap();
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 module.exports.autoAnnotate = autoAnnotate;
 module.exports.convertApELikeRegexToRegex = convertApELikeRegexToRegex;

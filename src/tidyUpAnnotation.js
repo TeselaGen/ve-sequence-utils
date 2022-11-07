@@ -1,6 +1,6 @@
 const { cloneDeep, get, some } = require("lodash");
 const {
-  getFeatureColors,
+  getFeatureToColorMap,
   getFeatureTypes
 } = require("./featureTypesAndColors");
 const bsonObjectId = require("bson-objectid");
@@ -83,7 +83,6 @@ module.exports = function tidyUpAnnotation(
     annotation.forward = false;
     annotation.strand = -1;
   }
-
   if (
     !annotation.type ||
     typeof annotation.type !== "string" ||
@@ -124,7 +123,7 @@ module.exports = function tidyUpAnnotation(
   }
 
   if (!annotation.color) {
-    annotation.color = getFeatureColors()[annotation.type];
+    annotation.color = getFeatureToColorMap()[annotation.type];
   }
   return annotation;
 };

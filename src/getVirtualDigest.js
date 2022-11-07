@@ -1,5 +1,3 @@
-const { uniqBy } = require("lodash");
-
 //UNDER CONSTRUCTION
 
 const {
@@ -81,7 +79,6 @@ module.exports = function getVirtualDigest({
       overlappingEnzymes.push(fragment);
       return false;
     }
-    // console.log('sizeMap:',sizeMap)
     // if (sizeMap[fragment.size]) {
     //   sizeMap[fragment.size].push(fragment);
     //   return false;

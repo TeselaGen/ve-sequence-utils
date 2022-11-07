@@ -136,14 +136,6 @@ defaultEnzymes.forEach((name, index) => {
   defaultEnzymesFull.push(fullEnz);
 });
 
-// console.log(`defaultEnzymesFull.length:`, defaultEnzymesFull.length);
-// console.log(
-//   `uniq(defaultEnzymesFull).length:`,
-//   uniq(defaultEnzymesFull).length
-// );
-const dups = filter(defaultEnzymesByHash, (z) => z.length > 1)
-console.log(`dups.length:`,dups.length)
-console.log(`dups:`,dups)
 
 
 function getEnzymeHash(z) {

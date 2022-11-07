@@ -28,12 +28,10 @@ module.exports = function getAllInsertionsInSeqReads(seqReads) {
       }
     }
   });
-  // console.log("all insertions", allInsertionsInSeqReads)
   // sort insertions by ascending bp pos
   let sortedInsertions = allInsertionsInSeqReads.sort(function(a, b) {
     return a.bpPos - b.bpPos;
   });
-  // console.log("sorted insertions", sortedInsertions)
   // combine duplicate or overlapping insertions from seq reads
   for (let i = 0; i < sortedInsertions.length - 1; i++) {
     if (sortedInsertions[i].bpPos === sortedInsertions[i + 1].bpPos) {
@@ -47,18 +45,12 @@ module.exports = function getAllInsertionsInSeqReads(seqReads) {
       } else if (
         sortedInsertions[i].number === sortedInsertions[i + 1].number
       ) {
-        // console.log("i of sortedInsertions[i].number", i)
-        // console.log("sortedInsertions[i]", sortedInsertions[i])
-        // console.log("sortedInsertions[i].number", sortedInsertions[i].number)
-        // console.log("sorted insertions before", sortedInsertions)
         sortedInsertions.splice(i, 1);
-        // console.log("sorted insertions after", sortedInsertions)
         i--;
       }
     }
   }
   // sortedInsertions is an array of objects [{bpPos: bp pos of insertion, number: # of insertions}, {bpPos, number}, ...]
-  // console.log("combine duplicates/overlaps", sortedInsertions)
   return sortedInsertions;
 };
 

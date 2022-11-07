@@ -107,10 +107,6 @@ describe("mapAnnotationsToRows", function() {
       sequenceLength,
       bpsPerRow
     );
-    // console.log(
-    //   "annotationsToRowsMap:",
-    //   JSON.stringify(annotationsToRowsMap, null, 4)
-    // );
     expect(annotationsToRowsMap[0]).to.containSubset([
       {
         annotation: annotation1,
