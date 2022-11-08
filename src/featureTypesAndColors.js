@@ -97,7 +97,7 @@ const getMergedFeatureMap = () => {
   const keyedGBFeats = keyBy(
     genbankFeatureTypes.map(f => ({
       ...f,
-      isDefault: true
+      isGenbankStandardType: true
     })),
     "name"
   );
@@ -105,7 +105,15 @@ const getMergedFeatureMap = () => {
     (typeof window !== "undefined" && get(window, "tg_featureTypeOverrides")) ||
     get(global, "tg_featureTypeOverrides");
 
-  featureOverrides = keyBy(featureOverrides || [], "name");
+  featureOverrides = featureOverrides || [];
+  featureOverrides = featureOverrides.map(fo => {
+    const originalGenbankFeat = keyedGBFeats[fo.name];
+    return {
+      ...originalGenbankFeat,
+      ...fo
+    };
+  });
+  featureOverrides = keyBy(featureOverrides, "name");
 
   return {
     ...keyedGBFeats,
