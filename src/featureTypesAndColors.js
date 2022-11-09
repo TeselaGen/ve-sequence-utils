@@ -111,7 +111,7 @@ const getMergedFeatureMap = () => {
     return {
       ...originalGenbankFeat,
       ...fo,
-      isOverridden: true
+      ...(originalGenbankFeat ? { isOverridden: true } : { isCustomType: true })
     };
   });
   featureOverrides = keyBy(featureOverrides, "name");
