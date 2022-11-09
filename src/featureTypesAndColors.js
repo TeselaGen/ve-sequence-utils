@@ -110,7 +110,8 @@ const getMergedFeatureMap = () => {
     const originalGenbankFeat = keyedGBFeats[fo.name];
     return {
       ...originalGenbankFeat,
-      ...fo
+      ...fo,
+      isOverridden: true
     };
   });
   featureOverrides = keyBy(featureOverrides, "name");
