@@ -121,16 +121,20 @@ const getMergedFeatureMap = () => {
   };
 };
 
-const getFeatureToColorMap = () => {
+const getFeatureToColorMap = ({ includeHidden } = {}) => {
   const toRet = {};
-  filter(getMergedFeatureMap(), f => !f.isHidden).forEach(f => {
+  filter(getMergedFeatureMap(), f =>
+    includeHidden ? true : !f.isHidden
+  ).forEach(f => {
     toRet[f.name] = f.color;
   });
   return toRet;
 };
 
-const getFeatureTypes = () =>
-  filter(getMergedFeatureMap(), f => !f.isHidden).map(f => f.name);
+const getFeatureTypes = ({ includeHidden } = {}) =>
+  filter(getMergedFeatureMap(), f => (includeHidden ? true : !f.isHidden)).map(
+    f => f.name
+  );
 
 module.exports.genbankFeatureTypes = genbankFeatureTypes;
 module.exports.getGenbankFeatureToColorMap = () => {
