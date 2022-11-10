@@ -1,4 +1,5 @@
 const {
+  getFeatureTypes,
   getFeatureToColorMap,
   getMergedFeatureMap,
   getGenbankFeatureToColorMap
@@ -7,6 +8,18 @@ const {
 describe("getFeatureToColorMap", function() {
   it("should pass back feature colors by default ", function() {
     expect(getFeatureToColorMap().proprotein).toEqual("#F39A9D");
+  });
+  it("getFeatureTypes should not show hidden types by default ", function() {
+    global.tg_featureTypeOverrides = [
+      { name: "proprotein", isHidden: true },
+      { name: "CDS", color: "blue" },
+      { name: "someRandomFeature", color: "red", genbankEquivalentType: "RBS" }
+    ];
+    expect(getFeatureTypes().includes("proprotein")).toEqual(false);
+    expect(getFeatureTypes().includes("CDS")).toEqual(true);
+    expect(
+      getFeatureTypes({ includeHidden: true }).includes("proprotein")
+    ).toEqual(true);
   });
 
   it("should allow overwriting of colors ", function() {
