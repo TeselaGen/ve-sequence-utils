@@ -1,5 +1,9 @@
 /* eslint-disable no-unused-expressions */
-const { autoAnnotate, convertApELikeRegexToRegex } = require("./autoAnnotate");
+const {
+  autoAnnotate,
+  convertApELikeRegexToRegex,
+  convertProteinSeqToDNAIupac
+} = require("./autoAnnotate");
 const { expect } = require("chai");
 
 describe("convertApELikeRegexToRegex", function() {
@@ -395,6 +399,52 @@ describe("autoAnnotate", function() {
     done();
   });
 
+  it(`correctly auto annotates a single dna seq with a single protein annotation`, done => {
+    const results = autoAnnotate({
+      seqsToAnnotateById: {
+        21: {
+          id: 21,
+          sequence:
+            "gatgttgattctatcatctatctggccagatagatgatagaatcgagcatcgattctatcatctatctgtactatcgattctatcatctatctga",
+          // "DVDSIIYLAR*MIESSIDSIIYLYYRFYHLS"
+          //   tcagatagatgatagaatcgatagtacagatagatgatagaatcgatgctcgattctatcatctatctggccagatagatgatagaatcaacatc
+          annotations: [
+            {
+              start: 5,
+              end: 11
+            }
+          ]
+        }
+      },
+      annotationsToCheckById: {
+        31: {
+          id: 31,
+          matchType: "protein",
+          sequence: convertApELikeRegexToRegex(
+            convertProteinSeqToDNAIupac("MIESSIDSIIYL")
+          ),
+          name: "ann1",
+          type: "misc_feature"
+        }
+      }
+    });
+
+    expect(results).to.not.be.undefined;
+    //this should return an object keyed by the sequence id with the list of annotations to create
+    expect(results).to.deep.eq({
+      21: [
+        //21 = sequenceId
+        //this is the list of new annotations to make
+        {
+          start: 33,
+          end: 68,
+          strand: 1,
+          id: 31
+        }
+      ]
+    });
+    done();
+  });
   it(`correctly auto annotates a single seq with a single annotation`, done => {
     const results = autoAnnotate({
       seqsToAnnotateById: {

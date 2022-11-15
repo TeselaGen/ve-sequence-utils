@@ -1,5 +1,9 @@
 const diffUtils = require("./diffUtils");
-const { autoAnnotate, convertApELikeRegexToRegex } = require("./autoAnnotate");
+const {
+  autoAnnotate,
+  convertApELikeRegexToRegex,
+  convertProteinSeqToDNAIupac
+} = require("./autoAnnotate");
 const {
   genbankFeatureTypes,
   getFeatureToColorMap,
@@ -17,6 +21,7 @@ module.exports.featureColors = getFeatureToColorMap();
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 module.exports.autoAnnotate = autoAnnotate;
 module.exports.convertApELikeRegexToRegex = convertApELikeRegexToRegex;
+module.exports.convertProteinSeqToDNAIupac = convertProteinSeqToDNAIupac;
 module.exports.diffUtils = diffUtils;
 module.exports.getDiffFromSeqs = diffUtils.getDiffFromSeqs;
 module.exports.patchSeqWithDiff = diffUtils.patchSeqWithDiff;

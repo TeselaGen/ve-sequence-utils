@@ -1,6 +1,7 @@
 /* Copyright (C) 2018 TeselaGen Biotechnology, Inc. */
 const { forEach, omitBy } = require("lodash");
 const bioData = require("./bioData");
+const aminoAcidToDegenerateDnaMap = require("./aminoAcidToDegenerateDnaMap");
 
 const {
   normalizePositionByRangeLength,
@@ -224,8 +225,23 @@ function convertApELikeRegexToRegex(regString = "") {
   }
   return newstr;
 }
+function convertProteinSeqToDNAIupac(sequence) {
+  let toRet = "";
+  let l;
+  for (l of sequence) {
+    const degenDna = aminoAcidToDegenerateDnaMap[l.toLowerCase()];
+    if (degenDna) {
+      toRet += degenDna;
+    } else {
+      toRet += l;
+    }
+  }
+
+  return toRet;
+}
 
 module.exports = {
+  convertProteinSeqToDNAIupac,
   convertApELikeRegexToRegex,
   autoAnnotate
 };
