@@ -22,7 +22,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     convertAnnotationsFromAAIndices
   } = options;
   let seqData = cloneDeep(pSeqData); //sequence is usually immutable, so we clone it and return it
-  let response = {
+  const response = {
     messages: []
   };
   if (!seqData) {
@@ -94,7 +94,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     seqData.circular == -1 ||
     /* eslint-enable eqeqeq*/
 
-    !seqData.circular
+    (!seqData.circular && seqData.sequenceTypeCode !== "CIRCULAR_DNA")
   ) {
     seqData.circular = false;
   } else {
