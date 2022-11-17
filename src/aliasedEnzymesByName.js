@@ -1894,8 +1894,7 @@ const aliasedEnzymes = [
     forwardRegex: "ga{2}tgc",
     reverseRegex: "gcat{2}c",
     topSnipOffset: 7,
-    bottomSnipOffset: 5,
-    isType2S: true
+    bottomSnipOffset: 5
   },
   {
     aliases: [
