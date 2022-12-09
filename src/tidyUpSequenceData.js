@@ -93,7 +93,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
 
     seqData.circular == -1 ||
     /* eslint-enable eqeqeq*/
-
+    seqData.circular === false ||
     (!seqData.circular && seqData.sequenceTypeCode !== "CIRCULAR_DNA")
   ) {
     seqData.circular = false;
