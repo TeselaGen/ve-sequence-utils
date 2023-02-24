@@ -103,7 +103,7 @@ const getMergedFeatureMap = () => {
   );
   let featureOverrides =
     (typeof window !== "undefined" && get(window, "tg_featureTypeOverrides")) ||
-    get(global, "tg_featureTypeOverrides");
+    (typeof global !== "undefined" && get(global, "tg_featureTypeOverrides"));
 
   featureOverrides = featureOverrides || [];
   featureOverrides = featureOverrides.map(fo => {
