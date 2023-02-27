@@ -6945,13 +6945,10 @@ human-signals@^2.1.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
-husky@^0.11.6:
-  version "0.11.9"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-0.11.9.tgz#28cd1dc16bffdca1d4d93592814e5f3c327b38ee"
-  integrity sha1-KM0dwWv/3KHU2TWSgU5fPDJ7OO4=
-  dependencies:
-    is-ci "^1.0.9"
-    normalize-path "^1.0.0"
+husky@^8.0.3:
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.3.tgz#4936d7212e46d1dea28fef29bb3a108872cd9184"
+  integrity sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==
 
 iconv-lite@0.4.15:
   version "0.4.15"
@@ -7291,7 +7288,7 @@ is-callable@^1.2.7:
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.2.7.tgz#3bc2a85ea742d9e36205dcacdd72ca1fdc51b055"
   integrity sha512-1BC0BVFhS/p0qtw6enp8e+8OD0UrK0oFLztSjNzhcKA3WDuJxxAPXzPuPtKkjEY9UUoEWlX/8fgKeu2S8i9JTA==
 
-is-ci@^1.0.10, is-ci@^1.0.8, is-ci@^1.0.9:
+is-ci@^1.0.10, is-ci@^1.0.8:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/is-ci/-/is-ci-1.2.1.tgz#e3779c8ee17fccf428488f6e281187f2e632841c"
   integrity sha512-s6tfsaQaQi3JNciBH6shVqEDvhGut0SUXr31ag8Pd8BBbVVlcGfWhpPmEOoM6RJ5TFhbypvf5yyRw/VXW1IiWg==
@@ -9592,11 +9589,6 @@ normalize-package-data@^2.3.2, normalize-package-data@^2.3.4:
     is-builtin-module "^1.0.0"
     semver "2 || 3 || 4 || 5"
     validate-npm-package-license "^3.0.1"
-
-normalize-path@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-1.0.0.tgz#32d0e472f91ff345701c15a8311018d3b0a90379"
-  integrity sha1-MtDkcvkf80VwHBWoMRAY07CpA3k=
 
 normalize-path@^2.0.0, normalize-path@^2.0.1, normalize-path@^2.1.1:
   version "2.1.1"

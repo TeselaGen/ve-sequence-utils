@@ -21,12 +21,12 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
 
   const refSeqWithGaps = insertGapsIntoRefSeq(refSeq.sequence, seqReads);
   // first object is reference sequence with gaps, to be followed by seq reads with gaps
-  let seqReadsWithGaps = [
+  const seqReadsWithGaps = [
     { name: refSeq.name, sequence: refSeqWithGaps.toUpperCase() }
   ];
   seqReads.forEach(seqRead => {
     // get all insertions in seq reads
-    let allInsertionsInSeqReads = [];
+    const allInsertionsInSeqReads = [];
     seqReads.forEach(seqRead => {
       // split cigar string at S, M, D, or I (soft-clipped, match, deletion, or insertion), e.g. ["5S", "2M", "3I", "39M", "3D"..."9S"]
       const splitSeqRead = seqRead.cigar.match(/([0-9]*[SMDI])/g);
@@ -51,7 +51,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
               bpPosOfInsertion += previousComponentNumber;
             }
           }
-          let insertionInfo = {
+          const insertionInfo = {
             // keeping bpPos 1-based
             bpPos: bpPosOfInsertion,
             number: numberOfInsertions
@@ -77,7 +77,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
 
     // 2) add own deletions to own sequence
     // get own deletions
-    let ownDeletions = [];
+    const ownDeletions = [];
     for (
       let componentI = 0;
       componentI < splitSeqReadChunk.length;
@@ -94,7 +94,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
           );
           bpPosOfDeletion += previousComponentNumber;
         }
-        let deletionInfo = {
+        const deletionInfo = {
           // keeping bpPos 1-based
           bpPos: bpPosOfDeletion,
           number: numberOfDeletions
@@ -103,7 +103,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
       }
     }
     // sort deletions by ascending bp pos
-    let sortedOwnDeletions = ownDeletions.sort(function(a, b) {
+    const sortedOwnDeletions = ownDeletions.sort(function(a, b) {
       return a.bpPos - b.bpPos;
     });
     // add own deletions to own sequence
@@ -122,8 +122,8 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
 
     // 3) remove own insertions from own sequence
     // get own insertions
-    let ownInsertions = [];
-    let ownInsertionsBp = [];
+    const ownInsertions = [];
+    const ownInsertionsBp = [];
     for (
       let componentI = 0;
       componentI < splitSeqReadChunk.length;
@@ -134,7 +134,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
         const numberOfInsertions = Number(
           splitSeqReadChunk[componentI].slice(0, -1)
         );
-        let nucleotides = [];
+        const nucleotides = [];
         for (let i = 0; i < componentI; i++) {
           const previousComponentNumber = Number(
             splitSeqReadChunk[i].slice(0, -1)
@@ -144,12 +144,12 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
         for (let nucI = 0; nucI < numberOfInsertions; nucI++) {
           nucleotides.push(eachSeqReadWithGaps[bpPosOfInsertion - 1 + nucI]);
         }
-        let insertionInfo = {
+        const insertionInfo = {
           // keeping bpPos 1-based
           bpPos: bpPosOfInsertion,
           number: numberOfInsertions
         };
-        let insertionInfoBp = {
+        const insertionInfoBp = {
           // keeping bpPos 1-based
           bpPos: bpPosOfInsertion,
           number: numberOfInsertions,
@@ -159,12 +159,12 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
         ownInsertionsBp.push(insertionInfoBp);
       }
     }
-    let ownInsertionsCompare = JSON.parse(JSON.stringify(ownInsertions));
+    const ownInsertionsCompare = JSON.parse(JSON.stringify(ownInsertions));
     // sort own insertions by ascending bp pos
-    let sortedOwnInsertions = ownInsertions.sort(function(a, b) {
+    const sortedOwnInsertions = ownInsertions.sort(function(a, b) {
       return a.bpPos - b.bpPos;
     });
-    let sortedOwnInsertionsBp = ownInsertionsBp.sort(function(a, b) {
+    const sortedOwnInsertionsBp = ownInsertionsBp.sort(function(a, b) {
       return a.bpPos - b.bpPos;
     });
     // remove own insertions from own sequence
@@ -210,7 +210,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
     }
     // then remove own insertions from all insertions
     for (let otherI = 0; otherI < ownInsertionsCompare.length; otherI++) {
-      let insertionInfoIndex = otherInsertions.findIndex(
+      const insertionInfoIndex = otherInsertions.findIndex(
         e => e.bpPos === ownInsertionsCompare[otherI].bpPos
       );
       if (insertionInfoIndex !== -1) {
@@ -232,7 +232,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
     }
     // then combine overlap between other insertions & own insertions
     for (let overlapI = 0; overlapI < sortedOwnInsertions.length; overlapI++) {
-      let insertionInfoIndex = otherInsertions.findIndex(
+      const insertionInfoIndex = otherInsertions.findIndex(
         e => e.bpPos === sortedOwnInsertions[overlapI].bpPos
       );
       if (insertionInfoIndex !== -1) {
@@ -253,7 +253,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
       }
     }
     // adjust own insertions according to other seq reads' insertions to be added (i.e. for all other reads' insertions with smaller bp pos, +1 to that own insertion's bp pos)
-    let adjustedOwnInsertionsBp = JSON.parse(
+    const adjustedOwnInsertionsBp = JSON.parse(
       JSON.stringify(sortedOwnInsertionsBp)
     );
     for (let ownI = 0; ownI < adjustedOwnInsertionsBp.length; ownI++) {
@@ -322,7 +322,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
   // 7) add gaps before starting bp pos
   // add gaps based on any seq reads that extend beyond beginning of the ref seq due to soft-clipped reads
   // a) get the lengths of bps that extend beyond the beginning of the ref seq among all seq reads
-  let seqReadLengthsBeforeRefSeqStart = [];
+  const seqReadLengthsBeforeRefSeqStart = [];
   seqReads.forEach(seq => {
     const splitSeqReadChunk = seq.cigar.match(/([0-9]*[SMDI])/g);
     let adjustedSeqReadPos = cloneDeep(seq.pos);
@@ -344,7 +344,7 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
   let longestSeqReadLength = 0;
   for (let i = 1; i < seqReadsWithGaps.length; i++) {
     // turn seq read into an array ["A", "T", "C", "G"...]
-    let eachSeqReadWithGaps = seqReadsWithGaps[i].sequence.split("");
+    const eachSeqReadWithGaps = seqReadsWithGaps[i].sequence.split("");
     const splitSeqReadChunk = seqReads[i - 1].cigar.match(/([0-9]*[SMDI])/g);
     let adjustedSeqReadPos = cloneDeep(seqReads[i - 1].pos);
     // longest length of bps that extend beyond the beginning of the ref seq among all seq reads
@@ -378,13 +378,13 @@ module.exports = function addGapsToSeqReads(refSeq, seqReads) {
 
   // add gaps before ref seq based on the longest length of soft-clipped reads that extend beyond beginning of ref seq
   if (longestSeqReadLength > 0) {
-    let splitRefSeqWithGaps = seqReadsWithGaps[0].sequence.split("");
+    const splitRefSeqWithGaps = seqReadsWithGaps[0].sequence.split("");
     splitRefSeqWithGaps.unshift("-".repeat(longestSeqReadLength + 1));
     seqReadsWithGaps[0].sequence = splitRefSeqWithGaps.join("");
   }
 
   // 8) check if any seq read is longer than the ref seq, make ref seq & seq reads all the same length
-  let lengthsOfLongerSeqReads = [];
+  const lengthsOfLongerSeqReads = [];
   for (let i = 1; i < seqReadsWithGaps.length; i++) {
     const refSeq = seqReadsWithGaps[0];
     if (seqReadsWithGaps[i].sequence.length > refSeq.sequence.length) {
