@@ -19,6 +19,7 @@ describe("adjustBpsToReplaceOrInsert", function() {
       "tttxxxgggaaaccc"
     );
   });
+
   it("inserts characters at correct caret position", function() {
     adjustBpsToReplaceOrInsert("tttgggaaaccc", "xxx", 12).should.equal(
       "tttgggaaacccxxx"
