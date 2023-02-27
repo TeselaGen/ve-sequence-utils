@@ -24,7 +24,7 @@ describe("a simple, palindromic enzyme", function() {
       true,
       enzymeList["sapi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(0);
     cutsites[0].end.should.equal(5);
@@ -42,7 +42,7 @@ describe("a simple, palindromic enzyme", function() {
       true,
       enzymeList["bamhi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(0);
     cutsites[0].end.should.equal(5);
@@ -60,7 +60,7 @@ describe("a simple, palindromic enzyme", function() {
       true,
       enzymeList["bamhi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(6);
     cutsites[0].end.should.equal(1);
@@ -77,7 +77,7 @@ describe("a simple, palindromic enzyme", function() {
       false,
       enzymeList["bamhi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(0);
   });
   it("cuts multiple times", function() {
@@ -95,7 +95,7 @@ describe("a simple, palindromic enzyme", function() {
       true,
       enzymeList["bamhi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(2);
     cutsites[0].start.should.equal(0);
     cutsites[0].end.should.equal(5);
@@ -129,7 +129,7 @@ describe("a simple, palindromic enzyme", function() {
         bottomSnipOffset: 1
       }
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(0);
     cutsites.error.should.not.be.null;
     cutsites.error.should.equal(
@@ -153,7 +153,7 @@ describe("non-palindromic enzyme", function() {
       false,
       enzymeList["bsmbi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(0);
   });
   it("does cut if the enzyme fits within circular sequence", function() {
@@ -162,7 +162,7 @@ describe("non-palindromic enzyme", function() {
       true,
       enzymeList["bsmbi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(0);
     cutsites[0].end.should.equal(4);
@@ -183,7 +183,7 @@ describe("non-palindromic enzyme", function() {
       true,
       enzymeList["bsmbi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(0);
     cutsites[0].end.should.equal(10);
@@ -205,7 +205,7 @@ describe("non-palindromic enzyme", function() {
       true,
       enzymeList["bsmbi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(18);
     cutsites[0].end.should.equal(28);
@@ -233,7 +233,7 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
       false,
       enzymeList["nmedi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(0);
   });
   it("does cut twice if the enzyme fits within linear sequence", function() {
@@ -244,7 +244,7 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
       false,
       enzymeList["nmedi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(8);
     cutsites[0].end.should.equal(37);
@@ -263,7 +263,7 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
       false,
       enzymeList["nmedi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(8);
     cutsites[0].end.should.equal(25);
@@ -282,7 +282,7 @@ describe("palindromic enzyme that cuts both upstream and downstream", function()
       false,
       enzymeList["nmedi"]
     );
-    cutsites.should.be.an.array;
+    cutsites.should.be.an("array");
     cutsites.length.should.equal(1);
     cutsites[0].start.should.equal(0);
     cutsites[0].end.should.equal(17);

@@ -10,21 +10,28 @@ module.exports = function getVirtualDigest({
   cutsites,
   sequenceLength,
   isCircular,
-  allowPartialDigests
+  computePartialDigest,
+  computePartialDigestDisabled,
+  computeDigestDisabled
 }) {
   let fragments = [];
   const overlappingEnzymes = [];
-  let pairs = [];
+  const pairs = [];
+
   const sortedCutsites = cutsites.sort((a, b) => {
     return a.topSnipPosition - b.topSnipPosition;
   });
 
   sortedCutsites.forEach((cutsite1, index) => {
-    if (allowPartialDigests) {
-      sortedCutsites.forEach((cutsite2, index2) => {
-        pairs.push([cutsite1, cutsite2]);
+    if (computePartialDigest && !computePartialDigestDisabled) {
+      sortedCutsites.forEach((cs, index2) => {
+        // if (index2 === index + 1 || index2 === 0) { //tnw: not sure if this is necessary or not. commenting out for now
+        //   return;
+        // }
+        pairs.push([cutsite1, sortedCutsites[index2]]);
       });
-    } else {
+    }
+    if (!computeDigestDisabled) {
       pairs.push([
         cutsite1,
         sortedCutsites[index + 1]
@@ -33,9 +40,6 @@ module.exports = function getVirtualDigest({
       ]);
     }
   });
-  // pairs = uniqBy(pairs, ([cut1,cut2]) => {
-  //   return cut1.topSnipPosition > cut2.topSnipPosition ? (cut1.name || "cut1") + "_" + (cut2.name || "cut2") :  (cut2.name || "cut2") + "_" + (cut1.name || "cut1")
-  // })
 
   pairs.forEach(([cut1, cut2]) => {
     const start = normalizePositionByRangeLength(
@@ -46,23 +50,34 @@ module.exports = function getVirtualDigest({
       cut2.topSnipPosition - 1,
       sequenceLength
     );
+
     if (!isCircular && start > end) {
       //we have a fragment that spans the origin so we need to split it in 2 pieces
       const frag1 = {
         start: start,
         end: sequenceLength - 1,
         cut1,
-        cut2: "endOfSeq"
+        cut2: {
+          type: "endOfSeq",
+          restrictionEnzyme: {
+            name: "End Of Seq"
+          }
+        }
       };
       const frag2 = {
         start: 0,
         end: end,
-        cut1: "startOfSeq",
+        cut1: {
+          type: "startOfSeq",
+          restrictionEnzyme: {
+            name: "Start Of Seq"
+          }
+        },
         cut2: cut2
       };
 
-      fragments.push(addSizeAndId(frag1, sequenceLength));
-      fragments.push(addSizeAndId(frag2, sequenceLength));
+      fragments.push(addSizeIdName(frag1, sequenceLength));
+      fragments.push(addSizeIdName(frag2, sequenceLength));
     } else {
       const frag = {
         cut1,
@@ -70,37 +85,35 @@ module.exports = function getVirtualDigest({
         start,
         end
       };
-      fragments.push(addSizeAndId(frag, sequenceLength));
+      fragments.push(addSizeIdName(frag, sequenceLength));
     }
   });
-  // const sizeMap = {};
   fragments = fragments.filter(fragment => {
     if (!fragment.size) {
       overlappingEnzymes.push(fragment);
       return false;
     }
-    // if (sizeMap[fragment.size]) {
-    //   sizeMap[fragment.size].push(fragment);
-    //   return false;
-    // } else {
-    //   sizeMap[fragment.size] = [fragment];
-    // }
     return true;
   });
   return {
+    computePartialDigestDisabled,
+    computeDigestDisabled,
     fragments,
     overlappingEnzymes
   };
 };
 
-function addSizeAndId(frag, sequenceLength) {
+function addSizeIdName(frag, sequenceLength) {
   const size = getRangeLength(
     { start: frag.start, end: frag.end },
     sequenceLength
   );
+  const name = `${frag.cut1.restrictionEnzyme?.name} -- ${frag.cut2.restrictionEnzyme?.name} ${size} bps`;
+
   return {
     ...frag,
     size,
+    name,
     id: frag.start + "-" + frag.end + "-" + size + "-"
   };
 }

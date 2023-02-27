@@ -66,7 +66,7 @@ describe("getLeftAndRightOfSequenceInRangeGivenPosition", function() {
     result.rightHandSide.should.equal("gatcc");
     //
     // //
-    // cutsites.should.be.an.array;
+    // cutsites.should.be.an("array");
     // cutsites.length.should.equal(1);
     // cutsites[0].start.should.equal(6);
     // cutsites[0].end.should.equal(1);

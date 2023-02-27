@@ -27,7 +27,7 @@ describe("getPossiblePartsFromSequenceAndEnzymes", function() {
       enzymeList["bamhi"]
     ]);
     // eslint-disable-next-line no-unused-expressions
-    parts.should.be.an.array;
+    parts.should.be.an("array");
     parts.length.should.equal(2);
     parts[0].start.should.equal(29);
     parts[0].end.should.equal(76);

@@ -1,17 +1,23 @@
+const chaiSubset = require("chai-subset");
+const chai = require("chai");
+
+chai.should();
+chai.use(chaiSubset);
+
 //UNDER CONSTRUCTION
 const getVirtualDigest = require("./getVirtualDigest");
 describe("getVirtualDigest", function() {
   // it('should be further developed', function() {
 
   // })
-  it("should return the correct fragments given a set of cutsites and allowPartialDigests=true", function() {
+  it("should return the correct fragments given a set of cutsites and computePartialDigest=true", function() {
     const { fragments } = getVirtualDigest({
       cutsites: [{ topSnipPosition: 10 }, { topSnipPosition: 20 }],
       sequenceLength: 100,
       isCircular: true,
-      allowPartialDigests: true
+      computePartialDigest: true
     });
-    expect(fragments).toMatchObject([
+    fragments.should.containSubset([
       {
         cut1: { topSnipPosition: 10 },
         cut2: { topSnipPosition: 10 },
@@ -51,9 +57,9 @@ describe("getVirtualDigest", function() {
       cutsites: [{ topSnipPosition: 10 }, { topSnipPosition: 20 }],
       sequenceLength: 100,
       isCircular: true,
-      allowPartialDigests: false
+      computePartialDigest: false
     });
-    expect(fragments).toMatchObject([
+    fragments.should.containSubset([
       {
         cut1: { topSnipPosition: 10 },
         cut2: { topSnipPosition: 20 },
@@ -77,9 +83,9 @@ describe("getVirtualDigest", function() {
       cutsites: [{ topSnipPosition: 10 }, { topSnipPosition: 20 }],
       sequenceLength: 100,
       isCircular: false,
-      allowPartialDigests: false
+      computePartialDigest: false
     });
-    expect(fragments).toMatchObject([
+    fragments.should.containSubset([
       {
         cut1: {
           topSnipPosition: 10
@@ -98,14 +104,24 @@ describe("getVirtualDigest", function() {
         cut1: {
           topSnipPosition: 20
         },
-        cut2: "endOfSeq",
+        cut2: {
+          restrictionEnzyme: {
+            name: "End Of Seq"
+          },
+          type: "endOfSeq"
+        },
         size: 80,
         id: "20-99-80-"
       },
       {
         start: 0,
         end: 9,
-        cut1: "startOfSeq",
+        cut1: {
+          restrictionEnzyme: {
+            name: "Start Of Seq"
+          },
+          type: "startOfSeq"
+        },
         cut2: {
           topSnipPosition: 10
         },

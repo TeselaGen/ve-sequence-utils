@@ -23,7 +23,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
       false,
       enzymeList["bsai"]
     );
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(0);
   });
   it("returns 0 digestFragments for a circular seq with no cutsites", function() {
@@ -32,7 +32,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
       false,
       enzymeList["bsai"]
     );
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(0);
   });
   it("gets digestFragments for a single type 2s cutsite cutting in a linear sequence", function() {
@@ -41,7 +41,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
       false,
       enzymeList["bsai"]
     );
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(2);
     digestFragments[0].start.should.equal(0);
     digestFragments[0].end.should.equal(20);
@@ -75,7 +75,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
     // G G A T C C
     // C C T A G G
     //          ^
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(1);
     digestFragments[0].start.should.equal(1);
     digestFragments[0].end.should.equal(0);
@@ -95,7 +95,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
       false,
       enzymeList["bamhi"]
     );
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(2);
     digestFragments[0].cut1.overhangSize.should.equal(0);
     digestFragments[0].cut1.isOverhangIncludedInFragmentSize.should.equal(
@@ -123,7 +123,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
       false,
       enzymeList["bamhi"]
     );
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(3);
     digestFragments[0].cut1.type.should.equal("START_OR_END_OF_SEQ");
     digestFragments[2].cut2.type.should.equal("START_OR_END_OF_SEQ");
@@ -140,7 +140,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
       true,
       enzymeList["bamhi"]
     );
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(2);
     digestFragments[0].start.should.equal(1);
     digestFragments[0].end.should.equal(13);
@@ -160,7 +160,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
       true,
       enzymeList["bsai"]
     );
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(2);
     digestFragments[0].cut1.overhangSize.should.equal(4);
     digestFragments[0].cut1.isOverhangIncludedInFragmentSize.should.equal(true);
@@ -190,7 +190,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
       { computePartialDigests: true }
     );
 
-    digestFragments.should.be.an.array;
+    digestFragments.should.be.an("array");
     digestFragments.length.should.equal(3);
     digestFragments[0].start.should.equal(1);
     digestFragments[0].end.should.equal(13);
@@ -212,7 +212,7 @@ describe("getDigestFragmentsForRestrictionEnzymes", function() {
   //       enzymeList["bamhi"],
   //       { computePartialDigests: true }
   //     );
-  //     digestFragments.should.be.an.array;
+  //     digestFragments.should.be.an("array");
   //     digestFragments.length.should.equal(9);
   //     digestFragments[0].start.should.equal(1);
   //     digestFragments[0].end.should.equal(13);
