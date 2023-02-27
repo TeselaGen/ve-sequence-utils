@@ -14,7 +14,6 @@
     "test-watch": "yarn test --watch",
     "test-debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand ",
     "lint": "eslint . ./",
-    "precommit": "lint-staged && npm test",
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "author": "",
