@@ -8,7 +8,7 @@
   "homepage": "https://github.com/TeselaGen/ve-sequence-utils",
   "scripts": {
     "build": "nwb build-react-component --copy-files --no-demo",
-    "prepare": "yarn build",
+    "prepare": "husky install; yarn build",
     "test": "jest --env=node src",
     "test-specific": "jest --env=node src --testNamePattern='should return the annealing temperature'",
     "test-watch": "yarn test --watch",
