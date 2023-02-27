@@ -1,5 +1,6 @@
 //UNDER CONSTRUCTION
 
+const { get } = require("lodash");
 const {
   // getSequenceWithinRange,
   normalizePositionByRangeLength,
@@ -108,7 +109,15 @@ function addSizeIdName(frag, sequenceLength) {
     { start: frag.start, end: frag.end },
     sequenceLength
   );
-  const name = `${frag.cut1.restrictionEnzyme?.name} -- ${frag.cut2.restrictionEnzyme?.name} ${size} bps`;
+  const name = `${get(
+    frag,
+    "cut1.restrictionEnzyme.name",
+    "Untitled Cutsite"
+  )} -- ${get(
+    frag,
+    "cut2.restrictionEnzyme.name",
+    "Untitled Cutsite"
+  )} ${size} bps`;
 
   return {
     ...frag,
