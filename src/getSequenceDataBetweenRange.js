@@ -21,7 +21,7 @@ module.exports = function getSequenceDataBetweenRange(
   annotationTypes.forEach(type => {
     delete seqDataToUse[`filtered${startCase(type)}`];
   });
-  let seqDataToReturn = extend(
+  const seqDataToReturn = extend(
     {},
     seqDataToUse,
     {
@@ -120,6 +120,16 @@ function getAnnotationsBetweenRange(
         }
       }
     }
+
     return overlaps;
+  }).map(annotation => {
+    if (annotation.locations && annotation.locations.length) {
+      annotation.start = annotation.locations[0].start;
+      annotation.end =
+        annotation.locations[annotation.locations.length - 1].end;
+
+      if (annotation.locations.length === 1) delete annotation.locations;
+    }
+    return annotation;
   }); //filter any fully deleted ranges
 }

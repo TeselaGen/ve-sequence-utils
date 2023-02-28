@@ -283,6 +283,45 @@ describe("getSequenceDataBetweenRange", function() {
       ]
     });
   });
+  it.only("feature with locations, non circular, non-fully enclosing range - it should trim the start/end correctly to match the location", function() {
+    const res = getSequenceDataBetweenRange(
+      {
+        sequence: "gggatgcatgca",
+        //         012345678901
+        //              ffffff
+        //              ll  ll
+        //                sssss
+        //                01234
+        features: [
+          {
+            start: 5,
+            end: 10,
+            locations: [
+              { start: 5, end: 6 },
+              { start: 9, end: 10 }
+            ],
+            name: "happy"
+          }
+        ]
+      },
+      {
+        start: 7,
+        end: 11
+      }
+    );
+
+    res.should.containSubset({
+      sequence: "atgca",
+      features: [
+        {
+          start: 2,
+          end: 3,
+          name: "happy",
+          locations: undefined
+        }
+      ]
+    });
+  });
   it("non circular feature, circular range", function() {
     const res = getSequenceDataBetweenRange(
       {
