@@ -7,6 +7,7 @@ const filterSequenceString = require("./filterSequenceString");
 const tidyUpAnnotation = require("./tidyUpAnnotation");
 const filterAminoAcidSequenceString = require("./filterAminoAcidSequenceString");
 const getDegenerateDnaStringFromAaString = require("./getDegenerateDnaStringFromAAString");
+const { getFeatureTypes } = require("./featureTypesAndColors");
 
 module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   const {
@@ -100,6 +101,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
   } else {
     seqData.circular = true;
   }
+  const featureTypes = getFeatureTypes();
 
   annotationTypes.forEach(function(annotationType) {
     if (!Array.isArray(seqData[annotationType])) {
@@ -116,6 +118,7 @@ module.exports = function tidyUpSequenceData(pSeqData, options = {}) {
     seqData[annotationType] = seqData[annotationType].filter(annotation => {
       return tidyUpAnnotation(annotation, {
         ...options,
+        featureTypes,
         sequenceData: seqData,
         convertAnnotationsFromAAIndices,
         mutative: true,
