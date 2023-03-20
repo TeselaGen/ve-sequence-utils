@@ -1,8 +1,8 @@
 // this is throwing a weird eslint error
 
 // var ac = require('ve-api-check');
-const { generateRandomRange } = require("ve-range-utils");
-const bsonObjectId = require("bson-objectid");
+
+const generateAnnotations = require("./generateAnnotations");
 
 module.exports = function generateSequenceData({
   isProtein,
@@ -12,8 +12,8 @@ module.exports = function generateSequenceData({
   numPrimers,
   numTranslations
 } = {}) {
-  let proteinSequence = isProtein && generateSequence(sequenceLength, true);
-  let sequence = !isProtein && generateSequence(sequenceLength);
+  const proteinSequence = isProtein && generateSequence(sequenceLength, true);
+  const sequence = !isProtein && generateSequence(sequenceLength);
 
   return {
     circular: isProtein ? false : Math.random() > 0.5,
@@ -52,41 +52,11 @@ module.exports = function generateSequenceData({
 
 function generateSequence(m = 9, isProtein) {
   let s = "";
-  let r = isProtein ? "" : "gatc";
+  const r = isProtein ? "" : "gatc";
   for (let i = 0; i < m; i++) {
     s += r.charAt(Math.floor(Math.random() * r.length));
   }
   return s;
-}
-
-function generateAnnotations(
-  numberOfAnnotationsToGenerate,
-  start,
-  end,
-  maxLength
-) {
-  let result = {};
-  for (let i = 0; i < numberOfAnnotationsToGenerate; i++) {
-    const annotation = generateAnnotation(start, end, maxLength);
-    result[annotation.id] = annotation;
-  }
-  return result;
-}
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function generateAnnotation(start, end, maxLength) {
-  let range = generateRandomRange(start, end, maxLength);
-  return {
-    ...range,
-    name: getRandomInt(0, 100000).toString(),
-    type: "misc_feature",
-    id: bsonObjectId().str,
-    forward: Math.random() > 0.5,
-    notes: {}
-  };
 }
 
 // tnr: this is used to generate a very large, multi-featured sequence

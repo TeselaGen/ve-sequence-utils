@@ -45,6 +45,7 @@ module.exports.doesEnzymeChopOutsideOfRecognitionSite = require("./doesEnzymeCho
 module.exports.aliasedEnzymesByName = require("./aliasedEnzymesByName");
 module.exports.defaultEnzymesByName = require("./defaultEnzymesByName");
 module.exports.generateSequenceData = require("./generateSequenceData");
+module.exports.generateAnnotations = require("./generateAnnotations");
 module.exports.filterAminoAcidSequenceString = require("./filterAminoAcidSequenceString");
 module.exports.filterSequenceString = require("./filterSequenceString");
 module.exports.findNearestRangeOfSequenceOverlapToPosition = require("./findNearestRangeOfSequenceOverlapToPosition");
